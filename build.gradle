@@ -4,6 +4,7 @@ plugins {
 	id 'java'
 	id 'jacoco'
 	id 'org.owasp.dependencycheck' version '6.3.1'
+	id 'com.github.spotbugs' version '4.7.4'
 }
 
 group = 'com.prm-gp-registrations-mi'
@@ -44,4 +45,24 @@ jacocoTestCoverageVerification {
 dependencyCheck {
 	failBuildOnCVSS = 7
 	suppressionFile = './dependency-checks-suppression.xml'
+}
+
+spotbugsMain {
+	reports {
+		html {
+			enabled = true
+			destination = file("$buildDir/reports/spotbugs/main/spotbugs.html")
+			stylesheet = 'fancy-hist.xsl'
+		}
+	}
+}
+
+spotbugsTest {
+	reports {
+		html {
+			enabled = true
+			destination = file("$buildDir/reports/spotbugs/test/spotbugs.html")
+			stylesheet = 'fancy-hist.xsl'
+		}
+	}
 }
