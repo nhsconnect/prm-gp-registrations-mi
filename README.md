@@ -39,3 +39,7 @@ Run test coverage verification
 ```
 ./gradlew jacocoTestCoverageVerification
 ```
+Run dependency check
+```
+./gradlew dependencyCheckAnalyze
+```
