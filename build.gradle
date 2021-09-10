@@ -2,6 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '2.5.4'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
+	id 'jacoco'
 }
 
 group = 'com.prm-gp-registrations-mi'
@@ -20,4 +21,21 @@ dependencies {
 
 test {
 	useJUnitPlatform()
+}
+
+jacocoTestReport {
+	dependsOn test // tests are required to run before generating the report
+	shouldRunAfter test
+}
+
+jacocoTestCoverageVerification {
+	dependsOn jacocoTestReport
+
+	violationRules {
+		rule {
+			limit {
+				minimum = 0.6 //TODO increase to 0.9 once some code is written
+			}
+		}
+	}
 }

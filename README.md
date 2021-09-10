@@ -16,3 +16,26 @@ To check the application is running, you can hit the /health endpoint:
 ```
 http://localhost:8080/actuator/health
 ```
+
+## Setup
+
+### Running the application
+```
+./gradlew bootRun
+```
+
+### Running the tests and additional checks
+
+Run unit tests
+```
+./gradlew test
+```
+Generate test coverage report. The report can be found in `build/reports/jacoco/test/html/index.html`
+```
+./gradlew jacocoTestReport
+```
+
+Run test coverage verification
+```
+./gradlew jacocoTestCoverageVerification
+```
