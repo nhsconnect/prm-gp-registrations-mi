@@ -6,16 +6,26 @@ GP Registrations MI is a service used to collect Management Information describi
 
 ### Prerequisites
 
-- Download Java 16
+- Download Java 11.0.7 [https://www.oracle.com/uk/java/technologies/javase/jdk11-archive-downloads.html]
+```
+macOS Installer: jdk-11.0.7_osx-x64_bin.dmg
+```
+*note: you will need to sign up with an Oracle account*
 
 List your java versions
 ```
 /usr/libexec/java_home -V 
 ```
 
-Set the JAVA_HOME path in your config, eg:
+Set the JAVA_HOME path in your config, eg. (zsh):
 ```
-/usr/libexec/java_home -v 16.0.2
+vim ~/.zshrc
+export JAVA_HOME=`/usr/libexec/java_home -v 11`
+```
+
+Source your profile to load the changes:
+```
+source ~/.zshrc
 ```
 
 ### Running the application
@@ -23,11 +33,18 @@ Set the JAVA_HOME path in your config, eg:
 ```
 ./tasks run_local
 ```
+To check the application is running, you can hit the /event endpoint:
+```
+curl -X POST -H "Content-Type: application/json" \
+    -d '{"fruit": "mango"}' \
+    http://localhost:8080/event
+```
 
-To check the application is running, you can hit the /health endpoint:
+Or you can also hit the /health endpoint:
 ```
 http://localhost:8080/actuator/health
 ```
+
 
 ### Running the tests and additional checks
 
