@@ -21,7 +21,7 @@ Set the JAVA_HOME path in your config, eg:
 ### Running the application
 
 ```
-./gradlew bootRun
+./tasks run_local
 ```
 
 To check the application is running, you can hit the /health endpoint:
@@ -33,25 +33,20 @@ http://localhost:8080/actuator/health
 
 Run unit tests
 ```
-./gradlew test
-```
-
-Generate test coverage report. The report can be found in `build/reports/jacoco/test/html/index.html`
-```
-./gradlew jacocoTestReport
+./tasks test
 ```
 
 Run test coverage verification
 ```
-./gradlew jacocoTestCoverageVerification
+./tasks test_coverage
 ```
 
 Run dependency check
 ```
-./gradlew dependencyCheckAnalyze
+./tasks dep
 ```
 
-Run static code analysis to detect bugs
+Run code quality check
 ```
-./gradlew spotbugsMain && ./gradlew spotbugsTest
+./tasks code_quality
 ```

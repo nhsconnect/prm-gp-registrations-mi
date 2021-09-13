@@ -1,0 +1,35 @@
+#!/bin/bash
+
+set -Eeo pipefail
+
+for command in "$@"
+do
+  echo "--- ${command} ---"
+  case "${command}" in
+    build)
+        rm -rf build/
+        ./gradlew assemble
+        ;;
+    test)
+        ./gradlew test
+        ;;
+    dep)
+        ./gradlew dependencyCheckAnalyze
+        ;;
+    test_coverage)
+        ./gradlew jacocoTestCoverageVerification
+        ;;
+    code_quality)
+        ./gradlew check -x test
+        ;;
+    run_local)
+        ./gradlew bootRun
+        ;;
+    *)
+        echo "Invalid command: '${command}'"
+        exit 1
+        ;;
+  esac
+done
+
+set +e
