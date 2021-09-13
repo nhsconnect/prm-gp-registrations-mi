@@ -6,21 +6,36 @@ for command in "$@"
 do
   echo "--- ${command} ---"
   case "${command}" in
-    build)
+    _build)
         rm -rf build/
-        ./gradlew assemble
+        gradle assemble
+        ;;
+    build)
+        dojo "./tasks _build"
+        ;;
+    _test)
+        gradle test
         ;;
     test)
-        ./gradlew test
+        dojo "./tasks _test"
+        ;;
+    _dep)
+        gradle dependencyCheckAnalyze
         ;;
     dep)
-        ./gradlew dependencyCheckAnalyze
+        dojo "./tasks _dep"
+        ;;
+    _test_coverage)
+        gradle jacocoTestCoverageVerification
         ;;
     test_coverage)
-        ./gradlew jacocoTestCoverageVerification
+        dojo "./tasks _test_coverage"
+        ;;
+    _code_quality)
+        gradle check -x test
         ;;
     code_quality)
-        ./gradlew check -x test
+        dojo "./tasks _code_quality"
         ;;
     run_local)
         ./gradlew bootRun
