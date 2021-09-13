@@ -50,7 +50,12 @@ http://localhost:8080/actuator/health
 
 Run unit tests
 ```
-./tasks test
+./tasks test_unit
+```
+
+Run integration tests
+```
+./tasks test_integration
 ```
 
 Run test coverage verification
