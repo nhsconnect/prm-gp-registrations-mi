@@ -9,7 +9,7 @@ pipelines:
         blacklist:
           - docs/**/*.*
     stages:
-      - test_and_build_gp_registrations_mi:
+      - test_and_build:
           clean_workspace: true
           jobs:
             test_unit:
@@ -66,7 +66,7 @@ pipelines:
                     arguments:
                       - -c
                       - ./tasks code_quality
-      - publish_gp_registrations_mi:
+      - publish_docker:
           clean_workspace: true
           jobs:
             build:
@@ -77,4 +77,4 @@ pipelines:
                     command: /bin/bash
                     arguments:
                       - -c
-                      - IMAGE_TAG=$GO_PIPELINE_LABEL ./tasks publish-docker
+                      - IMAGE_TAG=$GO_PIPELINE_LABEL ./tasks publish_docker
