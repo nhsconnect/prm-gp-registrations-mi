@@ -1,7 +1,7 @@
 format_version: 4
 pipelines:
   'prm-gp-registrations-mi':
-    group: gp-registrations
+    group: gp-registrations-mi
     label_template: '${git[:8]}'
     materials:
       git:
