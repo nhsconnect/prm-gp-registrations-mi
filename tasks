@@ -17,7 +17,7 @@ do
         gradle test
         ;;
     test_unit)
-        dojo "./tasks _test"
+        dojo "./tasks _test_unit"
         ;;
     _test_integration)
         gradle --info integrationTest
