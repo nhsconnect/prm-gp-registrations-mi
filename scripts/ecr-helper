@@ -3,7 +3,7 @@
 set -Eeo pipefail
 
 aws_region=eu-west-2
-repo_url_param="/registrations/dev/data-pipeline/ecr/url/gp-registrations-mi"
+repo_url_param="/registrations/dev/gp-registrations-mi/ecr/url/gp-registrations-mi"
 role_arn_param="/registrations/dev/user-input/cross-account-admin-role"
 
 function assume_role() {
