@@ -9,7 +9,7 @@ pipelines:
         blacklist:
           - docs/**/*.*
     stages:
-      - test_and_build:
+      - test:
           clean_workspace: true
           jobs:
             test_unit:
@@ -66,6 +66,21 @@ pipelines:
                     arguments:
                       - -c
                       - ./tasks code_quality
+      - build:
+          clean_workspace: true
+          jobs:
+            build:
+              resources:
+                - docker
+              artifacts:
+                - build:
+                    source: build
+              tasks:
+                - exec:
+                    command: /bin/bash
+                    arguments:
+                      - -c
+                      - ./tasks build
       - publish_docker:
           clean_workspace: true
           jobs:
@@ -73,6 +88,10 @@ pipelines:
               resources:
                 - docker
               tasks:
+                - fetch:
+                    stage: build
+                    job: build
+                    source: build
                 - exec:
                     command: /bin/bash
                     arguments:
