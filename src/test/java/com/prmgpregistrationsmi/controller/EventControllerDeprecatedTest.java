@@ -10,8 +10,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(EventController.class)
-class EventControllerTest {
+@WebMvcTest(EventControllerDeprecated.class)
+class EventControllerDeprecatedTest {
 
     @Autowired
     private MockMvc mockMvc;
