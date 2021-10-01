@@ -23,7 +23,7 @@ class RegistrationControllerTest {
 
     @Test
     void shouldReturn200WithRequestBodyWhenValidEventIsSent() throws Exception {
-        RegistrationStartedEvent requestBody = new RegistrationStartedEvent("something", 12345L, "banana", "mango", "fruit");
+        RegistrationStartedEvent requestBody = RegistrationStartedEvent.builder().build();
 
         mockMvc.perform(post("/registration/123456/gp2gpRegistrationStarted").content(asJsonString(requestBody))
                 .contentType(MediaType.APPLICATION_JSON))
@@ -32,8 +32,8 @@ class RegistrationControllerTest {
     }
 
     @Test()
-    void shouldReturnA400IfRegistrationIDIsLessThan4Characters() throws Exception {
-        RegistrationStartedEvent requestBody = new RegistrationStartedEvent("something", 12345L, "banana", "mango", "fruit");
+    void shouldReturnA400IfRegistrationIdInPathIsLessThan4Characters() throws Exception {
+        RegistrationStartedEvent requestBody = RegistrationStartedEvent.builder().build();
 
         mockMvc.perform(post("/registration/1/gp2gpRegistrationStarted").content(asJsonString(requestBody))
                 .contentType(MediaType.APPLICATION_JSON))
@@ -42,10 +42,9 @@ class RegistrationControllerTest {
                 .andExpect(result -> assertEquals("registrationStartedEvent.registrationId: length must be between 4 and 32", result.getResolvedException().getMessage()));
     }
 
-
     @Test()
-    void shouldReturnA400IfRegistrationIDIsMoreThan32Characters() throws Exception {
-        RegistrationStartedEvent requestBody = new RegistrationStartedEvent("something", 12345L, "banana", "mango", "fruit");
+    void shouldReturnA400IfRegistrationIdInPathIsMoreThan32Characters() throws Exception {
+        RegistrationStartedEvent requestBody = RegistrationStartedEvent.builder().build();
 
         mockMvc.perform(post("/registration/000000000011111111112222222222333/gp2gpRegistrationStarted").content(asJsonString(requestBody))
                 .contentType(MediaType.APPLICATION_JSON))
@@ -56,7 +55,7 @@ class RegistrationControllerTest {
 
     @Test
     void shouldReturn400IfEventIdIsMissing() throws Exception {
-        RegistrationStartedEvent requestBody = new RegistrationStartedEvent(null, 12345L, "something", "something", "mango");
+        RegistrationStartedEvent requestBody = RegistrationStartedEvent.builder().eventId(null).build();
 
         mockMvc.perform(post("/registration/12345/gp2gpRegistrationStarted").content(asJsonString(requestBody))
                 .contentType(MediaType.APPLICATION_JSON))
@@ -66,7 +65,7 @@ class RegistrationControllerTest {
 
     @Test
     void shouldReturn400IfEventGeneratedTimestampIsMissing() throws Exception {
-        RegistrationStartedEvent requestBody = new RegistrationStartedEvent("something", null, "something", "something", "mango");
+        RegistrationStartedEvent requestBody = RegistrationStartedEvent.builder().eventGeneratedTimestamp(null).build();
 
         mockMvc.perform(post("/registration/12345/gp2gpRegistrationStarted").content(asJsonString(requestBody))
                         .contentType(MediaType.APPLICATION_JSON))
@@ -76,7 +75,7 @@ class RegistrationControllerTest {
 
     @Test
     void shouldReturn400IfRegistrationIdIsMissing() throws Exception {
-        RegistrationStartedEvent requestBody = new RegistrationStartedEvent("something", 12345L, null, "something", "mango");
+        RegistrationStartedEvent requestBody = RegistrationStartedEvent.builder().registrationId(null).build();
 
         mockMvc.perform(post("/registration/12345/gp2gpRegistrationStarted").content(asJsonString(requestBody))
                         .contentType(MediaType.APPLICATION_JSON))
@@ -86,7 +85,7 @@ class RegistrationControllerTest {
 
     @Test
     void shouldReturn400IfReportingSystemSupplierIsMissing() throws Exception {
-        RegistrationStartedEvent requestBody = new RegistrationStartedEvent("something", 12345L, "banana", null, "mango");
+        RegistrationStartedEvent requestBody = RegistrationStartedEvent.builder().reportingSystemSupplier(null).build();
 
         mockMvc.perform(post("/registration/12345/gp2gpRegistrationStarted").content(asJsonString(requestBody))
                         .contentType(MediaType.APPLICATION_JSON))
@@ -96,7 +95,7 @@ class RegistrationControllerTest {
 
     @Test
     void shouldReturn400IfReportingPracticeOdsCodeIsMissing() throws Exception {
-        RegistrationStartedEvent requestBody = new RegistrationStartedEvent("something", 12345L, "banana", "mango", null);
+        RegistrationStartedEvent requestBody = RegistrationStartedEvent.builder().reportingPracticeOdsCode(null).build();
 
         mockMvc.perform(post("/registration/12345/gp2gpRegistrationStarted").content(asJsonString(requestBody))
                         .contentType(MediaType.APPLICATION_JSON))
