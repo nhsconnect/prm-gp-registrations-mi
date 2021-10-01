@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Deprecated
 @RestController
 public class EventControllerDeprecated {
+
     @PostMapping(
             value = "/event",
             consumes = MediaType.APPLICATION_JSON_VALUE,

@@ -14,6 +14,7 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
 
     @ExceptionHandler(ConstraintViolationException.class)
     public void constraintViolationException(HttpServletResponse response) throws IOException {
+        System.out.println(response);
         response.sendError(HttpStatus.BAD_REQUEST.value());
     }
 }
