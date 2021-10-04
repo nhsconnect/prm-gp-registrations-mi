@@ -4,11 +4,7 @@ import com.prmgpregistrationsmi.models.RegistrationStartedEvent;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -24,7 +20,7 @@ public class RegistrationController {
     public RegistrationStartedEvent registrationStartedEvent(
             @PathVariable @Length(min = 4, max = 32) String registrationId,
             @Valid @RequestBody RegistrationStartedEvent registrationStartedEvent) {
-                System.out.printf("POST request to: /registration/%s/gp2gpRegistrationStarted endpoint", registrationId);
+                System.out.printf("Successfully received registration started event on: /registration/%s/gp2gpRegistrationStarted endpoint", registrationId);
                 return registrationStartedEvent;
     }
 }

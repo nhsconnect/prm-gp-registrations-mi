@@ -146,10 +146,13 @@ class RegistrationControllerTest {
                 .payload(payload)
                 .build();
 
+        var expectedJson = "{\"status\" : \"BAD_REQUEST\", \"message\" : \"Validation exception\" , \"errors\" : [\"payload.registration.requestingPracticeOdsCode: must not be empty\"]}";
+
         mockMvc.perform(post("/registration/12345/gp2gpRegistrationStarted").content(asJsonString(requestBody))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
-                .andExpect(result -> assertTrue(result.getResolvedException() instanceof MethodArgumentNotValidException));
+                .andExpect(result -> assertTrue(result.getResolvedException() instanceof MethodArgumentNotValidException))
+                .andExpect(content().json(expectedJson));
     }
 
     private static String asJsonString(final Object obj) {
