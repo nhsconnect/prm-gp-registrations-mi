@@ -122,6 +122,36 @@ class RegistrationControllerTest {
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof MethodArgumentNotValidException));
     }
 
+    @Test
+    void shouldReturn400IfRegistrationTypeIsMissing() throws Exception {
+        RegistrationStartedEventPayloadRegistration payloadRegistration = RegistrationStartedEventPayloadRegistration.builder().registrationType(null).build();
+        RegistrationStartedEventPayload payload = RegistrationStartedEventPayload.builder().registration(payloadRegistration).build();
+        RegistrationStartedEvent requestBody = RegistrationStartedEvent
+                .builder()
+                .payload(payload)
+                .build();
+
+        mockMvc.perform(post("/registration/12345/gp2gpRegistrationStarted").content(asJsonString(requestBody))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andExpect(result -> assertTrue(result.getResolvedException() instanceof MethodArgumentNotValidException));
+    }
+
+    @Test
+    void shouldReturn400IfRequestingPracticeOdsCodeIsMissing() throws Exception {
+        RegistrationStartedEventPayloadRegistration payloadRegistration = RegistrationStartedEventPayloadRegistration.builder().requestingPracticeOdsCode(null).build();
+        RegistrationStartedEventPayload payload = RegistrationStartedEventPayload.builder().registration(payloadRegistration).build();
+        RegistrationStartedEvent requestBody = RegistrationStartedEvent
+                .builder()
+                .payload(payload)
+                .build();
+
+        mockMvc.perform(post("/registration/12345/gp2gpRegistrationStarted").content(asJsonString(requestBody))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andExpect(result -> assertTrue(result.getResolvedException() instanceof MethodArgumentNotValidException));
+    }
+
     private static String asJsonString(final Object obj) {
         try {
             return new ObjectMapper().writeValueAsString(obj);
