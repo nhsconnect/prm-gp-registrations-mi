@@ -1,8 +1,8 @@
 package com.prmgpregistrationsmi.controller;
 
+import com.prmgpregistrationsmi.models.RegistrationStartedEvent;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

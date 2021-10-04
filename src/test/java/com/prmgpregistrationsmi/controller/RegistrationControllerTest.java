@@ -1,6 +1,9 @@
 package com.prmgpregistrationsmi.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.prmgpregistrationsmi.models.RegistrationStartedEvent;
+import com.prmgpregistrationsmi.models.RegistrationStartedEventPayload;
+import com.prmgpregistrationsmi.models.RegistrationStartedEventPayloadRegistration;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -10,7 +13,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import javax.validation.ConstraintViolationException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -68,7 +72,7 @@ class RegistrationControllerTest {
         RegistrationStartedEvent requestBody = RegistrationStartedEvent.builder().eventGeneratedTimestamp(null).build();
 
         mockMvc.perform(post("/registration/12345/gp2gpRegistrationStarted").content(asJsonString(requestBody))
-                        .contentType(MediaType.APPLICATION_JSON))
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof MethodArgumentNotValidException));
     }
@@ -78,7 +82,7 @@ class RegistrationControllerTest {
         RegistrationStartedEvent requestBody = RegistrationStartedEvent.builder().registrationId(null).build();
 
         mockMvc.perform(post("/registration/12345/gp2gpRegistrationStarted").content(asJsonString(requestBody))
-                        .contentType(MediaType.APPLICATION_JSON))
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof MethodArgumentNotValidException));
     }
@@ -88,7 +92,7 @@ class RegistrationControllerTest {
         RegistrationStartedEvent requestBody = RegistrationStartedEvent.builder().reportingSystemSupplier(null).build();
 
         mockMvc.perform(post("/registration/12345/gp2gpRegistrationStarted").content(asJsonString(requestBody))
-                        .contentType(MediaType.APPLICATION_JSON))
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof MethodArgumentNotValidException));
     }
@@ -98,7 +102,22 @@ class RegistrationControllerTest {
         RegistrationStartedEvent requestBody = RegistrationStartedEvent.builder().reportingPracticeOdsCode(null).build();
 
         mockMvc.perform(post("/registration/12345/gp2gpRegistrationStarted").content(asJsonString(requestBody))
-                        .contentType(MediaType.APPLICATION_JSON))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andExpect(result -> assertTrue(result.getResolvedException() instanceof MethodArgumentNotValidException));
+    }
+
+    @Test
+    void shouldReturn400IfRegistrationStartedTimestampIsMissing() throws Exception {
+        RegistrationStartedEventPayloadRegistration payloadRegistration = RegistrationStartedEventPayloadRegistration.builder().registrationStartedTimestamp(null).build();
+        RegistrationStartedEventPayload payload = RegistrationStartedEventPayload.builder().registration(payloadRegistration).build();
+        RegistrationStartedEvent requestBody = RegistrationStartedEvent
+                .builder()
+                .payload(payload)
+                .build();
+
+        mockMvc.perform(post("/registration/12345/gp2gpRegistrationStarted").content(asJsonString(requestBody))
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof MethodArgumentNotValidException));
     }

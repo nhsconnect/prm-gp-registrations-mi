@@ -1,10 +1,11 @@
-package com.prmgpregistrationsmi.controller;
+package com.prmgpregistrationsmi.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -23,6 +24,9 @@ public class RegistrationStartedEvent {
     public String reportingSystemSupplier;
     @NotEmpty
     public String reportingPracticeOdsCode;
+    @NotNull
+    @Valid
+    public RegistrationStartedEventPayload payload;
 
     public static class RegistrationStartedEventBuilder {
         public String eventId = "some-id";
@@ -30,5 +34,6 @@ public class RegistrationStartedEvent {
         public String registrationId = "some-registration-id";
         public String reportingSystemSupplier = "some-reporting-system-supplier";
         public String reportingPracticeOdsCode = "some-reporting-practice-ods-code";
+        public RegistrationStartedEventPayload payload =  RegistrationStartedEventPayload.builder().build();
     }
 }
