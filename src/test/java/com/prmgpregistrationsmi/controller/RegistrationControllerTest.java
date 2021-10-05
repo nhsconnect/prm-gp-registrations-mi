@@ -7,11 +7,14 @@ import com.prmgpregistrationsmi.models.RegistrationStartedEventPayloadRegistrati
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import javax.validation.ConstraintViolationException;
+import java.util.ArrayList;
+import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -146,13 +149,13 @@ class RegistrationControllerTest {
                 .payload(payload)
                 .build();
 
-        var expectedJson = "{\"status\" : \"BAD_REQUEST\", \"message\" : \"Validation exception\" , \"errors\" : [\"payload.registration.requestingPracticeOdsCode: must not be empty\"]}";
+        ApiError expectedResponse = new ApiError(HttpStatus.BAD_REQUEST, "Validation exception", new ArrayList<>(Collections.singleton("payload.registration.requestingPracticeOdsCode: must not be empty")));
 
         mockMvc.perform(post("/registration/12345/gp2gpRegistrationStarted").content(asJsonString(requestBody))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof MethodArgumentNotValidException))
-                .andExpect(content().json(expectedJson));
+                .andExpect(content().json(asJsonString(expectedResponse)));
     }
 
     private static String asJsonString(final Object obj) {

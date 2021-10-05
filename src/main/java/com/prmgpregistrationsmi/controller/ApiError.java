@@ -22,10 +22,18 @@ public final class ApiError {
         super();
         this.status = status;
         this.message = message;
-        this.errors = Collections.singletonList(error);
+        this.errors = new ArrayList<>(Collections.singleton(error));
     }
 
     public HttpStatus getStatus() {
         return status;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public List<String> getErrors() {
+        return new ArrayList<>(errors);
     }
 }
