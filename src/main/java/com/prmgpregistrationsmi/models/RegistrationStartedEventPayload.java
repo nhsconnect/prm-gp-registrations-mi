@@ -11,13 +11,13 @@ import javax.validation.constraints.NotNull;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder(builderClassName = "RegistrationStartedEventPayloadBuilder")
+@Builder
 public class RegistrationStartedEventPayload {
     @Valid
     @NotNull
-    public RegistrationStartedEventPayloadRegistration registration;
+    private RegistrationStartedEventPayloadRegistration registration;
 
     public static class RegistrationStartedEventPayloadBuilder {
-        public RegistrationStartedEventPayloadRegistration registration = RegistrationStartedEventPayloadRegistration.builder().build();
+        private RegistrationStartedEventPayloadRegistration registration = RegistrationStartedEventPayloadRegistration.builder().build();
     }
 }

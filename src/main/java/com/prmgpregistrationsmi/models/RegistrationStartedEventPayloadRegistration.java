@@ -11,18 +11,18 @@ import javax.validation.constraints.NotNull;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder(builderClassName = "RegistrationStartedEventPayloadRegistrationBuilder")
+@Builder
 public class RegistrationStartedEventPayloadRegistration {
     @NotNull
-    public Long registrationStartedTimestamp;
+    private Long registrationStartedTimestamp;
     @NotEmpty
-    public String registrationType;
+    private String registrationType;
     @NotEmpty
-    public String requestingPracticeOdsCode;
+    private String requestingPracticeOdsCode;
 
     public static class RegistrationStartedEventPayloadRegistrationBuilder {
-        public Long registrationStartedTimestamp = 123456756L;
-        public String registrationType = "newRegistrant";
-        public String requestingPracticeOdsCode = "ABC1234";
+        private Long registrationStartedTimestamp = 123456756L;
+        private String registrationType = "newRegistrant";
+        private String requestingPracticeOdsCode = "ABC1234";
     }
 }

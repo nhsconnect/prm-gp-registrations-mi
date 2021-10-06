@@ -12,28 +12,28 @@ import javax.validation.constraints.NotNull;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder(builderClassName = "RegistrationStartedEventBuilder")
+@Builder
 public class RegistrationStartedEvent {
     @NotEmpty
-    public String eventId;
+    private String eventId;
     @NotNull
-    public Long eventGeneratedTimestamp;
+    private Long eventGeneratedTimestamp;
     @NotEmpty
-    public String registrationId;
+    private String registrationId;
     @NotEmpty
-    public String reportingSystemSupplier;
+    private String reportingSystemSupplier;
     @NotEmpty
-    public String reportingPracticeOdsCode;
+    private String reportingPracticeOdsCode;
     @NotNull
     @Valid
-    public RegistrationStartedEventPayload payload;
+    private RegistrationStartedEventPayload payload;
 
     public static class RegistrationStartedEventBuilder {
-        public String eventId = "some-id";
-        public Long eventGeneratedTimestamp = 12345L;
-        public String registrationId = "some-registration-id";
-        public String reportingSystemSupplier = "some-reporting-system-supplier";
-        public String reportingPracticeOdsCode = "some-reporting-practice-ods-code";
-        public RegistrationStartedEventPayload payload =  RegistrationStartedEventPayload.builder().build();
+        private String eventId = "some-id";
+        private Long eventGeneratedTimestamp = 12345L;
+        private String registrationId = "some-registration-id";
+        private String reportingSystemSupplier = "some-reporting-system-supplier";
+        private String reportingPracticeOdsCode = "some-reporting-practice-ods-code";
+        private RegistrationStartedEventPayload payload =  RegistrationStartedEventPayload.builder().build();
     }
 }
