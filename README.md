@@ -6,21 +6,17 @@ GP Registrations MI is a service used to collect Management Information describi
 
 ### Prerequisites
 
-- Download Java 11.0.7 [https://www.oracle.com/uk/java/technologies/javase/jdk11-archive-downloads.html]
-```
-macOS Installer: jdk-11.0.7_osx-x64_bin.dmg
-```
-*note: you will need to sign up with an Oracle account*
+- Download Java 11 OpenJDK [https://wiki.openjdk.java.net/display/JDKUpdates/JDK11u]
 
 List your java versions
 ```
 /usr/libexec/java_home -V 
 ```
 
-Set the JAVA_HOME path in your config, eg. (zsh):
+You may need to set the JAVA_HOME path in your config, eg. (zsh):
 ```
 vim ~/.zshrc
-export JAVA_HOME=`/usr/libexec/java_home -v 11`
+export JAVA_HOME=`/usr/libexec/java_home`
 ```
 
 Source your profile to load the changes:
@@ -71,4 +67,12 @@ Run dependency check
 Run code quality check
 ```
 ./tasks code_quality
+```
+
+
+### Troubleshooting
+If you are using IntelliJ and you are unable to run the tests, 
+make sure to run the tests through IntelliJ IDEA rather than Gradle 
+```
+Build, Execution, Deployment > Build Tools > Gradle > Run tests using: Intellij
 ```
