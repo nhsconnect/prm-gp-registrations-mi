@@ -29,11 +29,9 @@ source ~/.zshrc
 ```
 ./tasks run_local
 ```
-To check the application is running, you can hit the /event endpoint:
+To check the application is running, you can go to swagger:
 ```
-curl -X POST -H "Content-Type: application/json" \
-    -d '{"fruit": "mango"}' \
-    http://localhost:8080/event
+http://localhost:8080/swagger
 ```
 
 Or you can also hit the /health endpoint:
