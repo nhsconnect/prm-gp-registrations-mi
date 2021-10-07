@@ -1,6 +1,7 @@
 package com.prmgpregistrationsmi.controller;
 
-import com.prmgpregistrationsmi.models.RegistrationStartedEvent;
+import com.prmgpregistrationsmi.models.Event;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+@Slf4j
 @RestController
 @RequestMapping("registration")
 @Validated
@@ -17,14 +19,14 @@ public class RegistrationController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public RegistrationStartedEvent registrationStartedEvent(
+    public Event registrationStartedEvent(
             @PathVariable @Length(min = 4, max = 32) String registrationId,
-            @Valid @RequestBody RegistrationStartedEvent registrationStartedEvent) throws RegistrationIdMismatchedException {
-                if (!registrationId.equals(registrationStartedEvent.getRegistrationId())) {
+            @Valid @RequestBody Event event) throws RegistrationIdMismatchedException {
+                if (!registrationId.equals(event.getRegistrationId())) {
                     throw new RegistrationIdMismatchedException();
                 }
 
-                System.out.printf("Successfully received registration started event on: /registration/%s/gp2gpRegistrationStarted endpoint", registrationId);
-                return registrationStartedEvent;
+                log.info("Successfully received registration started event on: /registration/#{registrationId}/gp2gpRegistrationStarted endpoint");
+                return event;
     }
 }

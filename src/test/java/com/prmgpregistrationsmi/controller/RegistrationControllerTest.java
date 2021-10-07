@@ -1,10 +1,9 @@
 package com.prmgpregistrationsmi.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
-import com.prmgpregistrationsmi.models.RegistrationStartedEvent;
-import com.prmgpregistrationsmi.models.RegistrationStartedEventPayload;
-import com.prmgpregistrationsmi.models.RegistrationStartedEventPayloadRegistration;
+import com.prmgpregistrationsmi.models.Event;
+import com.prmgpregistrationsmi.models.RegistrationStartedPayload;
+import com.prmgpregistrationsmi.models.RegistrationStartedDetails;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -22,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static utils.JsonHelper.asJsonString;
 
 @WebMvcTest(RegistrationController.class)
 class RegistrationControllerTest {
@@ -33,8 +33,8 @@ class RegistrationControllerTest {
 
     @Test
     void shouldReturn200WithRequestBodyWhenValidEventIsSent() throws Exception {
-        RegistrationStartedEvent requestBody = RegistrationStartedEvent.builder().build();
-        mockMvc.perform(post("/registration//" + registrationId + "//gp2gpRegistrationStarted").content(asJsonString(requestBody))
+        Event requestBody = Event.builder().build();
+        mockMvc.perform(post("/registration/" + registrationId + "/gp2gpRegistrationStarted").content(asJsonString(requestBody))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().json(asJsonString(requestBody)));
@@ -42,15 +42,15 @@ class RegistrationControllerTest {
 
     @Test
     void shouldReturnA400IfRegistrationIdInPathIsLessThan4Characters() throws Exception {
-        String anInvalidRegistrationId = "000000000011111111112222222222333";
-        RegistrationStartedEvent requestBody = RegistrationStartedEvent.builder().registrationId(anInvalidRegistrationId).build();
+        String anInvalidRegistrationId = "123";
+        Event requestBody = Event.builder().registrationId(anInvalidRegistrationId).build();
 
         ApiError expectedResponse = new ApiError(
                 HttpStatus.BAD_REQUEST,
                 "Invalid path",
                 new ArrayList<>(Collections.singleton("registrationId: length must be between 4 and 32")));
 
-        mockMvc.perform(post("/registration/"+anInvalidRegistrationId+"/gp2gpRegistrationStarted").content(asJsonString(requestBody))
+        mockMvc.perform(post("/registration/" + anInvalidRegistrationId + "/gp2gpRegistrationStarted").content(asJsonString(requestBody))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof ConstraintViolationException))
@@ -60,14 +60,14 @@ class RegistrationControllerTest {
     @Test
     void shouldReturnA400IfRegistrationIdInPathIsMoreThan32Characters() throws Exception {
         String anInvalidRegistrationId = "000000000011111111112222222222333";
-        RegistrationStartedEvent requestBody = RegistrationStartedEvent.builder().registrationId(anInvalidRegistrationId).build();
+        Event requestBody = Event.builder().registrationId(anInvalidRegistrationId).build();
 
         ApiError expectedResponse = new ApiError(
                 HttpStatus.BAD_REQUEST,
                 "Invalid path",
                 new ArrayList<>(Collections.singleton("registrationId: length must be between 4 and 32")));
 
-        mockMvc.perform(post("/registration/"+anInvalidRegistrationId+"/gp2gpRegistrationStarted").content(asJsonString(requestBody))
+        mockMvc.perform(post("/registration/" + anInvalidRegistrationId + "/gp2gpRegistrationStarted").content(asJsonString(requestBody))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof ConstraintViolationException))
@@ -75,8 +75,8 @@ class RegistrationControllerTest {
     }
 
     @Test
-    void shouldReturn400IfAllFieldsAreMissing() throws Exception {
-        RegistrationStartedEvent emptyRequestBody = new RegistrationStartedEvent();
+    void shouldReturn400RequestBodyIsEmpty() throws Exception {
+        Event emptyRequestBody = new Event();
 
         ApiError expectedResponse = new ApiError(
                 HttpStatus.BAD_REQUEST,
@@ -97,7 +97,7 @@ class RegistrationControllerTest {
 
     @Test
     void shouldReturn400IfEventIdIsMissing() throws Exception {
-        RegistrationStartedEvent requestBody = RegistrationStartedEvent.builder().eventId(null).build();
+        Event requestBody = Event.builder().eventId(null).build();
 
         ApiError expectedResponse = new ApiError(
                 HttpStatus.BAD_REQUEST,
@@ -113,7 +113,7 @@ class RegistrationControllerTest {
 
     @Test
     void shouldReturn400IfEventGeneratedTimestampIsMissing() throws Exception {
-        RegistrationStartedEvent requestBody = RegistrationStartedEvent.builder().eventGeneratedTimestamp(null).build();
+        Event requestBody = Event.builder().eventGeneratedTimestamp(null).build();
 
         ApiError expectedResponse = new ApiError(
                 HttpStatus.BAD_REQUEST,
@@ -129,7 +129,7 @@ class RegistrationControllerTest {
 
     @Test
     void shouldReturn400IfRegistrationIdIsMissing() throws Exception {
-        RegistrationStartedEvent requestBody = RegistrationStartedEvent.builder().registrationId(null).build();
+        Event requestBody = Event.builder().registrationId(null).build();
 
         ApiError expectedResponse = new ApiError(
                 HttpStatus.BAD_REQUEST,
@@ -145,7 +145,7 @@ class RegistrationControllerTest {
 
     @Test
     void shouldReturn400IfReportingSystemSupplierIsMissing() throws Exception {
-        RegistrationStartedEvent requestBody = RegistrationStartedEvent.builder().reportingSystemSupplier(null).build();
+        Event requestBody = Event.builder().reportingSystemSupplier(null).build();
 
         ApiError expectedResponse = new ApiError(
                 HttpStatus.BAD_REQUEST,
@@ -161,8 +161,8 @@ class RegistrationControllerTest {
 
     @Test
     void shouldReturn400IfReportingPracticeOdsCodeIsMissing() throws Exception {
-        RegistrationStartedEvent requestBody =
-                RegistrationStartedEvent.builder().reportingPracticeOdsCode(null).build();
+        Event requestBody =
+                Event.builder().reportingPracticeOdsCode(null).build();
 
         ApiError expectedResponse = new ApiError(
                 HttpStatus.BAD_REQUEST,
@@ -178,11 +178,11 @@ class RegistrationControllerTest {
 
     @Test
     void shouldReturn400IfRegistrationStartedTimestampIsMissing() throws Exception {
-        RegistrationStartedEventPayloadRegistration payloadRegistration =
-                RegistrationStartedEventPayloadRegistration.builder().registrationStartedTimestamp(null).build();
-        RegistrationStartedEventPayload payload =
-                RegistrationStartedEventPayload.builder().registration(payloadRegistration).build();
-        RegistrationStartedEvent requestBody = RegistrationStartedEvent
+        RegistrationStartedDetails payloadRegistration =
+                RegistrationStartedDetails.builder().registrationStartedTimestamp(null).build();
+        RegistrationStartedPayload payload =
+                RegistrationStartedPayload.builder().registration(payloadRegistration).build();
+        Event requestBody = Event
                 .builder()
                 .payload(payload)
                 .build();
@@ -201,11 +201,11 @@ class RegistrationControllerTest {
 
     @Test
     void shouldReturn400IfRegistrationTypeIsMissing() throws Exception {
-        RegistrationStartedEventPayloadRegistration payloadRegistration =
-                RegistrationStartedEventPayloadRegistration.builder().registrationType(null).build();
-        RegistrationStartedEventPayload payload =
-                RegistrationStartedEventPayload.builder().registration(payloadRegistration).build();
-        RegistrationStartedEvent requestBody = RegistrationStartedEvent
+        RegistrationStartedDetails payloadRegistration =
+                RegistrationStartedDetails.builder().registrationType(null).build();
+        RegistrationStartedPayload payload =
+                RegistrationStartedPayload.builder().registration(payloadRegistration).build();
+        Event requestBody = Event
                 .builder()
                 .payload(payload)
                 .build();
@@ -224,11 +224,11 @@ class RegistrationControllerTest {
 
     @Test
     void shouldReturn400IfRequestingPracticeOdsCodeIsMissing() throws Exception {
-        RegistrationStartedEventPayloadRegistration payloadRegistration =
-                RegistrationStartedEventPayloadRegistration.builder().requestingPracticeOdsCode(null).build();
-        RegistrationStartedEventPayload payload =
-                RegistrationStartedEventPayload.builder().registration(payloadRegistration).build();
-        RegistrationStartedEvent requestBody = RegistrationStartedEvent
+        RegistrationStartedDetails payloadRegistration =
+                RegistrationStartedDetails.builder().requestingPracticeOdsCode(null).build();
+        RegistrationStartedPayload payload =
+                RegistrationStartedPayload.builder().registration(payloadRegistration).build();
+        Event requestBody = Event
                 .builder()
                 .payload(payload)
                 .build();
@@ -263,7 +263,7 @@ class RegistrationControllerTest {
 
     @Test
     void shouldReturnA400IfRegistrationIdInPathDoesNotMatchRegistrationIdInRequest() throws Exception {
-        RegistrationStartedEvent requestBody = RegistrationStartedEvent.builder().registrationId("54321").build();
+        Event requestBody = Event.builder().registrationId("54321").build();
 
         ApiError expectedResponse = new ApiError(
                 HttpStatus.BAD_REQUEST,
@@ -275,13 +275,5 @@ class RegistrationControllerTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof RegistrationIdMismatchedException))
                 .andExpect(content().json(asJsonString(expectedResponse)));
-    }
-
-    private static String asJsonString(final Object obj) {
-        try {
-            return new ObjectMapper().writeValueAsString(obj);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
     }
 }

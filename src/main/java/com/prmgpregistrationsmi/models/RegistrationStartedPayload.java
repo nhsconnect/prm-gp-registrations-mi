@@ -12,12 +12,12 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class RegistrationStartedEventPayload {
+public class RegistrationStartedPayload {
     @Valid
     @NotNull
-    private RegistrationStartedEventPayloadRegistration registration;
+    private RegistrationStartedDetails registration;
 
-    public static class RegistrationStartedEventPayloadBuilder {
-        private RegistrationStartedEventPayloadRegistration registration = RegistrationStartedEventPayloadRegistration.builder().build();
+    public static class RegistrationStartedPayloadBuilder {
+        private RegistrationStartedDetails registration = RegistrationStartedDetails.builder().build();
     }
 }

@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class RegistrationStartedEvent {
+public class Event {
     @NotEmpty
     private String eventId;
     @NotNull
@@ -26,14 +26,14 @@ public class RegistrationStartedEvent {
     private String reportingPracticeOdsCode;
     @NotNull
     @Valid
-    private RegistrationStartedEventPayload payload;
+    private RegistrationStartedPayload payload;
 
-    public static class RegistrationStartedEventBuilder {
+    public static class EventBuilder {
         private String eventId = "some-id";
         private Long eventGeneratedTimestamp = 12345L;
         private String registrationId = "some-registration-id";
         private String reportingSystemSupplier = "some-reporting-system-supplier";
         private String reportingPracticeOdsCode = "some-reporting-practice-ods-code";
-        private RegistrationStartedEventPayload payload =  RegistrationStartedEventPayload.builder().build();
+        private RegistrationStartedPayload payload =  RegistrationStartedPayload.builder().build();
     }
 }

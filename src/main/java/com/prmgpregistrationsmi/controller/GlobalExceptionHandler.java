@@ -23,9 +23,15 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Object> methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException ex) {
         List<FieldError> fieldErrors = ex.getBindingResult().getFieldErrors();
-        List<String> fieldErrorsList = fieldErrors.stream().map(fieldError -> fieldError.getField() + ": " + fieldError.getDefaultMessage()).collect(Collectors.toList());
+        List<String> fieldErrorsList = fieldErrors
+                .stream()
+                .map(fieldError -> fieldError.getField() + ": " + fieldError.getDefaultMessage())
+                .collect(Collectors.toList());
 
-        log.warn("Failed to validate fields: " + fieldErrors.stream().map(FieldError::getField).collect(Collectors.toList()));
+        log.warn("MethodArgumentNotValidException - Failed to validate fields: " + fieldErrors
+                .stream()
+                .map(FieldError::getField)
+                .collect(Collectors.toList()));
 
         ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, "Validation exception", fieldErrorsList);
 
@@ -34,13 +40,18 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<Object> constraintViolationExceptionHandler(ConstraintViolationException ex) {
+        log.warn("ConstraintViolationException - Invalid request: " + ex.getMessage());
 
         ConstraintViolation<?> constraintViolation = ex.getConstraintViolations().iterator().next();
         Path pathConstrainViolation = constraintViolation.getPropertyPath();
         if(pathConstrainViolation != null) {
             String pathViolation = ((PathImpl)pathConstrainViolation).getLeafNode().getName();
-            ApiError pathApiError = new ApiError(HttpStatus.BAD_REQUEST, "Invalid path", pathViolation + ": " + constraintViolation.getMessage());
-            log.warn("Invalid path: " + ex.getMessage());
+            ApiError pathApiError = new ApiError(
+                    HttpStatus.BAD_REQUEST,
+                    "Invalid path",
+                    pathViolation + ": " + constraintViolation.getMessage()
+            );
+
             return new ResponseEntity<>(pathApiError, pathApiError.getStatus());
         }
 
@@ -50,9 +61,12 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MismatchedInputException.class)
     public ResponseEntity<Object> mismatchedInputExceptionHandler(MismatchedInputException ex) {
-        String errorFieldMessage = ex.getPath().size() > 0 ? ex.getPath().get(0).getFieldName() + ": " + ex.getOriginalMessage() : "";
+        String errorFieldMessage = ex.getPath().size() > 0 ?
+                ex.getPath().get(0).getFieldName() + ": " + ex.getOriginalMessage() :
+                "";
         ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, "Invalid request field", errorFieldMessage);
-        log.warn("Invalid request field: " + errorFieldMessage);
+
+        log.warn("MismatchedInputException - Invalid request field: " + errorFieldMessage);
 
         return new ResponseEntity<>(apiError, apiError.getStatus());
     }
@@ -60,7 +74,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(RegistrationIdMismatchedException.class)
     public ResponseEntity<Object> registrationIdMismatchExceptionHandler(RegistrationIdMismatchedException ex) {
         ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, "Invalid request", ex.getMessage());
-        log.warn("Invalid request: " + ex.getMessage());
+
+        log.warn("RegistrationIdMismatchedException - Invalid request: " + ex.getMessage());
 
         return new ResponseEntity<>(apiError, apiError.getStatus());
     }

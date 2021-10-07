@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class RegistrationStartedEventPayloadRegistration {
+public class RegistrationStartedDetails {
     @NotNull
     private Long registrationStartedTimestamp;
     @NotEmpty
@@ -20,7 +20,7 @@ public class RegistrationStartedEventPayloadRegistration {
     @NotEmpty
     private String requestingPracticeOdsCode;
 
-    public static class RegistrationStartedEventPayloadRegistrationBuilder {
+    public static class RegistrationStartedDetailsBuilder {
         private Long registrationStartedTimestamp = 123456756L;
         private String registrationType = "newRegistrant";
         private String requestingPracticeOdsCode = "ABC1234";
