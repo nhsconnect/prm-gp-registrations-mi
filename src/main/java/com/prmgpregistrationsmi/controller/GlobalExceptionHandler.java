@@ -2,6 +2,7 @@ package com.prmgpregistrationsmi.controller;
 
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.validator.internal.engine.path.PathImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -9,7 +10,9 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
+import javax.validation.Path;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,9 +34,17 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<Object> constraintViolationExceptionHandler(ConstraintViolationException ex) {
-        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, "Constraint violation exception", ex.getMessage());
-        log.warn("Failed to validate field: " + ex.getMessage());
 
+        ConstraintViolation<?> constraintViolation = ex.getConstraintViolations().iterator().next();
+        Path pathConstrainViolation = constraintViolation.getPropertyPath();
+        if(pathConstrainViolation != null) {
+            String pathViolation = ((PathImpl)pathConstrainViolation).getLeafNode().getName();
+            ApiError pathApiError = new ApiError(HttpStatus.BAD_REQUEST, "Invalid path", pathViolation + ": " + constraintViolation.getMessage());
+            log.warn("Invalid path: " + ex.getMessage());
+            return new ResponseEntity<>(pathApiError, pathApiError.getStatus());
+        }
+
+        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, "Constraint Violation", ex.getMessage());
         return new ResponseEntity<>(apiError, apiError.getStatus());
     }
 
