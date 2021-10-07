@@ -45,4 +45,12 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(apiError, apiError.getStatus());
     }
+
+    @ExceptionHandler(RegistrationIdMismatchedException.class)
+    public ResponseEntity<Object> registrationIdMismatchExceptionHandler(RegistrationIdMismatchedException ex) {
+        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, "Invalid request", ex.getMessage());
+        log.warn("Invalid request: " + ex.getMessage());
+
+        return new ResponseEntity<>(apiError, apiError.getStatus());
+    }
 }

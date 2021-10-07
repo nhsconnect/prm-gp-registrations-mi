@@ -19,7 +19,11 @@ public class RegistrationController {
     )
     public RegistrationStartedEvent registrationStartedEvent(
             @PathVariable @Length(min = 4, max = 32) String registrationId,
-            @Valid @RequestBody RegistrationStartedEvent registrationStartedEvent) {
+            @Valid @RequestBody RegistrationStartedEvent registrationStartedEvent) throws RegistrationIdMismatchedException {
+                if (!registrationId.equals(registrationStartedEvent.getRegistrationId())) {
+                    throw new RegistrationIdMismatchedException();
+                }
+
                 System.out.printf("Successfully received registration started event on: /registration/%s/gp2gpRegistrationStarted endpoint", registrationId);
                 return registrationStartedEvent;
     }
