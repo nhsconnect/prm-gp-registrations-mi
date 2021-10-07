@@ -1,6 +1,7 @@
 package com.prmgpregistrationsmi.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import com.prmgpregistrationsmi.models.RegistrationStartedEvent;
 import com.prmgpregistrationsmi.models.RegistrationStartedEventPayload;
 import com.prmgpregistrationsmi.models.RegistrationStartedEventPayloadRegistration;
@@ -38,7 +39,7 @@ class RegistrationControllerTest {
                 .andExpect(content().json(asJsonString(requestBody)));
     }
 
-    @Test()
+    @Test
     void shouldReturnA400IfRegistrationIdInPathIsLessThan4Characters() throws Exception {
         RegistrationStartedEvent requestBody = RegistrationStartedEvent.builder().build();
 
@@ -55,7 +56,7 @@ class RegistrationControllerTest {
 
     }
 
-    @Test()
+    @Test
     void shouldReturnA400IfRegistrationIdInPathIsMoreThan32Characters() throws Exception {
         RegistrationStartedEvent requestBody = RegistrationStartedEvent.builder().build();
 
@@ -240,6 +241,22 @@ class RegistrationControllerTest {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof MethodArgumentNotValidException))
+                .andExpect(content().json(asJsonString(expectedResponse)));
+    }
+
+    @Test
+    void shouldReturnA400IfEventGeneratedTimestampIsNotANumber() throws Exception {
+        var requestBody = "{\"eventId\":\"some-id\",\"eventGeneratedTimestamp\":"+false+"}";
+
+        ApiError expectedResponse = new ApiError(
+                HttpStatus.BAD_REQUEST,
+                "Invalid request field",
+                new ArrayList<>(Collections.singleton("eventGeneratedTimestamp: Cannot deserialize value of type `java.lang.Long` from Boolean value (token `JsonToken.VALUE_FALSE`)")));
+
+        mockMvc.perform(post("/registration/12345/gp2gpRegistrationStarted").content(requestBody)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andExpect(result -> assertTrue(result.getResolvedException().getCause() instanceof MismatchedInputException))
                 .andExpect(content().json(asJsonString(expectedResponse)));
     }
 
