@@ -44,6 +44,7 @@ do
         dojo "./tasks _code_quality"
         ;;
     run_local)
+        ./gradlew build
         ./gradlew bootRun
         ;;
     publish_docker)

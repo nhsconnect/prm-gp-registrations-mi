@@ -24,7 +24,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MismatchedInputException.class)
     public ResponseEntity<ApiError> methodArgumentNotValidExceptionHandler(MismatchedInputException ex) {
         String message = "Invalid request field";
-        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, message, getErrorMessageDetails(ex));
+        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, message, getErrorMessageDetailsWithField(ex));
 
         log.warn("MismatchedInputException - " + message + ": " + ex.getMessage());
 
@@ -44,7 +44,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(JsonMappingException.class)
     public ResponseEntity<ApiError> methodArgumentNotValidExceptionHandler(JsonMappingException ex) {
         String message = "Invalid JSON";
-        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, message, getErrorMessageDetails(ex));
+        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, message, getErrorMessageDetailsWithField(ex));
 
         log.warn("JsonMappingException - " + message + ": " + ex.getMessage());
 
@@ -100,7 +100,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(apiError, apiError.getStatus());
     }
 
-    private String getErrorMessageDetails(JsonMappingException exception) {
+    private String getErrorMessageDetailsWithField(JsonMappingException exception) {
         return exception.getPath().size() > 0 ?
                 exception.getPath().get(0).getFieldName() + ": " + exception.getOriginalMessage() :
                 exception.getOriginalMessage();
