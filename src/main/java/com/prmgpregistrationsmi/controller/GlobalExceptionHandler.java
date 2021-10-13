@@ -7,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.internal.engine.path.PathImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -22,34 +21,32 @@ import java.util.stream.Collectors;
 @Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler {
-    @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<ApiError> jsonParseExceptionHandler(HttpMessageNotReadableException ex) {
-        String message = "Invalid request";
-        String errorMessageDetails = ex.getMessage();
-        Throwable cause = ex.getCause();
+    @ExceptionHandler(MismatchedInputException.class)
+    public ResponseEntity<ApiError> methodArgumentNotValidExceptionHandler(MismatchedInputException ex) {
+        String message = "Invalid request field";
+        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, message, getErrorMessageDetails(ex));
 
-        if (cause instanceof MismatchedInputException) {
-            message = "Invalid request field";
+        log.warn("MismatchedInputException - " + message + ": " + ex.getMessage());
 
-            MismatchedInputException exception = (MismatchedInputException) cause;
-            errorMessageDetails = getErrorMessageDetails(exception);
-        }
+        return new ResponseEntity<>(apiError, apiError.getStatus());
+    }
 
-        else if (cause instanceof JsonParseException) {
-            message = "Invalid JSON";
-            errorMessageDetails = "Unable to parse JSON";
-        }
+    @ExceptionHandler(JsonParseException.class)
+    public ResponseEntity<ApiError> methodArgumentNotValidExceptionHandler(JsonParseException ex) {
+        String message = "Invalid JSON";
+        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, message, "Unable to parse JSON");
 
-        else if (cause instanceof JsonMappingException) {
-            message = "Invalid JSON";
+        log.warn("JsonParseException - " + message + ": " + ex.getMessage());
 
-            JsonMappingException exception = (JsonMappingException) cause;
-            errorMessageDetails = getErrorMessageDetails(exception);
-        }
+        return new ResponseEntity<>(apiError, apiError.getStatus());
+    }
 
-        log.warn(cause + " - " + message + ": " + ex.getMessage());
+    @ExceptionHandler(JsonMappingException.class)
+    public ResponseEntity<ApiError> methodArgumentNotValidExceptionHandler(JsonMappingException ex) {
+        String message = "Invalid JSON";
+        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, message, getErrorMessageDetails(ex));
 
-        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, message, errorMessageDetails);
+        log.warn("JsonMappingException - " + message + ": " + ex.getMessage());
 
         return new ResponseEntity<>(apiError, apiError.getStatus());
     }
