@@ -1,9 +1,11 @@
 package com.prmgpregistrationsmi.controller;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import com.prmgpregistrationsmi.models.Event;
-import com.prmgpregistrationsmi.models.RegistrationStartedPayload;
 import com.prmgpregistrationsmi.models.RegistrationStartedDetails;
+import com.prmgpregistrationsmi.models.RegistrationStartedPayload;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -274,6 +276,38 @@ class RegistrationControllerTest {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof RegistrationIdMismatchedException))
+                .andExpect(content().json(asJsonString(expectedResponse)));
+    }
+
+    @Test
+    void shouldReturnA400IfJsonIsUnableParse() throws Exception {
+        var requestBody = "{";
+
+        ApiError expectedResponse = new ApiError(
+                HttpStatus.BAD_REQUEST,
+                "Invalid JSON",
+                new ArrayList<>(Collections.singleton("Unable to parse JSON")));
+
+        mockMvc.perform(post("/registration/" + registrationId + "/gp2gpRegistrationStarted").content(requestBody)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andExpect(result -> assertTrue(result.getResolvedException().getCause() instanceof JsonParseException))
+                .andExpect(content().json(asJsonString(expectedResponse)));
+    }
+
+    @Test
+    void shouldReturnA400IfJsonIsUnableMapRequestIntoObject() throws Exception {
+        var requestBody = "{\"eventId\": \"}";
+
+        ApiError expectedResponse = new ApiError(
+                HttpStatus.BAD_REQUEST,
+                "Invalid JSON",
+                new ArrayList<>(Collections.singleton("eventId: Unexpected end-of-input in VALUE_STRING")));
+
+        mockMvc.perform(post("/registration/" + registrationId + "/gp2gpRegistrationStarted").content(requestBody)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andExpect(result -> assertTrue(result.getResolvedException().getCause() instanceof JsonMappingException))
                 .andExpect(content().json(asJsonString(expectedResponse)));
     }
 }
