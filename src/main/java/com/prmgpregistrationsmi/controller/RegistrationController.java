@@ -26,7 +26,7 @@ public class RegistrationController {
                     throw new RegistrationIdMismatchedException();
                 }
 
-                log.info("Successfully received registration started event on: /registration/#{registrationId}/gp2gpRegistrationStarted endpoint");
+                log.info("Successfully received registration started event on: /registration/{}/gp2gpRegistrationStarted endpoint", registrationId);
                 return event;
     }
 }
