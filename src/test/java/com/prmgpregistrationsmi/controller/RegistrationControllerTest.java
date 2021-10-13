@@ -82,7 +82,7 @@ class RegistrationControllerTest {
 
         ApiError expectedResponse = new ApiError(
                 HttpStatus.BAD_REQUEST,
-                "Validation exception", List.of(
+                "Failed to validate fields", List.of(
                             "reportingPracticeOdsCode: must not be empty",
                             "eventGeneratedTimestamp: must not be null",
                             "registrationId: must not be empty",
@@ -103,7 +103,7 @@ class RegistrationControllerTest {
 
         ApiError expectedResponse = new ApiError(
                 HttpStatus.BAD_REQUEST,
-                "Validation exception",
+                "Failed to validate fields",
                 new ArrayList<>(Collections.singleton("eventId: must not be empty")));
 
         mockMvc.perform(post("/registration/" + registrationId + "/gp2gpRegistrationStarted").content(asJsonString(requestBody))
@@ -119,7 +119,7 @@ class RegistrationControllerTest {
 
         ApiError expectedResponse = new ApiError(
                 HttpStatus.BAD_REQUEST,
-                "Validation exception",
+                "Failed to validate fields",
                 new ArrayList<>(Collections.singleton("eventGeneratedTimestamp: must not be null")));
 
         mockMvc.perform(post("/registration/" + registrationId + "/gp2gpRegistrationStarted").content(asJsonString(requestBody))
@@ -135,7 +135,7 @@ class RegistrationControllerTest {
 
         ApiError expectedResponse = new ApiError(
                 HttpStatus.BAD_REQUEST,
-                "Validation exception",
+                "Failed to validate fields",
                 new ArrayList<>(Collections.singleton("registrationId: must not be empty")));
 
         mockMvc.perform(post("/registration/" + registrationId + "/gp2gpRegistrationStarted").content(asJsonString(requestBody))
@@ -151,7 +151,7 @@ class RegistrationControllerTest {
 
         ApiError expectedResponse = new ApiError(
                 HttpStatus.BAD_REQUEST,
-                "Validation exception",
+                "Failed to validate fields",
                 new ArrayList<>(Collections.singleton("reportingSystemSupplier: must not be empty")));
 
         mockMvc.perform(post("/registration/" + registrationId + "/gp2gpRegistrationStarted").content(asJsonString(requestBody))
@@ -168,7 +168,7 @@ class RegistrationControllerTest {
 
         ApiError expectedResponse = new ApiError(
                 HttpStatus.BAD_REQUEST,
-                "Validation exception",
+                "Failed to validate fields",
                 new ArrayList<>(Collections.singleton("reportingPracticeOdsCode: must not be empty")));
 
         mockMvc.perform(post("/registration/" + registrationId + "/gp2gpRegistrationStarted").content(asJsonString(requestBody))
@@ -191,7 +191,7 @@ class RegistrationControllerTest {
 
         ApiError expectedResponse = new ApiError(
                 HttpStatus.BAD_REQUEST,
-                "Validation exception",
+                "Failed to validate fields",
                 new ArrayList<>(Collections.singleton("payload.registration.registrationStartedTimestamp: must not be null")));
 
         mockMvc.perform(post("/registration/" + registrationId + "/gp2gpRegistrationStarted").content(asJsonString(requestBody))
@@ -214,7 +214,7 @@ class RegistrationControllerTest {
 
         ApiError expectedResponse = new ApiError(
                 HttpStatus.BAD_REQUEST,
-                "Validation exception",
+                "Failed to validate fields",
                 new ArrayList<>(Collections.singleton("payload.registration.registrationType: must not be empty")));
 
         mockMvc.perform(post("/registration/" + registrationId + "/gp2gpRegistrationStarted").content(asJsonString(requestBody))
@@ -237,7 +237,7 @@ class RegistrationControllerTest {
 
         ApiError expectedResponse = new ApiError(
                 HttpStatus.BAD_REQUEST,
-                "Validation exception",
+                "Failed to validate fields",
                 new ArrayList<>(Collections.singleton("payload.registration.requestingPracticeOdsCode: must not be empty")));
 
         mockMvc.perform(post("/registration/" + registrationId + "/gp2gpRegistrationStarted").content(asJsonString(requestBody))
