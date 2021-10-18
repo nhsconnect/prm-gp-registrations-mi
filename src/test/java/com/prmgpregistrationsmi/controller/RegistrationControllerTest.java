@@ -6,9 +6,11 @@ import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import com.prmgpregistrationsmi.model.Event;
 import com.prmgpregistrationsmi.model.RegistrationStartedPayload;
 import com.prmgpregistrationsmi.model.RegistrationStartedDetails;
+import com.prmgpregistrationsmi.service.RegistrationService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -20,6 +22,9 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -30,6 +35,9 @@ class RegistrationControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @MockBean
+    private RegistrationService mockService;
 
     String registrationId = "some-registration-id";
 
@@ -309,5 +317,21 @@ class RegistrationControllerTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException().getCause() instanceof JsonMappingException))
                 .andExpect(content().json(asJsonString(expectedResponse)));
+    }
+
+    @Test
+    void shouldCallSaveEventWhenValidEventIsSent() throws Exception {
+        Event testEvent = Event.builder().build();
+        String requestBody = asJsonString(testEvent);
+
+        mockMvc.perform(
+                        post("/registration/" + registrationId + "/gp2gpRegistrationStarted")
+                                .content(requestBody)
+                                .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(status().isOk());
+
+        verify(mockService, times(1)).saveEvent(eq(testEvent));
+
     }
 }

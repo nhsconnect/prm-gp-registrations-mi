@@ -1,6 +1,8 @@
 package com.prmgpregistrationsmi.controller;
 
 import com.prmgpregistrationsmi.model.Event;
+import com.prmgpregistrationsmi.service.RegistrationService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.http.MediaType;
@@ -13,7 +15,11 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("registration")
 @Validated
+@RequiredArgsConstructor
 public class RegistrationController {
+
+    private final RegistrationService registrationService;
+
     @PostMapping(
             value = "/{registrationId}/gp2gpRegistrationStarted",
             consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -27,6 +33,7 @@ public class RegistrationController {
                 }
 
                 log.info("Successfully received registration started event on: /registration/{}/gp2gpRegistrationStarted endpoint", registrationId);
+                registrationService.saveEvent(event);
                 return event;
     }
 }
