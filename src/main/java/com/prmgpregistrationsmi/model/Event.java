@@ -1,4 +1,4 @@
-package com.prmgpregistrationsmi.models;
+package com.prmgpregistrationsmi.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
