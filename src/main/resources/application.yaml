@@ -1,0 +1,13 @@
+output_bucket: ${OUTPUT_MI_EVENTS_BUCKET:test_bucket}
+
+springdoc:
+  show-actuator: true
+  swagger-ui:
+    path: /swagger
+
+cloud:
+  aws:
+    region:
+      static: eu-west-2
+    stack:
+      auto: false

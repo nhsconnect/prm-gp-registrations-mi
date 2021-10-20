@@ -8,9 +8,9 @@ import org.junit.jupiter.api.Test;
 import static org.mockito.Mockito.*;
 
 class RegistrationServiceTest {
-    S3Client s3ClientMock = mock(S3Client.class);
+    EventS3Client eventS3ClientMock = mock(EventS3Client.class);
 
-    RegistrationService registrationService = new RegistrationService(s3ClientMock);
+    RegistrationService registrationService = new RegistrationService(eventS3ClientMock);
 
     @Test
     void shouldCallUploadToS3WithEventDAO() {
@@ -21,7 +21,7 @@ class RegistrationServiceTest {
 
         EventDAO expectedEvent = EventDAO.fromEvent(testEvent, gp2gpRegistrationStartedEventType);
 
-        verify(s3ClientMock, times(1)).uploadObject(eq(expectedEvent));
+        verify(eventS3ClientMock, times(1)).uploadObject(eq(expectedEvent));
 
     }
 }

@@ -10,16 +10,16 @@ import org.springframework.stereotype.Service;
 @NoArgsConstructor
 @Service
 public class RegistrationService {
-    private S3Client s3Client;
+    private EventS3Client eventS3Client;
 
     @Autowired
-    public RegistrationService(S3Client s3Client) {
-        this.s3Client = s3Client;
+    public RegistrationService(EventS3Client eventS3Client) {
+        this.eventS3Client = eventS3Client;
     }
 
     public void saveEvent(Event event, EventType eventType) {
         EventDAO eventDAO = EventDAO.fromEvent(event, eventType);
-        s3Client.uploadObject(eventDAO);
+        eventS3Client.uploadObject(eventDAO);
     }
 
 }

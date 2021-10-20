@@ -3,10 +3,11 @@ package com.prmgpregistrationsmi.controller;
 import com.prmgpregistrationsmi.model.Event;
 import com.prmgpregistrationsmi.model.EventType;
 import com.prmgpregistrationsmi.service.RegistrationService;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,10 +17,15 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("registration")
 @Validated
-@RequiredArgsConstructor
+@Component
 public class RegistrationController {
 
     private final RegistrationService registrationService;
+
+    @Autowired
+    public RegistrationController(RegistrationService registrationService) {
+        this.registrationService = registrationService;
+    }
 
     @PostMapping(
             value = "/{registrationId}/gp2gpRegistrationStarted",
