@@ -8,10 +8,12 @@ class EventDAOTest {
     @Test
     void fromEventShouldReturnEventDAO() {
         Event testEvent = Event.builder().build();
-        EventDAO actualEventDAO = EventDAO.fromEvent(testEvent);
+        EventType gp2gpRegistrationStartedEventType = EventType.GP2GP_REGISTRATION_STARTED;
+        EventDAO actualEventDAO = EventDAO.fromEvent(testEvent, gp2gpRegistrationStartedEventType);
 
         assertEquals(actualEventDAO.getEventId(), testEvent.getEventId());
         assertEquals(actualEventDAO.getEventGeneratedTimestamp(), testEvent.getEventGeneratedTimestamp());
+        assertEquals(actualEventDAO.getEventType(), gp2gpRegistrationStartedEventType);
         assertEquals(actualEventDAO.getRegistrationId(), testEvent.getRegistrationId());
         assertEquals(actualEventDAO.getReportingSystemSupplier(), testEvent.getReportingSystemSupplier());
         assertEquals(actualEventDAO.getReportingPracticeOdsCode(), testEvent.getReportingPracticeOdsCode());

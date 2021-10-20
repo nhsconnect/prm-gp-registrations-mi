@@ -1,6 +1,7 @@
 package com.prmgpregistrationsmi.controller;
 
 import com.prmgpregistrationsmi.model.Event;
+import com.prmgpregistrationsmi.model.EventType;
 import com.prmgpregistrationsmi.service.RegistrationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +34,7 @@ public class RegistrationController {
                 }
 
                 log.info("Successfully received registration started event on: /registration/{}/gp2gpRegistrationStarted endpoint", registrationId);
-                registrationService.saveEvent(event);
+                registrationService.saveEvent(event, EventType.GP2GP_REGISTRATION_STARTED);
                 return event;
     }
 }

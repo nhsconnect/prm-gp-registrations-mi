@@ -4,8 +4,9 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import com.prmgpregistrationsmi.model.Event;
-import com.prmgpregistrationsmi.model.RegistrationStartedPayload;
+import com.prmgpregistrationsmi.model.EventType;
 import com.prmgpregistrationsmi.model.RegistrationStartedDetails;
+import com.prmgpregistrationsmi.model.RegistrationStartedPayload;
 import com.prmgpregistrationsmi.service.RegistrationService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -331,7 +332,7 @@ class RegistrationControllerTest {
                 )
                 .andExpect(status().isOk());
 
-        verify(mockService, times(1)).saveEvent(eq(testEvent));
+        verify(mockService, times(1)).saveEvent(eq(testEvent), eq(EventType.GP2GP_REGISTRATION_STARTED));
 
     }
 }
