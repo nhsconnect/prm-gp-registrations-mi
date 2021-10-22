@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.prmgpregistrationsmi.model.EventDAO;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
@@ -22,9 +21,10 @@ public class EventS3Client {
     }
 
     public void uploadObject(EventDAO eventDAO) {
-        log.info("Uploading to S3 with eventID: " + eventDAO.getEventId());
-        amazonS3Client.putObject(outputBucketLocation, eventDAO.getEventId() + ".json", asJsonString(eventDAO));
-        log.info("Successfully uploaded event to S3 with eventID: " + eventDAO.getEventId());
+        final String eventId = eventDAO.getEventId();
+        log.info("Uploading to S3 with eventID: " + eventId);
+        amazonS3Client.putObject(outputBucketLocation, eventId + ".json", asJsonString(eventDAO));
+        log.info("Successfully uploaded event to S3 with eventID: " + eventId);
     }
 
     private String asJsonString(final Object obj) {
