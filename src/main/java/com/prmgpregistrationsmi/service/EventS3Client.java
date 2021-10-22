@@ -1,12 +1,13 @@
 package com.prmgpregistrationsmi.service;
 
 import com.amazonaws.services.s3.AmazonS3Client;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.prmgpregistrationsmi.model.EventDAO;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
+
+import static utils.JsonHelper.asJsonString;
 
 @Slf4j
 @Repository
@@ -25,13 +26,5 @@ public class EventS3Client {
         log.info("Uploading to S3 with eventID: " + eventId);
         amazonS3Client.putObject(outputBucketLocation, eventId + ".json", asJsonString(eventDAO));
         log.info("Successfully uploaded event to S3 with eventID: " + eventId);
-    }
-
-    private String asJsonString(final Object obj) {
-        try {
-            return new ObjectMapper().writeValueAsString(obj);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
     }
 }
