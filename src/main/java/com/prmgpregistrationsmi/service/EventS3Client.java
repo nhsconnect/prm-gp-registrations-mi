@@ -16,8 +16,7 @@ public class EventS3Client {
     private final String outputBucketLocation;
     private final AmazonS3Client amazonS3Client;
 
-    @Autowired
-    public EventS3Client(AmazonS3Client amazonS3Client, @Value("${output_bucket}") String outputBucketLocation) {
+    public EventS3Client(final AmazonS3Client amazonS3Client, @Value("${output_bucket}") String outputBucketLocation) {
         this.amazonS3Client = amazonS3Client;
         this.outputBucketLocation = outputBucketLocation;
     }
