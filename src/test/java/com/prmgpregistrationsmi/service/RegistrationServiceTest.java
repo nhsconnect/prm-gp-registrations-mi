@@ -5,6 +5,7 @@ import com.prmgpregistrationsmi.model.EventDAO;
 import com.prmgpregistrationsmi.model.EventType;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 class RegistrationServiceTest {
@@ -17,11 +18,10 @@ class RegistrationServiceTest {
         Event testEvent = Event.builder().build();
         EventType gp2gpRegistrationStartedEventType = EventType.GP2GP_REGISTRATION_STARTED;
 
-        registrationService.saveEvent(testEvent, gp2gpRegistrationStartedEventType);
+        EventDAO expectedEventDAO = EventDAO.fromEvent(testEvent, gp2gpRegistrationStartedEventType);
+        EventDAO eventDAO = registrationService.saveEvent(testEvent, gp2gpRegistrationStartedEventType);
 
-        EventDAO expectedEvent = EventDAO.fromEvent(testEvent, gp2gpRegistrationStartedEventType);
-
-        verify(eventS3ClientMock, times(1)).uploadObject(eq(expectedEvent));
-
+        verify(eventS3ClientMock, times(1)).uploadObject(eq(expectedEventDAO));
+        assertEquals(eventDAO, expectedEventDAO);
     }
 }

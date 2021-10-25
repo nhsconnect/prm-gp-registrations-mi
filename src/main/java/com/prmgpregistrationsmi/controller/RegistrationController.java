@@ -1,6 +1,7 @@
 package com.prmgpregistrationsmi.controller;
 
 import com.prmgpregistrationsmi.model.Event;
+import com.prmgpregistrationsmi.model.EventDAO;
 import com.prmgpregistrationsmi.model.EventType;
 import com.prmgpregistrationsmi.service.RegistrationService;
 import lombok.AllArgsConstructor;
@@ -25,7 +26,7 @@ public class RegistrationController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public Event registrationStartedEvent(
+    public EventDAO registrationStartedEvent(
             @PathVariable @Length(min = 4, max = 32) String registrationId,
             @Valid @RequestBody Event event) throws RegistrationIdMismatchedException {
                 if (!registrationId.equals(event.getRegistrationId())) {
@@ -33,7 +34,6 @@ public class RegistrationController {
                 }
 
                 log.info("Successfully received registration started event on: /registration/{}/gp2gpRegistrationStarted endpoint", registrationId);
-                registrationService.saveEvent(event, EventType.GP2GP_REGISTRATION_STARTED);
-                return event;
+                return registrationService.saveEvent(event, EventType.GP2GP_REGISTRATION_STARTED);
     }
 }

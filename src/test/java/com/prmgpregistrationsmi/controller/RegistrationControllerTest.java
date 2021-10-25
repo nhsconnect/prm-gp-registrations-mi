@@ -3,10 +3,7 @@ package com.prmgpregistrationsmi.controller;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
-import com.prmgpregistrationsmi.model.Event;
-import com.prmgpregistrationsmi.model.EventType;
-import com.prmgpregistrationsmi.model.RegistrationStartedDetails;
-import com.prmgpregistrationsmi.model.RegistrationStartedPayload;
+import com.prmgpregistrationsmi.model.*;
 import com.prmgpregistrationsmi.service.RegistrationService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +21,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -38,17 +34,21 @@ class RegistrationControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private RegistrationService mockService;
+    private RegistrationService mockRegistrationService;
 
     String registrationId = "some-registration-id";
 
     @Test
     void shouldReturn200WithRequestBodyWhenValidEventIsSent() throws Exception {
         Event requestBody = Event.builder().build();
+        EventDAO eventDAO = EventDAO.fromEvent(requestBody, EventType.GP2GP_REGISTRATION_STARTED);
+
+        when(mockRegistrationService.saveEvent(any(Event.class), eq(EventType.GP2GP_REGISTRATION_STARTED))).thenReturn(eventDAO);
+
         mockMvc.perform(post("/registration/" + registrationId + "/gp2gpRegistrationStarted").content(asJsonString(requestBody))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(content().json(asJsonString(requestBody)));
+                .andExpect(content().json(asJsonString(eventDAO)));
     }
 
     @Test
@@ -332,7 +332,7 @@ class RegistrationControllerTest {
                 )
                 .andExpect(status().isOk());
 
-        verify(mockService, times(1)).saveEvent(eq(testEvent), eq(EventType.GP2GP_REGISTRATION_STARTED));
+        verify(mockRegistrationService, times(1)).saveEvent(eq(testEvent), eq(EventType.GP2GP_REGISTRATION_STARTED));
 
     }
 }
