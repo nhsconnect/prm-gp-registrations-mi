@@ -1,11 +1,12 @@
-package utils;
+package com.prmgpregistrationsmi.utils;
 
 import org.json.simple.JSONObject;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class JsonHelperTest {
     @Test

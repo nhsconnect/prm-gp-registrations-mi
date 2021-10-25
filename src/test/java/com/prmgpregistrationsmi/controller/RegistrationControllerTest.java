@@ -25,7 +25,7 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static utils.JsonHelper.asJsonString;
+import static com.prmgpregistrationsmi.utils.JsonHelper.asJsonString;
 
 @WebMvcTest(RegistrationController.class)
 class RegistrationControllerTest {

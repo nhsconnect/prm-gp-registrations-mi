@@ -1,4 +1,4 @@
-package com.prmgpregistrationsmi;
+package com.prmgpregistrationsmi.configuration;
 
 import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.amazonaws.services.s3.AmazonS3Client;

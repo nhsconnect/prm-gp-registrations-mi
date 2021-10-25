@@ -5,7 +5,7 @@ import com.prmgpregistrationsmi.model.Event;
 import com.prmgpregistrationsmi.model.EventDAO;
 import com.prmgpregistrationsmi.model.EventType;
 import org.junit.jupiter.api.Test;
-import utils.JsonHelper;
+import com.prmgpregistrationsmi.utils.JsonHelper;
 
 import static org.mockito.Mockito.*;
 

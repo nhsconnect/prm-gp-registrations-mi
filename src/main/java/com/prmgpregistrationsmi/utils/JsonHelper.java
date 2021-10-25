@@ -1,4 +1,4 @@
-package utils;
+package com.prmgpregistrationsmi.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
