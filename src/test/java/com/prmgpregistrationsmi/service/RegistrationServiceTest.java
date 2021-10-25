@@ -1,5 +1,6 @@
 package com.prmgpregistrationsmi.service;
 
+import com.prmgpregistrationsmi.exception.UnableToUploadToS3Exception;
 import com.prmgpregistrationsmi.model.Event;
 import com.prmgpregistrationsmi.model.EventDAO;
 import com.prmgpregistrationsmi.model.EventType;
@@ -14,7 +15,7 @@ class RegistrationServiceTest {
     RegistrationService registrationService = new RegistrationService(eventS3ClientMock);
 
     @Test
-    void shouldCallUploadToS3WithEventDAO() {
+    void shouldCallUploadToS3WithEventDAO() throws UnableToUploadToS3Exception {
         Event testEvent = Event.builder().build();
         EventType gp2gpRegistrationStartedEventType = EventType.GP2GP_REGISTRATION_STARTED;
 

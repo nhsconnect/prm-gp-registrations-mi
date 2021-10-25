@@ -3,6 +3,7 @@ package com.prmgpregistrationsmi.controller;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
+import com.prmgpregistrationsmi.exception.RegistrationIdMismatchedException;
 import com.prmgpregistrationsmi.model.*;
 import com.prmgpregistrationsmi.service.RegistrationService;
 import org.junit.jupiter.api.Test;

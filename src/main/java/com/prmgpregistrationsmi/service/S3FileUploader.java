@@ -1,6 +1,8 @@
 package com.prmgpregistrationsmi.service;
 
+import com.amazonaws.AmazonClientException;
 import com.amazonaws.services.s3.AmazonS3Client;
+import com.prmgpregistrationsmi.exception.UnableToUploadToS3Exception;
 import com.prmgpregistrationsmi.model.EventDAO;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.extern.slf4j.Slf4j;
@@ -22,10 +24,15 @@ public class S3FileUploader {
         this.outputBucketLocation = outputBucketLocation;
     }
 
-    public void uploadObject(EventDAO eventDAO) {
+    public void uploadObject(EventDAO eventDAO) throws UnableToUploadToS3Exception {
         final String eventId = eventDAO.getEventId();
         log.info("Uploading to S3 with eventID: " + eventId);
-        amazonS3Client.putObject(outputBucketLocation, eventId + OUTPUT_EXTENSION, asJsonString(eventDAO));
-        log.info("Successfully uploaded event to S3 with eventID: " + eventId);
+
+        try {
+            amazonS3Client.putObject(outputBucketLocation, eventId + OUTPUT_EXTENSION, asJsonString(eventDAO));
+            log.info("Successfully uploaded event to S3 with eventID: " + eventId);
+        } catch (AmazonClientException amazonClientException) {
+            throw new UnableToUploadToS3Exception(amazonClientException);
+        }
     }
 }

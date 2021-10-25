@@ -1,4 +1,4 @@
-package com.prmgpregistrationsmi.controller;
+package com.prmgpregistrationsmi.exception;
 
 public class RegistrationIdMismatchedException extends Exception {
     public RegistrationIdMismatchedException() {

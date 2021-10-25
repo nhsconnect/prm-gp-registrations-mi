@@ -1,5 +1,7 @@
 package com.prmgpregistrationsmi.controller;
 
+import com.prmgpregistrationsmi.exception.RegistrationIdMismatchedException;
+import com.prmgpregistrationsmi.exception.UnableToUploadToS3Exception;
 import com.prmgpregistrationsmi.model.Event;
 import com.prmgpregistrationsmi.model.EventDAO;
 import com.prmgpregistrationsmi.model.EventType;
@@ -28,7 +30,7 @@ public class RegistrationController {
     )
     public EventDAO registrationStartedEvent(
             @PathVariable @Length(min = 4, max = 32) String registrationId,
-            @Valid @RequestBody Event event) throws RegistrationIdMismatchedException {
+            @Valid @RequestBody Event event) throws RegistrationIdMismatchedException, UnableToUploadToS3Exception {
                 if (!registrationId.equals(event.getRegistrationId())) {
                     throw new RegistrationIdMismatchedException();
                 }
