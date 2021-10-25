@@ -13,6 +13,7 @@ import static utils.JsonHelper.asJsonString;
 @Repository
 @SuppressFBWarnings(value = "EI_EXPOSE_REP2")
 public class S3FileUploader {
+    private static final String OUTPUT_EXTENSION = ".json";
     private final String outputBucketLocation;
     private final AmazonS3Client amazonS3Client;
 
@@ -24,7 +25,7 @@ public class S3FileUploader {
     public void uploadObject(EventDAO eventDAO) {
         final String eventId = eventDAO.getEventId();
         log.info("Uploading to S3 with eventID: " + eventId);
-        amazonS3Client.putObject(outputBucketLocation, eventId + ".json", asJsonString(eventDAO));
+        amazonS3Client.putObject(outputBucketLocation, eventId + OUTPUT_EXTENSION, asJsonString(eventDAO));
         log.info("Successfully uploaded event to S3 with eventID: " + eventId);
     }
 }

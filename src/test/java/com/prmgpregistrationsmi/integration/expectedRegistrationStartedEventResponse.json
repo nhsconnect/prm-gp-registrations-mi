@@ -1,0 +1,15 @@
+{
+  "eventId": "event-id-test",
+  "eventGeneratedTimestamp": 315130,
+  "eventType": "GP2GP_REGISTRATION_STARTED",
+  "registrationId": "registration-id-test-12345",
+  "reportingSystemSupplier": "system-a",
+  "reportingPracticeOdsCode": "A12345",
+  "payload": {
+    "registration": {
+      "registrationStartedTimestamp": 313130,
+      "registrationType": "newRegistrant",
+      "requestingPracticeOdsCode": "B12345"
+    }
+  }
+}
