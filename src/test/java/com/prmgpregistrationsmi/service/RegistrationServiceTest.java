@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import static org.mockito.Mockito.*;
 
 class RegistrationServiceTest {
-    EventS3Client eventS3ClientMock = mock(EventS3Client.class);
+    S3FileUploader eventS3ClientMock = mock(S3FileUploader.class);
 
     RegistrationService registrationService = new RegistrationService(eventS3ClientMock);
 

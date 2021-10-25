@@ -12,11 +12,11 @@ import static utils.JsonHelper.asJsonString;
 @Slf4j
 @Repository
 @SuppressFBWarnings(value = "EI_EXPOSE_REP2")
-public class EventS3Client {
+public class S3FileUploader {
     private final String outputBucketLocation;
     private final AmazonS3Client amazonS3Client;
 
-    public EventS3Client(final AmazonS3Client amazonS3Client, @Value("${output_bucket}") String outputBucketLocation) {
+    public S3FileUploader(final AmazonS3Client amazonS3Client, @Value("${output_bucket}") String outputBucketLocation) {
         this.amazonS3Client = amazonS3Client;
         this.outputBucketLocation = outputBucketLocation;
     }
