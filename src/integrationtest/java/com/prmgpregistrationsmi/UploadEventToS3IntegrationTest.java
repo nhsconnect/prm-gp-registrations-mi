@@ -1,4 +1,4 @@
-package com.prmgpregistrationsmi.integration;
+package com.prmgpregistrationsmi;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -62,7 +62,7 @@ class UploadEventToS3IntegrationTest {
 
     @Test
     void eventToS3Uploaded() throws IOException, ParseException {
-        String pathToJson = "src/test/java/com/prmgpregistrationsmi/integration/";
+        String pathToJson = "src/integrationtest/resources/";
         Object registrationStartedEventRequest = FileJSONParser.readFile(pathToJson + "registrationStartedEventRequest.json");
 
         Object response = FileJSONParser.readFile(pathToJson + "expectedRegistrationStartedEventResponse.json");
