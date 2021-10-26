@@ -19,15 +19,15 @@ class S3FileUploaderTest {
     S3FileUploader s3FileUploader = new S3FileUploader(amazonS3Client, "test_bucket");
 
     @Test
-    void shouldUploadEventToAmazonS3() throws UnableToUploadToS3Exception {
-
+    void shouldUploadEventToAmazonS3Location() throws UnableToUploadToS3Exception {
         EventDAO testEvent = EventDAO.fromEvent(Event.builder().eventId("event-id-12345").build(),
                 EventType.GP2GP_REGISTRATION_STARTED);
-        s3FileUploader.uploadObject(testEvent);
+        s3FileUploader.uploadObject(testEvent, "/2021/12/2/15/");
 
-        String expectedOutputFilename = "event-id-12345.json";
+        String expectedOutputS3Key = "/2021/12/2/15/event-id-12345.json";
 
-        verify(amazonS3Client, times(1)).putObject("test_bucket", expectedOutputFilename,
+
+        verify(amazonS3Client, times(1)).putObject("test_bucket", expectedOutputS3Key,
                 JsonHelper.asJsonString(testEvent));
     }
 
@@ -41,7 +41,7 @@ class S3FileUploaderTest {
 
             when(amazonS3Client.putObject("test_bucket", expectedOutputFilename, JsonHelper.asJsonString(testEvent))).thenThrow(AmazonServiceException.class);
 
-            s3FileUploader.uploadObject(testEvent);
+            s3FileUploader.uploadObject(testEvent, "");
         });
 
         String exceptionMessage = exception.getMessage();

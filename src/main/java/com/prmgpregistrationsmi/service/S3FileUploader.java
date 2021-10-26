@@ -24,12 +24,13 @@ public class S3FileUploader {
         this.outputBucketLocation = outputBucketLocation;
     }
 
-    public void uploadObject(EventDAO eventDAO) throws UnableToUploadToS3Exception {
+    public void uploadObject(EventDAO eventDAO, String s3KeyPrefix) throws UnableToUploadToS3Exception {
         final String eventId = eventDAO.getEventId();
-        log.info("Uploading to S3 with eventID: " + eventId);
+        final String s3Key = s3KeyPrefix + eventId + OUTPUT_EXTENSION;
+        log.info("Uploading to S3 with eventID: " + eventId + " to location: " + s3Key);
 
         try {
-            amazonS3Client.putObject(outputBucketLocation, eventId + OUTPUT_EXTENSION, asJsonString(eventDAO));
+            amazonS3Client.putObject(outputBucketLocation, s3Key, asJsonString(eventDAO));
             log.info("Successfully uploaded event to S3 with eventID: " + eventId);
         } catch (AmazonClientException amazonClientException) {
             throw new UnableToUploadToS3Exception(amazonClientException);

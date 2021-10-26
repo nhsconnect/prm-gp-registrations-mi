@@ -22,7 +22,7 @@ class RegistrationServiceTest {
         EventDAO expectedEventDAO = EventDAO.fromEvent(testEvent, gp2gpRegistrationStartedEventType);
         EventDAO eventDAO = registrationService.saveEvent(testEvent, gp2gpRegistrationStartedEventType);
 
-        verify(eventS3ClientMock, times(1)).uploadObject(eq(expectedEventDAO));
+        verify(eventS3ClientMock, times(1)).uploadObject(eq(expectedEventDAO), eq(""));
         assertEquals(eventDAO, expectedEventDAO);
     }
 }

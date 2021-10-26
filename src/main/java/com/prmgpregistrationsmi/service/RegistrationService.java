@@ -14,7 +14,7 @@ public class RegistrationService {
 
     public EventDAO saveEvent(Event event, EventType eventType) throws UnableToUploadToS3Exception {
         EventDAO eventDAO = EventDAO.fromEvent(event, eventType);
-        eventS3Client.uploadObject(eventDAO);
+        eventS3Client.uploadObject(eventDAO, "");
         return eventDAO;
     }
 }
