@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
+
 @AllArgsConstructor
 @Service
 public class RegistrationService {
@@ -25,7 +27,7 @@ public class RegistrationService {
 
     private String getS3DatePrefix(Long eventGeneratedTimestamp) {
         Date eventGeneratedDate = new Date(eventGeneratedTimestamp*1000);
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
         calendar.setTime(eventGeneratedDate);
         int eventGeneratedMonth = calendar.get(Calendar.MONTH) + 1;
         int eventGeneratedYear = calendar.get(Calendar.YEAR);
