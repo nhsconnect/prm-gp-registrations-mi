@@ -3,10 +3,8 @@ package com.prmgpregistrationsmi.service;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.prmgpregistrationsmi.exception.UnableToUploadToS3Exception;
-import com.prmgpregistrationsmi.model.Event;
-import com.prmgpregistrationsmi.model.EventDAO;
-import com.prmgpregistrationsmi.model.EventType;
 import com.prmgpregistrationsmi.utils.JsonHelper;
+import org.json.simple.JSONObject;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -18,30 +16,35 @@ class S3FileUploaderTest {
 
     S3FileUploader s3FileUploader = new S3FileUploader(amazonS3Client, "test_bucket");
 
+    private JSONObject generateTestObject() {
+        JSONObject testObject = new JSONObject();
+        testObject.put("bool", true);
+        testObject.put("else",2);
+        testObject.put("something", "value");
+        return testObject;
+    }
+
     @Test
-    void shouldUploadEventToAmazonS3Location() throws UnableToUploadToS3Exception {
-        EventDAO testEvent = EventDAO.fromEvent(Event.builder().eventId("event-id-12345").build(),
-                EventType.GP2GP_REGISTRATION_STARTED);
-        s3FileUploader.uploadObject(testEvent, "/2021/12/2/15/");
+    void shouldUploadObjectToAmazonS3Location() throws UnableToUploadToS3Exception {
+        JSONObject testObject = generateTestObject();
+        String outputS3Key = "/2021/12/2/15/object.json";
 
-        String expectedOutputS3Key = "/2021/12/2/15/event-id-12345.json";
+        s3FileUploader.uploadJsonObject(testObject, outputS3Key);
 
-
-        verify(amazonS3Client, times(1)).putObject("test_bucket", expectedOutputS3Key,
-                JsonHelper.asJsonString(testEvent));
+        verify(amazonS3Client, times(1)).putObject("test_bucket", outputS3Key,
+                JsonHelper.asJsonString(testObject));
     }
 
 
     @Test
-    void shouldThrowExceptionWhenUnableToUploadEventToAmazonS3() {
+    void shouldThrowExceptionWhenUnableToUploadObjectToAmazonS3() {
         UnableToUploadToS3Exception exception = assertThrows(UnableToUploadToS3Exception.class, () -> {
-            EventDAO testEvent = EventDAO.fromEvent(Event.builder().eventId("event-id-12345").build(),
-                    EventType.GP2GP_REGISTRATION_STARTED);
-            String expectedOutputFilename = "event-id-12345.json";
+            JSONObject testObject = generateTestObject();
+            String outputS3Key = "object.json";
 
-            when(amazonS3Client.putObject("test_bucket", expectedOutputFilename, JsonHelper.asJsonString(testEvent))).thenThrow(AmazonServiceException.class);
+            when(amazonS3Client.putObject("test_bucket", outputS3Key, JsonHelper.asJsonString(testObject))).thenThrow(AmazonServiceException.class);
 
-            s3FileUploader.uploadObject(testEvent, "");
+            s3FileUploader.uploadJsonObject(testObject, outputS3Key);
         });
 
         String exceptionMessage = exception.getMessage();

@@ -3,7 +3,6 @@ package com.prmgpregistrationsmi.service;
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.prmgpregistrationsmi.exception.UnableToUploadToS3Exception;
-import com.prmgpregistrationsmi.model.EventDAO;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,7 +14,6 @@ import static com.prmgpregistrationsmi.utils.JsonHelper.asJsonString;
 @Repository
 @SuppressFBWarnings(value = "EI_EXPOSE_REP2")
 public class S3FileUploader {
-    private static final String OUTPUT_EXTENSION = ".json";
     private final String outputBucketLocation;
     private final AmazonS3Client amazonS3Client;
 
@@ -24,14 +22,13 @@ public class S3FileUploader {
         this.outputBucketLocation = outputBucketLocation;
     }
 
-    public void uploadObject(EventDAO eventDAO, String s3KeyPrefix) throws UnableToUploadToS3Exception {
-        final String eventId = eventDAO.getEventId();
-        final String s3Key = s3KeyPrefix + eventId + OUTPUT_EXTENSION;
-        log.info("Uploading to S3 with eventID: " + eventId + " to location: " + s3Key);
+    public void uploadJsonObject(Object object, String s3Key) throws UnableToUploadToS3Exception {
+        String jsonString = asJsonString(object);
+        log.info("Uploading object to S3: " + jsonString + " to location: " + s3Key);
 
         try {
-            amazonS3Client.putObject(outputBucketLocation, s3Key, asJsonString(eventDAO));
-            log.info("Successfully uploaded event to S3 with eventID: " + eventId);
+            amazonS3Client.putObject(outputBucketLocation, s3Key, jsonString);
+            log.info("Successfully uploaded JSON to S3");
         } catch (AmazonClientException amazonClientException) {
             throw new UnableToUploadToS3Exception(amazonClientException);
         }

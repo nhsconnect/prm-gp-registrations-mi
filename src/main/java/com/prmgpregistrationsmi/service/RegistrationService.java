@@ -10,11 +10,18 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 @Service
 public class RegistrationService {
+    private static final String OUTPUT_EXTENSION = ".json";
     private final S3FileUploader eventS3Client;
 
     public EventDAO saveEvent(Event event, EventType eventType) throws UnableToUploadToS3Exception {
         EventDAO eventDAO = EventDAO.fromEvent(event, eventType);
-        eventS3Client.uploadObject(eventDAO, "");
+        String s3Key = getS3Key(event);
+        eventS3Client.uploadJsonObject(eventDAO, s3Key);
         return eventDAO;
+    }
+
+    private String getS3Key(Event event) {
+        String eventId = event.getEventId();
+        return eventId + OUTPUT_EXTENSION;
     }
 }
