@@ -16,13 +16,23 @@ class RegistrationServiceTest {
 
     @Test
     void shouldCallUploadToS3WithEventDAO() throws UnableToUploadToS3Exception {
-        Event testEvent = Event.builder().eventId("event-id-12345").build();
+        Event testEvent = Event.builder().build();
         EventType gp2gpRegistrationStartedEventType = EventType.GP2GP_REGISTRATION_STARTED;
 
         EventDAO expectedEventDAO = EventDAO.fromEvent(testEvent, gp2gpRegistrationStartedEventType);
         EventDAO eventDAO = registrationService.saveEvent(testEvent, gp2gpRegistrationStartedEventType);
 
-        verify(eventS3ClientMock, times(1)).uploadJsonObject(eq(expectedEventDAO), eq("event-id-12345.json"));
+        verify(eventS3ClientMock, times(1)).uploadJsonObject(eq(expectedEventDAO), anyString());
         assertEquals(eventDAO, expectedEventDAO);
+    }
+
+    @Test
+    void shouldUploadEventDAOToCorrectS3Key() throws UnableToUploadToS3Exception {
+        Event testEvent = Event.builder().eventId("event-id-12345").eventGeneratedTimestamp(123456L).build();
+        EventType gp2gpRegistrationStartedEventType = EventType.GP2GP_REGISTRATION_STARTED;
+
+        registrationService.saveEvent(testEvent, gp2gpRegistrationStartedEventType);
+
+        verify(eventS3ClientMock, times(1)).uploadJsonObject(any(), eq("/v1/1970/1/2/11/event-id-12345.json"));
     }
 }
