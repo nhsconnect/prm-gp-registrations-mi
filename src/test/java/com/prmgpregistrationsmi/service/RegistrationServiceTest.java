@@ -33,6 +33,6 @@ class RegistrationServiceTest {
 
         registrationService.saveEvent(testEvent, gp2gpRegistrationStartedEventType);
 
-        verify(eventS3ClientMock, times(1)).uploadJsonObject(any(), eq("/v1/1970/1/2/10/event-id-12345.json"));
+        verify(eventS3ClientMock, times(1)).uploadJsonObject(any(), eq("v1/1970/1/2/10/event-id-12345.json"));
     }
 }

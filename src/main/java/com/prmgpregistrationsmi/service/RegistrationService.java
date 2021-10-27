@@ -43,6 +43,6 @@ public class RegistrationService {
         String eventId = event.getEventId();
         String fileName = eventId + OUTPUT_EXTENSION;
 
-        return String.format("/%s/%s/%s", OUTPUT_VERSION, s3DatePrefix, fileName);
+        return String.format("%s/%s/%s", OUTPUT_VERSION, s3DatePrefix, fileName);
     }
 }
