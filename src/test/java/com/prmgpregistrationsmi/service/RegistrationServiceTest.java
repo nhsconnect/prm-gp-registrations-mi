@@ -28,11 +28,11 @@ class RegistrationServiceTest {
 
     @Test
     void shouldUploadEventDAOToCorrectS3Key() throws UnableToUploadToS3Exception {
-        Event testEvent = Event.builder().eventId("event-id-12345").eventGeneratedTimestamp(123456L).build();
+        Event testEvent = Event.builder().eventId("event-id-12345").eventGeneratedTimestamp(1609556400L).build();
         EventType gp2gpRegistrationStartedEventType = EventType.GP2GP_REGISTRATION_STARTED;
 
         registrationService.saveEvent(testEvent, gp2gpRegistrationStartedEventType);
 
-        verify(eventS3ClientMock, times(1)).uploadJsonObject(any(), eq("v1/1970/1/2/10/event-id-12345.json"));
+        verify(eventS3ClientMock, times(1)).uploadJsonObject(any(), eq("v1/2021/01/02/03/event-id-12345.json"));
     }
 }

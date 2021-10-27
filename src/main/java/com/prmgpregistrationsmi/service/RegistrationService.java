@@ -33,7 +33,8 @@ public class RegistrationService {
         int eventGeneratedYear = calendar.get(Calendar.YEAR);
         int eventGeneratedDay = calendar.get(Calendar.DAY_OF_MONTH);
         int eventGeneratedHour = calendar.get(Calendar.HOUR_OF_DAY);
-        return String.format("%d/%d/%d/%d", eventGeneratedYear, eventGeneratedMonth, eventGeneratedDay, eventGeneratedHour);
+
+        return String.format("%02d/%02d/%02d/%02d", eventGeneratedYear, eventGeneratedMonth, eventGeneratedDay, eventGeneratedHour);
     }
 
     private String getS3Key(Event event) {
