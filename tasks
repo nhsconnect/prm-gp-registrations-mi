@@ -47,6 +47,12 @@ do
         ./gradlew build
         ./gradlew bootRun
         ;;
+    _validate)
+        ./tasks _test_unit _test_integration _test_coverage _code_quality
+        ;;
+    validate)
+        dojo "./tasks _validate"
+        ;;
     publish_docker)
       if [ -z $IMAGE_TAG ]; then
           echo "Please set IMAGE_TAG environment variable"

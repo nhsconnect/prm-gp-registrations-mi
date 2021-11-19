@@ -67,6 +67,11 @@ Run code quality check
 ./tasks code_quality
 ```
 
+Validate the code
+```
+./tasks validate
+```
+
 
 ### Troubleshooting
 If you are using IntelliJ and you are unable to run the tests, 
