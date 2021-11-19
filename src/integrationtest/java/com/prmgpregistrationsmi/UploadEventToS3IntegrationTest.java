@@ -47,7 +47,7 @@ class UploadEventToS3IntegrationTest {
         ObjectMapper objectMapper = new ObjectMapper();
         EventDAO expectedResponse = objectMapper.readValue(responseJson, EventDAO.class);
 
-        EventDAO actualResponseEvent = restTemplate.postForObject("http://localhost:" + port + "/registration/registration-id-test-12345/gp2gpRegistrationStarted", registrationStartedEventRequest, EventDAO.class);
+        EventDAO actualResponseEvent = restTemplate.postForObject("http://localhost:" + port + "/registration/gp2gpRegistrationStarted", registrationStartedEventRequest, EventDAO.class);
 
         assertEquals(expectedResponse, actualResponseEvent);
     }

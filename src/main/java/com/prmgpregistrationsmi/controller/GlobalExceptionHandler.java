@@ -3,7 +3,6 @@ package com.prmgpregistrationsmi.controller;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
-import com.prmgpregistrationsmi.exception.RegistrationIdMismatchedException;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.internal.engine.path.PathImpl;
 import org.springframework.http.HttpStatus;
@@ -88,16 +87,6 @@ public class GlobalExceptionHandler {
         log.warn("ConstraintViolationException - " + message + ": " + errorMessageDetails);
 
         ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, message, errorMessageDetails);
-        return new ResponseEntity<>(apiError, apiError.getStatus());
-    }
-
-    @ExceptionHandler(RegistrationIdMismatchedException.class)
-    public ResponseEntity<ApiError> registrationIdMismatchExceptionHandler(RegistrationIdMismatchedException ex) {
-        String message = "Invalid request";
-        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, message, ex.getMessage());
-
-        log.warn("RegistrationIdMismatchedException - " + message + ": " + ex.getMessage());
-
         return new ResponseEntity<>(apiError, apiError.getStatus());
     }
 
