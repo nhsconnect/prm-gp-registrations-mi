@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.validator.internal.engine.path.PathImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -12,9 +11,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.ConstraintViolationException;
-import javax.validation.Path;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -68,25 +64,6 @@ public class GlobalExceptionHandler {
 
         ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, message, fieldErrorsList);
 
-        return new ResponseEntity<>(apiError, apiError.getStatus());
-    }
-
-    @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<ApiError> constraintViolationExceptionHandler(ConstraintViolationException ex) {
-        String message = "Invalid request";
-        String errorMessageDetails = ex.getMessage();
-
-        ConstraintViolation<?> constraintViolation = ex.getConstraintViolations().iterator().next();
-        Path pathConstrainViolation = constraintViolation.getPropertyPath();
-        if(pathConstrainViolation != null) {
-            String pathViolation = ((PathImpl)pathConstrainViolation).getLeafNode().getName();
-            message = "Invalid path";
-            errorMessageDetails = pathViolation + ": " + constraintViolation.getMessage();
-        }
-
-        log.warn("ConstraintViolationException - " + message + ": " + errorMessageDetails);
-
-        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, message, errorMessageDetails);
         return new ResponseEntity<>(apiError, apiError.getStatus());
     }
 

@@ -37,8 +37,6 @@ class RegistrationControllerTest {
     @MockBean
     private RegistrationService mockRegistrationService;
 
-    String registrationId = "some-registration-id";
-
     @Test
     void shouldReturn200WithRequestBodyWhenValidEventIsSent() throws Exception {
         Event requestBody = Event.builder().build();
