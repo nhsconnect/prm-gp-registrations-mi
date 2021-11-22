@@ -51,9 +51,25 @@ class RegistrationControllerTest {
     }
 
     @Test
-    @Disabled
-    void shouldReturnA400IfRegistrationIdInPathIsLessThan4Characters() throws Exception {
+    void shouldReturnA400IfRegistrationIdIsLessThan4Characters() throws Exception {
         String anInvalidRegistrationId = "123";
+        Event requestBody = Event.builder().registrationId(anInvalidRegistrationId).build();
+
+        ApiError expectedResponse = new ApiError(
+                HttpStatus.BAD_REQUEST,
+                "Failed to validate fields",
+                new ArrayList<>(Collections.singleton("registrationId: length must be between 4 and 32")));
+
+        mockMvc.perform(post("/registration/gp2gpRegistrationStarted").content(asJsonString(requestBody))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andExpect(result -> assertTrue(result.getResolvedException() instanceof MethodArgumentNotValidException))
+                .andExpect(content().json(asJsonString(expectedResponse)));
+    }
+
+    @Test
+    void shouldReturnA400IfRegistrationIdIsMoreThan32Characters() throws Exception {
+        String anInvalidRegistrationId = "000000000011111111112222222222333";
         Event requestBody = Event.builder().registrationId(anInvalidRegistrationId).build();
 
         ApiError expectedResponse = new ApiError(
@@ -64,25 +80,7 @@ class RegistrationControllerTest {
         mockMvc.perform(post("/registration/gp2gpRegistrationStarted").content(asJsonString(requestBody))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
-                .andExpect(result -> assertTrue(result.getResolvedException() instanceof ConstraintViolationException))
-                .andExpect(content().json(asJsonString(expectedResponse)));
-    }
-
-    @Test
-    @Disabled
-    void shouldReturnA400IfRegistrationIdInPathIsMoreThan32Characters() throws Exception {
-        String anInvalidRegistrationId = "000000000011111111112222222222333";
-        Event requestBody = Event.builder().registrationId(anInvalidRegistrationId).build();
-
-        ApiError expectedResponse = new ApiError(
-                HttpStatus.BAD_REQUEST,
-                "Invalid path",
-                new ArrayList<>(Collections.singleton("registrationId: length must be between 4 and 32")));
-
-        mockMvc.perform(post("/registration/" + anInvalidRegistrationId + "/gp2gpRegistrationStarted").content(asJsonString(requestBody))
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isBadRequest())
-                .andExpect(result -> assertTrue(result.getResolvedException() instanceof ConstraintViolationException))
+                .andExpect(result -> assertTrue(result.getResolvedException() instanceof MethodArgumentNotValidException))
                 .andExpect(content().json(asJsonString(expectedResponse)));
     }
 

@@ -1,6 +1,7 @@
 package com.prmgpregistrationsmi.model;
 
 import lombok.*;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
@@ -16,6 +17,7 @@ public class Event {
     private String eventId;
     @NotNull
     private Long eventGeneratedTimestamp;
+    @Length(min = 4, max = 32)
     @NotEmpty
     private String registrationId;
     @NotEmpty
