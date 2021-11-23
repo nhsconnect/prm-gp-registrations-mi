@@ -8,7 +8,7 @@ Accepted
 
 ## Context
 
-Fo all of our MI events there was a discussion around whether we would include the registrationId within the URL path or the event payload, or both.  
+For all of our MI events there was a discussion around whether we would include the registrationId within the URL path or the event payload, or both.  
 
 ## Decision
 
