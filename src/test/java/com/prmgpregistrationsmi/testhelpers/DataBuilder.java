@@ -5,7 +5,7 @@ import com.prmgpregistrationsmi.model.RegistrationStartedDetails;
 import com.prmgpregistrationsmi.model.RegistrationStartedPayload;
 
 public class DataBuilder {
-    public static Event.EventBuilder withDefaultEventValues() {
+    public static Event.EventBuilder<?, ?> withDefaultEventValues() {
         return Event.builder()
                 .eventId("some-id")
                 .eventGeneratedTimestamp(12345L)
