@@ -3,6 +3,7 @@ package com.prmgpregistrationsmi;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.prmgpregistrationsmi.model.EventDAO;
+import com.prmgpregistrationsmi.model.EventResponse;
 import com.prmgpregistrationsmi.utils.FileJSONParser;
 import org.json.simple.parser.ParseException;
 import org.junit.Before;
@@ -45,9 +46,11 @@ class UploadEventToS3IntegrationTest {
         Object response = FileJSONParser.readFile(pathToJson + "expectedRegistrationStartedEventResponse.json");
         String responseJson = JsonHelper.asJsonString(response);
         ObjectMapper objectMapper = new ObjectMapper();
-        EventDAO expectedResponse = objectMapper.readValue(responseJson, EventDAO.class);
+        EventDAO expectedEventDAO = objectMapper.readValue(responseJson, EventDAO.class);
+        EventResponse expectedResponse = new EventResponse(expectedEventDAO.getEventId());
 
-        EventDAO actualResponseEvent = restTemplate.postForObject("http://localhost:" + port + "/registration/gp2gpRegistrationStarted", registrationStartedEventRequest, EventDAO.class);
+        EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
+                "/registration/gp2gpRegistrationStarted", registrationStartedEventRequest, EventResponse.class);
 
         assertEquals(expectedResponse, actualResponseEvent);
     }

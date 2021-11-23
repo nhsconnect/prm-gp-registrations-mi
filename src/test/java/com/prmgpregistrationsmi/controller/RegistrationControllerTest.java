@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import com.prmgpregistrationsmi.model.*;
 import com.prmgpregistrationsmi.service.RegistrationService;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -13,20 +12,21 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 
-import javax.validation.ConstraintViolationException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static com.prmgpregistrationsmi.utils.JsonHelper.asJsonString;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static com.prmgpregistrationsmi.utils.JsonHelper.asJsonString;
 
 @WebMvcTest(RegistrationController.class)
 class RegistrationControllerTest {
@@ -39,15 +39,20 @@ class RegistrationControllerTest {
 
     @Test
     void shouldReturn200WithRequestBodyWhenValidEventIsSent() throws Exception {
-        Event requestBody = Event.builder().build();
+        Event requestBody = Event.builder().eventId("event-12345").build();
         EventDAO eventDAO = EventDAO.fromEvent(requestBody, EventType.GP2GP_REGISTRATION_STARTED);
+        EventResponse eventResponse = new EventResponse(eventDAO.getEventId());
 
         when(mockRegistrationService.saveEvent(any(Event.class), eq(EventType.GP2GP_REGISTRATION_STARTED))).thenReturn(eventDAO);
 
-        mockMvc.perform(post("/registration/gp2gpRegistrationStarted").content(asJsonString(requestBody))
-                .contentType(MediaType.APPLICATION_JSON))
+        MvcResult mvcResult = mockMvc.perform(post("/registration/gp2gpRegistrationStarted").content(asJsonString(requestBody))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(content().json(asJsonString(eventDAO)));
+                .andExpect(content().json(asJsonString(eventResponse)))
+                .andReturn();
+
+        String responseBody = mvcResult.getResponse().getContentAsString();
+        assertEquals("{\"eventId\":\"event-12345\"}", responseBody);
     }
 
     @Test
@@ -307,6 +312,9 @@ class RegistrationControllerTest {
     void shouldCallSaveEventWhenValidEventIsSent() throws Exception {
         Event testEvent = Event.builder().build();
         String requestBody = asJsonString(testEvent);
+        EventDAO eventDAO = EventDAO.fromEvent(testEvent, EventType.GP2GP_REGISTRATION_STARTED);
+
+        when(mockRegistrationService.saveEvent(any(Event.class), eq(EventType.GP2GP_REGISTRATION_STARTED))).thenReturn(eventDAO);
 
         mockMvc.perform(
                         post("/registration/gp2gpRegistrationStarted")
