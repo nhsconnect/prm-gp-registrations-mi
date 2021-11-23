@@ -4,6 +4,7 @@ import com.prmgpregistrationsmi.exception.UnableToUploadToS3Exception;
 import com.prmgpregistrationsmi.model.Event;
 import com.prmgpregistrationsmi.model.EventDAO;
 import com.prmgpregistrationsmi.model.EventType;
+import com.prmgpregistrationsmi.testhelpers.DataBuilder;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -16,7 +17,9 @@ class RegistrationServiceTest {
 
     @Test
     void shouldCallUploadToS3WithEventDAO() throws UnableToUploadToS3Exception {
-        Event testEvent = Event.builder().build();
+        Event testEvent = DataBuilder
+                .withDefaultEventValues()
+                .build();
         EventType gp2gpRegistrationStartedEventType = EventType.GP2GP_REGISTRATION_STARTED;
 
         EventDAO expectedEventDAO = EventDAO.fromEvent(testEvent, gp2gpRegistrationStartedEventType);
@@ -28,7 +31,11 @@ class RegistrationServiceTest {
 
     @Test
     void shouldUploadEventDAOToCorrectS3Key() throws UnableToUploadToS3Exception {
-        Event testEvent = Event.builder().eventId("event-id-12345").eventGeneratedTimestamp(1609556400L).build();
+        Event testEvent = DataBuilder
+                .withDefaultEventValues()
+                .eventId("event-id-12345")
+                .eventGeneratedTimestamp(1609556400L)
+                .build();
         EventType gp2gpRegistrationStartedEventType = EventType.GP2GP_REGISTRATION_STARTED;
 
         registrationService.saveEvent(testEvent, gp2gpRegistrationStartedEventType);

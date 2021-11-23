@@ -17,10 +17,4 @@ public class RegistrationStartedDetails {
     private String registrationType;
     @NotEmpty
     private String requestingPracticeOdsCode;
-
-    public static class RegistrationStartedDetailsBuilder {
-        private Long registrationStartedTimestamp = 123456756L;
-        private String registrationType = "newRegistrant";
-        private String requestingPracticeOdsCode = "ABC1234";
-    }
 }

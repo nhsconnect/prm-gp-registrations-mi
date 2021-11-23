@@ -1,5 +1,6 @@
 package com.prmgpregistrationsmi.model;
 
+import com.prmgpregistrationsmi.testhelpers.DataBuilder;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -7,7 +8,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class EventDAOTest {
     @Test
     void fromEventShouldReturnEventDAO() {
-        Event testEvent = Event.builder().build();
+
+        Event testEvent = DataBuilder.withDefaultEventValues().build();
         EventType gp2gpRegistrationStartedEventType = EventType.GP2GP_REGISTRATION_STARTED;
         EventDAO actualEventDAO = EventDAO.fromEvent(testEvent, gp2gpRegistrationStartedEventType);
 

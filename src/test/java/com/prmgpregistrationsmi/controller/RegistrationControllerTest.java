@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import com.prmgpregistrationsmi.model.*;
 import com.prmgpregistrationsmi.service.RegistrationService;
+import com.prmgpregistrationsmi.testhelpers.DataBuilder;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -40,7 +41,10 @@ class RegistrationControllerTest {
 
     @Test
     void shouldReturn200WithRequestBodyWhenValidEventIsSent() throws Exception {
-        Event requestBody = Event.builder().eventId("event-12345").build();
+        Event requestBody = DataBuilder
+                .withDefaultEventValues()
+                .eventId("event-12345")
+                .build();
         EventDAO eventDAO = EventDAO.fromEvent(requestBody, EventType.GP2GP_REGISTRATION_STARTED);
         EventResponse eventResponse = new EventResponse(eventDAO.getEventId());
 
@@ -59,7 +63,10 @@ class RegistrationControllerTest {
     @Test
     void shouldReturnA400IfRegistrationIdIsLessThan4Characters() throws Exception {
         String anInvalidRegistrationId = "123";
-        Event requestBody = Event.builder().registrationId(anInvalidRegistrationId).build();
+        Event requestBody = DataBuilder
+                .withDefaultEventValues()
+                .registrationId(anInvalidRegistrationId)
+                .build();
 
         ApiError expectedResponse = new ApiError(
                 HttpStatus.BAD_REQUEST,
@@ -76,7 +83,10 @@ class RegistrationControllerTest {
     @Test
     void shouldReturnA400IfRegistrationIdIsMoreThan32Characters() throws Exception {
         String anInvalidRegistrationId = "000000000011111111112222222222333";
-        Event requestBody = Event.builder().registrationId(anInvalidRegistrationId).build();
+        Event requestBody = DataBuilder
+                .withDefaultEventValues()
+                .registrationId(anInvalidRegistrationId)
+                .build();
 
         ApiError expectedResponse = new ApiError(
                 HttpStatus.BAD_REQUEST,
@@ -84,7 +94,7 @@ class RegistrationControllerTest {
                 new ArrayList<>(Collections.singleton("registrationId: length must be between 4 and 32")));
 
         mockMvc.perform(post("/registration/" + API_VERSION + "/gp2gpRegistrationStarted").content(asJsonString(requestBody))
-                .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof MethodArgumentNotValidException))
                 .andExpect(content().json(asJsonString(expectedResponse)));
@@ -97,15 +107,15 @@ class RegistrationControllerTest {
         ApiError expectedResponse = new ApiError(
                 HttpStatus.BAD_REQUEST,
                 "Failed to validate fields", List.of(
-                            "reportingPracticeOdsCode: must not be empty",
-                            "eventGeneratedTimestamp: must not be null",
-                            "registrationId: must not be empty",
-                            "payload: must not be null",
-                            "reportingSystemSupplier: must not be empty",
-                            "eventId: must not be empty"));
+                "reportingPracticeOdsCode: must not be empty",
+                "eventGeneratedTimestamp: must not be null",
+                "registrationId: must not be empty",
+                "payload: must not be null",
+                "reportingSystemSupplier: must not be empty",
+                "eventId: must not be empty"));
 
         mockMvc.perform(post("/registration/" + API_VERSION + "/gp2gpRegistrationStarted").content(asJsonString(emptyRequestBody))
-                .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof MethodArgumentNotValidException))
                 .andExpect(content().json(asJsonString(expectedResponse)));
@@ -113,7 +123,10 @@ class RegistrationControllerTest {
 
     @Test
     void shouldReturn400IfEventIdIsMissing() throws Exception {
-        Event requestBody = Event.builder().eventId(null).build();
+        Event requestBody = DataBuilder
+                .withDefaultEventValues()
+                .eventId(null)
+                .build();
 
         ApiError expectedResponse = new ApiError(
                 HttpStatus.BAD_REQUEST,
@@ -121,7 +134,7 @@ class RegistrationControllerTest {
                 new ArrayList<>(Collections.singleton("eventId: must not be empty")));
 
         mockMvc.perform(post("/registration/" + API_VERSION + "/gp2gpRegistrationStarted").content(asJsonString(requestBody))
-                .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof MethodArgumentNotValidException))
                 .andExpect(content().json(asJsonString(expectedResponse)));
@@ -129,7 +142,10 @@ class RegistrationControllerTest {
 
     @Test
     void shouldReturn400IfEventGeneratedTimestampIsMissing() throws Exception {
-        Event requestBody = Event.builder().eventGeneratedTimestamp(null).build();
+        Event requestBody = DataBuilder
+                .withDefaultEventValues()
+                .eventGeneratedTimestamp(null)
+                .build();
 
         ApiError expectedResponse = new ApiError(
                 HttpStatus.BAD_REQUEST,
@@ -137,7 +153,7 @@ class RegistrationControllerTest {
                 new ArrayList<>(Collections.singleton("eventGeneratedTimestamp: must not be null")));
 
         mockMvc.perform(post("/registration/" + API_VERSION + "/gp2gpRegistrationStarted").content(asJsonString(requestBody))
-                .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof MethodArgumentNotValidException))
                 .andExpect(content().json(asJsonString(expectedResponse)));
@@ -145,7 +161,10 @@ class RegistrationControllerTest {
 
     @Test
     void shouldReturn400IfRegistrationIdIsMissing() throws Exception {
-        Event requestBody = Event.builder().registrationId(null).build();
+        Event requestBody = DataBuilder
+                .withDefaultEventValues()
+                .registrationId(null)
+                .build();
 
         ApiError expectedResponse = new ApiError(
                 HttpStatus.BAD_REQUEST,
@@ -153,7 +172,7 @@ class RegistrationControllerTest {
                 new ArrayList<>(Collections.singleton("registrationId: must not be empty")));
 
         mockMvc.perform(post("/registration/" + API_VERSION + "/gp2gpRegistrationStarted").content(asJsonString(requestBody))
-                .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof MethodArgumentNotValidException))
                 .andExpect(content().json(asJsonString(expectedResponse)));
@@ -161,7 +180,10 @@ class RegistrationControllerTest {
 
     @Test
     void shouldReturn400IfReportingSystemSupplierIsMissing() throws Exception {
-        Event requestBody = Event.builder().reportingSystemSupplier(null).build();
+        Event requestBody = DataBuilder
+                .withDefaultEventValues()
+                .reportingSystemSupplier(null)
+                .build();
 
         ApiError expectedResponse = new ApiError(
                 HttpStatus.BAD_REQUEST,
@@ -169,7 +191,7 @@ class RegistrationControllerTest {
                 new ArrayList<>(Collections.singleton("reportingSystemSupplier: must not be empty")));
 
         mockMvc.perform(post("/registration/" + API_VERSION + "/gp2gpRegistrationStarted").content(asJsonString(requestBody))
-                .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof MethodArgumentNotValidException))
                 .andExpect(content().json(asJsonString(expectedResponse)));
@@ -178,7 +200,10 @@ class RegistrationControllerTest {
     @Test
     void shouldReturn400IfReportingPracticeOdsCodeIsMissing() throws Exception {
         Event requestBody =
-                Event.builder().reportingPracticeOdsCode(null).build();
+                DataBuilder
+                        .withDefaultEventValues()
+                        .reportingPracticeOdsCode(null)
+                        .build();
 
         ApiError expectedResponse = new ApiError(
                 HttpStatus.BAD_REQUEST,
@@ -186,7 +211,7 @@ class RegistrationControllerTest {
                 new ArrayList<>(Collections.singleton("reportingPracticeOdsCode: must not be empty")));
 
         mockMvc.perform(post("/registration/" + API_VERSION + "/gp2gpRegistrationStarted").content(asJsonString(requestBody))
-                .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof MethodArgumentNotValidException))
                 .andExpect(content().json(asJsonString(expectedResponse)));
@@ -194,12 +219,16 @@ class RegistrationControllerTest {
 
     @Test
     void shouldReturn400IfRegistrationStartedTimestampIsMissing() throws Exception {
-        RegistrationStartedDetails payloadRegistration =
-                RegistrationStartedDetails.builder().registrationStartedTimestamp(null).build();
-        RegistrationStartedPayload payload =
-                RegistrationStartedPayload.builder().registration(payloadRegistration).build();
-        Event requestBody = Event
-                .builder()
+        RegistrationStartedDetails registrationPayload = DataBuilder
+                .withDefaultRegistrationStartedDetails()
+                .registrationStartedTimestamp(null)
+                .build();
+        RegistrationStartedPayload payload = DataBuilder
+                .withDefaultRegistrationStartedPayload()
+                .registration(registrationPayload)
+                .build();
+        Event requestBody = DataBuilder
+                .withDefaultEventValues()
                 .payload(payload)
                 .build();
 
@@ -209,7 +238,7 @@ class RegistrationControllerTest {
                 new ArrayList<>(Collections.singleton("payload.registration.registrationStartedTimestamp: must not be null")));
 
         mockMvc.perform(post("/registration/" + API_VERSION + "/gp2gpRegistrationStarted").content(asJsonString(requestBody))
-                .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof MethodArgumentNotValidException))
                 .andExpect(content().json(asJsonString(expectedResponse)));
@@ -217,12 +246,16 @@ class RegistrationControllerTest {
 
     @Test
     void shouldReturn400IfRegistrationTypeIsMissing() throws Exception {
-        RegistrationStartedDetails payloadRegistration =
-                RegistrationStartedDetails.builder().registrationType(null).build();
-        RegistrationStartedPayload payload =
-                RegistrationStartedPayload.builder().registration(payloadRegistration).build();
-        Event requestBody = Event
-                .builder()
+        RegistrationStartedDetails payloadRegistration = DataBuilder
+                .withDefaultRegistrationStartedDetails()
+                .registrationType(null)
+                .build();
+        RegistrationStartedPayload payload = DataBuilder
+                .withDefaultRegistrationStartedPayload()
+                .registration(payloadRegistration)
+                .build();
+        Event requestBody = DataBuilder
+                .withDefaultEventValues()
                 .payload(payload)
                 .build();
 
@@ -232,7 +265,7 @@ class RegistrationControllerTest {
                 new ArrayList<>(Collections.singleton("payload.registration.registrationType: must not be empty")));
 
         mockMvc.perform(post("/registration/" + API_VERSION + "/gp2gpRegistrationStarted").content(asJsonString(requestBody))
-                .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof MethodArgumentNotValidException))
                 .andExpect(content().json(asJsonString(expectedResponse)));
@@ -240,12 +273,16 @@ class RegistrationControllerTest {
 
     @Test
     void shouldReturn400IfRequestingPracticeOdsCodeIsMissing() throws Exception {
-        RegistrationStartedDetails payloadRegistration =
-                RegistrationStartedDetails.builder().requestingPracticeOdsCode(null).build();
-        RegistrationStartedPayload payload =
-                RegistrationStartedPayload.builder().registration(payloadRegistration).build();
-        Event requestBody = Event
-                .builder()
+        RegistrationStartedDetails payloadRegistration =                 DataBuilder
+                .withDefaultRegistrationStartedDetails()
+                .requestingPracticeOdsCode(null)
+                .build();
+        RegistrationStartedPayload payload = DataBuilder
+                .withDefaultRegistrationStartedPayload()
+                .registration(payloadRegistration)
+                .build();
+        Event requestBody = DataBuilder
+                .withDefaultEventValues()
                 .payload(payload)
                 .build();
 
@@ -255,7 +292,7 @@ class RegistrationControllerTest {
                 new ArrayList<>(Collections.singleton("payload.registration.requestingPracticeOdsCode: must not be empty")));
 
         mockMvc.perform(post("/registration/" + API_VERSION + "/gp2gpRegistrationStarted").content(asJsonString(requestBody))
-                .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof MethodArgumentNotValidException))
                 .andExpect(content().json(asJsonString(expectedResponse)));
@@ -263,7 +300,7 @@ class RegistrationControllerTest {
 
     @Test
     void shouldReturnA400IfEventGeneratedTimestampIsNotANumber() throws Exception {
-        var requestBody = "{\"eventId\":\"some-id\",\"eventGeneratedTimestamp\":"+false+"}";
+        var requestBody = "{\"eventId\":\"some-id\",\"eventGeneratedTimestamp\":" + false + "}";
 
         ApiError expectedResponse = new ApiError(
                 HttpStatus.BAD_REQUEST,
@@ -271,7 +308,7 @@ class RegistrationControllerTest {
                 new ArrayList<>(Collections.singleton("eventGeneratedTimestamp: Cannot deserialize value of type `java.lang.Long` from Boolean value (token `JsonToken.VALUE_FALSE`)")));
 
         mockMvc.perform(post("/registration/" + API_VERSION + "/gp2gpRegistrationStarted").content(requestBody)
-                .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException().getCause() instanceof MismatchedInputException))
                 .andExpect(content().json(asJsonString(expectedResponse)));
@@ -287,7 +324,7 @@ class RegistrationControllerTest {
                 new ArrayList<>(Collections.singleton("Unable to parse JSON")));
 
         mockMvc.perform(post("/registration/" + API_VERSION + "/gp2gpRegistrationStarted").content(requestBody)
-                .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException().getCause() instanceof JsonParseException))
                 .andExpect(content().json(asJsonString(expectedResponse)));
@@ -303,7 +340,7 @@ class RegistrationControllerTest {
                 new ArrayList<>(Collections.singleton("eventId: Unexpected end-of-input in VALUE_STRING")));
 
         mockMvc.perform(post("/registration/" + API_VERSION + "/gp2gpRegistrationStarted").content(requestBody)
-                .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException().getCause() instanceof JsonMappingException))
                 .andExpect(content().json(asJsonString(expectedResponse)));
@@ -311,7 +348,9 @@ class RegistrationControllerTest {
 
     @Test
     void shouldCallSaveEventWhenValidEventIsSent() throws Exception {
-        Event testEvent = Event.builder().build();
+        Event testEvent = DataBuilder
+                .withDefaultEventValues()
+                .build();
         String requestBody = asJsonString(testEvent);
         EventDAO eventDAO = EventDAO.fromEvent(testEvent, EventType.GP2GP_REGISTRATION_STARTED);
 

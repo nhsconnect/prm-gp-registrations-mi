@@ -14,8 +14,4 @@ public class RegistrationStartedPayload {
     @Valid
     @NotNull
     private RegistrationStartedDetails registration;
-
-    public static class RegistrationStartedPayloadBuilder {
-        private RegistrationStartedDetails registration = RegistrationStartedDetails.builder().build();
-    }
 }
