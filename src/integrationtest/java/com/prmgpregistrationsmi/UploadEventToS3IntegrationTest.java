@@ -17,6 +17,7 @@ import com.prmgpregistrationsmi.utils.JsonHelper;
 
 import java.io.IOException;
 
+import static com.prmgpregistrationsmi.controller.RegistrationController.API_VERSION;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -50,7 +51,7 @@ class UploadEventToS3IntegrationTest {
         EventResponse expectedResponse = new EventResponse(expectedEventDAO.getEventId());
 
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
-                "/registration/gp2gpRegistrationStarted", registrationStartedEventRequest, EventResponse.class);
+                "/registration/" + API_VERSION + "/gp2gpRegistrationStarted", registrationStartedEventRequest, EventResponse.class);
 
         assertEquals(expectedResponse, actualResponseEvent);
     }

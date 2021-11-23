@@ -17,13 +17,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
+import static com.prmgpregistrationsmi.controller.RegistrationController.API_VERSION;
+
+
 @Slf4j
 @RestController
-@RequestMapping("registration")
+@RequestMapping("registration/" + API_VERSION)
 @AllArgsConstructor
 @Validated
 public class RegistrationController {
     private final RegistrationService registrationService;
+    public static final String API_VERSION = "v1";
 
     @PostMapping(
             value = "/gp2gpRegistrationStarted",

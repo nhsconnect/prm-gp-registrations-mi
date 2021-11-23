@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static com.prmgpregistrationsmi.controller.RegistrationController.API_VERSION;
 import static com.prmgpregistrationsmi.utils.JsonHelper.asJsonString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -45,7 +46,7 @@ class RegistrationControllerTest {
 
         when(mockRegistrationService.saveEvent(any(Event.class), eq(EventType.GP2GP_REGISTRATION_STARTED))).thenReturn(eventDAO);
 
-        MvcResult mvcResult = mockMvc.perform(post("/registration/gp2gpRegistrationStarted").content(asJsonString(requestBody))
+        MvcResult mvcResult = mockMvc.perform(post("/registration/" + API_VERSION + "/gp2gpRegistrationStarted").content(asJsonString(requestBody))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().json(asJsonString(eventResponse)))
@@ -65,7 +66,7 @@ class RegistrationControllerTest {
                 "Failed to validate fields",
                 new ArrayList<>(Collections.singleton("registrationId: length must be between 4 and 32")));
 
-        mockMvc.perform(post("/registration/gp2gpRegistrationStarted").content(asJsonString(requestBody))
+        mockMvc.perform(post("/registration/" + API_VERSION + "/gp2gpRegistrationStarted").content(asJsonString(requestBody))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof MethodArgumentNotValidException))
@@ -82,7 +83,7 @@ class RegistrationControllerTest {
                 "Failed to validate fields",
                 new ArrayList<>(Collections.singleton("registrationId: length must be between 4 and 32")));
 
-        mockMvc.perform(post("/registration/gp2gpRegistrationStarted").content(asJsonString(requestBody))
+        mockMvc.perform(post("/registration/" + API_VERSION + "/gp2gpRegistrationStarted").content(asJsonString(requestBody))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof MethodArgumentNotValidException))
@@ -103,7 +104,7 @@ class RegistrationControllerTest {
                             "reportingSystemSupplier: must not be empty",
                             "eventId: must not be empty"));
 
-        mockMvc.perform(post("/registration/gp2gpRegistrationStarted").content(asJsonString(emptyRequestBody))
+        mockMvc.perform(post("/registration/" + API_VERSION + "/gp2gpRegistrationStarted").content(asJsonString(emptyRequestBody))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof MethodArgumentNotValidException))
@@ -119,7 +120,7 @@ class RegistrationControllerTest {
                 "Failed to validate fields",
                 new ArrayList<>(Collections.singleton("eventId: must not be empty")));
 
-        mockMvc.perform(post("/registration/gp2gpRegistrationStarted").content(asJsonString(requestBody))
+        mockMvc.perform(post("/registration/" + API_VERSION + "/gp2gpRegistrationStarted").content(asJsonString(requestBody))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof MethodArgumentNotValidException))
@@ -135,7 +136,7 @@ class RegistrationControllerTest {
                 "Failed to validate fields",
                 new ArrayList<>(Collections.singleton("eventGeneratedTimestamp: must not be null")));
 
-        mockMvc.perform(post("/registration/gp2gpRegistrationStarted").content(asJsonString(requestBody))
+        mockMvc.perform(post("/registration/" + API_VERSION + "/gp2gpRegistrationStarted").content(asJsonString(requestBody))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof MethodArgumentNotValidException))
@@ -151,7 +152,7 @@ class RegistrationControllerTest {
                 "Failed to validate fields",
                 new ArrayList<>(Collections.singleton("registrationId: must not be empty")));
 
-        mockMvc.perform(post("/registration/gp2gpRegistrationStarted").content(asJsonString(requestBody))
+        mockMvc.perform(post("/registration/" + API_VERSION + "/gp2gpRegistrationStarted").content(asJsonString(requestBody))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof MethodArgumentNotValidException))
@@ -167,7 +168,7 @@ class RegistrationControllerTest {
                 "Failed to validate fields",
                 new ArrayList<>(Collections.singleton("reportingSystemSupplier: must not be empty")));
 
-        mockMvc.perform(post("/registration/gp2gpRegistrationStarted").content(asJsonString(requestBody))
+        mockMvc.perform(post("/registration/" + API_VERSION + "/gp2gpRegistrationStarted").content(asJsonString(requestBody))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof MethodArgumentNotValidException))
@@ -184,7 +185,7 @@ class RegistrationControllerTest {
                 "Failed to validate fields",
                 new ArrayList<>(Collections.singleton("reportingPracticeOdsCode: must not be empty")));
 
-        mockMvc.perform(post("/registration/gp2gpRegistrationStarted").content(asJsonString(requestBody))
+        mockMvc.perform(post("/registration/" + API_VERSION + "/gp2gpRegistrationStarted").content(asJsonString(requestBody))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof MethodArgumentNotValidException))
@@ -207,7 +208,7 @@ class RegistrationControllerTest {
                 "Failed to validate fields",
                 new ArrayList<>(Collections.singleton("payload.registration.registrationStartedTimestamp: must not be null")));
 
-        mockMvc.perform(post("/registration/gp2gpRegistrationStarted").content(asJsonString(requestBody))
+        mockMvc.perform(post("/registration/" + API_VERSION + "/gp2gpRegistrationStarted").content(asJsonString(requestBody))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof MethodArgumentNotValidException))
@@ -230,7 +231,7 @@ class RegistrationControllerTest {
                 "Failed to validate fields",
                 new ArrayList<>(Collections.singleton("payload.registration.registrationType: must not be empty")));
 
-        mockMvc.perform(post("/registration/gp2gpRegistrationStarted").content(asJsonString(requestBody))
+        mockMvc.perform(post("/registration/" + API_VERSION + "/gp2gpRegistrationStarted").content(asJsonString(requestBody))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof MethodArgumentNotValidException))
@@ -253,7 +254,7 @@ class RegistrationControllerTest {
                 "Failed to validate fields",
                 new ArrayList<>(Collections.singleton("payload.registration.requestingPracticeOdsCode: must not be empty")));
 
-        mockMvc.perform(post("/registration/gp2gpRegistrationStarted").content(asJsonString(requestBody))
+        mockMvc.perform(post("/registration/" + API_VERSION + "/gp2gpRegistrationStarted").content(asJsonString(requestBody))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof MethodArgumentNotValidException))
@@ -269,7 +270,7 @@ class RegistrationControllerTest {
                 "Invalid request field",
                 new ArrayList<>(Collections.singleton("eventGeneratedTimestamp: Cannot deserialize value of type `java.lang.Long` from Boolean value (token `JsonToken.VALUE_FALSE`)")));
 
-        mockMvc.perform(post("/registration/gp2gpRegistrationStarted").content(requestBody)
+        mockMvc.perform(post("/registration/" + API_VERSION + "/gp2gpRegistrationStarted").content(requestBody)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException().getCause() instanceof MismatchedInputException))
@@ -285,7 +286,7 @@ class RegistrationControllerTest {
                 "Invalid JSON",
                 new ArrayList<>(Collections.singleton("Unable to parse JSON")));
 
-        mockMvc.perform(post("/registration/gp2gpRegistrationStarted").content(requestBody)
+        mockMvc.perform(post("/registration/" + API_VERSION + "/gp2gpRegistrationStarted").content(requestBody)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException().getCause() instanceof JsonParseException))
@@ -301,7 +302,7 @@ class RegistrationControllerTest {
                 "Invalid JSON",
                 new ArrayList<>(Collections.singleton("eventId: Unexpected end-of-input in VALUE_STRING")));
 
-        mockMvc.perform(post("/registration/gp2gpRegistrationStarted").content(requestBody)
+        mockMvc.perform(post("/registration/" + API_VERSION + "/gp2gpRegistrationStarted").content(requestBody)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException().getCause() instanceof JsonMappingException))
@@ -317,7 +318,7 @@ class RegistrationControllerTest {
         when(mockRegistrationService.saveEvent(any(Event.class), eq(EventType.GP2GP_REGISTRATION_STARTED))).thenReturn(eventDAO);
 
         mockMvc.perform(
-                        post("/registration/gp2gpRegistrationStarted")
+                        post("/registration/" + API_VERSION + "/gp2gpRegistrationStarted")
                                 .content(requestBody)
                                 .contentType(MediaType.APPLICATION_JSON)
                 )
