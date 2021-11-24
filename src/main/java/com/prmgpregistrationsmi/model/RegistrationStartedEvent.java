@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-public class RegistrationStartedEvent extends BaseEvent {
+public class RegistrationStartedEvent extends Event {
     @NotNull
     @Valid
     private RegistrationStartedPayload payload;

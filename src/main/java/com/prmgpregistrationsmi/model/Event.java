@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
-public abstract class BaseEvent implements HasPayload {
+public abstract class Event implements HasPayload {
     @NotEmpty
     private String eventId;
     @NotNull

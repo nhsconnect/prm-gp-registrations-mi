@@ -18,15 +18,15 @@ public class EventDAO {
     private String reportingPracticeOdsCode;
     private Payload payload;
 
-    public static EventDAO fromEvent(BaseEvent baseEvent, EventType eventType) {
+    public static EventDAO fromEvent(Event event, EventType eventType) {
         return new EventDAO(
-                baseEvent.getEventId(),
-                baseEvent.getEventGeneratedTimestamp(),
+                event.getEventId(),
+                event.getEventGeneratedTimestamp(),
                 eventType,
-                baseEvent.getRegistrationId(),
-                baseEvent.getReportingSystemSupplier(),
-                baseEvent.getReportingPracticeOdsCode(),
-                baseEvent.getPayload()
+                event.getRegistrationId(),
+                event.getReportingSystemSupplier(),
+                event.getReportingPracticeOdsCode(),
+                event.getPayload()
         );
     }
 }
