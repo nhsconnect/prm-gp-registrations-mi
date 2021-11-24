@@ -9,7 +9,7 @@ class EventDAOTest {
     @Test
     void fromEventShouldReturnEventDAO() {
 
-        Event testEvent = DataBuilder.withDefaultEventValues().build();
+        RegistrationStartedEvent testEvent = DataBuilder.withDefaultEventValues().build();
         EventType gp2gpRegistrationStartedEventType = EventType.GP2GP_REGISTRATION_STARTED;
         EventDAO actualEventDAO = EventDAO.fromEvent(testEvent, gp2gpRegistrationStartedEventType);
 

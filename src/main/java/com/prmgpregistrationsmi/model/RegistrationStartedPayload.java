@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @Builder
 @EqualsAndHashCode
-public class RegistrationStartedPayload {
+public class RegistrationStartedPayload implements Payload {
     @Valid
     @NotNull
     private RegistrationStartedDetails registration;

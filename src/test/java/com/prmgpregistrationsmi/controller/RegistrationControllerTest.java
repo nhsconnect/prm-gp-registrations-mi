@@ -41,14 +41,14 @@ class RegistrationControllerTest {
 
     @Test
     void shouldReturn200WithRequestBodyWhenValidEventIsSent() throws Exception {
-        Event requestBody = DataBuilder
+        RegistrationStartedEvent requestBody = DataBuilder
                 .withDefaultEventValues()
                 .eventId("event-12345")
                 .build();
         EventDAO eventDAO = EventDAO.fromEvent(requestBody, EventType.GP2GP_REGISTRATION_STARTED);
         EventResponse eventResponse = new EventResponse(eventDAO.getEventId());
 
-        when(mockRegistrationService.saveEvent(any(Event.class), eq(EventType.GP2GP_REGISTRATION_STARTED))).thenReturn(eventDAO);
+        when(mockRegistrationService.saveEvent(any(RegistrationStartedEvent.class), eq(EventType.GP2GP_REGISTRATION_STARTED))).thenReturn(eventDAO);
 
         MvcResult mvcResult = mockMvc.perform(post("/registration/" + API_VERSION + "/gp2gpRegistrationStarted").content(asJsonString(requestBody))
                         .contentType(MediaType.APPLICATION_JSON))
@@ -63,7 +63,7 @@ class RegistrationControllerTest {
     @Test
     void shouldReturnA400IfRegistrationIdIsLessThan4Characters() throws Exception {
         String anInvalidRegistrationId = "123";
-        Event requestBody = DataBuilder
+        RegistrationStartedEvent requestBody = DataBuilder
                 .withDefaultEventValues()
                 .registrationId(anInvalidRegistrationId)
                 .build();
@@ -83,7 +83,7 @@ class RegistrationControllerTest {
     @Test
     void shouldReturnA400IfRegistrationIdIsMoreThan32Characters() throws Exception {
         String anInvalidRegistrationId = "000000000011111111112222222222333";
-        Event requestBody = DataBuilder
+        RegistrationStartedEvent requestBody = DataBuilder
                 .withDefaultEventValues()
                 .registrationId(anInvalidRegistrationId)
                 .build();
@@ -102,7 +102,7 @@ class RegistrationControllerTest {
 
     @Test
     void shouldReturn400RequestBodyIsEmpty() throws Exception {
-        Event emptyRequestBody = new Event();
+        RegistrationStartedEvent emptyRequestBody = new RegistrationStartedEvent();
 
         ApiError expectedResponse = new ApiError(
                 HttpStatus.BAD_REQUEST,
@@ -123,7 +123,7 @@ class RegistrationControllerTest {
 
     @Test
     void shouldReturn400IfEventIdIsMissing() throws Exception {
-        Event requestBody = DataBuilder
+        RegistrationStartedEvent requestBody = DataBuilder
                 .withDefaultEventValues()
                 .eventId(null)
                 .build();
@@ -142,7 +142,7 @@ class RegistrationControllerTest {
 
     @Test
     void shouldReturn400IfEventGeneratedTimestampIsMissing() throws Exception {
-        Event requestBody = DataBuilder
+        RegistrationStartedEvent requestBody = DataBuilder
                 .withDefaultEventValues()
                 .eventGeneratedTimestamp(null)
                 .build();
@@ -161,7 +161,7 @@ class RegistrationControllerTest {
 
     @Test
     void shouldReturn400IfRegistrationIdIsMissing() throws Exception {
-        Event requestBody = DataBuilder
+        RegistrationStartedEvent requestBody = DataBuilder
                 .withDefaultEventValues()
                 .registrationId(null)
                 .build();
@@ -180,7 +180,7 @@ class RegistrationControllerTest {
 
     @Test
     void shouldReturn400IfReportingSystemSupplierIsMissing() throws Exception {
-        Event requestBody = DataBuilder
+        RegistrationStartedEvent requestBody = DataBuilder
                 .withDefaultEventValues()
                 .reportingSystemSupplier(null)
                 .build();
@@ -199,7 +199,7 @@ class RegistrationControllerTest {
 
     @Test
     void shouldReturn400IfReportingPracticeOdsCodeIsMissing() throws Exception {
-        Event requestBody =
+        RegistrationStartedEvent requestBody =
                 DataBuilder
                         .withDefaultEventValues()
                         .reportingPracticeOdsCode(null)
@@ -227,7 +227,7 @@ class RegistrationControllerTest {
                 .withDefaultRegistrationStartedPayload()
                 .registration(registrationPayload)
                 .build();
-        Event requestBody = DataBuilder
+        RegistrationStartedEvent requestBody = DataBuilder
                 .withDefaultEventValues()
                 .payload(payload)
                 .build();
@@ -254,7 +254,7 @@ class RegistrationControllerTest {
                 .withDefaultRegistrationStartedPayload()
                 .registration(payloadRegistration)
                 .build();
-        Event requestBody = DataBuilder
+        RegistrationStartedEvent requestBody = DataBuilder
                 .withDefaultEventValues()
                 .payload(payload)
                 .build();
@@ -281,7 +281,7 @@ class RegistrationControllerTest {
                 .withDefaultRegistrationStartedPayload()
                 .registration(payloadRegistration)
                 .build();
-        Event requestBody = DataBuilder
+        RegistrationStartedEvent requestBody = DataBuilder
                 .withDefaultEventValues()
                 .payload(payload)
                 .build();
@@ -348,13 +348,13 @@ class RegistrationControllerTest {
 
     @Test
     void shouldCallSaveEventWhenValidEventIsSent() throws Exception {
-        Event testEvent = DataBuilder
+        RegistrationStartedEvent testEvent = DataBuilder
                 .withDefaultEventValues()
                 .build();
         String requestBody = asJsonString(testEvent);
         EventDAO eventDAO = EventDAO.fromEvent(testEvent, EventType.GP2GP_REGISTRATION_STARTED);
 
-        when(mockRegistrationService.saveEvent(any(Event.class), eq(EventType.GP2GP_REGISTRATION_STARTED))).thenReturn(eventDAO);
+        when(mockRegistrationService.saveEvent(any(RegistrationStartedEvent.class), eq(EventType.GP2GP_REGISTRATION_STARTED))).thenReturn(eventDAO);
 
         mockMvc.perform(
                         post("/registration/" + API_VERSION + "/gp2gpRegistrationStarted")

@@ -1,7 +1,7 @@
 package com.prmgpregistrationsmi.service;
 
 import com.prmgpregistrationsmi.exception.UnableToUploadToS3Exception;
-import com.prmgpregistrationsmi.model.Event;
+import com.prmgpregistrationsmi.model.RegistrationStartedEvent;
 import com.prmgpregistrationsmi.model.EventDAO;
 import com.prmgpregistrationsmi.model.EventType;
 import com.prmgpregistrationsmi.testhelpers.DataBuilder;
@@ -17,7 +17,7 @@ class RegistrationServiceTest {
 
     @Test
     void shouldCallUploadToS3WithEventDAO() throws UnableToUploadToS3Exception {
-        Event testEvent = DataBuilder
+        RegistrationStartedEvent testEvent = DataBuilder
                 .withDefaultEventValues()
                 .build();
         EventType gp2gpRegistrationStartedEventType = EventType.GP2GP_REGISTRATION_STARTED;
@@ -31,7 +31,7 @@ class RegistrationServiceTest {
 
     @Test
     void shouldUploadEventDAOToCorrectS3Key() throws UnableToUploadToS3Exception {
-        Event testEvent = DataBuilder
+        RegistrationStartedEvent testEvent = DataBuilder
                 .withDefaultEventValues()
                 .eventId("event-id-12345")
                 .eventGeneratedTimestamp(1609556400L)

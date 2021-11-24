@@ -6,12 +6,16 @@ import lombok.experimental.SuperBuilder;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-public class Event extends BaseEvent {
+public class RegistrationStartedEvent extends BaseEvent {
     @NotNull
     @Valid
     private RegistrationStartedPayload payload;
+
+    @Override
+    public Payload getPayload() {
+        return payload;
+    }
 }

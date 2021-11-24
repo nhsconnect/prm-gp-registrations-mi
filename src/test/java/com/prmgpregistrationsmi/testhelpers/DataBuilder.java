@@ -1,12 +1,12 @@
 package com.prmgpregistrationsmi.testhelpers;
 
-import com.prmgpregistrationsmi.model.Event;
+import com.prmgpregistrationsmi.model.RegistrationStartedEvent;
 import com.prmgpregistrationsmi.model.RegistrationStartedDetails;
 import com.prmgpregistrationsmi.model.RegistrationStartedPayload;
 
 public class DataBuilder {
-    public static Event.EventBuilder<?, ?> withDefaultEventValues() {
-        return Event.builder()
+    public static RegistrationStartedEvent.RegistrationStartedEventBuilder<?, ?> withDefaultEventValues() {
+        return RegistrationStartedEvent.builder()
                 .eventId("some-id")
                 .eventGeneratedTimestamp(12345L)
                 .registrationId("some-registration-id")

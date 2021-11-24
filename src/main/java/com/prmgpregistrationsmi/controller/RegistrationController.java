@@ -1,7 +1,7 @@
 package com.prmgpregistrationsmi.controller;
 
 import com.prmgpregistrationsmi.exception.UnableToUploadToS3Exception;
-import com.prmgpregistrationsmi.model.Event;
+import com.prmgpregistrationsmi.model.RegistrationStartedEvent;
 import com.prmgpregistrationsmi.model.EventDAO;
 import com.prmgpregistrationsmi.model.EventResponse;
 import com.prmgpregistrationsmi.model.EventType;
@@ -35,7 +35,7 @@ public class RegistrationController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public EventResponse registrationStartedEvent(
-            @Valid @RequestBody Event event) throws UnableToUploadToS3Exception {
+            @Valid @RequestBody RegistrationStartedEvent event) throws UnableToUploadToS3Exception {
         log.info("Successfully received registration started event on: /registration/gp2gpRegistrationStarted endpoint");
         EventDAO eventDAO = registrationService.saveEvent(event, EventType.GP2GP_REGISTRATION_STARTED);
         return new EventResponse(eventDAO.getEventId());

@@ -1,7 +1,7 @@
 package com.prmgpregistrationsmi.service;
 
 import com.prmgpregistrationsmi.exception.UnableToUploadToS3Exception;
-import com.prmgpregistrationsmi.model.Event;
+import com.prmgpregistrationsmi.model.BaseEvent;
 import com.prmgpregistrationsmi.model.EventDAO;
 import com.prmgpregistrationsmi.model.EventType;
 import lombok.AllArgsConstructor;
@@ -18,7 +18,7 @@ public class RegistrationService {
     private static final String OUTPUT_VERSION = "v1";
     private final S3FileUploader eventS3Client;
 
-    public EventDAO saveEvent(Event event, EventType eventType) throws UnableToUploadToS3Exception {
+    public EventDAO saveEvent(BaseEvent event, EventType eventType) throws UnableToUploadToS3Exception {
         EventDAO eventDAO = EventDAO.fromEvent(event, eventType);
         String s3Key = getS3Key(event);
         eventS3Client.uploadJsonObject(eventDAO, s3Key);
@@ -37,7 +37,7 @@ public class RegistrationService {
         return String.format("%02d/%02d/%02d/%02d", eventGeneratedYear, eventGeneratedMonth, eventGeneratedDay, eventGeneratedHour);
     }
 
-    private String getS3Key(Event event) {
+    private String getS3Key(BaseEvent event) {
         Long eventGeneratedTimestamp = event.getEventGeneratedTimestamp();
         String s3DatePrefix = getS3DatePrefix(eventGeneratedTimestamp);
 

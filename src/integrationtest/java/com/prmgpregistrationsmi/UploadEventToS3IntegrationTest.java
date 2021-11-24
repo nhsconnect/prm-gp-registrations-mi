@@ -1,8 +1,6 @@
 package com.prmgpregistrationsmi;
 
 import com.amazonaws.services.s3.AmazonS3Client;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.prmgpregistrationsmi.model.EventDAO;
 import com.prmgpregistrationsmi.model.EventResponse;
 import com.prmgpregistrationsmi.utils.FileJSONParser;
 import org.json.simple.parser.ParseException;
@@ -13,7 +11,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
-import com.prmgpregistrationsmi.utils.JsonHelper;
 
 import java.io.IOException;
 
@@ -44,11 +41,7 @@ class UploadEventToS3IntegrationTest {
         String pathToJson = "src/integrationtest/resources/";
         Object registrationStartedEventRequest = FileJSONParser.readFile(pathToJson + "registrationStartedEventRequest.json");
 
-        Object response = FileJSONParser.readFile(pathToJson + "expectedRegistrationStartedEventResponse.json");
-        String responseJson = JsonHelper.asJsonString(response);
-        ObjectMapper objectMapper = new ObjectMapper();
-        EventDAO expectedEventDAO = objectMapper.readValue(responseJson, EventDAO.class);
-        EventResponse expectedResponse = new EventResponse(expectedEventDAO.getEventId());
+        EventResponse expectedResponse = new EventResponse("event-id-test");
 
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
                 "/registration/" + API_VERSION + "/gp2gpRegistrationStarted", registrationStartedEventRequest, EventResponse.class);

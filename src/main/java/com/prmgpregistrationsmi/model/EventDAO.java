@@ -16,17 +16,17 @@ public class EventDAO {
     private String registrationId;
     private String reportingSystemSupplier;
     private String reportingPracticeOdsCode;
-    private RegistrationStartedPayload payload;
+    private Payload payload;
 
-    public static EventDAO fromEvent(Event testEvent, EventType eventType) {
+    public static EventDAO fromEvent(BaseEvent baseEvent, EventType eventType) {
         return new EventDAO(
-                testEvent.getEventId(),
-                testEvent.getEventGeneratedTimestamp(),
+                baseEvent.getEventId(),
+                baseEvent.getEventGeneratedTimestamp(),
                 eventType,
-                testEvent.getRegistrationId(),
-                testEvent.getReportingSystemSupplier(),
-                testEvent.getReportingPracticeOdsCode(),
-                testEvent.getPayload()
+                baseEvent.getRegistrationId(),
+                baseEvent.getReportingSystemSupplier(),
+                baseEvent.getReportingPracticeOdsCode(),
+                baseEvent.getPayload()
         );
     }
 }
