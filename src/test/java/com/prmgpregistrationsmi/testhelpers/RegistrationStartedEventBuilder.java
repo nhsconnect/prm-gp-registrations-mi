@@ -4,7 +4,7 @@ import com.prmgpregistrationsmi.model.RegistrationStartedEvent;
 import com.prmgpregistrationsmi.model.RegistrationStartedDetails;
 import com.prmgpregistrationsmi.model.RegistrationStartedPayload;
 
-public class DataBuilder {
+public class RegistrationStartedEventBuilder {
     public static RegistrationStartedEvent.RegistrationStartedEventBuilder<?, ?> withDefaultEventValues() {
         return RegistrationStartedEvent.builder()
                 .eventId("some-id")

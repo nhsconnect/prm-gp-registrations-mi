@@ -7,7 +7,7 @@ import com.prmgpregistrationsmi.controller.ApiError;
 import com.prmgpregistrationsmi.controller.RegistrationController;
 import com.prmgpregistrationsmi.model.*;
 import com.prmgpregistrationsmi.service.RegistrationService;
-import com.prmgpregistrationsmi.testhelpers.DataBuilder;
+import com.prmgpregistrationsmi.testhelpers.RegistrationStartedEventBuilder;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -43,7 +43,7 @@ class RegistrationStartedEventTest {
 
     @Test
     void shouldReturn200WithRequestBodyWhenValidEventIsSent() throws Exception {
-        RegistrationStartedEvent requestBody = DataBuilder
+        RegistrationStartedEvent requestBody = RegistrationStartedEventBuilder
                 .withDefaultEventValues()
                 .eventId("event-12345")
                 .build();
@@ -65,7 +65,7 @@ class RegistrationStartedEventTest {
     @Test
     void shouldReturnA400IfRegistrationIdIsLessThan4Characters() throws Exception {
         String anInvalidRegistrationId = "123";
-        RegistrationStartedEvent requestBody = DataBuilder
+        RegistrationStartedEvent requestBody = RegistrationStartedEventBuilder
                 .withDefaultEventValues()
                 .registrationId(anInvalidRegistrationId)
                 .build();
@@ -85,7 +85,7 @@ class RegistrationStartedEventTest {
     @Test
     void shouldReturnA400IfRegistrationIdIsMoreThan32Characters() throws Exception {
         String anInvalidRegistrationId = "000000000011111111112222222222333";
-        RegistrationStartedEvent requestBody = DataBuilder
+        RegistrationStartedEvent requestBody = RegistrationStartedEventBuilder
                 .withDefaultEventValues()
                 .registrationId(anInvalidRegistrationId)
                 .build();
@@ -125,7 +125,7 @@ class RegistrationStartedEventTest {
 
     @Test
     void shouldReturn400IfEventIdIsMissing() throws Exception {
-        RegistrationStartedEvent requestBody = DataBuilder
+        RegistrationStartedEvent requestBody = RegistrationStartedEventBuilder
                 .withDefaultEventValues()
                 .eventId(null)
                 .build();
@@ -144,7 +144,7 @@ class RegistrationStartedEventTest {
 
     @Test
     void shouldReturn400IfEventGeneratedTimestampIsMissing() throws Exception {
-        RegistrationStartedEvent requestBody = DataBuilder
+        RegistrationStartedEvent requestBody = RegistrationStartedEventBuilder
                 .withDefaultEventValues()
                 .eventGeneratedTimestamp(null)
                 .build();
@@ -163,7 +163,7 @@ class RegistrationStartedEventTest {
 
     @Test
     void shouldReturn400IfRegistrationIdIsMissing() throws Exception {
-        RegistrationStartedEvent requestBody = DataBuilder
+        RegistrationStartedEvent requestBody = RegistrationStartedEventBuilder
                 .withDefaultEventValues()
                 .registrationId(null)
                 .build();
@@ -182,7 +182,7 @@ class RegistrationStartedEventTest {
 
     @Test
     void shouldReturn400IfReportingSystemSupplierIsMissing() throws Exception {
-        RegistrationStartedEvent requestBody = DataBuilder
+        RegistrationStartedEvent requestBody = RegistrationStartedEventBuilder
                 .withDefaultEventValues()
                 .reportingSystemSupplier(null)
                 .build();
@@ -202,7 +202,7 @@ class RegistrationStartedEventTest {
     @Test
     void shouldReturn400IfReportingPracticeOdsCodeIsMissing() throws Exception {
         RegistrationStartedEvent requestBody =
-                DataBuilder
+                RegistrationStartedEventBuilder
                         .withDefaultEventValues()
                         .reportingPracticeOdsCode(null)
                         .build();
@@ -221,15 +221,15 @@ class RegistrationStartedEventTest {
 
     @Test
     void shouldReturn400IfRegistrationStartedTimestampIsMissing() throws Exception {
-        RegistrationStartedDetails registrationPayload = DataBuilder
+        RegistrationStartedDetails registrationPayload = RegistrationStartedEventBuilder
                 .withDefaultRegistrationStartedDetails()
                 .registrationStartedTimestamp(null)
                 .build();
-        RegistrationStartedPayload payload = DataBuilder
+        RegistrationStartedPayload payload = RegistrationStartedEventBuilder
                 .withDefaultRegistrationStartedPayload()
                 .registration(registrationPayload)
                 .build();
-        RegistrationStartedEvent requestBody = DataBuilder
+        RegistrationStartedEvent requestBody = RegistrationStartedEventBuilder
                 .withDefaultEventValues()
                 .payload(payload)
                 .build();
@@ -248,15 +248,15 @@ class RegistrationStartedEventTest {
 
     @Test
     void shouldReturn400IfRegistrationTypeIsMissing() throws Exception {
-        RegistrationStartedDetails payloadRegistration = DataBuilder
+        RegistrationStartedDetails payloadRegistration = RegistrationStartedEventBuilder
                 .withDefaultRegistrationStartedDetails()
                 .registrationType(null)
                 .build();
-        RegistrationStartedPayload payload = DataBuilder
+        RegistrationStartedPayload payload = RegistrationStartedEventBuilder
                 .withDefaultRegistrationStartedPayload()
                 .registration(payloadRegistration)
                 .build();
-        RegistrationStartedEvent requestBody = DataBuilder
+        RegistrationStartedEvent requestBody = RegistrationStartedEventBuilder
                 .withDefaultEventValues()
                 .payload(payload)
                 .build();
@@ -275,15 +275,15 @@ class RegistrationStartedEventTest {
 
     @Test
     void shouldReturn400IfRequestingPracticeOdsCodeIsMissing() throws Exception {
-        RegistrationStartedDetails payloadRegistration =                 DataBuilder
+        RegistrationStartedDetails payloadRegistration =                 RegistrationStartedEventBuilder
                 .withDefaultRegistrationStartedDetails()
                 .requestingPracticeOdsCode(null)
                 .build();
-        RegistrationStartedPayload payload = DataBuilder
+        RegistrationStartedPayload payload = RegistrationStartedEventBuilder
                 .withDefaultRegistrationStartedPayload()
                 .registration(payloadRegistration)
                 .build();
-        RegistrationStartedEvent requestBody = DataBuilder
+        RegistrationStartedEvent requestBody = RegistrationStartedEventBuilder
                 .withDefaultEventValues()
                 .payload(payload)
                 .build();
@@ -350,7 +350,7 @@ class RegistrationStartedEventTest {
 
     @Test
     void shouldCallSaveEventWhenValidEventIsSent() throws Exception {
-        RegistrationStartedEvent testEvent = DataBuilder
+        RegistrationStartedEvent testEvent = RegistrationStartedEventBuilder
                 .withDefaultEventValues()
                 .build();
         String requestBody = asJsonString(testEvent);
