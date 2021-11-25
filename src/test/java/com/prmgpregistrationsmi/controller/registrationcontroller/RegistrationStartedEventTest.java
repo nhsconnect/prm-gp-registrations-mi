@@ -1,8 +1,10 @@
-package com.prmgpregistrationsmi.controller;
+package com.prmgpregistrationsmi.controller.registrationcontroller;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
+import com.prmgpregistrationsmi.controller.ApiError;
+import com.prmgpregistrationsmi.controller.RegistrationController;
 import com.prmgpregistrationsmi.model.*;
 import com.prmgpregistrationsmi.service.RegistrationService;
 import com.prmgpregistrationsmi.testhelpers.DataBuilder;
@@ -31,7 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(RegistrationController.class)
-class RegistrationControllerTest {
+class RegistrationStartedEventTest {
 
     @Autowired
     private MockMvc mockMvc;
