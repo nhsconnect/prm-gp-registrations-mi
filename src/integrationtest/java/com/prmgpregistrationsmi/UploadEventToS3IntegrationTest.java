@@ -2,8 +2,6 @@ package com.prmgpregistrationsmi;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.prmgpregistrationsmi.model.*;
-import org.json.simple.parser.ParseException;
-import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,13 +9,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 
-import java.io.IOException;
-
 import static com.prmgpregistrationsmi.controller.RegistrationController.API_VERSION;
-import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class UploadEventToS3IntegrationTest {
@@ -30,15 +25,8 @@ class UploadEventToS3IntegrationTest {
     @MockBean
     AmazonS3Client mockAmazonS3Client;
 
-    @Before
-    public void init() {
-        when(mockAmazonS3Client.putObject(anyString(), anyString(), anyString())).thenReturn(any());
-    }
-
     @Test
-    void eventToS3Uploaded() throws IOException, ParseException {
-        String pathToJson = "src/integrationtest/resources/";
-
+    void eventToS3Uploaded() {
         RegistrationStartedDetails registrationStartedDetails = RegistrationStartedDetails.builder()
                 .registrationStartedTimestamp(313130L)
                 .registrationType("newRegistrant")
@@ -56,7 +44,13 @@ class UploadEventToS3IntegrationTest {
                 .payload(registrationStartedPayload).build();
 
         EventDAO expectedS3UploadEvent = new EventDAO(
-                "event-id-test", 315130L, EventType.GP2GP_REGISTRATION_STARTED, "registration-id-test-12345", "system-a", "A12345", registrationStartedPayload
+                "event-id-test",
+                315130L,
+                EventType.GP2GP_REGISTRATION_STARTED,
+                "registration-id-test-12345",
+                "system-a",
+                "A12345",
+                registrationStartedPayload
         );
 
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
@@ -65,6 +59,10 @@ class UploadEventToS3IntegrationTest {
         EventResponse expectedResponse = new EventResponse("event-id-test");
         assertEquals(expectedResponse, actualResponseEvent);
 
-        verify(mockAmazonS3Client, times(1)).putObject("test_bucket", "v1/1970/01/04/15/event-id-test.json", expectedS3UploadEvent.toString());
+        verify(mockAmazonS3Client, times(1)).putObject(
+                "test_bucket",
+                "v1/1970/01/04/15/event-id-test.json",
+                expectedS3UploadEvent.toString()
+        );
     }
 }
