@@ -1,5 +1,6 @@
 package com.prmgpregistrationsmi.model;
 
+import com.prmgpregistrationsmi.utils.JsonHelper;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -28,5 +29,10 @@ public class EventDAO {
                 event.getReportingPracticeOdsCode(),
                 event.getPayload()
         );
+    }
+
+    @Override
+    public String toString() {
+        return  JsonHelper.asJsonString(this);
     }
 }

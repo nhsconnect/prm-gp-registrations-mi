@@ -1,8 +1,7 @@
 package com.prmgpregistrationsmi;
 
 import com.amazonaws.services.s3.AmazonS3Client;
-import com.prmgpregistrationsmi.model.EventResponse;
-import com.prmgpregistrationsmi.utils.FileJSONParser;
+import com.prmgpregistrationsmi.model.*;
 import org.json.simple.parser.ParseException;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
@@ -15,10 +14,10 @@ import org.springframework.boot.web.server.LocalServerPort;
 import java.io.IOException;
 
 import static com.prmgpregistrationsmi.controller.RegistrationController.API_VERSION;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class UploadEventToS3IntegrationTest {
@@ -39,13 +38,33 @@ class UploadEventToS3IntegrationTest {
     @Test
     void eventToS3Uploaded() throws IOException, ParseException {
         String pathToJson = "src/integrationtest/resources/";
-        Object registrationStartedEventRequest = FileJSONParser.readFile(pathToJson + "registrationStartedEventRequest.json");
 
-        EventResponse expectedResponse = new EventResponse("event-id-test");
+        RegistrationStartedDetails registrationStartedDetails = RegistrationStartedDetails.builder()
+                .registrationStartedTimestamp(313130L)
+                .registrationType("newRegistrant")
+                .requestingPracticeOdsCode("B12345").build();
+
+        RegistrationStartedPayload registrationStartedPayload = RegistrationStartedPayload.builder()
+                .registration(registrationStartedDetails).build();
+
+        RegistrationStartedEvent registrationStartedEventRequest = RegistrationStartedEvent.builder()
+                .eventGeneratedTimestamp(315130L)
+                .registrationId("registration-id-test-12345")
+                .reportingSystemSupplier("system-a")
+                .reportingPracticeOdsCode("A12345")
+                .eventId("event-id-test")
+                .payload(registrationStartedPayload).build();
+
+        EventDAO expectedS3UploadEvent = new EventDAO(
+                "event-id-test", 315130L, EventType.GP2GP_REGISTRATION_STARTED, "registration-id-test-12345", "system-a", "A12345", registrationStartedPayload
+        );
 
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
                 "/registration/" + API_VERSION + "/gp2gpRegistrationStarted", registrationStartedEventRequest, EventResponse.class);
 
+        EventResponse expectedResponse = new EventResponse("event-id-test");
         assertEquals(expectedResponse, actualResponseEvent);
+
+        verify(mockAmazonS3Client, times(1)).putObject("test_bucket", "v1/1970/01/04/15/event-id-test.json", expectedS3UploadEvent.toString());
     }
 }
