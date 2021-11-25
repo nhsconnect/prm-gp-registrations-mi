@@ -1,5 +1,6 @@
 package com.prmgpregistrationsmi.model;
 
 public enum EventType {
-    GP2GP_REGISTRATION_STARTED
+    GP2GP_REGISTRATION_STARTED,
+    EHR_REQUESTED
 }
