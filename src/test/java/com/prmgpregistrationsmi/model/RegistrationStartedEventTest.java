@@ -10,7 +10,7 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class RegistrationStartedEventTest {
+class RegistrationStartedEventTest {
     private final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
     @Test
