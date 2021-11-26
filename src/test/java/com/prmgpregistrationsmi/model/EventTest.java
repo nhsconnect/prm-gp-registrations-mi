@@ -14,17 +14,6 @@ public class EventTest {
     private final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
     @Test
-    void shouldNotThrowConstraintViolationWhenEventFieldsAreValid() {
-        RegistrationStartedEvent event = RegistrationStartedEventBuilder
-                .withDefaultEventValues()
-                .build();
-
-        Set<ConstraintViolation<RegistrationStartedEvent>> violations = validator.validate(event);
-
-        assertEquals(0, violations.size());
-    }
-
-    @Test
     void shouldThrowConstraintViolationWhenEventIdIsNull() {
         RegistrationStartedEvent event = RegistrationStartedEventBuilder
                     .withDefaultEventValues()
@@ -37,7 +26,7 @@ public class EventTest {
 
         ConstraintViolation<RegistrationStartedEvent> violation = violations.iterator().next();
         assertEquals("must not be empty", violation.getMessage());
-        assertEquals("eventId", violation.getPropertyPath().iterator().next().getName());
+        assertEquals("eventId", violation.getPropertyPath().toString());
     }
 
     @Test
@@ -53,7 +42,7 @@ public class EventTest {
 
         ConstraintViolation<RegistrationStartedEvent> violation = violations.iterator().next();
         assertEquals("must not be null", violation.getMessage());
-        assertEquals("eventGeneratedTimestamp", violation.getPropertyPath().iterator().next().getName());
+        assertEquals("eventGeneratedTimestamp", violation.getPropertyPath().toString());
     }
 
     @Test
@@ -69,7 +58,7 @@ public class EventTest {
 
         ConstraintViolation<RegistrationStartedEvent> violation = violations.iterator().next();
         assertEquals("must not be empty", violation.getMessage());
-        assertEquals("registrationId", violation.getPropertyPath().iterator().next().getName());
+        assertEquals("registrationId", violation.getPropertyPath().toString());
     }
 
     @Test
@@ -85,7 +74,7 @@ public class EventTest {
 
         ConstraintViolation<RegistrationStartedEvent> violation = violations.iterator().next();
         assertEquals("length must be between 4 and 32", violation.getMessage());
-        assertEquals("registrationId", violation.getPropertyPath().iterator().next().getName());
+        assertEquals("registrationId", violation.getPropertyPath().toString());
     }
 
     @Test
@@ -101,7 +90,7 @@ public class EventTest {
 
         ConstraintViolation<RegistrationStartedEvent> violation = violations.iterator().next();
         assertEquals("length must be between 4 and 32", violation.getMessage());
-        assertEquals("registrationId", violation.getPropertyPath().iterator().next().getName());
+        assertEquals("registrationId", violation.getPropertyPath().toString());
     }
 
     @Test
@@ -117,7 +106,7 @@ public class EventTest {
 
         ConstraintViolation<RegistrationStartedEvent> violation = violations.iterator().next();
         assertEquals("must not be empty", violation.getMessage());
-        assertEquals("reportingSystemSupplier", violation.getPropertyPath().iterator().next().getName());
+        assertEquals("reportingSystemSupplier", violation.getPropertyPath().toString());
     }
 
     @Test
@@ -133,6 +122,6 @@ public class EventTest {
 
         ConstraintViolation<RegistrationStartedEvent> violation = violations.iterator().next();
         assertEquals("must not be empty", violation.getMessage());
-        assertEquals("reportingPracticeOdsCode", violation.getPropertyPath().iterator().next().getName());
+        assertEquals("reportingPracticeOdsCode", violation.getPropertyPath().toString());
     }
 }
