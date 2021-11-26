@@ -2,6 +2,8 @@ package com.prmgpregistrationsmi.model;
 
 import com.prmgpregistrationsmi.testhelpers.EhrRequestedEventBuilder;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -24,11 +26,12 @@ class EhrRequestedEventTest {
         assertEquals(0, violations.size());
     }
 
-    @Test
-    void shouldThrowConstraintViolationWhenRequestingPracticeOdsCodeInPayloadIsNull() {
+    @ParameterizedTest
+    @NullAndEmptySource
+    void shouldThrowConstraintViolationWhenRequestingPracticeOdsCodeInPayloadIsNullOrEmpty(String requestingPracticeOdsCode) {
         EhrRequestedRegistrationDetails registrationPayload = EhrRequestedEventBuilder
                 .withDefaultEhrRequestedRegistrationDetails()
-                .requestingPracticeOdsCode(null)
+                .requestingPracticeOdsCode(requestingPracticeOdsCode)
                 .build();
         EhrRequestedPayload payload = EhrRequestedEventBuilder
                 .withDefaultEhrRequestedPayload()
@@ -49,11 +52,12 @@ class EhrRequestedEventTest {
         assertEquals("payload.registration.requestingPracticeOdsCode", violation.getPropertyPath().toString());
     }
 
-    @Test
-    void shouldThrowConstraintViolationWhenSendingPracticeOdsCodeInPayloadIsNull() {
+    @ParameterizedTest
+    @NullAndEmptySource
+    void shouldThrowConstraintViolationWhenSendingPracticeOdsCodeInPayloadIsNullOrEmpty(String sendingPracticeOdsCode) {
         EhrRequestedRegistrationDetails registrationPayload = EhrRequestedEventBuilder
                 .withDefaultEhrRequestedRegistrationDetails()
-                .sendingPracticeOdsCode(null)
+                .sendingPracticeOdsCode(sendingPracticeOdsCode)
                 .build();
         EhrRequestedPayload payload = EhrRequestedEventBuilder
                 .withDefaultEhrRequestedPayload()
@@ -74,11 +78,12 @@ class EhrRequestedEventTest {
         assertEquals("payload.registration.sendingPracticeOdsCode", violation.getPropertyPath().toString());
     }
 
-    @Test
-    void shouldThrowConstraintViolationWhenConversationIdInPayloadIsNull() {
+    @ParameterizedTest
+    @NullAndEmptySource
+    void shouldThrowConstraintViolationWhenConversationIdInPayloadIsNullOrEmpty(String conversationId) {
         EhrRequestedGp2gpDetails gp2gpPayload = EhrRequestedEventBuilder
                 .withDefaultEhrRequestedGp2gpDetails()
-                .conversationId(null)
+                .conversationId(conversationId)
                 .build();
 
         EhrRequestedPayload payload = EhrRequestedEventBuilder

@@ -5,14 +5,13 @@ import com.prmgpregistrationsmi.model.*;
 import com.prmgpregistrationsmi.service.RegistrationService;
 import com.prmgpregistrationsmi.testhelpers.EhrRequestedEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.RegistrationStartedEventBuilder;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -20,6 +19,12 @@ import static org.mockito.Mockito.when;
 class RegistrationControllerTest {
     @MockBean
     private RegistrationService mockRegistrationService;
+    private RegistrationController registrationController;
+
+    @BeforeEach
+    void setUp() {
+        registrationController =  new RegistrationController(mockRegistrationService);
+    }
 
     @Test
     void registrationStartedEventReturnsEventResponse() throws UnableToUploadToS3Exception {
@@ -29,9 +34,8 @@ class RegistrationControllerTest {
                 .build();
         EventDAO eventDAO = EventDAO.fromEvent(testEvent, EventType.GP2GP_REGISTRATION_STARTED);
 
-        when(mockRegistrationService.saveEvent(any(RegistrationStartedEvent.class), eq(EventType.GP2GP_REGISTRATION_STARTED))).thenReturn(eventDAO);
+        when(mockRegistrationService.saveEvent(testEvent, EventType.GP2GP_REGISTRATION_STARTED)).thenReturn(eventDAO);
 
-        RegistrationController registrationController = new RegistrationController(mockRegistrationService);
         EventResponse actualResponse = registrationController.registrationStartedEvent(testEvent);
 
         verify(mockRegistrationService).saveEvent(testEvent, EventType.GP2GP_REGISTRATION_STARTED);
@@ -48,9 +52,8 @@ class RegistrationControllerTest {
                 .build();
         EventDAO eventDAO = EventDAO.fromEvent(testEvent, EventType.EHR_REQUESTED);
 
-        when(mockRegistrationService.saveEvent(any(EhrRequestedEvent.class), eq(EventType.EHR_REQUESTED))).thenReturn(eventDAO);
+        when(mockRegistrationService.saveEvent(testEvent, EventType.EHR_REQUESTED)).thenReturn(eventDAO);
 
-        RegistrationController registrationController = new RegistrationController(mockRegistrationService);
         EventResponse actualResponse = registrationController.ehrRequestedEvent(testEvent);
 
         verify(mockRegistrationService).saveEvent(testEvent, EventType.EHR_REQUESTED);

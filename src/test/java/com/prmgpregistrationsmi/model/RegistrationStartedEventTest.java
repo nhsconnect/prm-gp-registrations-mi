@@ -2,6 +2,8 @@ package com.prmgpregistrationsmi.model;
 
 import com.prmgpregistrationsmi.testhelpers.RegistrationStartedEventBuilder;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -48,11 +50,12 @@ class RegistrationStartedEventTest {
         assertEquals("payload.registration.registrationStartedTimestamp", violation.getPropertyPath().toString());
     }
 
-    @Test
-    void shouldThrowConstraintViolationWhenRegistrationTypeIsNull() {
+    @ParameterizedTest
+    @NullAndEmptySource
+    void shouldThrowConstraintViolationWhenRegistrationTypeIsNullOrEmpty(String registrationType) {
         RegistrationStartedDetails payloadRegistration = RegistrationStartedEventBuilder
                 .withDefaultRegistrationStartedDetails()
-                .registrationType(null)
+                .registrationType(registrationType)
                 .build();
         RegistrationStartedPayload payload = RegistrationStartedEventBuilder
                 .withDefaultRegistrationStartedPayload()
@@ -72,11 +75,12 @@ class RegistrationStartedEventTest {
         assertEquals("payload.registration.registrationType", violation.getPropertyPath().toString());
     }
 
-    @Test
-    void shouldThrowConstraintViolationWhenRequestingPracticeOdsCodeIsNull() {
+    @ParameterizedTest
+    @NullAndEmptySource
+    void shouldThrowConstraintViolationWhenRequestingPracticeOdsCodeIsNullOrEmpty(String requestingPracticeOdsCode) {
         RegistrationStartedDetails payloadRegistration = RegistrationStartedEventBuilder
                 .withDefaultRegistrationStartedDetails()
-                .requestingPracticeOdsCode(null)
+                .requestingPracticeOdsCode(requestingPracticeOdsCode)
                 .build();
         RegistrationStartedPayload payload = RegistrationStartedEventBuilder
                 .withDefaultRegistrationStartedPayload()

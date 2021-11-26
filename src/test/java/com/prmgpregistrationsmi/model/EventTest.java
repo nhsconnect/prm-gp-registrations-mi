@@ -2,6 +2,9 @@ package com.prmgpregistrationsmi.model;
 
 import com.prmgpregistrationsmi.testhelpers.RegistrationStartedEventBuilder;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -54,18 +57,19 @@ public class EventTest {
 
         Set<ConstraintViolation<RegistrationStartedEvent>> violations = validator.validate(event);
 
-        assertEquals(1, violations.size());
+       assertEquals(1, violations.size());
 
         ConstraintViolation<RegistrationStartedEvent> violation = violations.iterator().next();
         assertEquals("must not be empty", violation.getMessage());
         assertEquals("registrationId", violation.getPropertyPath().toString());
     }
 
-    @Test
-    void shouldThrowConstraintViolationWhenRegistrationIdIsLessThan4Characters() {
+    @ParameterizedTest
+    @ValueSource(strings = {"abc", "000000000011111111112222222222333"})
+    void shouldThrowConstraintViolationWhenRegistrationIdLengthIsNotValid(String registrationId) {
         RegistrationStartedEvent event = RegistrationStartedEventBuilder
                 .withDefaultEventValues()
-                .registrationId("abc")
+                .registrationId(registrationId)
                 .build();
 
         Set<ConstraintViolation<RegistrationStartedEvent>> violations = validator.validate(event);
@@ -77,27 +81,12 @@ public class EventTest {
         assertEquals("registrationId", violation.getPropertyPath().toString());
     }
 
-    @Test
-    void shouldThrowConstraintViolationWhenRegistrationIdIsMoreThan32Characters() {
+    @ParameterizedTest
+    @NullAndEmptySource
+    void shouldThrowConstraintViolationWhenReportingSystemSupplierIsNullOrEmpty(String reportingSystemSupplier) {
         RegistrationStartedEvent event = RegistrationStartedEventBuilder
                 .withDefaultEventValues()
-                .registrationId("000000000011111111112222222222333")
-                .build();
-
-        Set<ConstraintViolation<RegistrationStartedEvent>> violations = validator.validate(event);
-
-        assertEquals(1, violations.size());
-
-        ConstraintViolation<RegistrationStartedEvent> violation = violations.iterator().next();
-        assertEquals("length must be between 4 and 32", violation.getMessage());
-        assertEquals("registrationId", violation.getPropertyPath().toString());
-    }
-
-    @Test
-    void shouldThrowConstraintViolationWhenReportingSystemSupplierIsNull() {
-        RegistrationStartedEvent event = RegistrationStartedEventBuilder
-                .withDefaultEventValues()
-                .reportingSystemSupplier(null)
+                .reportingSystemSupplier(reportingSystemSupplier)
                 .build();
 
         Set<ConstraintViolation<RegistrationStartedEvent>> violations = validator.validate(event);
@@ -109,11 +98,12 @@ public class EventTest {
         assertEquals("reportingSystemSupplier", violation.getPropertyPath().toString());
     }
 
-    @Test
-    void shouldThrowConstraintViolationWhenReportingPracticeOdsCodeIsNull() {
+    @ParameterizedTest
+    @NullAndEmptySource
+    void shouldThrowConstraintViolationWhenReportingPracticeOdsCodeIsNullOrEmpty(String reportingPracticeOdsCode) {
         RegistrationStartedEvent event = RegistrationStartedEventBuilder
                 .withDefaultEventValues()
-                .reportingPracticeOdsCode(null)
+                .reportingPracticeOdsCode(reportingPracticeOdsCode)
                 .build();
 
         Set<ConstraintViolation<RegistrationStartedEvent>> violations = validator.validate(event);
