@@ -12,7 +12,8 @@ public class EhrRequestedEventBuilder {
                 .eventGeneratedTimestamp(12345L)
                 .registrationId("some-registration-id")
                 .reportingSystemSupplier("some-reporting-system-supplier")
-                .reportingPracticeOdsCode("some-reporting-practice-ods-code");
+                .reportingPracticeOdsCode("some-reporting-practice-ods-code")
+                .payload(withDefaultEhrRequestedPayload().build());
     }
 
     public static EhrRequestedGp2gpDetails.EhrRequestedGp2gpDetailsBuilder withDefaultEhrRequestedGp2gpDetails() {

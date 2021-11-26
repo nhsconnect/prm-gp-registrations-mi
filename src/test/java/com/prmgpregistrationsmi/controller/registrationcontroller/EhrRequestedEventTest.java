@@ -1,5 +1,6 @@
 package com.prmgpregistrationsmi.controller.registrationcontroller;
 
+import com.prmgpregistrationsmi.controller.ApiError;
 import com.prmgpregistrationsmi.controller.RegistrationController;
 import com.prmgpregistrationsmi.model.EhrRequestedEvent;
 import com.prmgpregistrationsmi.model.EventDAO;
@@ -11,13 +12,18 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+
+import java.util.List;
 
 import static com.prmgpregistrationsmi.controller.RegistrationController.API_VERSION;
 import static com.prmgpregistrationsmi.utils.JsonHelper.asJsonString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
@@ -54,5 +60,26 @@ public class EhrRequestedEventTest {
 
         String responseBody = mvcResult.getResponse().getContentAsString();
         assertEquals("{\"eventId\":\"event-34567\"}", responseBody);
+    }
+
+    @Test
+    void shouldReturn400RequestBodyIsEmpty() throws Exception {
+        EhrRequestedEvent emptyRequestBody = new EhrRequestedEvent();
+
+        ApiError expectedResponse = new ApiError(
+                HttpStatus.BAD_REQUEST,
+                "Failed to validate fields", List.of(
+                "reportingPracticeOdsCode: must not be empty",
+                "eventGeneratedTimestamp: must not be null",
+                "registrationId: must not be empty",
+                "payload: must not be null",
+                "reportingSystemSupplier: must not be empty",
+                "eventId: must not be empty"));
+
+        mockMvc.perform(post("/registration/" + API_VERSION + "/ehrRequested").content(asJsonString(emptyRequestBody))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest())
+                .andExpect(result -> assertTrue(result.getResolvedException() instanceof MethodArgumentNotValidException))
+                .andExpect(content().json(asJsonString(expectedResponse)));
     }
 }
