@@ -1,6 +1,7 @@
 package com.prmgpregistrationsmi.testhelpers;
 
 import com.prmgpregistrationsmi.model.EhrRequestedEvent;
+import com.prmgpregistrationsmi.model.EhrRequestedGp2gpDetails;
 import com.prmgpregistrationsmi.model.EhrRequestedPayload;
 import com.prmgpregistrationsmi.model.EhrRequestedRegistrationDetails;
 
@@ -14,13 +15,21 @@ public class EhrRequestedEventBuilder {
                 .reportingPracticeOdsCode("some-reporting-practice-ods-code");
     }
 
+    public static EhrRequestedGp2gpDetails.EhrRequestedGp2gpDetailsBuilder withDefaultEhrRequestedGp2gpDetails() {
+        return EhrRequestedGp2gpDetails.builder()
+                .conversationId("r32ou-t45ada-3431gsnfk-en3i3biy1")
+                .ehrRequestedTimestamp(12124145245L);
+    }
+
     public static EhrRequestedRegistrationDetails.EhrRequestedRegistrationDetailsBuilder withDefaultEhrRequestedRegistrationDetails() {
         return EhrRequestedRegistrationDetails.builder()
-                .requestingPracticeOdsCode("ABC1234");
+                .requestingPracticeOdsCode("ABC1234")
+                .sendingPracticeOdsCode("DCE1234");
     }
 
     public static EhrRequestedPayload.EhrRequestedPayloadBuilder withDefaultEhrRequestedPayload() {
         return EhrRequestedPayload.builder()
-                .registration(withDefaultEhrRequestedRegistrationDetails().build());
+                .registration(withDefaultEhrRequestedRegistrationDetails().build())
+                .gp2gp(withDefaultEhrRequestedGp2gpDetails().build());
     }
 }

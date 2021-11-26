@@ -3,15 +3,17 @@ package com.prmgpregistrationsmi.model;
 import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @EqualsAndHashCode
-public class EhrRequestedRegistrationDetails {
+public class EhrRequestedGp2gpDetails {
     @NotEmpty
-    private String requestingPracticeOdsCode;
-    @NotEmpty
-    private String sendingPracticeOdsCode;
+    private String conversationId;
+    @NotNull
+    private Long ehrRequestedTimestamp;
 }

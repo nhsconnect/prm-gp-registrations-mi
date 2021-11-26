@@ -14,4 +14,8 @@ public class EhrRequestedPayload implements Payload {
     @Valid
     @NotNull
     private EhrRequestedRegistrationDetails registration;
+
+    @Valid
+    @NotNull
+    private EhrRequestedGp2gpDetails gp2gp;
 }
