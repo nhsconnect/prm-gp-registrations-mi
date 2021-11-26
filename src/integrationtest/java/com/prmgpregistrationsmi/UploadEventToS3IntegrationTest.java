@@ -11,7 +11,6 @@ import org.springframework.boot.web.server.LocalServerPort;
 
 import static com.prmgpregistrationsmi.controller.RegistrationController.API_VERSION;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -59,7 +58,7 @@ class UploadEventToS3IntegrationTest {
         EventResponse expectedResponse = new EventResponse("event-id-test");
         assertEquals(expectedResponse, actualResponseEvent);
 
-        verify(mockAmazonS3Client, times(1)).putObject(
+        verify(mockAmazonS3Client).putObject(
                 "test_bucket",
                 "v1/1970/01/04/15/event-id-test.json",
                 expectedS3UploadEvent.toString()
