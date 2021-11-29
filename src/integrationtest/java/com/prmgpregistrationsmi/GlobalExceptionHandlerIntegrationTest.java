@@ -32,9 +32,6 @@ class GlobalExceptionHandlerIntegrationTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @MockBean
-    private RegistrationService mockRegistrationService;
-
     @Test
     void shouldReturn400RequestBodyIsEmpty() throws Exception {
         RegistrationStartedEvent emptyRequestBody = new RegistrationStartedEvent();
