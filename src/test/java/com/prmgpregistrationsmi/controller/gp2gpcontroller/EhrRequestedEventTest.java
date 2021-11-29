@@ -1,6 +1,6 @@
-package com.prmgpregistrationsmi.controller.registrationcontroller;
+package com.prmgpregistrationsmi.controller.gp2gpcontroller;
 
-import com.prmgpregistrationsmi.controller.RegistrationController;
+import com.prmgpregistrationsmi.controller.GP2GPController;
 import com.prmgpregistrationsmi.model.EhrRequestedEvent;
 import com.prmgpregistrationsmi.model.EventDAO;
 import com.prmgpregistrationsmi.model.EventResponse;
@@ -15,7 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
-import static com.prmgpregistrationsmi.controller.RegistrationController.API_VERSION;
+import static com.prmgpregistrationsmi.controller.GP2GPController.API_VERSION;
 import static com.prmgpregistrationsmi.utils.JsonHelper.asJsonString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(RegistrationController.class)
+@WebMvcTest(GP2GPController.class)
 public class EhrRequestedEventTest {
 
     @Autowired

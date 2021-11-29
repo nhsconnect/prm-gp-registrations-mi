@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import com.prmgpregistrationsmi.controller.ApiError;
-import com.prmgpregistrationsmi.controller.RegistrationController;
+import com.prmgpregistrationsmi.controller.GP2GPController;
 import com.prmgpregistrationsmi.model.RegistrationStartedEvent;
 import com.prmgpregistrationsmi.service.RegistrationService;
 import org.junit.jupiter.api.Test;
@@ -20,14 +20,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static com.prmgpregistrationsmi.controller.RegistrationController.API_VERSION;
+import static com.prmgpregistrationsmi.controller.GP2GPController.API_VERSION;
 import static com.prmgpregistrationsmi.utils.JsonHelper.asJsonString;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(RegistrationController.class)
+@WebMvcTest(GP2GPController.class)
 class GlobalExceptionHandlerIntegrationTest {
     @Autowired
     private MockMvc mockMvc;

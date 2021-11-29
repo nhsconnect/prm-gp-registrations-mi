@@ -9,7 +9,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 
-import static com.prmgpregistrationsmi.controller.RegistrationController.API_VERSION;
+import static com.prmgpregistrationsmi.controller.GP2GPController.API_VERSION;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 

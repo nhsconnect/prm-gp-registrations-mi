@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
-import static com.prmgpregistrationsmi.controller.RegistrationController.API_VERSION;
+import static com.prmgpregistrationsmi.controller.GP2GPController.API_VERSION;
 
 
 @Slf4j
@@ -26,7 +26,7 @@ import static com.prmgpregistrationsmi.controller.RegistrationController.API_VER
 @RequestMapping("registration/" + API_VERSION)
 @AllArgsConstructor
 @Validated
-public class RegistrationController {
+public class GP2GPController {
     private final RegistrationService registrationService;
     public static final String API_VERSION = "v1";
 

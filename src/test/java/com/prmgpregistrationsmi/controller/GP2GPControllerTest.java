@@ -16,14 +16,14 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
-class RegistrationControllerTest {
+class GP2GPControllerTest {
     @MockBean
     private RegistrationService mockRegistrationService;
-    private RegistrationController registrationController;
+    private GP2GPController gp2gpController;
 
     @BeforeEach
     void setUp() {
-        registrationController =  new RegistrationController(mockRegistrationService);
+        gp2gpController =  new GP2GPController(mockRegistrationService);
     }
 
     @Test
@@ -36,7 +36,7 @@ class RegistrationControllerTest {
 
         when(mockRegistrationService.saveEvent(testEvent, EventType.GP2GP_REGISTRATION_STARTED)).thenReturn(eventDAO);
 
-        EventResponse actualResponse = registrationController.registrationStartedEvent(testEvent);
+        EventResponse actualResponse = gp2gpController.registrationStartedEvent(testEvent);
 
         verify(mockRegistrationService).saveEvent(testEvent, EventType.GP2GP_REGISTRATION_STARTED);
 
@@ -54,7 +54,7 @@ class RegistrationControllerTest {
 
         when(mockRegistrationService.saveEvent(testEvent, EventType.EHR_REQUESTED)).thenReturn(eventDAO);
 
-        EventResponse actualResponse = registrationController.ehrRequestedEvent(testEvent);
+        EventResponse actualResponse = gp2gpController.ehrRequestedEvent(testEvent);
 
         verify(mockRegistrationService).saveEvent(testEvent, EventType.EHR_REQUESTED);
 
