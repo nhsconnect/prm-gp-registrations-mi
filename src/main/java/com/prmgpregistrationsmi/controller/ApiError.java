@@ -1,11 +1,13 @@
 package com.prmgpregistrationsmi.controller;
 
+import lombok.EqualsAndHashCode;
 import org.springframework.http.HttpStatus;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+@EqualsAndHashCode
 public final class ApiError {
     private final HttpStatus status;
     private final String message;

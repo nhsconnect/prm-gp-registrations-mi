@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler(MismatchedInputException.class)
-    public ResponseEntity<ApiError> methodArgumentNotValidExceptionHandler(MismatchedInputException ex) {
+    public ResponseEntity<ApiError> requestFieldNotValidExceptionHandler(MismatchedInputException ex) {
         String message = "Invalid request field";
         ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, message, getErrorMessageDetailsWithField(ex));
 
@@ -28,7 +28,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(JsonParseException.class)
-    public ResponseEntity<ApiError> methodArgumentNotValidExceptionHandler(JsonParseException ex) {
+    public ResponseEntity<ApiError> jsonParseExceptionHandler(JsonParseException ex) {
         String message = "Invalid JSON";
         ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, message, "Unable to parse JSON");
 
@@ -38,7 +38,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(JsonMappingException.class)
-    public ResponseEntity<ApiError> methodArgumentNotValidExceptionHandler(JsonMappingException ex) {
+    public ResponseEntity<ApiError> jsonMappingExceptionHandler(JsonMappingException ex) {
         String message = "Invalid JSON";
         ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, message, getErrorMessageDetailsWithField(ex));
 
@@ -48,7 +48,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ApiError> methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException ex) {
+    public ResponseEntity<ApiError> argumentNotValidExceptionHandler(MethodArgumentNotValidException ex) {
         String message = "Failed to validate fields";
 
         List<FieldError> fieldErrors = ex.getBindingResult().getFieldErrors();
