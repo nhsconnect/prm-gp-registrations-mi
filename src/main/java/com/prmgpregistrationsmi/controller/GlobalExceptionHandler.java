@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler(MismatchedInputException.class)
-    public ResponseEntity<ApiError> requestFieldNotValidExceptionHandler(MismatchedInputException ex) {
+    public ResponseEntity<ApiError> mismatchedInputExceptionHandler(MismatchedInputException ex) {
         String message = "Invalid request field";
         ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, message, getErrorMessageDetailsWithField(ex));
 
@@ -48,7 +48,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ApiError> argumentNotValidExceptionHandler(MethodArgumentNotValidException ex) {
+    public ResponseEntity<ApiError> methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException ex) {
         String message = "Failed to validate fields";
 
         List<FieldError> fieldErrors = ex.getBindingResult().getFieldErrors();
