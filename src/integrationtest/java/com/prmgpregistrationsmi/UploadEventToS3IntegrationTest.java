@@ -2,6 +2,7 @@ package com.prmgpregistrationsmi;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.prmgpregistrationsmi.model.*;
+import com.prmgpregistrationsmi.testhelpers.RegistrationStartedEventBuilder;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,21 +27,19 @@ class UploadEventToS3IntegrationTest {
 
     @Test
     void eventToS3Uploaded() {
-        RegistrationStartedDetails registrationStartedDetails = RegistrationStartedDetails.builder()
-                .registrationStartedTimestamp(313130L)
-                .registrationType("newRegistrant")
-                .requestingPracticeOdsCode("B12345").build();
-
-        RegistrationStartedPayload registrationStartedPayload = RegistrationStartedPayload.builder()
-                .registration(registrationStartedDetails).build();
-
-        RegistrationStartedEvent registrationStartedEventRequest = RegistrationStartedEvent.builder()
+        RegistrationStartedEvent registrationStartedEventRequest = RegistrationStartedEventBuilder
+                .withDefaultEventValues()
+                .eventId("event-id-test")
                 .eventGeneratedTimestamp(315130L)
                 .registrationId("registration-id-test-12345")
                 .reportingSystemSupplier("system-a")
                 .reportingPracticeOdsCode("A12345")
-                .eventId("event-id-test")
-                .payload(registrationStartedPayload).build();
+                .build();
+
+        RegistrationStartedPayload registrationStartedPayload = RegistrationStartedEventBuilder
+                .withDefaultRegistrationStartedPayload()
+                .build();
+
 
         EventDAO expectedS3UploadEvent = new EventDAO(
                 "event-id-test",
