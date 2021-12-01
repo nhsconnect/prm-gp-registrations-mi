@@ -1,5 +1,7 @@
-package com.prmgpregistrationsmi.model;
+package com.prmgpregistrationsmi.model.EhrRequested;
 
+import com.prmgpregistrationsmi.model.Event.Event;
+import com.prmgpregistrationsmi.model.Event.Payload;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;

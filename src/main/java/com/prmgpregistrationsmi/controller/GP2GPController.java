@@ -1,11 +1,11 @@
 package com.prmgpregistrationsmi.controller;
 
 import com.prmgpregistrationsmi.exception.UnableToUploadToS3Exception;
-import com.prmgpregistrationsmi.model.RegistrationStartedEvent;
-import com.prmgpregistrationsmi.model.EhrRequestedEvent;
-import com.prmgpregistrationsmi.model.EventDAO;
-import com.prmgpregistrationsmi.model.EventResponse;
-import com.prmgpregistrationsmi.model.EventType;
+import com.prmgpregistrationsmi.model.RegistrationStarted.RegistrationStartedEvent;
+import com.prmgpregistrationsmi.model.EhrRequested.EhrRequestedEvent;
+import com.prmgpregistrationsmi.model.Event.EventDAO;
+import com.prmgpregistrationsmi.model.Event.EventResponse;
+import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.service.RegistrationService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -1,4 +1,4 @@
-package com.prmgpregistrationsmi.model;
+package com.prmgpregistrationsmi.model.EhrRequested;
 
 import lombok.*;
 

@@ -1,9 +1,9 @@
 package com.prmgpregistrationsmi.service;
 
 import com.prmgpregistrationsmi.exception.UnableToUploadToS3Exception;
-import com.prmgpregistrationsmi.model.Event;
-import com.prmgpregistrationsmi.model.EventDAO;
-import com.prmgpregistrationsmi.model.EventType;
+import com.prmgpregistrationsmi.model.Event.Event;
+import com.prmgpregistrationsmi.model.Event.EventDAO;
+import com.prmgpregistrationsmi.model.Event.EventType;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

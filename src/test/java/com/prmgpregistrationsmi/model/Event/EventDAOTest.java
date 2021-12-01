@@ -1,5 +1,6 @@
-package com.prmgpregistrationsmi.model;
+package com.prmgpregistrationsmi.model.Event;
 
+import com.prmgpregistrationsmi.model.RegistrationStarted.RegistrationStartedEvent;
 import com.prmgpregistrationsmi.testhelpers.RegistrationStartedEventBuilder;
 import org.junit.jupiter.api.Test;
 

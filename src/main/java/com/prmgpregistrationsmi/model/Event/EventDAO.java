@@ -1,4 +1,4 @@
-package com.prmgpregistrationsmi.model;
+package com.prmgpregistrationsmi.model.Event;
 
 import com.prmgpregistrationsmi.utils.JsonHelper;
 import lombok.AllArgsConstructor;

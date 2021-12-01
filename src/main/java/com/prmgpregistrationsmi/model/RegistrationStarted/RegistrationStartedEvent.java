@@ -1,5 +1,7 @@
-package com.prmgpregistrationsmi.model;
+package com.prmgpregistrationsmi.model.RegistrationStarted;
 
+import com.prmgpregistrationsmi.model.Event.Event;
+import com.prmgpregistrationsmi.model.Event.Payload;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 

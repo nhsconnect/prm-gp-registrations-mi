@@ -1,7 +1,11 @@
 package com.prmgpregistrationsmi;
 
 import com.amazonaws.services.s3.AmazonS3Client;
-import com.prmgpregistrationsmi.model.*;
+import com.prmgpregistrationsmi.model.RegistrationStarted.RegistrationStartedEvent;
+import com.prmgpregistrationsmi.model.RegistrationStarted.RegistrationStartedPayload;
+import com.prmgpregistrationsmi.model.Event.EventDAO;
+import com.prmgpregistrationsmi.model.Event.EventResponse;
+import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.testhelpers.RegistrationStartedEventBuilder;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

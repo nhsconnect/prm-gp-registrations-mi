@@ -1,7 +1,11 @@
 package com.prmgpregistrationsmi;
 
 import com.prmgpregistrationsmi.controller.GP2GPController;
-import com.prmgpregistrationsmi.model.*;
+import com.prmgpregistrationsmi.model.EhrRequested.EhrRequestedEvent;
+import com.prmgpregistrationsmi.model.RegistrationStarted.RegistrationStartedEvent;
+import com.prmgpregistrationsmi.model.Event.EventDAO;
+import com.prmgpregistrationsmi.model.Event.EventResponse;
+import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.service.RegistrationService;
 import com.prmgpregistrationsmi.testhelpers.EhrRequestedEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.RegistrationStartedEventBuilder;

@@ -1,9 +1,9 @@
 package com.prmgpregistrationsmi.testhelpers;
 
-import com.prmgpregistrationsmi.model.EhrRequestedEvent;
-import com.prmgpregistrationsmi.model.EhrRequestedGp2gpDetails;
-import com.prmgpregistrationsmi.model.EhrRequestedPayload;
-import com.prmgpregistrationsmi.model.EhrRequestedRegistrationDetails;
+import com.prmgpregistrationsmi.model.EhrRequested.EhrRequestedEvent;
+import com.prmgpregistrationsmi.model.EhrRequested.EhrRequestedGp2gpDetails;
+import com.prmgpregistrationsmi.model.EhrRequested.EhrRequestedPayload;
+import com.prmgpregistrationsmi.model.EhrRequested.EhrRequestedRegistrationDetails;
 
 public class EhrRequestedEventBuilder {
     public static EhrRequestedEvent.EhrRequestedEventBuilder<?, ?> withDefaultEventValues() {

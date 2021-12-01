@@ -1,8 +1,8 @@
 package com.prmgpregistrationsmi.testhelpers;
 
-import com.prmgpregistrationsmi.model.RegistrationStartedEvent;
-import com.prmgpregistrationsmi.model.RegistrationStartedDetails;
-import com.prmgpregistrationsmi.model.RegistrationStartedPayload;
+import com.prmgpregistrationsmi.model.RegistrationStarted.RegistrationStartedEvent;
+import com.prmgpregistrationsmi.model.RegistrationStarted.RegistrationStartedDetails;
+import com.prmgpregistrationsmi.model.RegistrationStarted.RegistrationStartedPayload;
 
 public class RegistrationStartedEventBuilder {
     public static RegistrationStartedEvent.RegistrationStartedEventBuilder<?, ?> withDefaultEventValues() {
