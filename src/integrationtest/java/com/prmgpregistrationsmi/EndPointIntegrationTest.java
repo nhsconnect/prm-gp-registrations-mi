@@ -1,12 +1,14 @@
 package com.prmgpregistrationsmi;
 
 import com.prmgpregistrationsmi.controller.GP2GPController;
+import com.prmgpregistrationsmi.model.EhrGenerated.EhrGeneratedEvent;
 import com.prmgpregistrationsmi.model.EhrRequested.EhrRequestedEvent;
 import com.prmgpregistrationsmi.model.RegistrationStarted.RegistrationStartedEvent;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.service.RegistrationService;
+import com.prmgpregistrationsmi.testhelpers.EhrGeneratedEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.EhrRequestedEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.RegistrationStartedEventBuilder;
 import org.junit.jupiter.api.Test;
@@ -76,5 +78,27 @@ class EndPointIntegrationTest {
 
         String responseBody = mvcResult.getResponse().getContentAsString();
         assertEquals("{\"eventId\":\"event-34567\"}", responseBody);
+    }
+
+    @Test
+    void shouldReturn200WhenPostToEhrGeneratedEndPointWithValidEvent() throws Exception {
+        EhrGeneratedEvent requestBody = EhrGeneratedEventBuilder
+                .withDefaultEventValues()
+                .eventId("event-12345")
+                .build();
+        EventDAO eventDAO = EventDAO.fromEvent(requestBody, EventType.EHR_GENERATED);
+        EventResponse eventResponse = new EventResponse(eventDAO.getEventId());
+
+        when(mockRegistrationService.saveEvent(any(EhrGeneratedEvent.class), eq(EventType.EHR_GENERATED))).thenReturn(eventDAO);
+
+        MvcResult mvcResult = mockMvc.perform(post("/registration/" + API_VERSION + "/ehrGenerated")
+                        .content(asJsonString(requestBody))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().json(asJsonString(eventResponse)))
+                .andReturn();
+
+        String responseBody = mvcResult.getResponse().getContentAsString();
+        assertEquals("{\"eventId\":\"event-12345\"}", responseBody);
     }
 }
