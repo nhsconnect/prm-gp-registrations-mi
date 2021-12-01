@@ -1,12 +1,14 @@
 package com.prmgpregistrationsmi.controller;
 
 import com.prmgpregistrationsmi.exception.UnableToUploadToS3Exception;
+import com.prmgpregistrationsmi.model.EhrGenerated.EhrGeneratedEvent;
 import com.prmgpregistrationsmi.model.EhrRequested.EhrRequestedEvent;
 import com.prmgpregistrationsmi.model.RegistrationStarted.RegistrationStartedEvent;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.service.RegistrationService;
+import com.prmgpregistrationsmi.testhelpers.EhrGeneratedEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.EhrRequestedEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.RegistrationStartedEventBuilder;
 import org.junit.jupiter.api.BeforeEach;
@@ -61,6 +63,24 @@ class GP2GPControllerTest {
         EventResponse actualResponse = gp2gpController.ehrRequestedEvent(testEvent);
 
         verify(mockRegistrationService).saveEvent(testEvent, EventType.EHR_REQUESTED);
+
+        EventResponse expectedEventResponse = new EventResponse("event-test-23456");
+        assertEquals(actualResponse, expectedEventResponse);
+    }
+
+    @Test
+    void ehrGeneratedEventReturnsEventResponse() throws UnableToUploadToS3Exception {
+        EhrGeneratedEvent testEvent = EhrGeneratedEventBuilder
+                .withDefaultEventValues()
+                .eventId("event-test-23456")
+                .build();
+        EventDAO eventDAO = EventDAO.fromEvent(testEvent, EventType.EHR_GENERATED);
+
+        when(mockRegistrationService.saveEvent(testEvent, EventType.EHR_GENERATED)).thenReturn(eventDAO);
+
+        EventResponse actualResponse = gp2gpController.ehrGeneratedEvent(testEvent);
+
+        verify(mockRegistrationService).saveEvent(testEvent, EventType.EHR_GENERATED);
 
         EventResponse expectedEventResponse = new EventResponse("event-test-23456");
         assertEquals(actualResponse, expectedEventResponse);

@@ -1,6 +1,7 @@
 package com.prmgpregistrationsmi.controller;
 
 import com.prmgpregistrationsmi.exception.UnableToUploadToS3Exception;
+import com.prmgpregistrationsmi.model.EhrGenerated.EhrGeneratedEvent;
 import com.prmgpregistrationsmi.model.RegistrationStarted.RegistrationStartedEvent;
 import com.prmgpregistrationsmi.model.EhrRequested.EhrRequestedEvent;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
@@ -51,6 +52,18 @@ public class GP2GPController {
             @Valid @RequestBody EhrRequestedEvent event) throws UnableToUploadToS3Exception {
         log.info("Successfully received EHR requested event on: /registration/ehrRequested endpoint");
         EventDAO eventDAO = registrationService.saveEvent(event, EventType.EHR_REQUESTED);
+        return new EventResponse(eventDAO.getEventId());
+    }
+
+    @PostMapping(
+            value = "/ehrGenerated",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public EventResponse ehrGeneratedEvent(
+            @Valid @RequestBody EhrGeneratedEvent event) throws UnableToUploadToS3Exception {
+        log.info("Successfully received EHR generated event on: /registration/ehrGenerated endpoint");
+        EventDAO eventDAO = registrationService.saveEvent(event, EventType.EHR_GENERATED);
         return new EventResponse(eventDAO.getEventId());
     }
 }
