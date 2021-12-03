@@ -47,11 +47,6 @@ Run unit tests
 ./tasks test_unit
 ```
 
-Run integration tests
-```
-./tasks test_integration
-```
-
 Run test coverage verification
 ```
 ./tasks test_coverage

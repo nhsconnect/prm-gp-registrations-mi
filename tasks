@@ -42,7 +42,7 @@ do
         ./gradlew bootRun
         ;;
     _validate)
-        ./tasks _test_unit _test_integration _test_coverage _code_quality
+        ./tasks _test_unit _test_coverage _code_quality
         ;;
     validate)
         dojo "./tasks _validate"
