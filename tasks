@@ -19,12 +19,6 @@ do
     test_unit)
         dojo "./tasks _test_unit"
         ;;
-    _test_integration)
-        gradle --info integrationTest
-        ;;
-    test_integration)
-        dojo "./tasks _test_integration"
-        ;;
     _dep)
         gradle dependencyCheckAnalyze
         ;;

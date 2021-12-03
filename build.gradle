@@ -40,31 +40,12 @@ dependencies {
 	implementation 'com.googlecode.json-simple:json-simple:1.1.1'
 }
 
-sourceSets {
-	integrationTest {
-		compileClasspath += sourceSets.main.output
-		runtimeClasspath += sourceSets.main.output
-	}
-}
-
-configurations {
-	integrationTestImplementation.extendsFrom testImplementation
-	integrationTestRuntimeOnly.extendsFrom runtimeOnly
-}
-
 tasks.withType(Test) {
 	useJUnitPlatform()
 }
 
-task integrationTest(type: Test) {
-	testClassesDirs = sourceSets.integrationTest.output.classesDirs
-	classpath = sourceSets.integrationTest.runtimeClasspath
-	shouldRunAfter test
-}
-
 jacocoTestReport {
 	dependsOn test // tests are required to run before generating the report
-	shouldRunAfter integrationTest
 }
 
 jacocoTestCoverageVerification {
@@ -103,15 +84,3 @@ spotbugsTest {
 		}
 	}
 }
-
-spotbugsIntegrationTest {
-	reports {
-		html {
-			enabled = true
-			destination = file("$buildDir/reports/spotbugs/integrationTest/spotbugs.html")
-			stylesheet = 'fancy-hist.xsl'
-		}
-	}
-}
-
-check.dependsOn integrationTest

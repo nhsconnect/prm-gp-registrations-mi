@@ -1,4 +1,4 @@
-package com.prmgpregistrationsmi;
+package com.prmgpregistrationsmi.integrationtest;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;

@@ -1,4 +1,4 @@
-package com.prmgpregistrationsmi;
+package com.prmgpregistrationsmi.integrationtest;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.prmgpregistrationsmi.model.EhrGenerated.EhrGeneratedEvent;

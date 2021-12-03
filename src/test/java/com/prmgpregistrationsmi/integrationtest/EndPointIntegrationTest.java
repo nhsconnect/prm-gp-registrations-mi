@@ -1,4 +1,4 @@
-package com.prmgpregistrationsmi;
+package com.prmgpregistrationsmi.integrationtest;
 
 import com.prmgpregistrationsmi.controller.GP2GPController;
 import com.prmgpregistrationsmi.model.EhrGenerated.EhrGeneratedEvent;
