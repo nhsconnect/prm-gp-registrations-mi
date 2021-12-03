@@ -108,10 +108,10 @@ class EhrGeneratedEventTest {
     }
 
     @Test
-    void shouldThrowConstraintViolationWhenEhrSentTimestampInPayloadIsNull() {
+    void shouldThrowConstraintViolationWhenEhrGeneratedTimestampInPayloadIsNull() {
         EhrGeneratedGp2gpDetails gp2gpPayload = EhrGeneratedEventBuilder
                 .withDefaultEhrGeneratedGp2gpDetails()
-                .ehrSentTimestamp(null)
+                .ehrGeneratedTimestamp(null)
                 .build();
 
         EhrGeneratedPayload payload = EhrGeneratedEventBuilder
@@ -130,6 +130,6 @@ class EhrGeneratedEventTest {
 
         ConstraintViolation<EhrGeneratedEvent> violation = violations.iterator().next();
         assertEquals("must not be null", violation.getMessage());
-        assertEquals("payload.gp2gp.ehrSentTimestamp", violation.getPropertyPath().toString());
+        assertEquals("payload.gp2gp.ehrGeneratedTimestamp", violation.getPropertyPath().toString());
     }
 }

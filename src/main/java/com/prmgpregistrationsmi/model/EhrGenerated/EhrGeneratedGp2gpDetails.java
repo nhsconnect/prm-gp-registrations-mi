@@ -15,5 +15,5 @@ public class EhrGeneratedGp2gpDetails {
     @NotEmpty
     private String conversationId;
     @NotNull
-    private Long ehrSentTimestamp;
+    private Long ehrGeneratedTimestamp;
 }
