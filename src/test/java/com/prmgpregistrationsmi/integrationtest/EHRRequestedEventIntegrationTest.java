@@ -35,9 +35,6 @@ class EHRRequestedEventIntegrationTest {
                 .withDefaultEventValues()
                 .eventId("event-id-test")
                 .eventGeneratedTimestamp(315130L)
-                .registrationId("registration-id-test-12345")
-                .reportingSystemSupplier("system-a")
-                .reportingPracticeOdsCode("A12345")
                 .build();
 
         EhrRequestedPayload ehrRequestedPayload = EhrRequestedEventBuilder
@@ -45,12 +42,12 @@ class EHRRequestedEventIntegrationTest {
                 .build();
 
         EventDAO expectedS3UploadEvent = new EventDAO(
-                "event-id-test",
+                ehrRequestedEventRequest.getEventId(),
                 315130L,
                 EventType.EHR_REQUESTED,
-                "registration-id-test-12345",
-                "system-a",
-                "A12345",
+                ehrRequestedEventRequest.getRegistrationId(),
+                ehrRequestedEventRequest.getReportingSystemSupplier(),
+                ehrRequestedEventRequest.getReportingPracticeOdsCode(),
                 ehrRequestedPayload
         );
 
@@ -62,7 +59,7 @@ class EHRRequestedEventIntegrationTest {
 
         verify(mockAmazonS3Client).putObject(
                 "test_bucket",
-                "v1/1970/01/04/15/event-id-test.json",
+                String.format("v1/1970/01/04/15/%s.json", ehrRequestedEventRequest.getEventId()),
                 expectedS3UploadEvent.toString()
         );
     }
