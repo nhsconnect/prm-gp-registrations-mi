@@ -5,6 +5,7 @@ import lombok.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -19,4 +20,5 @@ public class EhrGeneratedGp2gpDetails {
     @Valid
     @NotNull
     private EhrGeneratedEhrDetails ehr;
+    private List<UnsupportedDataItemDetails> unsupportedDataItem;
 }

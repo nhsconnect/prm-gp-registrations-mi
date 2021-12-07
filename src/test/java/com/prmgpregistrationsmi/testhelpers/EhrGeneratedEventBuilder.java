@@ -16,10 +16,17 @@ public class EhrGeneratedEventBuilder {
     }
 
     public static EhrGeneratedGp2gpDetails.EhrGeneratedGp2gpDetailsBuilder withDefaultEhrGeneratedGp2gpDetails() {
+        UnsupportedDataItemDetails unsupportedDataItem = UnsupportedDataItemDetails.builder()
+                .type("allergy/flag")
+                .uniqueIdentifier("1323-132345-1323-132345")
+                .reason("reason for being unsupported / why is it unsupported in gp2gp / what would have to change in gp2gp to express this")
+                .build();
+
         return EhrGeneratedGp2gpDetails.builder()
                 .conversationId("r32ou-t45ada-3431gsnfk-en3i3biy1")
                 .ehrGeneratedTimestamp(12124145245L)
-                .ehr(withDefaultEhrGeneratedEhrDetails().build());
+                .ehr(withDefaultEhrGeneratedEhrDetails().build())
+                .unsupportedDataItem(List.of(unsupportedDataItem));
     }
 
     public static EhrGeneratedEhrDetails.EhrGeneratedEhrDetailsBuilder withDefaultEhrGeneratedEhrDetails() {
