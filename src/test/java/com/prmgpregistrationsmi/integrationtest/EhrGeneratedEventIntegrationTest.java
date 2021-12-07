@@ -1,12 +1,11 @@
 package com.prmgpregistrationsmi.integrationtest;
 
 import com.amazonaws.services.s3.AmazonS3Client;
-import com.prmgpregistrationsmi.model.EhrSent.EhrSentEvent;
-import com.prmgpregistrationsmi.model.EhrSent.EhrSentPayload;
+import com.prmgpregistrationsmi.model.EhrGenerated.EhrGeneratedEvent;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
-import com.prmgpregistrationsmi.testhelpers.EhrSentEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.EhrGeneratedEventBuilder;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class EHRSentEventIntegrationTest {
+class EhrGeneratedEventIntegrationTest {
     @LocalServerPort
     private int port;
 
@@ -30,36 +29,30 @@ class EHRSentEventIntegrationTest {
     AmazonS3Client mockAmazonS3Client;
 
     @Test
-    void shouldUploadEHRSentEventToS3() {
-        EhrSentEvent ehrSentEventRequest = EhrSentEventBuilder
+    void shouldUploadEhrGeneratedEventToS3() {
+        EhrGeneratedEvent ehrGeneratedEventRequest = EhrGeneratedEventBuilder
                 .withDefaultEventValues()
-                .eventId("event-id-test")
-                .eventGeneratedTimestamp(315130L)
-                .build();
-
-        EhrSentPayload ehrSentPayload = EhrSentEventBuilder
-                .withDefaultEhrSentPayload()
                 .build();
 
         EventDAO expectedS3UploadEvent = new EventDAO(
-                ehrSentEventRequest.getEventId(),
-                ehrSentEventRequest.getEventGeneratedTimestamp(),
-                EventType.EHR_SENT,
-                ehrSentEventRequest.getRegistrationId(),
-                ehrSentEventRequest.getReportingSystemSupplier(),
-                ehrSentEventRequest.getReportingPracticeOdsCode(),
-                ehrSentPayload
+                ehrGeneratedEventRequest.getEventId(),
+                ehrGeneratedEventRequest.getEventGeneratedTimestamp(),
+                EventType.EHR_GENERATED,
+                ehrGeneratedEventRequest.getRegistrationId(),
+                ehrGeneratedEventRequest.getReportingSystemSupplier(),
+                ehrGeneratedEventRequest.getReportingPracticeOdsCode(),
+                ehrGeneratedEventRequest.getPayload()
         );
 
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
-                "/registration/" + API_VERSION + "/ehrSent", ehrSentEventRequest, EventResponse.class);
+                "/registration/" + API_VERSION + "/ehrGenerated", ehrGeneratedEventRequest, EventResponse.class);
 
-        EventResponse expectedResponse = new EventResponse("event-id-test");
+        EventResponse expectedResponse = new EventResponse(expectedS3UploadEvent.getEventId());
         assertEquals(expectedResponse, actualResponseEvent);
 
         verify(mockAmazonS3Client).putObject(
                 "test_bucket",
-                String.format("v1/1970/01/04/15/%s.json", ehrSentEventRequest.getEventId()),
+                String.format("v1/1970/01/01/03/%s.json", ehrGeneratedEventRequest.getEventId()),
                 expectedS3UploadEvent.toString()
         );
     }
