@@ -29,15 +29,26 @@ public class EhrGeneratedEventBuilder {
                 .mimeType("application/pdf")
                 .sizeBytes(3084322L)
                 .build();
+
         EhrGeneratedEhrAttachmentDetails attachmentDetailsWithoutClinicalType = EhrGeneratedEhrAttachmentDetails.builder()
                 .attachmentId("1323-132345-1323-132345")
                 .mimeType("audio/mpeg")
                 .sizeBytes(24352346L)
                 .build();
+
+        EhrGeneratedEhrPlaceholderDetails placeholderDetails = EhrGeneratedEhrPlaceholderDetails.builder()
+                .placeholderId("9876-987654-9876-987654")
+                .attachmentId("1323-132345-1323-132345")
+                .generatedBy("XYZ4567")
+                .reason(1)
+                .originalMimeType("audio/mpeg")
+                .build();
+
         return EhrGeneratedEhrDetails.builder()
                 .ehrTotalSizeBytes(5699433L)
                 .ehrStructuredSizeBytes(4096L)
-                .attachments(List.of(attachmentDetailsWithClinicalType, attachmentDetailsWithoutClinicalType));
+                .attachment(List.of(attachmentDetailsWithClinicalType, attachmentDetailsWithoutClinicalType))
+                .placeholder(List.of(placeholderDetails));
     }
 
     public static EhrGeneratedRegistrationDetails.EhrGeneratedRegistrationDetailsBuilder withDefaultEhrGeneratedRegistrationDetails() {

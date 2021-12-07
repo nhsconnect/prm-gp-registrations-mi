@@ -15,5 +15,6 @@ public class EhrGeneratedEhrDetails {
     private Long ehrTotalSizeBytes;
     @NotNull
     private Long ehrStructuredSizeBytes;
-    private List<EhrGeneratedEhrAttachmentDetails> attachments;
+    private List<EhrGeneratedEhrAttachmentDetails> attachment;
+    private List<EhrGeneratedEhrPlaceholderDetails> placeholder;
 }
