@@ -132,4 +132,66 @@ class EhrGeneratedEventTest {
         assertEquals("must not be null", violation.getMessage());
         assertEquals("payload.gp2gp.ehrGeneratedTimestamp", violation.getPropertyPath().toString());
     }
+
+    @Test
+    void shouldThrowConstraintViolationWhenEhrTotalSizeBytesInPayloadIsNull() {
+        EhrGeneratedEhrDetails ehrGp2gpPayload = EhrGeneratedEventBuilder
+                .withDefaultEhrGeneratedEhrDetails()
+                .ehrTotalSizeBytes(null)
+                .build();
+
+        EhrGeneratedGp2gpDetails gp2gpPayload = EhrGeneratedEventBuilder
+                .withDefaultEhrGeneratedGp2gpDetails()
+                .ehr(ehrGp2gpPayload)
+                .build();
+
+        EhrGeneratedPayload payload = EhrGeneratedEventBuilder
+                .withDefaultEhrGeneratedPayload()
+                .gp2gp(gp2gpPayload)
+                .build();
+
+        EhrGeneratedEvent event = EhrGeneratedEventBuilder
+                .withDefaultEventValues()
+                .payload(payload)
+                .build();
+
+        Set<ConstraintViolation<EhrGeneratedEvent>> violations = validator.validate(event);
+
+        assertEquals(1, violations.size());
+
+        ConstraintViolation<EhrGeneratedEvent> violation = violations.iterator().next();
+        assertEquals("must not be null", violation.getMessage());
+        assertEquals("payload.gp2gp.ehr.ehrTotalSizeBytes", violation.getPropertyPath().toString());
+    }
+
+    @Test
+    void shouldThrowConstraintViolationWhenEhrStructuredSizeBytesInPayloadIsNull() {
+        EhrGeneratedEhrDetails ehrGp2gpPayload = EhrGeneratedEventBuilder
+                .withDefaultEhrGeneratedEhrDetails()
+                .ehrStructuredSizeBytes(null)
+                .build();
+
+        EhrGeneratedGp2gpDetails gp2gpPayload = EhrGeneratedEventBuilder
+                .withDefaultEhrGeneratedGp2gpDetails()
+                .ehr(ehrGp2gpPayload)
+                .build();
+
+        EhrGeneratedPayload payload = EhrGeneratedEventBuilder
+                .withDefaultEhrGeneratedPayload()
+                .gp2gp(gp2gpPayload)
+                .build();
+
+        EhrGeneratedEvent event = EhrGeneratedEventBuilder
+                .withDefaultEventValues()
+                .payload(payload)
+                .build();
+
+        Set<ConstraintViolation<EhrGeneratedEvent>> violations = validator.validate(event);
+
+        assertEquals(1, violations.size());
+
+        ConstraintViolation<EhrGeneratedEvent> violation = violations.iterator().next();
+        assertEquals("must not be null", violation.getMessage());
+        assertEquals("payload.gp2gp.ehr.ehrStructuredSizeBytes", violation.getPropertyPath().toString());
+    }
 }

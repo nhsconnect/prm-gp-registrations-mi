@@ -1,9 +1,6 @@
 package com.prmgpregistrationsmi.testhelpers;
 
-import com.prmgpregistrationsmi.model.EhrGenerated.EhrGeneratedEvent;
-import com.prmgpregistrationsmi.model.EhrGenerated.EhrGeneratedGp2gpDetails;
-import com.prmgpregistrationsmi.model.EhrGenerated.EhrGeneratedPayload;
-import com.prmgpregistrationsmi.model.EhrGenerated.EhrGeneratedRegistrationDetails;
+import com.prmgpregistrationsmi.model.EhrGenerated.*;
 
 public class EhrGeneratedEventBuilder {
     public static EhrGeneratedEvent.EhrGeneratedEventBuilder<?, ?> withDefaultEventValues() {
@@ -19,7 +16,14 @@ public class EhrGeneratedEventBuilder {
     public static EhrGeneratedGp2gpDetails.EhrGeneratedGp2gpDetailsBuilder withDefaultEhrGeneratedGp2gpDetails() {
         return EhrGeneratedGp2gpDetails.builder()
                 .conversationId("r32ou-t45ada-3431gsnfk-en3i3biy1")
-                .ehrGeneratedTimestamp(12124145245L);
+                .ehrGeneratedTimestamp(12124145245L)
+                .ehr(withDefaultEhrGeneratedEhrDetails().build());
+    }
+
+    public static EhrGeneratedEhrDetails.EhrGeneratedEhrDetailsBuilder withDefaultEhrGeneratedEhrDetails() {
+        return EhrGeneratedEhrDetails.builder()
+                .ehrTotalSizeBytes(5699433L)
+                .ehrStructuredSizeBytes(4096L);
     }
 
     public static EhrGeneratedRegistrationDetails.EhrGeneratedRegistrationDetailsBuilder withDefaultEhrGeneratedRegistrationDetails() {
