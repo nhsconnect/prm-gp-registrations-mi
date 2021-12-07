@@ -2,6 +2,8 @@ package com.prmgpregistrationsmi.testhelpers;
 
 import com.prmgpregistrationsmi.model.EhrGenerated.*;
 
+import java.util.List;
+
 public class EhrGeneratedEventBuilder {
     public static EhrGeneratedEvent.EhrGeneratedEventBuilder<?, ?> withDefaultEventValues() {
         return EhrGeneratedEvent.builder()
@@ -21,9 +23,21 @@ public class EhrGeneratedEventBuilder {
     }
 
     public static EhrGeneratedEhrDetails.EhrGeneratedEhrDetailsBuilder withDefaultEhrGeneratedEhrDetails() {
+        EhrGeneratedEhrAttachmentDetails attachmentDetailsWithClinicalType = EhrGeneratedEhrAttachmentDetails.builder()
+                .attachmentId("3424-342456-3424-342456")
+                .clinicalType("Scanned document")
+                .mimeType("application/pdf")
+                .sizeBytes(3084322L)
+                .build();
+        EhrGeneratedEhrAttachmentDetails attachmentDetailsWithoutClinicalType = EhrGeneratedEhrAttachmentDetails.builder()
+                .attachmentId("1323-132345-1323-132345")
+                .mimeType("audio/mpeg")
+                .sizeBytes(24352346L)
+                .build();
         return EhrGeneratedEhrDetails.builder()
                 .ehrTotalSizeBytes(5699433L)
-                .ehrStructuredSizeBytes(4096L);
+                .ehrStructuredSizeBytes(4096L)
+                .attachments(List.of(attachmentDetailsWithClinicalType, attachmentDetailsWithoutClinicalType));
     }
 
     public static EhrGeneratedRegistrationDetails.EhrGeneratedRegistrationDetailsBuilder withDefaultEhrGeneratedRegistrationDetails() {

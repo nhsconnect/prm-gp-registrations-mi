@@ -33,12 +33,6 @@ class EHRGeneratedEventIntegrationTest {
     void shouldUploadEHRGeneratedEventToS3() {
         EhrGeneratedEvent ehrGeneratedEventRequest = EhrGeneratedEventBuilder
                 .withDefaultEventValues()
-                .eventId("event-id-test")
-                .eventGeneratedTimestamp(315130L)
-                .build();
-
-        EhrGeneratedPayload ehrGeneratedPayload = EhrGeneratedEventBuilder
-                .withDefaultEhrGeneratedPayload()
                 .build();
 
         EventDAO expectedS3UploadEvent = new EventDAO(
@@ -48,18 +42,18 @@ class EHRGeneratedEventIntegrationTest {
                 ehrGeneratedEventRequest.getRegistrationId(),
                 ehrGeneratedEventRequest.getReportingSystemSupplier(),
                 ehrGeneratedEventRequest.getReportingPracticeOdsCode(),
-                ehrGeneratedPayload
+                ehrGeneratedEventRequest.getPayload()
         );
 
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
                 "/registration/" + API_VERSION + "/ehrGenerated", ehrGeneratedEventRequest, EventResponse.class);
 
-        EventResponse expectedResponse = new EventResponse("event-id-test");
+        EventResponse expectedResponse = new EventResponse(expectedS3UploadEvent.getEventId());
         assertEquals(expectedResponse, actualResponseEvent);
 
         verify(mockAmazonS3Client).putObject(
                 "test_bucket",
-                String.format("v1/1970/01/04/15/%s.json", ehrGeneratedEventRequest.getEventId()),
+                String.format("v1/1970/01/01/03/%s.json", ehrGeneratedEventRequest.getEventId()),
                 expectedS3UploadEvent.toString()
         );
     }

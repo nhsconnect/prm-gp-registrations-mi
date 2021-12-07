@@ -3,6 +3,7 @@ package com.prmgpregistrationsmi.model.EhrGenerated;
 import lombok.*;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -14,4 +15,5 @@ public class EhrGeneratedEhrDetails {
     private Long ehrTotalSizeBytes;
     @NotNull
     private Long ehrStructuredSizeBytes;
+    private List<EhrGeneratedEhrAttachmentDetails> attachments;
 }

@@ -1,14 +1,12 @@
 package com.prmgpregistrationsmi.model.Event;
 
 import com.prmgpregistrationsmi.utils.JsonHelper;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @EqualsAndHashCode
 public class EventDAO {
     private String eventId;

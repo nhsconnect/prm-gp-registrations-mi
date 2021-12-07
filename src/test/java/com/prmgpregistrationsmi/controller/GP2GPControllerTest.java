@@ -71,9 +71,11 @@ class GP2GPControllerTest {
     void ehrGeneratedEventReturnsEventResponse() throws UnableToUploadToS3Exception {
         EhrGeneratedEvent testEvent = EhrGeneratedEventBuilder
                 .withDefaultEventValues()
-                .eventId("event-test-23456")
                 .build();
-        EventDAO eventDAO = EventDAO.fromEvent(testEvent, EventType.EHR_GENERATED);
+
+        EventDAO eventDAO = EventDAO.builder()
+                .eventId(testEvent.getEventId())
+                .build();
 
         when(mockRegistrationService.saveEvent(testEvent, EventType.EHR_GENERATED)).thenReturn(eventDAO);
 
@@ -81,7 +83,7 @@ class GP2GPControllerTest {
 
         verify(mockRegistrationService).saveEvent(testEvent, EventType.EHR_GENERATED);
 
-        EventResponse expectedEventResponse = new EventResponse("event-test-23456");
+        EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
         assertEquals(actualResponse, expectedEventResponse);
     }
 }
