@@ -34,7 +34,7 @@ public class GPCController {
     )
     public EventResponse registrationStartedEvent(
             @Valid @RequestBody RegistrationStartedEvent event) throws UnableToUploadToS3Exception {
-        log.info("Successfully received registration started event on: /registration/gpconnnect/registrationStarted endpoint");
+        log.info(String.format("Successfully received registration started event on: /registration/gpconnnect/%s/registrationStarted endpoint", API_VERSION));
         EventDAO eventDAO = registrationService.saveEvent(event, EventType.REGISTRATION_STARTED);
         return new EventResponse(eventDAO.getEventId());
     }
