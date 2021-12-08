@@ -1,4 +1,4 @@
-package com.prmgpregistrationsmi.integrationtest;
+package com.prmgpregistrationsmi.integrationtest.gp2gp;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
