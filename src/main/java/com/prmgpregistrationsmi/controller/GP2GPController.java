@@ -1,10 +1,10 @@
 package com.prmgpregistrationsmi.controller;
 
 import com.prmgpregistrationsmi.exception.UnableToUploadToS3Exception;
-import com.prmgpregistrationsmi.model.EhrGenerated.EhrGeneratedEvent;
-import com.prmgpregistrationsmi.model.EhrSent.EhrSentEvent;
-import com.prmgpregistrationsmi.model.RegistrationStarted.RegistrationStartedEvent;
-import com.prmgpregistrationsmi.model.EhrRequested.EhrRequestedEvent;
+import com.prmgpregistrationsmi.model.gp2gp.EhrGenerated.EhrGeneratedEvent;
+import com.prmgpregistrationsmi.model.gp2gp.EhrSent.EhrSentEvent;
+import com.prmgpregistrationsmi.model.gp2gp.RegistrationStarted.RegistrationStartedEvent;
+import com.prmgpregistrationsmi.model.gp2gp.EhrRequested.EhrRequestedEvent;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;

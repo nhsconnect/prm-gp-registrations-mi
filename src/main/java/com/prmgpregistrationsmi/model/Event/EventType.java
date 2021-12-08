@@ -5,4 +5,5 @@ public enum EventType {
     EHR_REQUESTED,
     EHR_GENERATED,
     EHR_SENT,
+    REGISTRATION_STARTED
 }

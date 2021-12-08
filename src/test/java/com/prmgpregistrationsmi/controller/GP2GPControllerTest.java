@@ -1,18 +1,18 @@
 package com.prmgpregistrationsmi.controller;
 
 import com.prmgpregistrationsmi.exception.UnableToUploadToS3Exception;
-import com.prmgpregistrationsmi.model.EhrGenerated.EhrGeneratedEvent;
-import com.prmgpregistrationsmi.model.EhrRequested.EhrRequestedEvent;
-import com.prmgpregistrationsmi.model.EhrSent.EhrSentEvent;
+import com.prmgpregistrationsmi.model.gp2gp.EhrGenerated.EhrGeneratedEvent;
+import com.prmgpregistrationsmi.model.gp2gp.EhrRequested.EhrRequestedEvent;
+import com.prmgpregistrationsmi.model.gp2gp.EhrSent.EhrSentEvent;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
-import com.prmgpregistrationsmi.model.RegistrationStarted.RegistrationStartedEvent;
+import com.prmgpregistrationsmi.model.gp2gp.RegistrationStarted.RegistrationStartedEvent;
 import com.prmgpregistrationsmi.service.RegistrationService;
-import com.prmgpregistrationsmi.testhelpers.EhrGeneratedEventBuilder;
-import com.prmgpregistrationsmi.testhelpers.EhrRequestedEventBuilder;
-import com.prmgpregistrationsmi.testhelpers.EhrSentEventBuilder;
-import com.prmgpregistrationsmi.testhelpers.RegistrationStartedEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrGeneratedEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrRequestedEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrSentEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.gp2gp.RegistrationStartedEventBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

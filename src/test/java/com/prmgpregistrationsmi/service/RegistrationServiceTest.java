@@ -1,10 +1,10 @@
 package com.prmgpregistrationsmi.service;
 
 import com.prmgpregistrationsmi.exception.UnableToUploadToS3Exception;
-import com.prmgpregistrationsmi.model.RegistrationStarted.RegistrationStartedEvent;
+import com.prmgpregistrationsmi.model.gp2gp.RegistrationStarted.RegistrationStartedEvent;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventType;
-import com.prmgpregistrationsmi.testhelpers.RegistrationStartedEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.gp2gp.RegistrationStartedEventBuilder;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

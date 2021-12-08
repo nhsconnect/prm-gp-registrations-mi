@@ -1,7 +1,7 @@
 package com.prmgpregistrationsmi.model.Event;
 
-import com.prmgpregistrationsmi.model.RegistrationStarted.RegistrationStartedEvent;
-import com.prmgpregistrationsmi.testhelpers.RegistrationStartedEventBuilder;
+import com.prmgpregistrationsmi.model.gp2gp.RegistrationStarted.RegistrationStartedEvent;
+import com.prmgpregistrationsmi.testhelpers.gp2gp.RegistrationStartedEventBuilder;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;

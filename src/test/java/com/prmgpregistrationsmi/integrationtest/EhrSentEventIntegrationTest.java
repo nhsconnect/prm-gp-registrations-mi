@@ -1,12 +1,12 @@
 package com.prmgpregistrationsmi.integrationtest;
 
 import com.amazonaws.services.s3.AmazonS3Client;
-import com.prmgpregistrationsmi.model.EhrSent.EhrSentEvent;
-import com.prmgpregistrationsmi.model.EhrSent.EhrSentPayload;
+import com.prmgpregistrationsmi.model.gp2gp.EhrSent.EhrSentEvent;
+import com.prmgpregistrationsmi.model.gp2gp.EhrSent.EhrSentPayload;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
-import com.prmgpregistrationsmi.testhelpers.EhrSentEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrSentEventBuilder;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
