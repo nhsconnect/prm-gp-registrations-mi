@@ -22,7 +22,7 @@ import static com.prmgpregistrationsmi.controller.GP2GPController.API_VERSION;
 
 @Slf4j
 @RestController
-@RequestMapping("registration/gpconnect/" + API_VERSION)
+@RequestMapping("registration/" + API_VERSION + "/gpconnect")
 @AllArgsConstructor
 @Validated
 public class GPCController {
@@ -35,7 +35,7 @@ public class GPCController {
     )
     public EventResponse registrationStartedEvent(
             @Valid @RequestBody RegistrationStartedEvent event) throws UnableToUploadToS3Exception {
-        log.info(String.format("Successfully received registration started event on: /registration/gpconnnect/%s/registrationStarted endpoint", API_VERSION));
+        log.info(String.format("Successfully received registration started event on: /registration/%s/gpconnnect/registrationStarted endpoint", API_VERSION));
         EventDAO eventDAO = registrationService.saveEvent(event, EventType.REGISTRATION_STARTED);
         return new EventResponse(eventDAO.getEventId());
     }
@@ -47,7 +47,7 @@ public class GPCController {
     )
     public EventResponse migrateStructuredRecordRequestEvent(
             @Valid @RequestBody MigrateStructuredRecordRequestEvent event) throws UnableToUploadToS3Exception {
-        log.info(String.format("Successfully received migrate structured record request event on: /registration/gpconnnect/%s/migrateStructuredRecordRequest endpoint", API_VERSION));
+        log.info(String.format("Successfully received migrate structured record request event on: /registration/%s/gpconnnect/migrateStructuredRecordRequest endpoint", API_VERSION));
         EventDAO eventDAO = registrationService.saveEvent(event, EventType.MIGRATE_STRUCTURED_RECORD_REQUEST);
         return new EventResponse(eventDAO.getEventId());
     }
