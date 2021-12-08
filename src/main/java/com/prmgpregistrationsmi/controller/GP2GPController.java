@@ -39,7 +39,7 @@ public class GP2GPController {
     )
     public EventResponse registrationStartedEvent(
             @Valid @RequestBody RegistrationStartedEvent event) throws UnableToUploadToS3Exception {
-        log.info("Successfully received registration started event on: /registration/gp2gpRegistrationStarted endpoint");
+        log.info(String.format("Successfully received registration started event on: /registration/%s/gp2gpRegistrationStarted endpoint", API_VERSION));
         EventDAO eventDAO = registrationService.saveEvent(event, EventType.GP2GP_REGISTRATION_STARTED);
         return new EventResponse(eventDAO.getEventId());
     }
@@ -51,7 +51,7 @@ public class GP2GPController {
     )
     public EventResponse ehrRequestedEvent(
             @Valid @RequestBody EhrRequestedEvent event) throws UnableToUploadToS3Exception {
-        log.info("Successfully received EHR requested event on: /registration/ehrRequested endpoint");
+        log.info(String.format("Successfully received EHR requested event on: /registration/%s/ehrRequested endpoint", API_VERSION));
         EventDAO eventDAO = registrationService.saveEvent(event, EventType.EHR_REQUESTED);
         return new EventResponse(eventDAO.getEventId());
     }
@@ -63,7 +63,7 @@ public class GP2GPController {
     )
     public EventResponse ehrGeneratedEvent(
             @Valid @RequestBody EhrGeneratedEvent event) throws UnableToUploadToS3Exception {
-        log.info("Successfully received EHR generated event on: /registration/ehrGenerated endpoint");
+        log.info(String.format("Successfully received EHR generated event on: /registration/%s/ehrGenerated endpoint", API_VERSION));
         EventDAO eventDAO = registrationService.saveEvent(event, EventType.EHR_GENERATED);
         return new EventResponse(eventDAO.getEventId());
     }
@@ -75,7 +75,7 @@ public class GP2GPController {
     )
     public EventResponse ehrSentEvent(
             @Valid @RequestBody EhrSentEvent event) throws UnableToUploadToS3Exception {
-        log.info("Successfully received EHR sent event on: /registration/ehrSent endpoint");
+        log.info(String.format("Successfully received EHR sent event on: /registration/%s/ehrSent endpoint", API_VERSION));
         EventDAO eventDAO = registrationService.saveEvent(event, EventType.EHR_SENT);
         return new EventResponse(eventDAO.getEventId());
     }
