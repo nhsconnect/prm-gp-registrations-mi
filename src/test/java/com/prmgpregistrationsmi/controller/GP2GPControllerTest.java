@@ -26,12 +26,12 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class GP2GPControllerTest {
     @Mock
-    private RegistrationService mockRegistrationService;
+    private RegistrationService registrationService;
     private GP2GPController gp2gpController;
 
     @BeforeEach
     void setUp() {
-        gp2gpController =  new GP2GPController(mockRegistrationService);
+        gp2gpController =  new GP2GPController(registrationService);
     }
 
     @Test
@@ -44,11 +44,11 @@ class GP2GPControllerTest {
                 .eventId(testEvent.getEventId())
                 .build();
 
-        when(mockRegistrationService.saveEvent(testEvent, EventType.GP2GP_REGISTRATION_STARTED)).thenReturn(eventDAO);
+        when(registrationService.saveEvent(testEvent, EventType.GP2GP_REGISTRATION_STARTED)).thenReturn(eventDAO);
 
         EventResponse actualResponse = gp2gpController.registrationStartedEvent(testEvent);
 
-        verify(mockRegistrationService).saveEvent(testEvent, EventType.GP2GP_REGISTRATION_STARTED);
+        verify(registrationService).saveEvent(testEvent, EventType.GP2GP_REGISTRATION_STARTED);
 
         EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
         assertEquals(actualResponse, expectedEventResponse);
@@ -64,11 +64,11 @@ class GP2GPControllerTest {
                 .eventId(testEvent.getEventId())
                 .build();
 
-        when(mockRegistrationService.saveEvent(testEvent, EventType.EHR_REQUESTED)).thenReturn(eventDAO);
+        when(registrationService.saveEvent(testEvent, EventType.EHR_REQUESTED)).thenReturn(eventDAO);
 
         EventResponse actualResponse = gp2gpController.ehrRequestedEvent(testEvent);
 
-        verify(mockRegistrationService).saveEvent(testEvent, EventType.EHR_REQUESTED);
+        verify(registrationService).saveEvent(testEvent, EventType.EHR_REQUESTED);
 
         EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
         assertEquals(actualResponse, expectedEventResponse);
@@ -84,11 +84,11 @@ class GP2GPControllerTest {
                 .eventId(testEvent.getEventId())
                 .build();
 
-        when(mockRegistrationService.saveEvent(testEvent, EventType.EHR_GENERATED)).thenReturn(eventDAO);
+        when(registrationService.saveEvent(testEvent, EventType.EHR_GENERATED)).thenReturn(eventDAO);
 
         EventResponse actualResponse = gp2gpController.ehrGeneratedEvent(testEvent);
 
-        verify(mockRegistrationService).saveEvent(testEvent, EventType.EHR_GENERATED);
+        verify(registrationService).saveEvent(testEvent, EventType.EHR_GENERATED);
 
         EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
         assertEquals(actualResponse, expectedEventResponse);
