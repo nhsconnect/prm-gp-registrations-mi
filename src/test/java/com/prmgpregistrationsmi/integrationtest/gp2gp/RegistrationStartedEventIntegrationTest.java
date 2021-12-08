@@ -33,8 +33,6 @@ class RegistrationStartedEventIntegrationTest {
     void shouldUploadRegistrationStartedEventToS3() {
         RegistrationStartedEvent registrationStartedEventRequest = RegistrationStartedEventBuilder
                 .withDefaultEventValues()
-                .eventId("event-id-test")
-                .eventGeneratedTimestamp(315130L)
                 .build();
 
         RegistrationStartedPayload registrationStartedPayload = RegistrationStartedEventBuilder
@@ -43,7 +41,7 @@ class RegistrationStartedEventIntegrationTest {
 
         EventDAO expectedS3UploadEvent = new EventDAO(
                 registrationStartedEventRequest.getEventId(),
-                315130L,
+                registrationStartedEventRequest.getEventGeneratedTimestamp(),
                 EventType.GP2GP_REGISTRATION_STARTED,
                 registrationStartedEventRequest.getRegistrationId(),
                 registrationStartedEventRequest.getReportingSystemSupplier(),
@@ -54,12 +52,12 @@ class RegistrationStartedEventIntegrationTest {
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
                 "/registration/" + API_VERSION + "/gp2gpRegistrationStarted", registrationStartedEventRequest, EventResponse.class);
 
-        EventResponse expectedResponse = new EventResponse("event-id-test");
+        EventResponse expectedResponse = new EventResponse(expectedS3UploadEvent.getEventId());
         assertEquals(expectedResponse, actualResponseEvent);
 
         verify(mockAmazonS3Client).putObject(
                 "test_bucket",
-                String.format("v1/1970/01/04/15/%s.json", registrationStartedEventRequest.getEventId()),
+                String.format("v1/1970/01/01/03/%s.json", registrationStartedEventRequest.getEventId()),
                 expectedS3UploadEvent.toString()
         );
     }

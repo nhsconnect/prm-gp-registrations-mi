@@ -33,8 +33,6 @@ class MigrateStructuredRecordResponseEventIntegrationTest {
     void shouldUploadMigrateStructuredRecordResponseEventToS3() {
         MigrateStructuredRecordResponseEvent migrateStructuredRecordResponseEventResponse = MigrateStructuredRecordResponseEventBuilder
                 .withDefaultEventValues()
-                .eventId("event-id-test")
-                .eventGeneratedTimestamp(315130L)
                 .build();
 
         MigrateStructuredRecordResponsePayload migrateStructuredRecordResponsePayload = MigrateStructuredRecordResponseEventBuilder
@@ -43,7 +41,7 @@ class MigrateStructuredRecordResponseEventIntegrationTest {
 
         EventDAO expectedS3UploadEvent = new EventDAO(
                 migrateStructuredRecordResponseEventResponse.getEventId(),
-                315130L,
+                migrateStructuredRecordResponseEventResponse.getEventGeneratedTimestamp(),
                 EventType.MIGRATE_STRUCTURED_RECORD_RESPONSE,
                 migrateStructuredRecordResponseEventResponse.getRegistrationId(),
                 migrateStructuredRecordResponseEventResponse.getReportingSystemSupplier(),
@@ -54,12 +52,12 @@ class MigrateStructuredRecordResponseEventIntegrationTest {
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
                 "/registration/" + API_VERSION + "/gpconnect/migrateStructuredRecordResponse", migrateStructuredRecordResponseEventResponse, EventResponse.class);
 
-        EventResponse expectedResponse = new EventResponse("event-id-test");
+        EventResponse expectedResponse = new EventResponse(expectedS3UploadEvent.getEventId());
         assertEquals(expectedResponse, actualResponseEvent);
 
         verify(mockAmazonS3Client).putObject(
                 "test_bucket",
-                String.format("v1/1970/01/04/15/%s.json", migrateStructuredRecordResponseEventResponse.getEventId()),
+                String.format("v1/1970/01/01/03/%s.json", migrateStructuredRecordResponseEventResponse.getEventId()),
                 expectedS3UploadEvent.toString()
         );
     }

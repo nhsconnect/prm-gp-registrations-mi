@@ -33,8 +33,6 @@ class EhrSentEventIntegrationTest {
     void shouldUploadEhrSentEventToS3() {
         EhrSentEvent ehrSentEventRequest = EhrSentEventBuilder
                 .withDefaultEventValues()
-                .eventId("event-id-test")
-                .eventGeneratedTimestamp(315130L)
                 .build();
 
         EhrSentPayload ehrSentPayload = EhrSentEventBuilder
@@ -54,12 +52,12 @@ class EhrSentEventIntegrationTest {
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
                 "/registration/" + API_VERSION + "/ehrSent", ehrSentEventRequest, EventResponse.class);
 
-        EventResponse expectedResponse = new EventResponse("event-id-test");
+        EventResponse expectedResponse = new EventResponse(expectedS3UploadEvent.getEventId());
         assertEquals(expectedResponse, actualResponseEvent);
 
         verify(mockAmazonS3Client).putObject(
                 "test_bucket",
-                String.format("v1/1970/01/04/15/%s.json", ehrSentEventRequest.getEventId()),
+                String.format("v1/1970/01/01/03/%s.json", ehrSentEventRequest.getEventId()),
                 expectedS3UploadEvent.toString()
         );
     }
