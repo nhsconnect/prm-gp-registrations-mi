@@ -1,8 +1,5 @@
 package com.prmgpregistrationsmi.model.gpc.RegistrationStarted;
 
-import com.prmgpregistrationsmi.model.gpc.RegistrationStarted.RegistrationStartedDetails;
-import com.prmgpregistrationsmi.model.gpc.RegistrationStarted.RegistrationStartedEvent;
-import com.prmgpregistrationsmi.model.gpc.RegistrationStarted.RegistrationStartedPayload;
 import com.prmgpregistrationsmi.testhelpers.gpc.RegistrationStartedEventBuilder;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -20,35 +17,35 @@ class RegistrationStartedEventTest {
 
     @Test
     void shouldNotThrowConstraintViolationWhenEventFieldsAreValid() {
-        com.prmgpregistrationsmi.model.gpc.RegistrationStarted.RegistrationStartedEvent event = RegistrationStartedEventBuilder
+        RegistrationStartedEvent event = RegistrationStartedEventBuilder
                 .withDefaultEventValues()
                 .build();
 
-        Set<ConstraintViolation<com.prmgpregistrationsmi.model.gpc.RegistrationStarted.RegistrationStartedEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<RegistrationStartedEvent>> violations = validator.validate(event);
 
         assertEquals(0, violations.size());
     }
 
     @Test
     void shouldThrowConstraintViolationWhenRegistrationStartedTimestampIsNull() {
-        com.prmgpregistrationsmi.model.gpc.RegistrationStarted.RegistrationStartedDetails registrationPayload = RegistrationStartedEventBuilder
+        RegistrationStartedDetails registrationPayload = RegistrationStartedEventBuilder
                 .withDefaultRegistrationStartedDetails()
                 .registrationStartedTimestamp(null)
                 .build();
-        com.prmgpregistrationsmi.model.gpc.RegistrationStarted.RegistrationStartedPayload payload = RegistrationStartedEventBuilder
+        RegistrationStartedPayload payload = RegistrationStartedEventBuilder
                 .withDefaultRegistrationStartedPayload()
                 .registration(registrationPayload)
                 .build();
-        com.prmgpregistrationsmi.model.gpc.RegistrationStarted.RegistrationStartedEvent event = RegistrationStartedEventBuilder
+        RegistrationStartedEvent event = RegistrationStartedEventBuilder
                 .withDefaultEventValues()
                 .payload(payload)
                 .build();
 
-        Set<ConstraintViolation<com.prmgpregistrationsmi.model.gpc.RegistrationStarted.RegistrationStartedEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<RegistrationStartedEvent>> violations = validator.validate(event);
 
         assertEquals(1, violations.size());
 
-        ConstraintViolation<com.prmgpregistrationsmi.model.gpc.RegistrationStarted.RegistrationStartedEvent> violation = violations.iterator().next();
+        ConstraintViolation<RegistrationStartedEvent> violation = violations.iterator().next();
         assertEquals("must not be null", violation.getMessage());
         assertEquals("payload.registration.registrationStartedTimestamp", violation.getPropertyPath().toString());
     }
@@ -64,12 +61,12 @@ class RegistrationStartedEventTest {
                 .withDefaultRegistrationStartedPayload()
                 .registration(payloadRegistration)
                 .build();
-        com.prmgpregistrationsmi.model.gpc.RegistrationStarted.RegistrationStartedEvent event = RegistrationStartedEventBuilder
+        RegistrationStartedEvent event = RegistrationStartedEventBuilder
                 .withDefaultEventValues()
                 .payload(payload)
                 .build();
 
-        Set<ConstraintViolation<com.prmgpregistrationsmi.model.gpc.RegistrationStarted.RegistrationStartedEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<RegistrationStartedEvent>> violations = validator.validate(event);
 
         assertEquals(1, violations.size());
 
