@@ -50,7 +50,7 @@ class EhrSentEventIntegrationTest {
         );
 
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
-                "/registration/" + API_VERSION + "/ehrSent", ehrSentEventRequest, EventResponse.class);
+                "/registration/" + API_VERSION + "/gp2gp/ehrSent", ehrSentEventRequest, EventResponse.class);
 
         EventResponse expectedResponse = new EventResponse(expectedS3UploadEvent.getEventId());
         assertEquals(expectedResponse, actualResponseEvent);

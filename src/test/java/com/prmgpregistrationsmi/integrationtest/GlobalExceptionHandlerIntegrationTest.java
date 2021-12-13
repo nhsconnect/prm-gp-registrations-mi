@@ -45,7 +45,7 @@ class GlobalExceptionHandlerIntegrationTest {
                 "reportingSystemSupplier: must not be empty",
                 "eventId: must not be empty"));
 
-        mockMvc.perform(post("/registration/" + API_VERSION + "/gp2gpRegistrationStarted").content(asJsonString(emptyRequestBody))
+        mockMvc.perform(post("/registration/" + API_VERSION + "/gp2gp/registrationStarted").content(asJsonString(emptyRequestBody))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof MethodArgumentNotValidException))
@@ -61,7 +61,7 @@ class GlobalExceptionHandlerIntegrationTest {
                 "Invalid request field",
                 new ArrayList<>(Collections.singleton("eventGeneratedTimestamp: Cannot deserialize value of type `java.lang.Long` from Boolean value (token `JsonToken.VALUE_FALSE`)")));
 
-        mockMvc.perform(post("/registration/" + API_VERSION + "/gp2gpRegistrationStarted").content(requestBody)
+        mockMvc.perform(post("/registration/" + API_VERSION + "/gp2gp/registrationStarted").content(requestBody)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException().getCause() instanceof MismatchedInputException))
@@ -77,7 +77,7 @@ class GlobalExceptionHandlerIntegrationTest {
                 "Invalid JSON",
                 new ArrayList<>(Collections.singleton("Unable to parse JSON")));
 
-        mockMvc.perform(post("/registration/" + API_VERSION + "/gp2gpRegistrationStarted").content(requestBody)
+        mockMvc.perform(post("/registration/" + API_VERSION + "/gp2gp/registrationStarted").content(requestBody)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException().getCause() instanceof JsonParseException))
@@ -93,7 +93,7 @@ class GlobalExceptionHandlerIntegrationTest {
                 "Invalid JSON",
                 new ArrayList<>(Collections.singleton("eventId: Unexpected end-of-input in VALUE_STRING")));
 
-        mockMvc.perform(post("/registration/" + API_VERSION + "/gp2gpRegistrationStarted").content(requestBody)
+        mockMvc.perform(post("/registration/" + API_VERSION + "/gp2gp/registrationStarted").content(requestBody)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException().getCause() instanceof JsonMappingException))
