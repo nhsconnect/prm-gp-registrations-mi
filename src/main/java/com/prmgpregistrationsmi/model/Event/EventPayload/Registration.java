@@ -1,4 +1,4 @@
-package com.prmgpregistrationsmi.model.gp2gp.EhrRequested;
+package com.prmgpregistrationsmi.model.Event.EventPayload;
 
 import lombok.*;
 
@@ -9,7 +9,7 @@ import javax.validation.constraints.NotEmpty;
 @AllArgsConstructor
 @Builder
 @EqualsAndHashCode
-public class EhrRequestedRegistrationDetails {
+public class Registration {
     @NotEmpty
     private String requestingPracticeOdsCode;
     @NotEmpty

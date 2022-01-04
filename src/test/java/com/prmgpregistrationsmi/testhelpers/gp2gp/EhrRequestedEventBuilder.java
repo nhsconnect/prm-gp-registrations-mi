@@ -3,7 +3,7 @@ package com.prmgpregistrationsmi.testhelpers.gp2gp;
 import com.prmgpregistrationsmi.model.Event.EventPayload.GPTransferMetadata;
 import com.prmgpregistrationsmi.model.gp2gp.EhrRequested.EhrRequestedEvent;
 import com.prmgpregistrationsmi.model.gp2gp.EhrRequested.EhrRequestedPayload;
-import com.prmgpregistrationsmi.model.gp2gp.EhrRequested.EhrRequestedRegistrationDetails;
+import com.prmgpregistrationsmi.model.Event.EventPayload.Registration;
 
 public class EhrRequestedEventBuilder {
     public static EhrRequestedEvent.EhrRequestedEventBuilder<?, ?> withDefaultEventValues() {
@@ -22,15 +22,15 @@ public class EhrRequestedEventBuilder {
                 .transferEventDateTime("2020-02-08T08:30:26Z");
     }
 
-    public static EhrRequestedRegistrationDetails.EhrRequestedRegistrationDetailsBuilder withDefaultEhrRequestedRegistrationDetails() {
-        return EhrRequestedRegistrationDetails.builder()
+    public static Registration.RegistrationBuilder withDefaultRegistration() {
+        return Registration.builder()
                 .requestingPracticeOdsCode("ABC1234")
-                .sendingPracticeOdsCode("DCE1234");
+                .sendingPracticeOdsCode("XYZ4567");
     }
 
     public static EhrRequestedPayload.EhrRequestedPayloadBuilder withDefaultEhrRequestedPayload() {
         return EhrRequestedPayload.builder()
-                .registration(withDefaultEhrRequestedRegistrationDetails().build())
+                .registration(withDefaultRegistration().build())
                 .gpTransferMetadata(withDefaultGPTransferMetadata().build());
     }
 }

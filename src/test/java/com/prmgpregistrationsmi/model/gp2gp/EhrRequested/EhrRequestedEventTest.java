@@ -1,5 +1,6 @@
 package com.prmgpregistrationsmi.model.gp2gp.EhrRequested;
 
+import com.prmgpregistrationsmi.model.Event.EventPayload.Registration;
 import com.prmgpregistrationsmi.model.Event.EventPayload.GPTransferMetadata;
 import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrRequestedEventBuilder;
 import org.junit.jupiter.api.Test;
@@ -30,10 +31,11 @@ class EhrRequestedEventTest {
     @ParameterizedTest
     @NullAndEmptySource
     void shouldThrowConstraintViolationWhenRequestingPracticeOdsCodeInPayloadIsNullOrEmpty(String requestingPracticeOdsCode) {
-        EhrRequestedRegistrationDetails registrationPayload = EhrRequestedEventBuilder
-                .withDefaultEhrRequestedRegistrationDetails()
+        Registration registrationPayload = EhrRequestedEventBuilder
+                .withDefaultRegistration()
                 .requestingPracticeOdsCode(requestingPracticeOdsCode)
                 .build();
+
         EhrRequestedPayload payload = EhrRequestedEventBuilder
                 .withDefaultEhrRequestedPayload()
                 .registration(registrationPayload)
@@ -56,10 +58,11 @@ class EhrRequestedEventTest {
     @ParameterizedTest
     @NullAndEmptySource
     void shouldThrowConstraintViolationWhenSendingPracticeOdsCodeInPayloadIsNullOrEmpty(String sendingPracticeOdsCode) {
-        EhrRequestedRegistrationDetails registrationPayload = EhrRequestedEventBuilder
-                .withDefaultEhrRequestedRegistrationDetails()
+        Registration registrationPayload = EhrRequestedEventBuilder
+                .withDefaultRegistration()
                 .sendingPracticeOdsCode(sendingPracticeOdsCode)
                 .build();
+
         EhrRequestedPayload payload = EhrRequestedEventBuilder
                 .withDefaultEhrRequestedPayload()
                 .registration(registrationPayload)

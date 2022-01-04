@@ -1,5 +1,6 @@
 package com.prmgpregistrationsmi.model.gp2gp.EhrRequested;
 
+import com.prmgpregistrationsmi.model.Event.EventPayload.Registration;
 import com.prmgpregistrationsmi.model.Event.EventPayload.GPTransferMetadata;
 import com.prmgpregistrationsmi.model.Event.Payload;
 import lombok.*;
@@ -15,7 +16,7 @@ import javax.validation.constraints.NotNull;
 public class EhrRequestedPayload implements Payload {
     @Valid
     @NotNull
-    private EhrRequestedRegistrationDetails registration;
+    private Registration registration;
 
     @Valid
     @NotNull
