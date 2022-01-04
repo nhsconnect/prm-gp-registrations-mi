@@ -35,10 +35,6 @@ class EhrRequestedEventIntegrationTest {
                 .withDefaultEventValues()
                 .build();
 
-        EhrRequestedPayload ehrRequestedPayload = EhrRequestedEventBuilder
-                .withDefaultEhrRequestedPayload()
-                .build();
-
         EventDAO expectedS3UploadEvent = new EventDAO(
                 ehrRequestedEventRequest.getEventId(),
                 ehrRequestedEventRequest.getEventGeneratedTimestamp(),
@@ -46,7 +42,7 @@ class EhrRequestedEventIntegrationTest {
                 ehrRequestedEventRequest.getRegistrationId(),
                 ehrRequestedEventRequest.getReportingSystemSupplier(),
                 ehrRequestedEventRequest.getReportingPracticeOdsCode(),
-                ehrRequestedPayload
+                ehrRequestedEventRequest.getPayload()
         );
 
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
