@@ -34,7 +34,7 @@ public class EventTest {
     }
 
     @Test
-    void shouldThrowConstraintViolationWhenTimestampIsNull() {
+    void shouldThrowConstraintViolationWhenEventGeneratedDateTimeIsNull() {
         RegistrationStartedEvent event = RegistrationStartedEventBuilder
                 .withDefaultEventValues()
                 .eventGeneratedDateTime(null)

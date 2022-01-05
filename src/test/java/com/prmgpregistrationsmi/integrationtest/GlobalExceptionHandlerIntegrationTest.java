@@ -53,7 +53,7 @@ class GlobalExceptionHandlerIntegrationTest {
     }
 
     @Test
-    void shouldReturnA400IfEventGeneratedTimestampIsNotANumber() throws Exception {
+    void shouldReturnA400IfEventGeneratedDateTimeIsNotValid() throws Exception {
         var requestBody = "{\"eventId\":\"some-id\",\"eventGeneratedDateTime\":" + false + "}";
 
         ApiError expectedResponse = new ApiError(

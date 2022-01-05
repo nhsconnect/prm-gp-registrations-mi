@@ -1,9 +1,9 @@
 package com.prmgpregistrationsmi.testhelpers.gpc;
 
+import com.prmgpregistrationsmi.model.Event.EventPayload.GPTransferMetadata;
+import com.prmgpregistrationsmi.model.Event.EventPayload.Registration;
 import com.prmgpregistrationsmi.model.gpc.MigrateStructuredRecordResponse.MigrateStructuredRecordResponseEvent;
-import com.prmgpregistrationsmi.model.gpc.MigrateStructuredRecordResponse.MigrateStructuredRecordResponseGpcDetails;
 import com.prmgpregistrationsmi.model.gpc.MigrateStructuredRecordResponse.MigrateStructuredRecordResponsePayload;
-import com.prmgpregistrationsmi.model.gpc.MigrateStructuredRecordResponse.MigrateStructuredRecordResponseRegistrationDetails;
 import org.joda.time.DateTime;
 
 public class MigrateStructuredRecordResponseEventBuilder {
@@ -17,22 +17,22 @@ public class MigrateStructuredRecordResponseEventBuilder {
                 .payload(withDefaultMigrateStructuredRecordResponsePayload().build());
     }
 
-    public static MigrateStructuredRecordResponseRegistrationDetails.MigrateStructuredRecordResponseRegistrationDetailsBuilder withDefaultMigrateStructuredRecordResponseRegistrationDetails() {
-        return MigrateStructuredRecordResponseRegistrationDetails.builder()
+    public static Registration.RegistrationBuilder withDefaultRegistration() {
+        return Registration.builder()
                 .requestingPracticeOdsCode("ABC1234")
                 .sendingPracticeOdsCode("XYZ4567");
     }
 
-    public static MigrateStructuredRecordResponseGpcDetails.MigrateStructuredRecordResponseGpcDetailsBuilder withDefaultMigrateStructuredRecordResponseGpcDetails() {
-        return MigrateStructuredRecordResponseGpcDetails.builder()
+    public static GPTransferMetadata.GPTransferMetadataBuilder withDefaultGPTransferMetadata() {
+        return GPTransferMetadata.builder()
                 .conversationId("4345-986959-4930-684038")
-                .ehrResponseTimestamp(123456756L);
+                .transferEventDateTime(new DateTime("2020-02-08T08:30:26Z"));
     }
 
     public static MigrateStructuredRecordResponsePayload.MigrateStructuredRecordResponsePayloadBuilder withDefaultMigrateStructuredRecordResponsePayload() {
         return MigrateStructuredRecordResponsePayload.builder()
-                .registration(withDefaultMigrateStructuredRecordResponseRegistrationDetails().build())
-                .gpConnect(withDefaultMigrateStructuredRecordResponseGpcDetails().build());
+                .registration(withDefaultRegistration().build())
+                .gpTransferMetadata(withDefaultGPTransferMetadata().build());
 
     }
 }

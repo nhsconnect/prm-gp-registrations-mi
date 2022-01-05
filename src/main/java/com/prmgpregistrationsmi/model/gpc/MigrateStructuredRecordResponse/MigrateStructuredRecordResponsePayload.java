@@ -1,5 +1,7 @@
 package com.prmgpregistrationsmi.model.gpc.MigrateStructuredRecordResponse;
 
+import com.prmgpregistrationsmi.model.Event.EventPayload.GPTransferMetadata;
+import com.prmgpregistrationsmi.model.Event.EventPayload.Registration;
 import com.prmgpregistrationsmi.model.Event.Payload;
 import lombok.*;
 
@@ -14,8 +16,8 @@ import javax.validation.constraints.NotNull;
 public class MigrateStructuredRecordResponsePayload implements Payload {
     @Valid
     @NotNull
-    private MigrateStructuredRecordResponseRegistrationDetails registration;
+    private Registration registration;
     @Valid
     @NotNull
-    private MigrateStructuredRecordResponseGpcDetails gpConnect;
+    private GPTransferMetadata gpTransferMetadata;
 }
