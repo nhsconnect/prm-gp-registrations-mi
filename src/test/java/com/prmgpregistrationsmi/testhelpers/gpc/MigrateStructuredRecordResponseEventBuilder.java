@@ -1,6 +1,7 @@
 package com.prmgpregistrationsmi.testhelpers.gpc;
 
 import com.prmgpregistrationsmi.model.Event.EventPayload.GPTransferMetadata;
+import com.prmgpregistrationsmi.model.Event.EventPayload.Migration;
 import com.prmgpregistrationsmi.model.Event.EventPayload.Registration;
 import com.prmgpregistrationsmi.model.gpc.MigrateStructuredRecordResponse.MigrateStructuredRecordResponseEvent;
 import com.prmgpregistrationsmi.model.gpc.MigrateStructuredRecordResponse.MigrateStructuredRecordResponsePayload;
@@ -29,10 +30,17 @@ public class MigrateStructuredRecordResponseEventBuilder {
                 .transferEventDateTime(new DateTime("2020-02-08T08:30:26Z"));
     }
 
+    public static Migration.MigrationBuilder withDefaultStructuredRecordMigration() {
+        return Migration.builder()
+                .status("SUCCESS")
+                .reason("ok");
+    }
+
     public static MigrateStructuredRecordResponsePayload.MigrateStructuredRecordResponsePayloadBuilder withDefaultMigrateStructuredRecordResponsePayload() {
         return MigrateStructuredRecordResponsePayload.builder()
                 .registration(withDefaultRegistration().build())
-                .gpTransferMetadata(withDefaultGPTransferMetadata().build());
+                .gpTransferMetadata(withDefaultGPTransferMetadata().build())
+                .structuredRecordMigration(withDefaultStructuredRecordMigration().build());
 
     }
 }

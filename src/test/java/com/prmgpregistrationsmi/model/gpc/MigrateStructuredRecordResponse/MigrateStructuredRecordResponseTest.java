@@ -1,6 +1,7 @@
 package com.prmgpregistrationsmi.model.gpc.MigrateStructuredRecordResponse;
 
 import com.prmgpregistrationsmi.model.Event.EventPayload.GPTransferMetadata;
+import com.prmgpregistrationsmi.model.Event.EventPayload.Migration;
 import com.prmgpregistrationsmi.model.Event.EventPayload.Registration;
 import com.prmgpregistrationsmi.testhelpers.gpc.MigrateStructuredRecordResponseEventBuilder;
 import org.junit.jupiter.api.Test;
@@ -129,5 +130,32 @@ class MigrateStructuredRecordResponseTest {
         ConstraintViolation<MigrateStructuredRecordResponseEvent> violation = violations.iterator().next();
         assertEquals("must not be null", violation.getMessage());
         assertEquals("payload.gpTransferMetadata.transferEventDateTime", violation.getPropertyPath().toString());
+    }
+
+    @ParameterizedTest
+    @NullAndEmptySource
+    void shouldThrowConstraintViolationWhenStatusInPayloadIsNullOrEmpty(String status) {
+        Migration structuredRecordMigrationPayload = MigrateStructuredRecordResponseEventBuilder
+                .withDefaultStructuredRecordMigration()
+                .status(status)
+                .build();
+
+        MigrateStructuredRecordResponsePayload payload = MigrateStructuredRecordResponseEventBuilder
+                .withDefaultMigrateStructuredRecordResponsePayload()
+                .structuredRecordMigration(structuredRecordMigrationPayload)
+                .build();
+
+        MigrateStructuredRecordResponseEvent event = MigrateStructuredRecordResponseEventBuilder
+                .withDefaultEventValues()
+                .payload(payload)
+                .build();
+
+        Set<ConstraintViolation<MigrateStructuredRecordResponseEvent>> violations = validator.validate(event);
+
+        assertEquals(1, violations.size());
+
+        ConstraintViolation<MigrateStructuredRecordResponseEvent> violation = violations.iterator().next();
+        assertEquals("must not be empty", violation.getMessage());
+        assertEquals("payload.structuredRecordMigration.status", violation.getPropertyPath().toString());
     }
 }
