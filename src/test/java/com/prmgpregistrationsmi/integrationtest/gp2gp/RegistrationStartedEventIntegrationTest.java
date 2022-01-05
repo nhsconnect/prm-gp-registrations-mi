@@ -42,7 +42,7 @@ class RegistrationStartedEventIntegrationTest {
         EventDAO expectedS3UploadEvent = new EventDAO(
                 registrationStartedEventRequest.getEventId(),
                 registrationStartedEventRequest.getEventGeneratedTimestamp(),
-                EventType.GP2GP_REGISTRATION_STARTED,
+                EventType.REGISTRATION_STARTED,
                 registrationStartedEventRequest.getRegistrationId(),
                 registrationStartedEventRequest.getReportingSystemSupplier(),
                 registrationStartedEventRequest.getReportingPracticeOdsCode(),

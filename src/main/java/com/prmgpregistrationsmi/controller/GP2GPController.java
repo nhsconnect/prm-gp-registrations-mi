@@ -40,7 +40,7 @@ public class GP2GPController {
     public EventResponse registrationStartedEvent(
             @Valid @RequestBody RegistrationStartedEvent event) throws UnableToUploadToS3Exception {
         log.info(String.format("Successfully received registration started event on: /registration/%s/gp2gp/registrationStarted endpoint", API_VERSION));
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.GP2GP_REGISTRATION_STARTED);
+        EventDAO eventDAO = registrationService.saveEvent(event, EventType.REGISTRATION_STARTED);
         return new EventResponse(eventDAO.getEventId());
     }
 

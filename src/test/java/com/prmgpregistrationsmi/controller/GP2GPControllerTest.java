@@ -44,11 +44,11 @@ class GP2GPControllerTest {
                 .eventId(testEvent.getEventId())
                 .build();
 
-        when(registrationService.saveEvent(testEvent, EventType.GP2GP_REGISTRATION_STARTED)).thenReturn(eventDAO);
+        when(registrationService.saveEvent(testEvent, EventType.REGISTRATION_STARTED)).thenReturn(eventDAO);
 
         EventResponse actualResponse = gp2gpController.registrationStartedEvent(testEvent);
 
-        verify(registrationService).saveEvent(testEvent, EventType.GP2GP_REGISTRATION_STARTED);
+        verify(registrationService).saveEvent(testEvent, EventType.REGISTRATION_STARTED);
 
         EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
         assertEquals(actualResponse, expectedEventResponse);

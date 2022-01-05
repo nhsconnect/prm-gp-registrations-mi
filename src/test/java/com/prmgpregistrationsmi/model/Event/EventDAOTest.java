@@ -11,7 +11,7 @@ class EventDAOTest {
     void fromEventShouldReturnEventDAO() {
 
         RegistrationStartedEvent testEvent = RegistrationStartedEventBuilder.withDefaultEventValues().build();
-        EventType gp2gpRegistrationStartedEventType = EventType.GP2GP_REGISTRATION_STARTED;
+        EventType gp2gpRegistrationStartedEventType = EventType.REGISTRATION_STARTED;
         EventDAO actualEventDAO = EventDAO.fromEvent(testEvent, gp2gpRegistrationStartedEventType);
 
         assertEquals(actualEventDAO.getEventId(), testEvent.getEventId());

@@ -20,7 +20,7 @@ class RegistrationServiceTest {
         RegistrationStartedEvent testEvent = RegistrationStartedEventBuilder
                 .withDefaultEventValues()
                 .build();
-        EventType gp2gpRegistrationStartedEventType = EventType.GP2GP_REGISTRATION_STARTED;
+        EventType gp2gpRegistrationStartedEventType = EventType.REGISTRATION_STARTED;
 
         EventDAO expectedEventDAO = EventDAO.fromEvent(testEvent, gp2gpRegistrationStartedEventType);
         EventDAO eventDAO = registrationService.saveEvent(testEvent, gp2gpRegistrationStartedEventType);
@@ -36,7 +36,7 @@ class RegistrationServiceTest {
                 .eventId("event-id-12345")
                 .eventGeneratedTimestamp(1609556400L)
                 .build();
-        EventType gp2gpRegistrationStartedEventType = EventType.GP2GP_REGISTRATION_STARTED;
+        EventType gp2gpRegistrationStartedEventType = EventType.REGISTRATION_STARTED;
 
         registrationService.saveEvent(testEvent, gp2gpRegistrationStartedEventType);
 
