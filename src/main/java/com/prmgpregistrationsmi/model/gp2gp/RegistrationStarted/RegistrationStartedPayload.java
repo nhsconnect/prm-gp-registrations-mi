@@ -1,5 +1,6 @@
 package com.prmgpregistrationsmi.model.gp2gp.RegistrationStarted;
 
+import com.prmgpregistrationsmi.model.Event.EventPayload.RegistrationStarted;
 import com.prmgpregistrationsmi.model.Event.Payload;
 import lombok.*;
 
@@ -14,5 +15,5 @@ import javax.validation.constraints.NotNull;
 public class RegistrationStartedPayload implements Payload {
     @Valid
     @NotNull
-    private RegistrationStartedDetails registration;
+    private RegistrationStarted registration;
 }

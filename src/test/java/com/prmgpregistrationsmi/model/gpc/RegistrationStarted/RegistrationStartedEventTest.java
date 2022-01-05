@@ -1,5 +1,6 @@
 package com.prmgpregistrationsmi.model.gpc.RegistrationStarted;
 
+import com.prmgpregistrationsmi.model.Event.EventPayload.RegistrationStarted;
 import com.prmgpregistrationsmi.testhelpers.gpc.RegistrationStartedEventBuilder;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -26,11 +27,12 @@ class RegistrationStartedEventTest {
         assertEquals(0, violations.size());
     }
 
-    @Test
-    void shouldThrowConstraintViolationWhenRegistrationStartedTimestampIsNull() {
-        RegistrationStartedDetails registrationPayload = RegistrationStartedEventBuilder
+    @ParameterizedTest
+    @NullAndEmptySource
+    void shouldThrowConstraintViolationWhenRegistrationStartedDateTimeIsNullOrEmpty(String dateTime) {
+        RegistrationStarted registrationPayload = RegistrationStartedEventBuilder
                 .withDefaultRegistrationStartedDetails()
-                .registrationStartedTimestamp(null)
+                .registrationStartedDateTime(dateTime)
                 .build();
         RegistrationStartedPayload payload = RegistrationStartedEventBuilder
                 .withDefaultRegistrationStartedPayload()
@@ -46,14 +48,39 @@ class RegistrationStartedEventTest {
         assertEquals(1, violations.size());
 
         ConstraintViolation<RegistrationStartedEvent> violation = violations.iterator().next();
-        assertEquals("must not be null", violation.getMessage());
-        assertEquals("payload.registration.registrationStartedTimestamp", violation.getPropertyPath().toString());
+        assertEquals("must not be empty", violation.getMessage());
+        assertEquals("payload.registration.registrationStartedDateTime", violation.getPropertyPath().toString());
+    }
+
+    @ParameterizedTest
+    @NullAndEmptySource
+    void shouldThrowConstraintViolationWhenRegistrationTypeIsNullOrEmpty(String registrationType) {
+        RegistrationStarted payloadRegistration = RegistrationStartedEventBuilder
+                .withDefaultRegistrationStartedDetails()
+                .registrationType(registrationType)
+                .build();
+        RegistrationStartedPayload payload = RegistrationStartedEventBuilder
+                .withDefaultRegistrationStartedPayload()
+                .registration(payloadRegistration)
+                .build();
+        RegistrationStartedEvent event = RegistrationStartedEventBuilder
+                .withDefaultEventValues()
+                .payload(payload)
+                .build();
+
+        Set<ConstraintViolation<RegistrationStartedEvent>> violations = validator.validate(event);
+
+        assertEquals(1, violations.size());
+
+        ConstraintViolation<RegistrationStartedEvent> violation = violations.iterator().next();
+        assertEquals("must not be empty", violation.getMessage());
+        assertEquals("payload.registration.registrationType", violation.getPropertyPath().toString());
     }
 
     @ParameterizedTest
     @NullAndEmptySource
     void shouldThrowConstraintViolationWhenRequestingPracticeOdsCodeIsNullOrEmpty(String requestingPracticeOdsCode) {
-        RegistrationStartedDetails payloadRegistration = RegistrationStartedEventBuilder
+        RegistrationStarted payloadRegistration = RegistrationStartedEventBuilder
                 .withDefaultRegistrationStartedDetails()
                 .requestingPracticeOdsCode(requestingPracticeOdsCode)
                 .build();

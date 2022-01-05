@@ -1,4 +1,4 @@
-package com.prmgpregistrationsmi.model.gp2gp.RegistrationStarted;
+package com.prmgpregistrationsmi.model.Event.EventPayload;
 
 import lombok.*;
 
@@ -10,11 +10,11 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @Builder
 @EqualsAndHashCode
-public class RegistrationStartedDetails {
-    @NotNull
-    private Long registrationStartedTimestamp;
+public class RegistrationStarted {
     @NotEmpty
-    private String registrationType;
+    private String registrationStartedDateTime;
     @NotEmpty
     private String requestingPracticeOdsCode;
+    @NotEmpty
+    private String registrationType;
 }

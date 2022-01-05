@@ -1,5 +1,6 @@
 package com.prmgpregistrationsmi.testhelpers.gpc;
 
+import com.prmgpregistrationsmi.model.Event.EventPayload.RegistrationStarted;
 import com.prmgpregistrationsmi.model.gpc.RegistrationStarted.*;
 
 public class RegistrationStartedEventBuilder {
@@ -13,9 +14,10 @@ public class RegistrationStartedEventBuilder {
                 .payload(withDefaultRegistrationStartedPayload().build());
     }
 
-    public static RegistrationStartedDetails.RegistrationStartedDetailsBuilder withDefaultRegistrationStartedDetails() {
-        return RegistrationStartedDetails.builder()
-                .registrationStartedTimestamp(123456756L)
+    public static RegistrationStarted.RegistrationStartedBuilder withDefaultRegistrationStartedDetails() {
+        return RegistrationStarted.builder()
+                .registrationStartedDateTime("2020-02-08T09:30:26Z")
+                .registrationType("newRegistrant")
                 .requestingPracticeOdsCode("ABC1234");
     }
 
