@@ -6,6 +6,7 @@ import com.prmgpregistrationsmi.model.Event.EventPayload.GPTransferMetadata;
 import com.prmgpregistrationsmi.model.Event.EventPayload.Registration;
 import com.prmgpregistrationsmi.model.gp2gp.EhrGenerated.UnsupportedDataItemDetails;
 import com.prmgpregistrationsmi.model.gp2gp.EhrGenerated.*;
+import org.joda.time.DateTime;
 
 import java.util.List;
 
@@ -52,7 +53,7 @@ public class EhrGeneratedEventBuilder {
     public static GPTransferMetadata.GPTransferMetadataBuilder withDefaultGPTransferMetadata() {
         return GPTransferMetadata.builder()
                 .conversationId("4345-986959-4930-684038")
-                .transferEventDateTime("2020-02-08T08:30:26Z");
+                .transferEventDateTime(new DateTime("2020-02-08T08:30:26Z"));
     }
 
     public static Registration.RegistrationBuilder withDefaultRegistration() {

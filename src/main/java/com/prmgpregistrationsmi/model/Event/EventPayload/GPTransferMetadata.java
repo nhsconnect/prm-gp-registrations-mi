@@ -1,8 +1,10 @@
 package com.prmgpregistrationsmi.model.Event.EventPayload;
 
 import lombok.*;
+import org.joda.time.DateTime;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 
 @Getter
@@ -13,6 +15,6 @@ import javax.validation.constraints.NotEmpty;
 public class GPTransferMetadata {
     @NotEmpty
     private String conversationId;
-    @NotEmpty
-    private String transferEventDateTime;
+    @NotNull
+    private DateTime transferEventDateTime;
 }

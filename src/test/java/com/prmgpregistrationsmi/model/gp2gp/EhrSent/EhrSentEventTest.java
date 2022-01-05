@@ -109,12 +109,11 @@ class EhrSentEventTest {
         assertEquals("payload.gpTransferMetadata.conversationId", violation.getPropertyPath().toString());
     }
 
-    @ParameterizedTest
-    @NullAndEmptySource
-    void shouldThrowConstraintViolationWhenTransferEventDateTimeInPayloadIsNullOrEmpty(String dateTime) {
+    @Test
+    void shouldThrowConstraintViolationWhenTransferEventDateTimeInPayloadIsNull() {
         GPTransferMetadata gp2gpPayload = EhrSentEventBuilder
                 .withDefaultGPTransferMetadata()
-                .transferEventDateTime(dateTime)
+                .transferEventDateTime(null)
                 .build();
 
         EhrSentPayload payload = EhrSentEventBuilder
@@ -132,7 +131,7 @@ class EhrSentEventTest {
         assertEquals(1, violations.size());
 
         ConstraintViolation<EhrSentEvent> violation = violations.iterator().next();
-        assertEquals("must not be empty", violation.getMessage());
+        assertEquals("must not be null", violation.getMessage());
         assertEquals("payload.gpTransferMetadata.transferEventDateTime", violation.getPropertyPath().toString());
     }
 }

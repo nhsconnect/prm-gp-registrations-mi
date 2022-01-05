@@ -4,6 +4,7 @@ import com.prmgpregistrationsmi.model.Event.EventPayload.GPTransferMetadata;
 import com.prmgpregistrationsmi.model.Event.EventPayload.Registration;
 import com.prmgpregistrationsmi.model.gp2gp.EhrSent.EhrSentEvent;
 import com.prmgpregistrationsmi.model.gp2gp.EhrSent.EhrSentPayload;
+import org.joda.time.DateTime;
 
 public class EhrSentEventBuilder {
     public static EhrSentEvent.EhrSentEventBuilder<?, ?> withDefaultEventValues() {
@@ -19,7 +20,7 @@ public class EhrSentEventBuilder {
     public static GPTransferMetadata.GPTransferMetadataBuilder withDefaultGPTransferMetadata() {
         return GPTransferMetadata.builder()
                 .conversationId("r32ou-t45ada-3431gsnfk-en3i3biy1")
-                .transferEventDateTime("2020-02-08T08:30:26Z");
+                .transferEventDateTime(new DateTime("2020-02-08T08:30:26Z"));
     }
 
     public static Registration.RegistrationBuilder withDefaultRegistration() {

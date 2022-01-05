@@ -105,12 +105,11 @@ class MigrateStructuredRecordRequestTest {
         assertEquals("payload.gpTransferMetadata.conversationId", violation.getPropertyPath().toString());
     }
 
-    @ParameterizedTest
-    @NullAndEmptySource
-    void shouldThrowConstraintViolationWhenTransferEventDateTimeInPayloadIsNullOrEmpty(String dateTime) {
+    @Test
+    void shouldThrowConstraintViolationWhenTransferEventDateTimeInPayloadIsNull() {
         GPTransferMetadata gpcPayload = MigrateStructuredRecordRequestEventBuilder
                 .withDefaultGPTransferMetadata()
-                .transferEventDateTime(dateTime)
+                .transferEventDateTime(null)
                 .build();
 
         MigrateStructuredRecordRequestPayload payload = MigrateStructuredRecordRequestEventBuilder
@@ -128,7 +127,7 @@ class MigrateStructuredRecordRequestTest {
         assertEquals(1, violations.size());
 
         ConstraintViolation<MigrateStructuredRecordRequestEvent> violation = violations.iterator().next();
-        assertEquals("must not be empty", violation.getMessage());
+        assertEquals("must not be null", violation.getMessage());
         assertEquals("payload.gpTransferMetadata.transferEventDateTime", violation.getPropertyPath().toString());
     }
 }
