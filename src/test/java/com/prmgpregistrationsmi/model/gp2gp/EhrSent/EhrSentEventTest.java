@@ -32,7 +32,7 @@ class EhrSentEventTest {
     @NullAndEmptySource
     void shouldThrowConstraintViolationWhenRequestingPracticeOdsCodeInPayloadIsNullOrEmpty(String requestingPracticeOdsCode) {
         Registration registrationPayload = EhrSentEventBuilder
-                .withDefaultEhrSentRegistrationDetails()
+                .withDefaultRegistration()
                 .requestingPracticeOdsCode(requestingPracticeOdsCode)
                 .build();
 
@@ -59,7 +59,7 @@ class EhrSentEventTest {
     @NullAndEmptySource
     void shouldThrowConstraintViolationWhenSendingPracticeOdsCodeInPayloadIsNullOrEmpty(String sendingPracticeOdsCode) {
         Registration registrationPayload = EhrSentEventBuilder
-                .withDefaultEhrSentRegistrationDetails()
+                .withDefaultRegistration()
                 .sendingPracticeOdsCode(sendingPracticeOdsCode)
                 .build();
 
@@ -86,7 +86,7 @@ class EhrSentEventTest {
     @NullAndEmptySource
     void shouldThrowConstraintViolationWhenConversationIdInPayloadIsNullOrEmpty(String conversationId) {
         GPTransferMetadata gp2gpPayload = EhrSentEventBuilder
-                .withDefaultEhrSentGp2gpDetails()
+                .withDefaultGPTransferMetadata()
                 .conversationId(conversationId)
                 .build();
 
@@ -113,7 +113,7 @@ class EhrSentEventTest {
     @NullAndEmptySource
     void shouldThrowConstraintViolationWhenTransferEventDateTimeInPayloadIsNullOrEmpty(String dateTime) {
         GPTransferMetadata gp2gpPayload = EhrSentEventBuilder
-                .withDefaultEhrSentGp2gpDetails()
+                .withDefaultGPTransferMetadata()
                 .transferEventDateTime(dateTime)
                 .build();
 

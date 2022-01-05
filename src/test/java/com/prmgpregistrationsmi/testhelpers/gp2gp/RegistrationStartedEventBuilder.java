@@ -15,7 +15,7 @@ public class RegistrationStartedEventBuilder {
                 .payload(withDefaultRegistrationStartedPayload().build());
     }
 
-    public static RegistrationStarted.RegistrationStartedBuilder withDefaultRegistrationStartedDetails() {
+    public static RegistrationStarted.RegistrationStartedBuilder withDefaultRegistrationStarted() {
         return RegistrationStarted.builder()
                 .registrationStartedDateTime("2020-02-08T09:30:26Z")
                 .registrationType("newRegistrant")
@@ -24,6 +24,6 @@ public class RegistrationStartedEventBuilder {
 
     public static RegistrationStartedPayload.RegistrationStartedPayloadBuilder withDefaultRegistrationStartedPayload() {
         return RegistrationStartedPayload.builder()
-                .registration(withDefaultRegistrationStartedDetails().build());
+                .registration(withDefaultRegistrationStarted().build());
     }
 }

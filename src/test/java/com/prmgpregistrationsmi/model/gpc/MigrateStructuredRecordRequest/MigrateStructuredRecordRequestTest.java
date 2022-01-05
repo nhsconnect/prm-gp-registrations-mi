@@ -1,5 +1,7 @@
 package com.prmgpregistrationsmi.model.gpc.MigrateStructuredRecordRequest;
 
+import com.prmgpregistrationsmi.model.Event.EventPayload.GPTransferMetadata;
+import com.prmgpregistrationsmi.model.Event.EventPayload.Registration;
 import com.prmgpregistrationsmi.testhelpers.gpc.MigrateStructuredRecordRequestEventBuilder;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -29,8 +31,8 @@ class MigrateStructuredRecordRequestTest {
     @ParameterizedTest
     @NullAndEmptySource
     void shouldThrowConstraintViolationWhenRequestingPracticeOdsCodeIsNullOrEmpty(String requestingPracticeOdsCode) {
-        MigrateStructuredRecordRequestRegistrationDetails registrationPayload = MigrateStructuredRecordRequestEventBuilder
-                .withDefaultMigrateStructuredRecordRequestRegistrationDetails()
+        Registration registrationPayload = MigrateStructuredRecordRequestEventBuilder
+                .withDefaultRegistration()
                 .requestingPracticeOdsCode(requestingPracticeOdsCode)
                 .build();
         MigrateStructuredRecordRequestPayload payload = MigrateStructuredRecordRequestEventBuilder
@@ -54,8 +56,8 @@ class MigrateStructuredRecordRequestTest {
     @ParameterizedTest
     @NullAndEmptySource
     void shouldThrowConstraintViolationWhenSendingPracticeOdsCodeIsNullOrEmpty(String sendingPracticeOdsCode) {
-        MigrateStructuredRecordRequestRegistrationDetails payloadRegistration = MigrateStructuredRecordRequestEventBuilder
-                .withDefaultMigrateStructuredRecordRequestRegistrationDetails()
+        Registration payloadRegistration = MigrateStructuredRecordRequestEventBuilder
+                .withDefaultRegistration()
                 .sendingPracticeOdsCode(sendingPracticeOdsCode)
                 .build();
         MigrateStructuredRecordRequestPayload payload = MigrateStructuredRecordRequestEventBuilder
@@ -79,14 +81,14 @@ class MigrateStructuredRecordRequestTest {
     @ParameterizedTest
     @NullAndEmptySource
     void shouldThrowConstraintViolationWhenConversationIdInPayloadIsNullOrEmpty(String conversationId) {
-        MigrateStructuredRecordRequestGpcDetails gpcPayload = MigrateStructuredRecordRequestEventBuilder
-                .withDefaultMigrateStructuredRecordRequestGpcDetails()
+        GPTransferMetadata gpcPayload = MigrateStructuredRecordRequestEventBuilder
+                .withDefaultGPTransferMetadata()
                 .conversationId(conversationId)
                 .build();
 
         MigrateStructuredRecordRequestPayload payload = MigrateStructuredRecordRequestEventBuilder
                 .withDefaultMigrateStructuredRecordRequestPayload()
-                .gpConnect(gpcPayload)
+                .gpTransferMetadata(gpcPayload)
                 .build();
 
         MigrateStructuredRecordRequestEvent event = MigrateStructuredRecordRequestEventBuilder
@@ -100,19 +102,20 @@ class MigrateStructuredRecordRequestTest {
 
         ConstraintViolation<MigrateStructuredRecordRequestEvent> violation = violations.iterator().next();
         assertEquals("must not be empty", violation.getMessage());
-        assertEquals("payload.gpConnect.conversationId", violation.getPropertyPath().toString());
+        assertEquals("payload.gpTransferMetadata.conversationId", violation.getPropertyPath().toString());
     }
 
-    @Test
-    void shouldThrowConstraintViolationWhenEhrRequestedTimestampInPayloadIsNull() {
-        MigrateStructuredRecordRequestGpcDetails gpcPayload = MigrateStructuredRecordRequestEventBuilder
-                .withDefaultMigrateStructuredRecordRequestGpcDetails()
-                .ehrRequestedTimestamp(null)
+    @ParameterizedTest
+    @NullAndEmptySource
+    void shouldThrowConstraintViolationWhenTransferEventDateTimeInPayloadIsNullOrEmpty(String dateTime) {
+        GPTransferMetadata gpcPayload = MigrateStructuredRecordRequestEventBuilder
+                .withDefaultGPTransferMetadata()
+                .transferEventDateTime(dateTime)
                 .build();
 
         MigrateStructuredRecordRequestPayload payload = MigrateStructuredRecordRequestEventBuilder
                 .withDefaultMigrateStructuredRecordRequestPayload()
-                .gpConnect(gpcPayload)
+                .gpTransferMetadata(gpcPayload)
                 .build();
 
         MigrateStructuredRecordRequestEvent event = MigrateStructuredRecordRequestEventBuilder
@@ -125,7 +128,7 @@ class MigrateStructuredRecordRequestTest {
         assertEquals(1, violations.size());
 
         ConstraintViolation<MigrateStructuredRecordRequestEvent> violation = violations.iterator().next();
-        assertEquals("must not be null", violation.getMessage());
-        assertEquals("payload.gpConnect.ehrRequestedTimestamp", violation.getPropertyPath().toString());
+        assertEquals("must not be empty", violation.getMessage());
+        assertEquals("payload.gpTransferMetadata.transferEventDateTime", violation.getPropertyPath().toString());
     }
 }

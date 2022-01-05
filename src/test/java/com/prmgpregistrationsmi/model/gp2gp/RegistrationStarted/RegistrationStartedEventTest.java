@@ -31,7 +31,7 @@ class RegistrationStartedEventTest {
     @NullAndEmptySource
     void shouldThrowConstraintViolationWhenRegistrationStartedDateTimeIsNullOrEmpty(String dateTime) {
         RegistrationStarted registrationPayload = RegistrationStartedEventBuilder
-                .withDefaultRegistrationStartedDetails()
+                .withDefaultRegistrationStarted()
                 .registrationStartedDateTime(dateTime)
                 .build();
         RegistrationStartedPayload payload = RegistrationStartedEventBuilder
@@ -56,7 +56,7 @@ class RegistrationStartedEventTest {
     @NullAndEmptySource
     void shouldThrowConstraintViolationWhenRegistrationTypeIsNullOrEmpty(String registrationType) {
         RegistrationStarted payloadRegistration = RegistrationStartedEventBuilder
-                .withDefaultRegistrationStartedDetails()
+                .withDefaultRegistrationStarted()
                 .registrationType(registrationType)
                 .build();
         RegistrationStartedPayload payload = RegistrationStartedEventBuilder
@@ -81,7 +81,7 @@ class RegistrationStartedEventTest {
     @NullAndEmptySource
     void shouldThrowConstraintViolationWhenRequestingPracticeOdsCodeIsNullOrEmpty(String requestingPracticeOdsCode) {
         RegistrationStarted payloadRegistration = RegistrationStartedEventBuilder
-                .withDefaultRegistrationStartedDetails()
+                .withDefaultRegistrationStarted()
                 .requestingPracticeOdsCode(requestingPracticeOdsCode)
                 .build();
         RegistrationStartedPayload payload = RegistrationStartedEventBuilder

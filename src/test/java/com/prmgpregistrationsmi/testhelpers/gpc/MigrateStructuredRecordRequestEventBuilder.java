@@ -1,9 +1,9 @@
 package com.prmgpregistrationsmi.testhelpers.gpc;
 
+import com.prmgpregistrationsmi.model.Event.EventPayload.GPTransferMetadata;
+import com.prmgpregistrationsmi.model.Event.EventPayload.Registration;
 import com.prmgpregistrationsmi.model.gpc.MigrateStructuredRecordRequest.MigrateStructuredRecordRequestEvent;
-import com.prmgpregistrationsmi.model.gpc.MigrateStructuredRecordRequest.MigrateStructuredRecordRequestGpcDetails;
 import com.prmgpregistrationsmi.model.gpc.MigrateStructuredRecordRequest.MigrateStructuredRecordRequestPayload;
-import com.prmgpregistrationsmi.model.gpc.MigrateStructuredRecordRequest.MigrateStructuredRecordRequestRegistrationDetails;
 
 public class MigrateStructuredRecordRequestEventBuilder {
     public static MigrateStructuredRecordRequestEvent.MigrateStructuredRecordRequestEventBuilder<?, ?> withDefaultEventValues() {
@@ -16,22 +16,22 @@ public class MigrateStructuredRecordRequestEventBuilder {
                 .payload(withDefaultMigrateStructuredRecordRequestPayload().build());
     }
 
-    public static MigrateStructuredRecordRequestRegistrationDetails.MigrateStructuredRecordRequestRegistrationDetailsBuilder withDefaultMigrateStructuredRecordRequestRegistrationDetails() {
-        return MigrateStructuredRecordRequestRegistrationDetails.builder()
+    public static Registration.RegistrationBuilder withDefaultRegistration() {
+        return Registration.builder()
                 .requestingPracticeOdsCode("ABC1234")
                 .sendingPracticeOdsCode("XYZ4567");
     }
 
-    public static MigrateStructuredRecordRequestGpcDetails.MigrateStructuredRecordRequestGpcDetailsBuilder withDefaultMigrateStructuredRecordRequestGpcDetails() {
-        return MigrateStructuredRecordRequestGpcDetails.builder()
+    public static GPTransferMetadata.GPTransferMetadataBuilder withDefaultGPTransferMetadata() {
+        return GPTransferMetadata.builder()
                 .conversationId("4345-986959-4930-684038")
-                .ehrRequestedTimestamp(123456756L);
+                .transferEventDateTime("2020-02-08T08:30:26Z");
     }
 
     public static MigrateStructuredRecordRequestPayload.MigrateStructuredRecordRequestPayloadBuilder withDefaultMigrateStructuredRecordRequestPayload() {
         return MigrateStructuredRecordRequestPayload.builder()
-                .registration(withDefaultMigrateStructuredRecordRequestRegistrationDetails().build())
-                .gpConnect(withDefaultMigrateStructuredRecordRequestGpcDetails().build());
+                .registration(withDefaultRegistration().build())
+                .gpTransferMetadata(withDefaultGPTransferMetadata().build());
 
     }
 }
