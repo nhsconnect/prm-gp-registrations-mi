@@ -41,7 +41,7 @@ class MigrateStructuredRecordResponseEventIntegrationTest {
 
         EventDAO expectedS3UploadEvent = new EventDAO(
                 migrateStructuredRecordResponseEventResponse.getEventId(),
-                migrateStructuredRecordResponseEventResponse.getEventGeneratedTimestamp(),
+                migrateStructuredRecordResponseEventResponse.getEventGeneratedDateTime(),
                 EventType.MIGRATE_STRUCTURED_RECORD_RESPONSE,
                 migrateStructuredRecordResponseEventResponse.getRegistrationId(),
                 migrateStructuredRecordResponseEventResponse.getReportingSystemSupplier(),

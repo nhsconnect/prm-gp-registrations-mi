@@ -5,6 +5,7 @@ import com.prmgpregistrationsmi.model.gp2gp.RegistrationStarted.RegistrationStar
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.testhelpers.gp2gp.RegistrationStartedEventBuilder;
+import org.joda.time.DateTime;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -34,7 +35,7 @@ class RegistrationServiceTest {
         RegistrationStartedEvent testEvent = RegistrationStartedEventBuilder
                 .withDefaultEventValues()
                 .eventId("event-id-12345")
-                .eventGeneratedTimestamp(1609556400L)
+                .eventGeneratedDateTime(new DateTime("2021-01-02T03:30:26Z"))
                 .build();
         EventType gp2gpRegistrationStartedEventType = EventType.REGISTRATION_STARTED;
 

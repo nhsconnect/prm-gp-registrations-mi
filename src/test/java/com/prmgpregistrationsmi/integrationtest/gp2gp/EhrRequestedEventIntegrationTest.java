@@ -1,11 +1,10 @@
 package com.prmgpregistrationsmi.integrationtest.gp2gp;
 
 import com.amazonaws.services.s3.AmazonS3Client;
-import com.prmgpregistrationsmi.model.gp2gp.EhrRequested.EhrRequestedEvent;
-import com.prmgpregistrationsmi.model.gp2gp.EhrRequested.EhrRequestedPayload;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
+import com.prmgpregistrationsmi.model.gp2gp.EhrRequested.EhrRequestedEvent;
 import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrRequestedEventBuilder;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +36,7 @@ class EhrRequestedEventIntegrationTest {
 
         EventDAO expectedS3UploadEvent = new EventDAO(
                 ehrRequestedEventRequest.getEventId(),
-                ehrRequestedEventRequest.getEventGeneratedTimestamp(),
+                ehrRequestedEventRequest.getEventGeneratedDateTime(),
                 EventType.EHR_REQUESTED,
                 ehrRequestedEventRequest.getRegistrationId(),
                 ehrRequestedEventRequest.getReportingSystemSupplier(),

@@ -2,6 +2,7 @@ package com.prmgpregistrationsmi.model.Event;
 
 import com.prmgpregistrationsmi.utils.JsonHelper;
 import lombok.*;
+import org.joda.time.DateTime;
 
 @Getter
 @NoArgsConstructor
@@ -10,7 +11,7 @@ import lombok.*;
 @EqualsAndHashCode
 public class EventDAO {
     private String eventId;
-    private Long eventGeneratedTimestamp;
+    private DateTime eventGeneratedDateTime;
     private EventType eventType;
     private String registrationId;
     private String reportingSystemSupplier;
@@ -20,7 +21,7 @@ public class EventDAO {
     public static EventDAO fromEvent(Event event, EventType eventType) {
         return new EventDAO(
                 event.getEventId(),
-                event.getEventGeneratedTimestamp(),
+                event.getEventGeneratedDateTime(),
                 eventType,
                 event.getRegistrationId(),
                 event.getReportingSystemSupplier(),

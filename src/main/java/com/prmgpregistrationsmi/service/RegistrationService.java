@@ -5,6 +5,7 @@ import com.prmgpregistrationsmi.model.Event.Event;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventType;
 import lombok.AllArgsConstructor;
+import org.joda.time.DateTime;
 import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
@@ -25,8 +26,8 @@ public class RegistrationService {
         return eventDAO;
     }
 
-    private String getS3DatePrefix(Long eventGeneratedTimestamp) {
-        Date eventGeneratedDate = new Date(eventGeneratedTimestamp*1000);
+    private String getS3DatePrefix(DateTime eventGeneratedDateTime) {
+        Date eventGeneratedDate = eventGeneratedDateTime.toDate();
         Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
         calendar.setTime(eventGeneratedDate);
         int eventGeneratedMonth = calendar.get(Calendar.MONTH) + 1;
@@ -38,8 +39,8 @@ public class RegistrationService {
     }
 
     private String getS3Key(Event event) {
-        Long eventGeneratedTimestamp = event.getEventGeneratedTimestamp();
-        String s3DatePrefix = getS3DatePrefix(eventGeneratedTimestamp);
+        DateTime eventGeneratedDateTime = event.getEventGeneratedDateTime();
+        String s3DatePrefix = getS3DatePrefix(eventGeneratedDateTime);
 
         String eventId = event.getEventId();
         String fileName = eventId + OUTPUT_EXTENSION;

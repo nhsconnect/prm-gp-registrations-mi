@@ -36,7 +36,7 @@ class EhrGeneratedEventIntegrationTest {
 
         EventDAO expectedS3UploadEvent = new EventDAO(
                 ehrGeneratedEventRequest.getEventId(),
-                ehrGeneratedEventRequest.getEventGeneratedTimestamp(),
+                ehrGeneratedEventRequest.getEventGeneratedDateTime(),
                 EventType.EHR_GENERATED,
                 ehrGeneratedEventRequest.getRegistrationId(),
                 ehrGeneratedEventRequest.getReportingSystemSupplier(),

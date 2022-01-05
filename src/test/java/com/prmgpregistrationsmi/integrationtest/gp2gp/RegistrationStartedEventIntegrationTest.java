@@ -41,7 +41,7 @@ class RegistrationStartedEventIntegrationTest {
 
         EventDAO expectedS3UploadEvent = new EventDAO(
                 registrationStartedEventRequest.getEventId(),
-                registrationStartedEventRequest.getEventGeneratedTimestamp(),
+                registrationStartedEventRequest.getEventGeneratedDateTime(),
                 EventType.REGISTRATION_STARTED,
                 registrationStartedEventRequest.getRegistrationId(),
                 registrationStartedEventRequest.getReportingSystemSupplier(),

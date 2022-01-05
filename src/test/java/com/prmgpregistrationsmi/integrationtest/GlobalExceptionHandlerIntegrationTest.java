@@ -39,7 +39,7 @@ class GlobalExceptionHandlerIntegrationTest {
                 HttpStatus.BAD_REQUEST,
                 "Failed to validate fields", List.of(
                 "reportingPracticeOdsCode: must not be empty",
-                "eventGeneratedTimestamp: must not be null",
+                "eventGeneratedDateTime: must not be null",
                 "registrationId: must not be empty",
                 "payload: must not be null",
                 "reportingSystemSupplier: must not be empty",
@@ -54,12 +54,12 @@ class GlobalExceptionHandlerIntegrationTest {
 
     @Test
     void shouldReturnA400IfEventGeneratedTimestampIsNotANumber() throws Exception {
-        var requestBody = "{\"eventId\":\"some-id\",\"eventGeneratedTimestamp\":" + false + "}";
+        var requestBody = "{\"eventId\":\"some-id\",\"eventGeneratedDateTime\":" + false + "}";
 
         ApiError expectedResponse = new ApiError(
                 HttpStatus.BAD_REQUEST,
                 "Invalid request field",
-                new ArrayList<>(Collections.singleton("eventGeneratedTimestamp: Cannot deserialize value of type `java.lang.Long` from Boolean value (token `JsonToken.VALUE_FALSE`)")));
+                new ArrayList<>(Collections.singleton("eventGeneratedDateTime: Cannot deserialize value of type `org.joda.time.DateTime` from `JsonToken.VALUE_FALSE`: expected Number or String")));
 
         mockMvc.perform(post("/registration/" + API_VERSION + "/gp2gp/registrationStarted").content(requestBody)
                         .contentType(MediaType.APPLICATION_JSON))

@@ -10,7 +10,7 @@ public class EhrSentEventBuilder {
     public static EhrSentEvent.EhrSentEventBuilder<?, ?> withDefaultEventValues() {
         return EhrSentEvent.builder()
                 .eventId("some-id")
-                .eventGeneratedTimestamp(12345L)
+                .eventGeneratedDateTime(new DateTime("1970-01-01T03:30:26Z"))
                 .registrationId("some-registration-id")
                 .reportingSystemSupplier("some-reporting-system-supplier")
                 .reportingPracticeOdsCode("some-reporting-practice-ods-code")

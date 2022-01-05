@@ -2,12 +2,13 @@ package com.prmgpregistrationsmi.testhelpers.gpc;
 
 import com.prmgpregistrationsmi.model.Event.EventPayload.RegistrationStarted;
 import com.prmgpregistrationsmi.model.gpc.RegistrationStarted.*;
+import org.joda.time.DateTime;
 
 public class RegistrationStartedEventBuilder {
     public static RegistrationStartedEvent.RegistrationStartedEventBuilder<?, ?> withDefaultEventValues() {
         return RegistrationStartedEvent.builder()
                 .eventId("some-id")
-                .eventGeneratedTimestamp(12345L)
+                .eventGeneratedDateTime(new DateTime("1970-01-01T03:30:26Z"))
                 .registrationId("some-registration-id")
                 .reportingSystemSupplier("some-reporting-system-supplier")
                 .reportingPracticeOdsCode("some-reporting-practice-ods-code")

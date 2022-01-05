@@ -37,7 +37,7 @@ public class EventTest {
     void shouldThrowConstraintViolationWhenTimestampIsNull() {
         RegistrationStartedEvent event = RegistrationStartedEventBuilder
                 .withDefaultEventValues()
-                .eventGeneratedTimestamp(null)
+                .eventGeneratedDateTime(null)
                 .build();
 
         Set<ConstraintViolation<RegistrationStartedEvent>> violations = validator.validate(event);
@@ -46,7 +46,7 @@ public class EventTest {
 
         ConstraintViolation<RegistrationStartedEvent> violation = violations.iterator().next();
         assertEquals("must not be null", violation.getMessage());
-        assertEquals("eventGeneratedTimestamp", violation.getPropertyPath().toString());
+        assertEquals("eventGeneratedDateTime", violation.getPropertyPath().toString());
     }
 
     @Test
