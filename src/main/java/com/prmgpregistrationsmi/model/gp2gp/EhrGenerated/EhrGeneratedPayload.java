@@ -1,10 +1,13 @@
 package com.prmgpregistrationsmi.model.gp2gp.EhrGenerated;
 
+import com.prmgpregistrationsmi.model.Event.EventPayload.GPTransferMetadata;
+import com.prmgpregistrationsmi.model.Event.EventPayload.Registration;
 import com.prmgpregistrationsmi.model.Event.Payload;
 import lombok.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -14,9 +17,14 @@ import javax.validation.constraints.NotNull;
 public class EhrGeneratedPayload implements Payload {
     @Valid
     @NotNull
-    private EhrGeneratedRegistrationDetails registration;
+    private Registration registration;
 
     @Valid
     @NotNull
-    private EhrGeneratedGp2gpDetails gp2gp;
+    private GPTransferMetadata gpTransferMetadata;
+
+    @Valid
+    @NotNull
+    private EhrGeneratedEhrDetails ehr;
+    private List<UnsupportedDataItemDetails> unsupportedDataItem;
 }

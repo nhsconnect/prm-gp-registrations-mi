@@ -1,4 +1,4 @@
-package com.prmgpregistrationsmi.model.gp2gp.EhrGenerated;
+package com.prmgpregistrationsmi.model.Event.EventPayload;
 
 import lombok.*;
 
@@ -7,7 +7,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 @EqualsAndHashCode
-public class EhrGeneratedEhrPlaceholderDetails {
+public class Placeholder {
     private String placeholderId;
     private String attachmentId;
     private String generatedBy;

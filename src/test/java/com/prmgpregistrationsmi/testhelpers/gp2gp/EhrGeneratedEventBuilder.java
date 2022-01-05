@@ -1,5 +1,10 @@
 package com.prmgpregistrationsmi.testhelpers.gp2gp;
 
+import com.prmgpregistrationsmi.model.Event.EventPayload.Attachment;
+import com.prmgpregistrationsmi.model.Event.EventPayload.Placeholder;
+import com.prmgpregistrationsmi.model.Event.EventPayload.GPTransferMetadata;
+import com.prmgpregistrationsmi.model.Event.EventPayload.Registration;
+import com.prmgpregistrationsmi.model.gp2gp.EhrGenerated.UnsupportedDataItemDetails;
 import com.prmgpregistrationsmi.model.gp2gp.EhrGenerated.*;
 
 import java.util.List;
@@ -15,35 +20,21 @@ public class EhrGeneratedEventBuilder {
                 .payload(withDefaultEhrGeneratedPayload().build());
     }
 
-    public static EhrGeneratedGp2gpDetails.EhrGeneratedGp2gpDetailsBuilder withDefaultEhrGeneratedGp2gpDetails() {
-        UnsupportedDataItemDetails unsupportedDataItem = UnsupportedDataItemDetails.builder()
-                .type("allergy/flag")
-                .uniqueIdentifier("1323-132345-1323-132345")
-                .reason("reason for being unsupported / why is it unsupported in gp2gp / what would have to change in gp2gp to express this")
-                .build();
-
-        return EhrGeneratedGp2gpDetails.builder()
-                .conversationId("r32ou-t45ada-3431gsnfk-en3i3biy1")
-                .ehrGeneratedTimestamp(12124145245L)
-                .ehr(withDefaultEhrGeneratedEhrDetails().build())
-                .unsupportedDataItem(List.of(unsupportedDataItem));
-    }
-
     public static EhrGeneratedEhrDetails.EhrGeneratedEhrDetailsBuilder withDefaultEhrGeneratedEhrDetails() {
-        EhrGeneratedEhrAttachmentDetails attachmentDetailsWithClinicalType = EhrGeneratedEhrAttachmentDetails.builder()
+        Attachment attachmentDetailsWithClinicalType = Attachment.builder()
                 .attachmentId("3424-342456-3424-342456")
                 .clinicalType("Scanned document")
                 .mimeType("application/pdf")
                 .sizeBytes(3084322L)
                 .build();
 
-        EhrGeneratedEhrAttachmentDetails attachmentDetailsWithoutClinicalType = EhrGeneratedEhrAttachmentDetails.builder()
+        Attachment attachmentDetailsWithoutClinicalType = Attachment.builder()
                 .attachmentId("1323-132345-1323-132345")
                 .mimeType("audio/mpeg")
                 .sizeBytes(24352346L)
                 .build();
 
-        EhrGeneratedEhrPlaceholderDetails placeholderDetails = EhrGeneratedEhrPlaceholderDetails.builder()
+        Placeholder placeholderDetails = Placeholder.builder()
                 .placeholderId("9876-987654-9876-987654")
                 .attachmentId("1323-132345-1323-132345")
                 .generatedBy("XYZ4567")
@@ -58,15 +49,29 @@ public class EhrGeneratedEventBuilder {
                 .placeholder(List.of(placeholderDetails));
     }
 
-    public static EhrGeneratedRegistrationDetails.EhrGeneratedRegistrationDetailsBuilder withDefaultEhrGeneratedRegistrationDetails() {
-        return EhrGeneratedRegistrationDetails.builder()
+    public static GPTransferMetadata.GPTransferMetadataBuilder withDefaultGPTransferMetadata() {
+        return GPTransferMetadata.builder()
+                .conversationId("4345-986959-4930-684038")
+                .transferEventDateTime("2020-02-08T08:30:26Z");
+    }
+
+    public static Registration.RegistrationBuilder withDefaultRegistration() {
+        return Registration.builder()
                 .requestingPracticeOdsCode("ABC1234")
-                .sendingPracticeOdsCode("DCE1234");
+                .sendingPracticeOdsCode("XYZ4567");
     }
 
     public static EhrGeneratedPayload.EhrGeneratedPayloadBuilder withDefaultEhrGeneratedPayload() {
+        UnsupportedDataItemDetails unsupportedDataItem = UnsupportedDataItemDetails.builder()
+                .type("allergy/flag")
+                .uniqueIdentifier("1323-132345-1323-132345")
+                .reason("reason for being unsupported / why is it unsupported in gp2gp / what would have to change in gp2gp to express this")
+                .build();
+
         return EhrGeneratedPayload.builder()
-                .registration(withDefaultEhrGeneratedRegistrationDetails().build())
-                .gp2gp(withDefaultEhrGeneratedGp2gpDetails().build());
+                .registration(withDefaultRegistration().build())
+                .gpTransferMetadata(withDefaultGPTransferMetadata().build())
+                .ehr(withDefaultEhrGeneratedEhrDetails().build())
+                .unsupportedDataItem(List.of(unsupportedDataItem));
     }
 }

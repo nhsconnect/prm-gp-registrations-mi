@@ -1,5 +1,7 @@
 package com.prmgpregistrationsmi.model.gp2gp.EhrGenerated;
 
+import com.prmgpregistrationsmi.model.Event.EventPayload.GPTransferMetadata;
+import com.prmgpregistrationsmi.model.Event.EventPayload.Registration;
 import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrGeneratedEventBuilder;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -29,8 +31,8 @@ class EhrGeneratedEventTest {
     @ParameterizedTest
     @NullAndEmptySource
     void shouldThrowConstraintViolationWhenRequestingPracticeOdsCodeInPayloadIsNullOrEmpty(String requestingPracticeOdsCode) {
-        EhrGeneratedRegistrationDetails registrationPayload = EhrGeneratedEventBuilder
-                .withDefaultEhrGeneratedRegistrationDetails()
+        Registration registrationPayload = EhrGeneratedEventBuilder
+                .withDefaultRegistration()
                 .requestingPracticeOdsCode(requestingPracticeOdsCode)
                 .build();
 
@@ -56,8 +58,8 @@ class EhrGeneratedEventTest {
     @ParameterizedTest
     @NullAndEmptySource
     void shouldThrowConstraintViolationWhenSendingPracticeOdsCodeInPayloadIsNullOrEmpty(String sendingPracticeOdsCode) {
-        EhrGeneratedRegistrationDetails registrationPayload = EhrGeneratedEventBuilder
-                .withDefaultEhrGeneratedRegistrationDetails()
+        Registration registrationPayload = EhrGeneratedEventBuilder
+                .withDefaultRegistration()
                 .sendingPracticeOdsCode(sendingPracticeOdsCode)
                 .build();
 
@@ -83,14 +85,14 @@ class EhrGeneratedEventTest {
     @ParameterizedTest
     @NullAndEmptySource
     void shouldThrowConstraintViolationWhenConversationIdInPayloadIsNullOrEmpty(String conversationId) {
-        EhrGeneratedGp2gpDetails gp2gpPayload = EhrGeneratedEventBuilder
-                .withDefaultEhrGeneratedGp2gpDetails()
+        GPTransferMetadata gpTransferMetadata = EhrGeneratedEventBuilder
+                .withDefaultGPTransferMetadata()
                 .conversationId(conversationId)
                 .build();
 
         EhrGeneratedPayload payload = EhrGeneratedEventBuilder
                 .withDefaultEhrGeneratedPayload()
-                .gp2gp(gp2gpPayload)
+                .gpTransferMetadata(gpTransferMetadata)
                 .build();
 
         EhrGeneratedEvent event = EhrGeneratedEventBuilder
@@ -104,19 +106,20 @@ class EhrGeneratedEventTest {
 
         ConstraintViolation<EhrGeneratedEvent> violation = violations.iterator().next();
         assertEquals("must not be empty", violation.getMessage());
-        assertEquals("payload.gp2gp.conversationId", violation.getPropertyPath().toString());
+        assertEquals("payload.gpTransferMetadata.conversationId", violation.getPropertyPath().toString());
     }
 
-    @Test
-    void shouldThrowConstraintViolationWhenEhrGeneratedTimestampInPayloadIsNull() {
-        EhrGeneratedGp2gpDetails gp2gpPayload = EhrGeneratedEventBuilder
-                .withDefaultEhrGeneratedGp2gpDetails()
-                .ehrGeneratedTimestamp(null)
+    @ParameterizedTest
+    @NullAndEmptySource
+    void shouldThrowConstraintViolationWhenTransferEventDateTimeInPayloadIsNullOrEmpty(String dateTime) {
+        GPTransferMetadata gpTransferMetadata = EhrGeneratedEventBuilder
+                .withDefaultGPTransferMetadata()
+                .transferEventDateTime(dateTime)
                 .build();
 
         EhrGeneratedPayload payload = EhrGeneratedEventBuilder
                 .withDefaultEhrGeneratedPayload()
-                .gp2gp(gp2gpPayload)
+                .gpTransferMetadata(gpTransferMetadata)
                 .build();
 
         EhrGeneratedEvent event = EhrGeneratedEventBuilder
@@ -129,25 +132,20 @@ class EhrGeneratedEventTest {
         assertEquals(1, violations.size());
 
         ConstraintViolation<EhrGeneratedEvent> violation = violations.iterator().next();
-        assertEquals("must not be null", violation.getMessage());
-        assertEquals("payload.gp2gp.ehrGeneratedTimestamp", violation.getPropertyPath().toString());
+        assertEquals("must not be empty", violation.getMessage());
+        assertEquals("payload.gpTransferMetadata.transferEventDateTime", violation.getPropertyPath().toString());
     }
 
     @Test
     void shouldThrowConstraintViolationWhenEhrTotalSizeBytesInPayloadIsNull() {
-        EhrGeneratedEhrDetails ehrGp2gpPayload = EhrGeneratedEventBuilder
+        EhrGeneratedEhrDetails ehrPayload = EhrGeneratedEventBuilder
                 .withDefaultEhrGeneratedEhrDetails()
                 .ehrTotalSizeBytes(null)
                 .build();
 
-        EhrGeneratedGp2gpDetails gp2gpPayload = EhrGeneratedEventBuilder
-                .withDefaultEhrGeneratedGp2gpDetails()
-                .ehr(ehrGp2gpPayload)
-                .build();
-
         EhrGeneratedPayload payload = EhrGeneratedEventBuilder
                 .withDefaultEhrGeneratedPayload()
-                .gp2gp(gp2gpPayload)
+                .ehr(ehrPayload)
                 .build();
 
         EhrGeneratedEvent event = EhrGeneratedEventBuilder
@@ -161,24 +159,19 @@ class EhrGeneratedEventTest {
 
         ConstraintViolation<EhrGeneratedEvent> violation = violations.iterator().next();
         assertEquals("must not be null", violation.getMessage());
-        assertEquals("payload.gp2gp.ehr.ehrTotalSizeBytes", violation.getPropertyPath().toString());
+        assertEquals("payload.ehr.ehrTotalSizeBytes", violation.getPropertyPath().toString());
     }
 
     @Test
     void shouldThrowConstraintViolationWhenEhrStructuredSizeBytesInPayloadIsNull() {
-        EhrGeneratedEhrDetails ehrGp2gpPayload = EhrGeneratedEventBuilder
+        EhrGeneratedEhrDetails ehrPayload = EhrGeneratedEventBuilder
                 .withDefaultEhrGeneratedEhrDetails()
                 .ehrStructuredSizeBytes(null)
                 .build();
 
-        EhrGeneratedGp2gpDetails gp2gpPayload = EhrGeneratedEventBuilder
-                .withDefaultEhrGeneratedGp2gpDetails()
-                .ehr(ehrGp2gpPayload)
-                .build();
-
         EhrGeneratedPayload payload = EhrGeneratedEventBuilder
                 .withDefaultEhrGeneratedPayload()
-                .gp2gp(gp2gpPayload)
+                .ehr(ehrPayload)
                 .build();
 
         EhrGeneratedEvent event = EhrGeneratedEventBuilder
@@ -192,6 +185,6 @@ class EhrGeneratedEventTest {
 
         ConstraintViolation<EhrGeneratedEvent> violation = violations.iterator().next();
         assertEquals("must not be null", violation.getMessage());
-        assertEquals("payload.gp2gp.ehr.ehrStructuredSizeBytes", violation.getPropertyPath().toString());
+        assertEquals("payload.ehr.ehrStructuredSizeBytes", violation.getPropertyPath().toString());
     }
 }
