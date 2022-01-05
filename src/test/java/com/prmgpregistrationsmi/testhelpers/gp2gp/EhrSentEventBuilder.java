@@ -1,9 +1,9 @@
 package com.prmgpregistrationsmi.testhelpers.gp2gp;
 
+import com.prmgpregistrationsmi.model.Event.EventPayload.GPTransferMetadata;
+import com.prmgpregistrationsmi.model.Event.EventPayload.Registration;
 import com.prmgpregistrationsmi.model.gp2gp.EhrSent.EhrSentEvent;
-import com.prmgpregistrationsmi.model.gp2gp.EhrSent.EhrSentGp2gpDetails;
 import com.prmgpregistrationsmi.model.gp2gp.EhrSent.EhrSentPayload;
-import com.prmgpregistrationsmi.model.gp2gp.EhrSent.EhrSentRegistrationDetails;
 
 public class EhrSentEventBuilder {
     public static EhrSentEvent.EhrSentEventBuilder<?, ?> withDefaultEventValues() {
@@ -16,14 +16,14 @@ public class EhrSentEventBuilder {
                 .payload(withDefaultEhrSentPayload().build());
     }
 
-    public static EhrSentGp2gpDetails.EhrSentGp2gpDetailsBuilder withDefaultEhrSentGp2gpDetails() {
-        return EhrSentGp2gpDetails.builder()
+    public static GPTransferMetadata.GPTransferMetadataBuilder withDefaultEhrSentGp2gpDetails() {
+        return GPTransferMetadata.builder()
                 .conversationId("r32ou-t45ada-3431gsnfk-en3i3biy1")
-                .ehrSentTimestamp(12124145245L);
+                .transferEventDateTime("2020-02-08T08:30:26Z");
     }
 
-    public static EhrSentRegistrationDetails.EhrSentRegistrationDetailsBuilder withDefaultEhrSentRegistrationDetails() {
-        return EhrSentRegistrationDetails.builder()
+    public static Registration.RegistrationBuilder withDefaultEhrSentRegistrationDetails() {
+        return Registration.builder()
                 .requestingPracticeOdsCode("ABC1234")
                 .sendingPracticeOdsCode("DCE1234");
     }
@@ -31,6 +31,6 @@ public class EhrSentEventBuilder {
     public static EhrSentPayload.EhrSentPayloadBuilder withDefaultEhrSentPayload() {
         return EhrSentPayload.builder()
                 .registration(withDefaultEhrSentRegistrationDetails().build())
-                .gp2gp(withDefaultEhrSentGp2gpDetails().build());
+                .gpTransferMetadata(withDefaultEhrSentGp2gpDetails().build());
     }
 }

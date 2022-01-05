@@ -1,5 +1,7 @@
 package com.prmgpregistrationsmi.model.gp2gp.EhrSent;
 
+import com.prmgpregistrationsmi.model.Event.EventPayload.GPTransferMetadata;
+import com.prmgpregistrationsmi.model.Event.EventPayload.Registration;
 import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrSentEventBuilder;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -29,7 +31,7 @@ class EhrSentEventTest {
     @ParameterizedTest
     @NullAndEmptySource
     void shouldThrowConstraintViolationWhenRequestingPracticeOdsCodeInPayloadIsNullOrEmpty(String requestingPracticeOdsCode) {
-        EhrSentRegistrationDetails registrationPayload = EhrSentEventBuilder
+        Registration registrationPayload = EhrSentEventBuilder
                 .withDefaultEhrSentRegistrationDetails()
                 .requestingPracticeOdsCode(requestingPracticeOdsCode)
                 .build();
@@ -56,7 +58,7 @@ class EhrSentEventTest {
     @ParameterizedTest
     @NullAndEmptySource
     void shouldThrowConstraintViolationWhenSendingPracticeOdsCodeInPayloadIsNullOrEmpty(String sendingPracticeOdsCode) {
-        EhrSentRegistrationDetails registrationPayload = EhrSentEventBuilder
+        Registration registrationPayload = EhrSentEventBuilder
                 .withDefaultEhrSentRegistrationDetails()
                 .sendingPracticeOdsCode(sendingPracticeOdsCode)
                 .build();
@@ -83,14 +85,14 @@ class EhrSentEventTest {
     @ParameterizedTest
     @NullAndEmptySource
     void shouldThrowConstraintViolationWhenConversationIdInPayloadIsNullOrEmpty(String conversationId) {
-        EhrSentGp2gpDetails gp2gpPayload = EhrSentEventBuilder
+        GPTransferMetadata gp2gpPayload = EhrSentEventBuilder
                 .withDefaultEhrSentGp2gpDetails()
                 .conversationId(conversationId)
                 .build();
 
         EhrSentPayload payload = EhrSentEventBuilder
                 .withDefaultEhrSentPayload()
-                .gp2gp(gp2gpPayload)
+                .gpTransferMetadata(gp2gpPayload)
                 .build();
 
         EhrSentEvent event = EhrSentEventBuilder
@@ -104,19 +106,20 @@ class EhrSentEventTest {
 
         ConstraintViolation<EhrSentEvent> violation = violations.iterator().next();
         assertEquals("must not be empty", violation.getMessage());
-        assertEquals("payload.gp2gp.conversationId", violation.getPropertyPath().toString());
+        assertEquals("payload.gpTransferMetadata.conversationId", violation.getPropertyPath().toString());
     }
 
-    @Test
-    void shouldThrowConstraintViolationWhenEhrSentTimestampInPayloadIsNull() {
-        EhrSentGp2gpDetails gp2gpPayload = EhrSentEventBuilder
+    @ParameterizedTest
+    @NullAndEmptySource
+    void shouldThrowConstraintViolationWhenTransferEventDateTimeInPayloadIsNullOrEmpty(String dateTime) {
+        GPTransferMetadata gp2gpPayload = EhrSentEventBuilder
                 .withDefaultEhrSentGp2gpDetails()
-                .ehrSentTimestamp(null)
+                .transferEventDateTime(dateTime)
                 .build();
 
         EhrSentPayload payload = EhrSentEventBuilder
                 .withDefaultEhrSentPayload()
-                .gp2gp(gp2gpPayload)
+                .gpTransferMetadata(gp2gpPayload)
                 .build();
 
         EhrSentEvent event = EhrSentEventBuilder
@@ -129,7 +132,7 @@ class EhrSentEventTest {
         assertEquals(1, violations.size());
 
         ConstraintViolation<EhrSentEvent> violation = violations.iterator().next();
-        assertEquals("must not be null", violation.getMessage());
-        assertEquals("payload.gp2gp.ehrSentTimestamp", violation.getPropertyPath().toString());
+        assertEquals("must not be empty", violation.getMessage());
+        assertEquals("payload.gpTransferMetadata.transferEventDateTime", violation.getPropertyPath().toString());
     }
 }
