@@ -59,7 +59,7 @@ class GlobalExceptionHandlerIntegrationTest {
         ApiError expectedResponse = new ApiError(
                 HttpStatus.BAD_REQUEST,
                 "Invalid request field",
-                new ArrayList<>(Collections.singleton("eventGeneratedDateTime: Cannot deserialize value of type `org.joda.time.DateTime` from `JsonToken.VALUE_FALSE`: expected Number or String")));
+                new ArrayList<>(Collections.singleton("eventGeneratedDateTime: Expected array or string.")));
 
         mockMvc.perform(post("/registration/" + API_VERSION + "/gp2gp/registrationStarted").content(requestBody)
                         .contentType(MediaType.APPLICATION_JSON))

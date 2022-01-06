@@ -1,12 +1,13 @@
 package com.prmgpregistrationsmi.service;
 
 import com.prmgpregistrationsmi.exception.UnableToUploadToS3Exception;
-import com.prmgpregistrationsmi.model.gp2gp.RegistrationStarted.RegistrationStartedEvent;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventType;
+import com.prmgpregistrationsmi.model.gp2gp.RegistrationStarted.RegistrationStartedEvent;
 import com.prmgpregistrationsmi.testhelpers.gp2gp.RegistrationStartedEventBuilder;
-import org.joda.time.DateTime;
 import org.junit.jupiter.api.Test;
+
+import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
@@ -35,7 +36,7 @@ class RegistrationServiceTest {
         RegistrationStartedEvent testEvent = RegistrationStartedEventBuilder
                 .withDefaultEventValues()
                 .eventId("event-id-12345")
-                .eventGeneratedDateTime(new DateTime("2021-01-02T03:30:26Z"))
+                .eventGeneratedDateTime(LocalDateTime.of(2021, 1, 2, 3, 30))
                 .build();
         EventType gp2gpRegistrationStartedEventType = EventType.REGISTRATION_STARTED;
 

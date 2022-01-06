@@ -4,13 +4,14 @@ import com.prmgpregistrationsmi.model.Event.EventPayload.GPTransferMetadata;
 import com.prmgpregistrationsmi.model.Event.EventPayload.Registration;
 import com.prmgpregistrationsmi.model.gpc.MigrateStructuredRecordRequest.MigrateStructuredRecordRequestEvent;
 import com.prmgpregistrationsmi.model.gpc.MigrateStructuredRecordRequest.MigrateStructuredRecordRequestPayload;
-import org.joda.time.DateTime;
+
+import java.time.LocalDateTime;
 
 public class MigrateStructuredRecordRequestEventBuilder {
     public static MigrateStructuredRecordRequestEvent.MigrateStructuredRecordRequestEventBuilder<?, ?> withDefaultEventValues() {
         return MigrateStructuredRecordRequestEvent.builder()
                 .eventId("some-id")
-                .eventGeneratedDateTime(new DateTime("1970-01-01T03:30:26Z"))
+                .eventGeneratedDateTime(LocalDateTime.of(1970, 1, 1, 3, 30))
                 .registrationId("some-registration-id")
                 .reportingSystemSupplier("some-reporting-system-supplier")
                 .reportingPracticeOdsCode("some-reporting-practice-ods-code")
@@ -26,7 +27,7 @@ public class MigrateStructuredRecordRequestEventBuilder {
     public static GPTransferMetadata.GPTransferMetadataBuilder withDefaultGPTransferMetadata() {
         return GPTransferMetadata.builder()
                 .conversationId("4345-986959-4930-684038")
-                .transferEventDateTime(new DateTime("2020-02-08T08:30:26Z"));
+                .transferEventDateTime(LocalDateTime.of(2020, 2, 8, 8, 30));
     }
 
     public static MigrateStructuredRecordRequestPayload.MigrateStructuredRecordRequestPayloadBuilder withDefaultMigrateStructuredRecordRequestPayload() {

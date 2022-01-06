@@ -2,7 +2,8 @@ package com.prmgpregistrationsmi.model.Event;
 
 import com.prmgpregistrationsmi.utils.JsonHelper;
 import lombok.*;
-import org.joda.time.DateTime;
+
+import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
@@ -11,7 +12,7 @@ import org.joda.time.DateTime;
 @EqualsAndHashCode
 public class EventDAO {
     private String eventId;
-    private DateTime eventGeneratedDateTime;
+    private LocalDateTime eventGeneratedDateTime;
     private EventType eventType;
     private String registrationId;
     private String reportingSystemSupplier;

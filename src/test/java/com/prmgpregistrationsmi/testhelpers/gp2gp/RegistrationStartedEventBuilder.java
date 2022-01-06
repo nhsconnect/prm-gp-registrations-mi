@@ -1,15 +1,16 @@
 package com.prmgpregistrationsmi.testhelpers.gp2gp;
 
-import com.prmgpregistrationsmi.model.gp2gp.RegistrationStarted.RegistrationStartedEvent;
 import com.prmgpregistrationsmi.model.Event.EventPayload.RegistrationStarted;
+import com.prmgpregistrationsmi.model.gp2gp.RegistrationStarted.RegistrationStartedEvent;
 import com.prmgpregistrationsmi.model.gp2gp.RegistrationStarted.RegistrationStartedPayload;
-import org.joda.time.DateTime;
+
+import java.time.LocalDateTime;
 
 public class RegistrationStartedEventBuilder {
     public static RegistrationStartedEvent.RegistrationStartedEventBuilder<?, ?> withDefaultEventValues() {
         return RegistrationStartedEvent.builder()
                 .eventId("some-id")
-                .eventGeneratedDateTime(new DateTime("1970-01-01T03:30:26Z"))
+                .eventGeneratedDateTime(LocalDateTime.of(1970, 1, 1, 3, 30))
                 .registrationId("some-registration-id")
                 .reportingSystemSupplier("some-reporting-system-supplier")
                 .reportingPracticeOdsCode("some-reporting-practice-ods-code")

@@ -6,10 +6,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.validator.constraints.Length;
-import org.joda.time.DateTime;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
 @Getter
 @SuperBuilder
@@ -20,7 +20,7 @@ public abstract class Event implements HasPayload {
     @NotEmpty
     private String eventId;
     @NotNull
-    private DateTime eventGeneratedDateTime;
+    private LocalDateTime eventGeneratedDateTime;
     @Length(min = 4, max = 32)
     @NotEmpty
     private String registrationId;

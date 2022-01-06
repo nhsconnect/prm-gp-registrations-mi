@@ -4,13 +4,14 @@ import com.prmgpregistrationsmi.model.Event.EventPayload.GPTransferMetadata;
 import com.prmgpregistrationsmi.model.Event.EventPayload.Registration;
 import com.prmgpregistrationsmi.model.gp2gp.EhrSent.EhrSentEvent;
 import com.prmgpregistrationsmi.model.gp2gp.EhrSent.EhrSentPayload;
-import org.joda.time.DateTime;
+
+import java.time.LocalDateTime;
 
 public class EhrSentEventBuilder {
     public static EhrSentEvent.EhrSentEventBuilder<?, ?> withDefaultEventValues() {
         return EhrSentEvent.builder()
                 .eventId("some-id")
-                .eventGeneratedDateTime(new DateTime("1970-01-01T03:30:26Z"))
+                .eventGeneratedDateTime(LocalDateTime.of(1970, 1, 1, 3, 30))
                 .registrationId("some-registration-id")
                 .reportingSystemSupplier("some-reporting-system-supplier")
                 .reportingPracticeOdsCode("some-reporting-practice-ods-code")
@@ -20,7 +21,7 @@ public class EhrSentEventBuilder {
     public static GPTransferMetadata.GPTransferMetadataBuilder withDefaultGPTransferMetadata() {
         return GPTransferMetadata.builder()
                 .conversationId("r32ou-t45ada-3431gsnfk-en3i3biy1")
-                .transferEventDateTime(new DateTime("2020-02-08T08:30:26Z"));
+                .transferEventDateTime(LocalDateTime.of(2020, 2, 8, 8, 30));
     }
 
     public static Registration.RegistrationBuilder withDefaultRegistration() {

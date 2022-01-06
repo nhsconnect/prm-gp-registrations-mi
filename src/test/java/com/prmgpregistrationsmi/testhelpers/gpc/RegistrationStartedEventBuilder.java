@@ -1,14 +1,16 @@
 package com.prmgpregistrationsmi.testhelpers.gpc;
 
 import com.prmgpregistrationsmi.model.Event.EventPayload.RegistrationStarted;
-import com.prmgpregistrationsmi.model.gpc.RegistrationStarted.*;
-import org.joda.time.DateTime;
+import com.prmgpregistrationsmi.model.gpc.RegistrationStarted.RegistrationStartedEvent;
+import com.prmgpregistrationsmi.model.gpc.RegistrationStarted.RegistrationStartedPayload;
+
+import java.time.LocalDateTime;
 
 public class RegistrationStartedEventBuilder {
     public static RegistrationStartedEvent.RegistrationStartedEventBuilder<?, ?> withDefaultEventValues() {
         return RegistrationStartedEvent.builder()
                 .eventId("some-id")
-                .eventGeneratedDateTime(new DateTime("1970-01-01T03:30:26Z"))
+                .eventGeneratedDateTime(LocalDateTime.of(1970, 1, 1, 3, 30))
                 .registrationId("some-registration-id")
                 .reportingSystemSupplier("some-reporting-system-supplier")
                 .reportingPracticeOdsCode("some-reporting-practice-ods-code")
