@@ -1,6 +1,7 @@
 package com.prmgpregistrationsmi.model.gpc.RegistrationStarted;
 
 import com.prmgpregistrationsmi.model.Event.EventPayload.RegistrationStarted;
+import com.prmgpregistrationsmi.testhelpers.RegistrationStartedBuilder;
 import com.prmgpregistrationsmi.testhelpers.gpc.RegistrationStartedEventBuilder;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -30,8 +31,8 @@ class RegistrationStartedEventTest {
     @ParameterizedTest
     @NullAndEmptySource
     void shouldThrowConstraintViolationWhenRegistrationStartedDateTimeIsNullOrEmpty(String dateTime) {
-        RegistrationStarted registrationPayload = RegistrationStartedEventBuilder
-                .withDefaultRegistrationStartedDetails()
+        RegistrationStarted registrationPayload = RegistrationStartedBuilder
+                .withDefaultRegistrationStarted()
                 .registrationStartedDateTime(dateTime)
                 .build();
         RegistrationStartedPayload payload = RegistrationStartedEventBuilder
@@ -55,8 +56,8 @@ class RegistrationStartedEventTest {
     @ParameterizedTest
     @NullAndEmptySource
     void shouldThrowConstraintViolationWhenRegistrationTypeIsNullOrEmpty(String registrationType) {
-        RegistrationStarted payloadRegistration = RegistrationStartedEventBuilder
-                .withDefaultRegistrationStartedDetails()
+        RegistrationStarted payloadRegistration = RegistrationStartedBuilder
+                .withDefaultRegistrationStarted()
                 .registrationType(registrationType)
                 .build();
         RegistrationStartedPayload payload = RegistrationStartedEventBuilder
@@ -80,8 +81,8 @@ class RegistrationStartedEventTest {
     @ParameterizedTest
     @NullAndEmptySource
     void shouldThrowConstraintViolationWhenRequestingPracticeOdsCodeIsNullOrEmpty(String requestingPracticeOdsCode) {
-        RegistrationStarted payloadRegistration = RegistrationStartedEventBuilder
-                .withDefaultRegistrationStartedDetails()
+        RegistrationStarted payloadRegistration = RegistrationStartedBuilder
+                .withDefaultRegistrationStarted()
                 .requestingPracticeOdsCode(requestingPracticeOdsCode)
                 .build();
         RegistrationStartedPayload payload = RegistrationStartedEventBuilder

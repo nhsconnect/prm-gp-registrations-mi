@@ -1,6 +1,7 @@
 package com.prmgpregistrationsmi.model.gp2gp.RegistrationStarted;
 
 import com.prmgpregistrationsmi.model.Event.EventPayload.RegistrationStarted;
+import com.prmgpregistrationsmi.testhelpers.RegistrationStartedBuilder;
 import com.prmgpregistrationsmi.testhelpers.gp2gp.RegistrationStartedEventBuilder;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -30,7 +31,7 @@ class RegistrationStartedEventTest {
     @ParameterizedTest
     @NullAndEmptySource
     void shouldThrowConstraintViolationWhenRegistrationStartedDateTimeIsNullOrEmpty(String dateTime) {
-        RegistrationStarted registrationPayload = RegistrationStartedEventBuilder
+        RegistrationStarted registrationPayload = RegistrationStartedBuilder
                 .withDefaultRegistrationStarted()
                 .registrationStartedDateTime(dateTime)
                 .build();
@@ -55,7 +56,7 @@ class RegistrationStartedEventTest {
     @ParameterizedTest
     @NullAndEmptySource
     void shouldThrowConstraintViolationWhenRegistrationTypeIsNullOrEmpty(String registrationType) {
-        RegistrationStarted payloadRegistration = RegistrationStartedEventBuilder
+        RegistrationStarted payloadRegistration = RegistrationStartedBuilder
                 .withDefaultRegistrationStarted()
                 .registrationType(registrationType)
                 .build();
@@ -80,7 +81,7 @@ class RegistrationStartedEventTest {
     @ParameterizedTest
     @NullAndEmptySource
     void shouldThrowConstraintViolationWhenRequestingPracticeOdsCodeIsNullOrEmpty(String requestingPracticeOdsCode) {
-        RegistrationStarted payloadRegistration = RegistrationStartedEventBuilder
+        RegistrationStarted payloadRegistration = RegistrationStartedBuilder
                 .withDefaultRegistrationStarted()
                 .requestingPracticeOdsCode(requestingPracticeOdsCode)
                 .build();
