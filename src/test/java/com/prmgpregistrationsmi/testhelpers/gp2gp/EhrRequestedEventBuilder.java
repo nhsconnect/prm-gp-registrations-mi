@@ -1,8 +1,8 @@
 package com.prmgpregistrationsmi.testhelpers.gp2gp;
 
-import com.prmgpregistrationsmi.model.Event.EventPayload.GPTransferMetadata;
 import com.prmgpregistrationsmi.model.gp2gp.EhrRequested.EhrRequestedEvent;
 import com.prmgpregistrationsmi.model.gp2gp.EhrRequested.EhrRequestedPayload;
+import com.prmgpregistrationsmi.testhelpers.GPTransferMetadataBuilder;
 import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
 
 import java.time.LocalDateTime;
@@ -18,15 +18,9 @@ public class EhrRequestedEventBuilder {
                 .payload(withDefaultEhrRequestedPayload().build());
     }
 
-    public static GPTransferMetadata.GPTransferMetadataBuilder withDefaultGPTransferMetadata() {
-        return GPTransferMetadata.builder()
-                .conversationId("4345-986959-4930-684038")
-                .transferEventDateTime(LocalDateTime.of(2020, 2, 8, 8, 30));
-    }
-
     public static EhrRequestedPayload.EhrRequestedPayloadBuilder withDefaultEhrRequestedPayload() {
         return EhrRequestedPayload.builder()
                 .registration(RegistrationBuilder.withDefaultRegistration().build())
-                .gpTransferMetadata(withDefaultGPTransferMetadata().build());
+                .gpTransferMetadata(GPTransferMetadataBuilder.withDefaultGPTransferMetadata().build());
     }
 }

@@ -3,6 +3,7 @@ package com.prmgpregistrationsmi.model.gpc.MigrateStructuredRecordResponse;
 import com.prmgpregistrationsmi.model.Event.EventPayload.GPTransferMetadata;
 import com.prmgpregistrationsmi.model.Event.EventPayload.Migration;
 import com.prmgpregistrationsmi.model.Event.EventPayload.Registration;
+import com.prmgpregistrationsmi.testhelpers.GPTransferMetadataBuilder;
 import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
 import com.prmgpregistrationsmi.testhelpers.gpc.MigrateStructuredRecordResponseEventBuilder;
 import org.junit.jupiter.api.Test;
@@ -83,7 +84,7 @@ class MigrateStructuredRecordResponseTest {
     @ParameterizedTest
     @NullAndEmptySource
     void shouldThrowConstraintViolationWhenConversationIdInPayloadIsNullOrEmpty(String conversationId) {
-        GPTransferMetadata gpcPayload = MigrateStructuredRecordResponseEventBuilder
+        GPTransferMetadata gpcPayload = GPTransferMetadataBuilder
                 .withDefaultGPTransferMetadata()
                 .conversationId(conversationId)
                 .build();
@@ -109,7 +110,7 @@ class MigrateStructuredRecordResponseTest {
 
     @Test
     void shouldThrowConstraintViolationWhenTransferEventDateTimeInPayloadIsNull() {
-        GPTransferMetadata gpcPayload = MigrateStructuredRecordResponseEventBuilder
+        GPTransferMetadata gpcPayload = GPTransferMetadataBuilder
                 .withDefaultGPTransferMetadata()
                 .transferEventDateTime(null)
                 .build();

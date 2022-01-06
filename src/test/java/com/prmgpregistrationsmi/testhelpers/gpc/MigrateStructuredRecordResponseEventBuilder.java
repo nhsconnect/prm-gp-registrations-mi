@@ -1,10 +1,10 @@
 package com.prmgpregistrationsmi.testhelpers.gpc;
 
-import com.prmgpregistrationsmi.model.Event.EventPayload.GPTransferMetadata;
 import com.prmgpregistrationsmi.model.Event.EventPayload.Migration;
 import com.prmgpregistrationsmi.model.Event.EventPayload.Status;
 import com.prmgpregistrationsmi.model.gpc.MigrateStructuredRecordResponse.MigrateStructuredRecordResponseEvent;
 import com.prmgpregistrationsmi.model.gpc.MigrateStructuredRecordResponse.MigrateStructuredRecordResponsePayload;
+import com.prmgpregistrationsmi.testhelpers.GPTransferMetadataBuilder;
 import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
 
 import java.time.LocalDateTime;
@@ -20,12 +20,6 @@ public class MigrateStructuredRecordResponseEventBuilder {
                 .payload(withDefaultMigrateStructuredRecordResponsePayload().build());
     }
 
-    public static GPTransferMetadata.GPTransferMetadataBuilder withDefaultGPTransferMetadata() {
-        return GPTransferMetadata.builder()
-                .conversationId("4345-986959-4930-684038")
-                .transferEventDateTime(LocalDateTime.of(2020, 2, 8, 8, 30));
-    }
-
     public static Migration.MigrationBuilder withDefaultStructuredRecordMigration() {
         return Migration.builder()
                 .status(Status.SUCCESS)
@@ -35,7 +29,7 @@ public class MigrateStructuredRecordResponseEventBuilder {
     public static MigrateStructuredRecordResponsePayload.MigrateStructuredRecordResponsePayloadBuilder withDefaultMigrateStructuredRecordResponsePayload() {
         return MigrateStructuredRecordResponsePayload.builder()
                 .registration(RegistrationBuilder.withDefaultRegistration().build())
-                .gpTransferMetadata(withDefaultGPTransferMetadata().build())
+                .gpTransferMetadata(GPTransferMetadataBuilder.withDefaultGPTransferMetadata().build())
                 .structuredRecordMigration(withDefaultStructuredRecordMigration().build());
 
     }

@@ -1,12 +1,12 @@
 package com.prmgpregistrationsmi.testhelpers.gp2gp;
 
 import com.prmgpregistrationsmi.model.Event.EventPayload.Attachment;
-import com.prmgpregistrationsmi.model.Event.EventPayload.GPTransferMetadata;
 import com.prmgpregistrationsmi.model.Event.EventPayload.Placeholder;
 import com.prmgpregistrationsmi.model.gp2gp.EhrGenerated.EhrGeneratedEhrDetails;
 import com.prmgpregistrationsmi.model.gp2gp.EhrGenerated.EhrGeneratedEvent;
 import com.prmgpregistrationsmi.model.gp2gp.EhrGenerated.EhrGeneratedPayload;
 import com.prmgpregistrationsmi.model.gp2gp.EhrGenerated.UnsupportedDataItemDetails;
+import com.prmgpregistrationsmi.testhelpers.GPTransferMetadataBuilder;
 import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
 
 import java.time.LocalDateTime;
@@ -52,12 +52,6 @@ public class EhrGeneratedEventBuilder {
                 .placeholder(List.of(placeholderDetails));
     }
 
-    public static GPTransferMetadata.GPTransferMetadataBuilder withDefaultGPTransferMetadata() {
-        return GPTransferMetadata.builder()
-                .conversationId("4345-986959-4930-684038")
-                .transferEventDateTime(LocalDateTime.of(2020, 2, 8, 8, 30));
-    }
-
     public static EhrGeneratedPayload.EhrGeneratedPayloadBuilder withDefaultEhrGeneratedPayload() {
         UnsupportedDataItemDetails unsupportedDataItem = UnsupportedDataItemDetails.builder()
                 .type("allergy/flag")
@@ -67,7 +61,7 @@ public class EhrGeneratedEventBuilder {
 
         return EhrGeneratedPayload.builder()
                 .registration(RegistrationBuilder.withDefaultRegistration().build())
-                .gpTransferMetadata(withDefaultGPTransferMetadata().build())
+                .gpTransferMetadata(GPTransferMetadataBuilder.withDefaultGPTransferMetadata().build())
                 .ehr(withDefaultEhrGeneratedEhrDetails().build())
                 .unsupportedDataItem(List.of(unsupportedDataItem));
     }

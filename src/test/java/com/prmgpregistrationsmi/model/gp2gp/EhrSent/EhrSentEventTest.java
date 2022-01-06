@@ -2,6 +2,7 @@ package com.prmgpregistrationsmi.model.gp2gp.EhrSent;
 
 import com.prmgpregistrationsmi.model.Event.EventPayload.GPTransferMetadata;
 import com.prmgpregistrationsmi.model.Event.EventPayload.Registration;
+import com.prmgpregistrationsmi.testhelpers.GPTransferMetadataBuilder;
 import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
 import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrSentEventBuilder;
 import org.junit.jupiter.api.Test;
@@ -86,7 +87,7 @@ class EhrSentEventTest {
     @ParameterizedTest
     @NullAndEmptySource
     void shouldThrowConstraintViolationWhenConversationIdInPayloadIsNullOrEmpty(String conversationId) {
-        GPTransferMetadata gp2gpPayload = EhrSentEventBuilder
+        GPTransferMetadata gp2gpPayload = GPTransferMetadataBuilder
                 .withDefaultGPTransferMetadata()
                 .conversationId(conversationId)
                 .build();
@@ -112,7 +113,7 @@ class EhrSentEventTest {
 
     @Test
     void shouldThrowConstraintViolationWhenTransferEventDateTimeInPayloadIsNull() {
-        GPTransferMetadata gp2gpPayload = EhrSentEventBuilder
+        GPTransferMetadata gp2gpPayload = GPTransferMetadataBuilder
                 .withDefaultGPTransferMetadata()
                 .transferEventDateTime(null)
                 .build();
