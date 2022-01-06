@@ -2,10 +2,10 @@ package com.prmgpregistrationsmi.testhelpers.gpc;
 
 import com.prmgpregistrationsmi.model.Event.EventPayload.GPTransferMetadata;
 import com.prmgpregistrationsmi.model.Event.EventPayload.Migration;
-import com.prmgpregistrationsmi.model.Event.EventPayload.Registration;
 import com.prmgpregistrationsmi.model.Event.EventPayload.Status;
 import com.prmgpregistrationsmi.model.gpc.MigrateStructuredRecordResponse.MigrateStructuredRecordResponseEvent;
 import com.prmgpregistrationsmi.model.gpc.MigrateStructuredRecordResponse.MigrateStructuredRecordResponsePayload;
+import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
 
 import java.time.LocalDateTime;
 
@@ -18,12 +18,6 @@ public class MigrateStructuredRecordResponseEventBuilder {
                 .reportingSystemSupplier("some-reporting-system-supplier")
                 .reportingPracticeOdsCode("some-reporting-practice-ods-code")
                 .payload(withDefaultMigrateStructuredRecordResponsePayload().build());
-    }
-
-    public static Registration.RegistrationBuilder withDefaultRegistration() {
-        return Registration.builder()
-                .requestingPracticeOdsCode("ABC1234")
-                .sendingPracticeOdsCode("XYZ4567");
     }
 
     public static GPTransferMetadata.GPTransferMetadataBuilder withDefaultGPTransferMetadata() {
@@ -40,7 +34,7 @@ public class MigrateStructuredRecordResponseEventBuilder {
 
     public static MigrateStructuredRecordResponsePayload.MigrateStructuredRecordResponsePayloadBuilder withDefaultMigrateStructuredRecordResponsePayload() {
         return MigrateStructuredRecordResponsePayload.builder()
-                .registration(withDefaultRegistration().build())
+                .registration(RegistrationBuilder.withDefaultRegistration().build())
                 .gpTransferMetadata(withDefaultGPTransferMetadata().build())
                 .structuredRecordMigration(withDefaultStructuredRecordMigration().build());
 

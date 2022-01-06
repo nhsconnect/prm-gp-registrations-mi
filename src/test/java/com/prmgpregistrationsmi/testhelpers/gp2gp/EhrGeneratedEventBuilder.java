@@ -3,11 +3,11 @@ package com.prmgpregistrationsmi.testhelpers.gp2gp;
 import com.prmgpregistrationsmi.model.Event.EventPayload.Attachment;
 import com.prmgpregistrationsmi.model.Event.EventPayload.GPTransferMetadata;
 import com.prmgpregistrationsmi.model.Event.EventPayload.Placeholder;
-import com.prmgpregistrationsmi.model.Event.EventPayload.Registration;
 import com.prmgpregistrationsmi.model.gp2gp.EhrGenerated.EhrGeneratedEhrDetails;
 import com.prmgpregistrationsmi.model.gp2gp.EhrGenerated.EhrGeneratedEvent;
 import com.prmgpregistrationsmi.model.gp2gp.EhrGenerated.EhrGeneratedPayload;
 import com.prmgpregistrationsmi.model.gp2gp.EhrGenerated.UnsupportedDataItemDetails;
+import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -58,12 +58,6 @@ public class EhrGeneratedEventBuilder {
                 .transferEventDateTime(LocalDateTime.of(2020, 2, 8, 8, 30));
     }
 
-    public static Registration.RegistrationBuilder withDefaultRegistration() {
-        return Registration.builder()
-                .requestingPracticeOdsCode("ABC1234")
-                .sendingPracticeOdsCode("XYZ4567");
-    }
-
     public static EhrGeneratedPayload.EhrGeneratedPayloadBuilder withDefaultEhrGeneratedPayload() {
         UnsupportedDataItemDetails unsupportedDataItem = UnsupportedDataItemDetails.builder()
                 .type("allergy/flag")
@@ -72,7 +66,7 @@ public class EhrGeneratedEventBuilder {
                 .build();
 
         return EhrGeneratedPayload.builder()
-                .registration(withDefaultRegistration().build())
+                .registration(RegistrationBuilder.withDefaultRegistration().build())
                 .gpTransferMetadata(withDefaultGPTransferMetadata().build())
                 .ehr(withDefaultEhrGeneratedEhrDetails().build())
                 .unsupportedDataItem(List.of(unsupportedDataItem));

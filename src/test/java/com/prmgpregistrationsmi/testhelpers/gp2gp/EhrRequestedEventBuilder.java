@@ -1,9 +1,9 @@
 package com.prmgpregistrationsmi.testhelpers.gp2gp;
 
 import com.prmgpregistrationsmi.model.Event.EventPayload.GPTransferMetadata;
-import com.prmgpregistrationsmi.model.Event.EventPayload.Registration;
 import com.prmgpregistrationsmi.model.gp2gp.EhrRequested.EhrRequestedEvent;
 import com.prmgpregistrationsmi.model.gp2gp.EhrRequested.EhrRequestedPayload;
+import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
 
 import java.time.LocalDateTime;
 
@@ -24,15 +24,9 @@ public class EhrRequestedEventBuilder {
                 .transferEventDateTime(LocalDateTime.of(2020, 2, 8, 8, 30));
     }
 
-    public static Registration.RegistrationBuilder withDefaultRegistration() {
-        return Registration.builder()
-                .requestingPracticeOdsCode("ABC1234")
-                .sendingPracticeOdsCode("XYZ4567");
-    }
-
     public static EhrRequestedPayload.EhrRequestedPayloadBuilder withDefaultEhrRequestedPayload() {
         return EhrRequestedPayload.builder()
-                .registration(withDefaultRegistration().build())
+                .registration(RegistrationBuilder.withDefaultRegistration().build())
                 .gpTransferMetadata(withDefaultGPTransferMetadata().build());
     }
 }

@@ -2,6 +2,7 @@ package com.prmgpregistrationsmi.model.gpc.MigrateStructuredRecordRequest;
 
 import com.prmgpregistrationsmi.model.Event.EventPayload.GPTransferMetadata;
 import com.prmgpregistrationsmi.model.Event.EventPayload.Registration;
+import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
 import com.prmgpregistrationsmi.testhelpers.gpc.MigrateStructuredRecordRequestEventBuilder;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -31,7 +32,7 @@ class MigrateStructuredRecordRequestTest {
     @ParameterizedTest
     @NullAndEmptySource
     void shouldThrowConstraintViolationWhenRequestingPracticeOdsCodeIsNullOrEmpty(String requestingPracticeOdsCode) {
-        Registration registrationPayload = MigrateStructuredRecordRequestEventBuilder
+        Registration registrationPayload = RegistrationBuilder
                 .withDefaultRegistration()
                 .requestingPracticeOdsCode(requestingPracticeOdsCode)
                 .build();
@@ -56,7 +57,7 @@ class MigrateStructuredRecordRequestTest {
     @ParameterizedTest
     @NullAndEmptySource
     void shouldThrowConstraintViolationWhenSendingPracticeOdsCodeIsNullOrEmpty(String sendingPracticeOdsCode) {
-        Registration payloadRegistration = MigrateStructuredRecordRequestEventBuilder
+        Registration payloadRegistration = RegistrationBuilder
                 .withDefaultRegistration()
                 .sendingPracticeOdsCode(sendingPracticeOdsCode)
                 .build();
