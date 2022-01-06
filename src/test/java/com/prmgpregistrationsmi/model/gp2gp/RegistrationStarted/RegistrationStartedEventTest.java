@@ -28,12 +28,11 @@ class RegistrationStartedEventTest {
         assertEquals(0, violations.size());
     }
 
-    @ParameterizedTest
-    @NullAndEmptySource
-    void shouldThrowConstraintViolationWhenRegistrationStartedDateTimeIsNullOrEmpty(String dateTime) {
+    @Test
+    void shouldThrowConstraintViolationWhenRegistrationStartedDateTimeIsNull() {
         RegistrationStarted registrationPayload = RegistrationStartedBuilder
                 .withDefaultRegistrationStarted()
-                .registrationStartedDateTime(dateTime)
+                .registrationStartedDateTime(null)
                 .build();
         RegistrationStartedPayload payload = RegistrationStartedEventBuilder
                 .withDefaultRegistrationStartedPayload()
@@ -49,7 +48,7 @@ class RegistrationStartedEventTest {
         assertEquals(1, violations.size());
 
         ConstraintViolation<RegistrationStartedEvent> violation = violations.iterator().next();
-        assertEquals("must not be empty", violation.getMessage());
+        assertEquals("must not be null", violation.getMessage());
         assertEquals("payload.registration.registrationStartedDateTime", violation.getPropertyPath().toString());
     }
 

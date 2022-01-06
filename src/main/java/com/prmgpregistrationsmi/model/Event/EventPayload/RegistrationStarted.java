@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
@@ -11,8 +12,8 @@ import javax.validation.constraints.NotNull;
 @Builder
 @EqualsAndHashCode
 public class RegistrationStarted {
-    @NotEmpty
-    private String registrationStartedDateTime;
+    @NotNull
+    private LocalDateTime registrationStartedDateTime;
     @NotEmpty
     private String requestingPracticeOdsCode;
     @NotEmpty
