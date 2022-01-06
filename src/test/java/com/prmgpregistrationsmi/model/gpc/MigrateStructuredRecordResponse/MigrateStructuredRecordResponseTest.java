@@ -132,12 +132,11 @@ class MigrateStructuredRecordResponseTest {
         assertEquals("payload.gpTransferMetadata.transferEventDateTime", violation.getPropertyPath().toString());
     }
 
-    @ParameterizedTest
-    @NullAndEmptySource
-    void shouldThrowConstraintViolationWhenStatusInPayloadIsNullOrEmpty(String status) {
+    @Test
+    void shouldThrowConstraintViolationWhenStatusInPayloadIsNull() {
         Migration structuredRecordMigrationPayload = MigrateStructuredRecordResponseEventBuilder
                 .withDefaultStructuredRecordMigration()
-                .status(status)
+                .status(null)
                 .build();
 
         MigrateStructuredRecordResponsePayload payload = MigrateStructuredRecordResponseEventBuilder
@@ -155,7 +154,7 @@ class MigrateStructuredRecordResponseTest {
         assertEquals(1, violations.size());
 
         ConstraintViolation<MigrateStructuredRecordResponseEvent> violation = violations.iterator().next();
-        assertEquals("must not be empty", violation.getMessage());
+        assertEquals("must not be null", violation.getMessage());
         assertEquals("payload.structuredRecordMigration.status", violation.getPropertyPath().toString());
     }
 }

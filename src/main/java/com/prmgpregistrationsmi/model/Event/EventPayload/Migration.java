@@ -2,7 +2,7 @@ package com.prmgpregistrationsmi.model.Event.EventPayload;
 
 import lombok.*;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @NoArgsConstructor
@@ -10,7 +10,7 @@ import javax.validation.constraints.NotEmpty;
 @Builder
 @EqualsAndHashCode
 public class Migration {
-    @NotEmpty
-    private String status;
+    @NotNull
+    private Status status;
     private String reason;
 }

@@ -3,6 +3,7 @@ package com.prmgpregistrationsmi.testhelpers.gpc;
 import com.prmgpregistrationsmi.model.Event.EventPayload.GPTransferMetadata;
 import com.prmgpregistrationsmi.model.Event.EventPayload.Migration;
 import com.prmgpregistrationsmi.model.Event.EventPayload.Registration;
+import com.prmgpregistrationsmi.model.Event.EventPayload.Status;
 import com.prmgpregistrationsmi.model.gpc.MigrateStructuredRecordResponse.MigrateStructuredRecordResponseEvent;
 import com.prmgpregistrationsmi.model.gpc.MigrateStructuredRecordResponse.MigrateStructuredRecordResponsePayload;
 
@@ -33,7 +34,7 @@ public class MigrateStructuredRecordResponseEventBuilder {
 
     public static Migration.MigrationBuilder withDefaultStructuredRecordMigration() {
         return Migration.builder()
-                .status("SUCCESS")
+                .status(Status.SUCCESS)
                 .reason("ok");
     }
 
