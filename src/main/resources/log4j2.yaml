@@ -1,0 +1,28 @@
+Configuration:
+  status: error
+  packages: com.prmgpregistrationsmi.logging
+
+  Appenders:
+    Console:
+      - name: STRUCTURED_LOGGER_APPENDER
+        target: SYSTEM_OUT
+        StructuredLoggerLayout: {}
+
+      - name: CONSOLE_ROOT
+        target: SYSTEM_OUT
+        PatternLayout:
+          alwaysWriteExceptions: true
+          pattern: "%style{%date{DEFAULT}}{yellow} %highlight{%-5level}{FATAL=bg_red, ERROR=red, WARN=yellow, INFO=green} %message \n"
+
+  Loggers:
+    logger:
+      - name: STRUCTURED_LOGGER
+        level: info
+        additivity: false
+        AppenderRef:
+          ref: STRUCTURED_LOGGER_APPENDER
+
+    Root:
+      level: info
+      AppenderRef:
+        ref: CONSOLE_ROOT

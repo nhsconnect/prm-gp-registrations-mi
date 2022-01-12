@@ -1,13 +1,17 @@
 package com.prmgpregistrationsmi;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class Application {
+	private static final Logger logger = LogManager.getLogger("STRUCTURED_LOGGER");
+
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
-		System.out.println("Application running...");
+		logger.info("Application running..." );
 	}
 
 }
