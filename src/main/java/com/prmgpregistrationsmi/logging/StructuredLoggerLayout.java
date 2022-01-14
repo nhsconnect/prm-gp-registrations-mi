@@ -1,5 +1,6 @@
 package com.prmgpregistrationsmi.logging;
 
+import com.prmgpregistrationsmi.model.StructuredLogEntry;
 import com.prmgpregistrationsmi.utils.JsonHelper;
 import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.config.plugins.Plugin;
@@ -25,7 +26,8 @@ public class StructuredLoggerLayout extends AbstractStringLayout {
 
     @Override
     public String toSerializable(LogEvent logEvent) {
-//        StructuredLogEntry logEntry = StructuredLogEntry.getEntryFromLogEvent(logEvent);
-        return JsonHelper.asJsonString(logEvent) + DEFAULT_EOL;
+        //TODO: ADD INTEGRATION TEST [PRMT-2388]
+        StructuredLogEntry structuredLogEntry = StructuredLogEntry.getEntryFromLogEvent(logEvent);
+        return JsonHelper.asJsonString(structuredLogEntry) + DEFAULT_EOL;
     }
 }
