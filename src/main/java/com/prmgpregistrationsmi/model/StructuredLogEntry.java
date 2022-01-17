@@ -2,7 +2,6 @@ package com.prmgpregistrationsmi.model;
 
 import lombok.Builder;
 import lombok.Getter;
-import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.core.LogEvent;
 
 import java.time.Instant;
@@ -13,7 +12,7 @@ import java.time.format.DateTimeFormatter;
 @Getter
 @Builder
 public class StructuredLogEntry {
-    private Level level;
+    private String level;
     private String message;
     private Object[] data;
     private StackTraceElement source;
@@ -26,7 +25,7 @@ public class StructuredLogEntry {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         return StructuredLogEntry.builder()
-                .level(logEvent.getLevel())
+                .level(logEvent.getLevel().getStandardLevel().name())
                 .message(logEvent.getMessage().getFormattedMessage())
                 .data(logEvent.getMessage().getParameters())
                 .source(logEvent.getSource())

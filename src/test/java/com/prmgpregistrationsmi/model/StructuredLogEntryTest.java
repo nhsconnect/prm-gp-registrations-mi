@@ -7,14 +7,11 @@ import org.apache.logging.log4j.core.impl.Log4jLogEvent;
 import org.apache.logging.log4j.message.ObjectMessage;
 import org.apache.logging.log4j.message.ParameterizedMessage;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@RunWith(MockitoJUnitRunner.class)
 class StructuredLogEntryTest {
 
     @Test
@@ -35,7 +32,7 @@ class StructuredLogEntryTest {
 
         StructuredLogEntry actualLog = StructuredLogEntry.getEntryFromLogEvent(expectedLog);
 
-        assertEquals(expectedLog.getLevel(),actualLog.getLevel());
+        assertEquals(Level.INFO.toString(),actualLog.getLevel());
         assertEquals(expectedLog.getMessage().getFormattedMessage(),actualLog.getMessage());
         assertEquals(expectedLog.getSource(),actualLog.getSource());
         assertEquals("2022-01-13 11:25:51",actualLog.getTimestamp());

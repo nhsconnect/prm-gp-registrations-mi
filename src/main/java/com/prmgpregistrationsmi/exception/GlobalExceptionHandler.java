@@ -1,9 +1,12 @@
-package com.prmgpregistrationsmi.controller;
+package com.prmgpregistrationsmi.exception;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
+import com.prmgpregistrationsmi.controller.ApiError;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -17,12 +20,13 @@ import java.util.stream.Collectors;
 @Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler {
+    private static final Logger logger = LogManager.getLogger("STRUCTURED_LOGGER");
+
     @ExceptionHandler(MismatchedInputException.class)
     public ResponseEntity<ApiError> mismatchedInputExceptionHandler(MismatchedInputException ex) {
         String message = "Invalid request field";
         ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, message, getErrorMessageDetailsWithField(ex));
-
-        log.warn("MismatchedInputException - " + message + ": " + ex.getMessage());
+        logger.warn("MismatchedInputException - " + message, ex);
 
         return new ResponseEntity<>(apiError, apiError.getStatus());
     }
@@ -32,7 +36,7 @@ public class GlobalExceptionHandler {
         String message = "Invalid JSON";
         ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, message, "Unable to parse JSON");
 
-        log.warn("JsonParseException - " + message + ": " + ex.getMessage());
+        logger.warn("JsonParseException - " + message, ex);
 
         return new ResponseEntity<>(apiError, apiError.getStatus());
     }
@@ -42,7 +46,7 @@ public class GlobalExceptionHandler {
         String message = "Invalid JSON";
         ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, message, getErrorMessageDetailsWithField(ex));
 
-        log.warn("JsonMappingException - " + message + ": " + ex.getMessage());
+        logger.warn("JsonMappingException - " + message, ex);
 
         return new ResponseEntity<>(apiError, apiError.getStatus());
     }
@@ -57,15 +61,35 @@ public class GlobalExceptionHandler {
                 .map(fieldError -> fieldError.getField() + ": " + fieldError.getDefaultMessage())
                 .collect(Collectors.toList());
 
-        log.warn("MethodArgumentNotValidException - " + message + ": "  + fieldErrors
+        logger.warn("MethodArgumentNotValidException - " + message, fieldErrors
                 .stream()
                 .map(FieldError::getField)
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList()), ex);
 
         ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, message, fieldErrorsList);
 
         return new ResponseEntity<>(apiError, apiError.getStatus());
     }
+
+    @ExceptionHandler(UnableToUploadToS3Exception.class)
+    //TODO: ADD UNIT TEST [PRMT-2388]
+    public ResponseEntity<ApiError> unableToUploadToS3ExceptionHandler(UnableToUploadToS3Exception ex) {
+        logger.error("Unable to upload to S3", ex.getMessage());
+
+        ApiError apiError = new ApiError(HttpStatus.INTERNAL_SERVER_ERROR, "Something went wrong", "");
+
+        return new ResponseEntity<>(apiError, apiError.getStatus());
+    }
+
+//    @ExceptionHandler(RuntimeException.class)
+//    //TODO: Add a more generic exception
+//    public ResponseEntity<ApiError> genericException(RuntimeException ex) {
+//        logger.error("Error caught in generic exception handler", ex.getMessage());
+//
+//        ApiError apiError = new ApiError(HttpStatus.INTERNAL_SERVER_ERROR, "Something went wrong", "");
+//
+//        return new ResponseEntity<>(apiError, apiError.getStatus());
+//    }
 
     private String getErrorMessageDetailsWithField(JsonMappingException exception) {
         return exception.getPath().size() > 0 ?
