@@ -70,7 +70,6 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(UnableToUploadToS3Exception.class)
-    //TODO: ADD UNIT TEST [PRMT-2388]
     public ResponseEntity<ApiError> unableToUploadToS3ExceptionHandler(UnableToUploadToS3Exception ex) {
         logger.error("Unable to upload to S3", ex.getMessage());
 
