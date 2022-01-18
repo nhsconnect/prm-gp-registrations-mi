@@ -26,7 +26,6 @@ public class StructuredLoggerLayout extends AbstractStringLayout {
 
     @Override
     public String toSerializable(LogEvent logEvent) {
-        //TODO: ADD INTEGRATION TEST [PRMT-2388]
         StructuredLogEntry structuredLogEntry = StructuredLogEntry.getEntryFromLogEvent(logEvent);
         return JsonHelper.asJsonString(structuredLogEntry) + DEFAULT_EOL;
     }

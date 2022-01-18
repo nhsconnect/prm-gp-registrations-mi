@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import com.prmgpregistrationsmi.controller.ApiError;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler {
     private static final Logger logger = LogManager.getLogger("STRUCTURED_LOGGER");
@@ -64,7 +62,7 @@ public class GlobalExceptionHandler {
         logger.warn("MethodArgumentNotValidException - " + message, fieldErrors
                 .stream()
                 .map(FieldError::getField)
-                .collect(Collectors.toList()), ex);
+                .collect(Collectors.toList()), ex.getMessage());
 
         ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, message, fieldErrorsList);
 
