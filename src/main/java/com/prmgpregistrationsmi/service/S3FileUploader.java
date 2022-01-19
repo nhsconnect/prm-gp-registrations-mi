@@ -4,11 +4,10 @@ import com.amazonaws.AmazonClientException;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.prmgpregistrationsmi.exception.UnableToUploadToS3Exception;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
+import static com.prmgpregistrationsmi.logging.StructuredLogger.logger;
 import static com.prmgpregistrationsmi.utils.JsonHelper.asJsonString;
 
 @Repository
@@ -16,7 +15,6 @@ import static com.prmgpregistrationsmi.utils.JsonHelper.asJsonString;
 public class S3FileUploader {
     private final String outputBucketLocation;
     private final AmazonS3Client amazonS3Client;
-    private static final Logger logger = LogManager.getLogger("STRUCTURED_LOGGER");
 
     public S3FileUploader(final AmazonS3Client amazonS3Client, @Value("${output_bucket}") String outputBucketLocation) {
         this.amazonS3Client = amazonS3Client;

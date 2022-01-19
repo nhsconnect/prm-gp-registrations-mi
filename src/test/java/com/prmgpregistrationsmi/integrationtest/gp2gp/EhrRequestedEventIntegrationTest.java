@@ -30,6 +30,9 @@ class EhrRequestedEventIntegrationTest {
 
     @Test
     void shouldUploadEhrRequestedEventToS3() {
+        // a. mock logging
+        // b. capture
+
         EhrRequestedEvent ehrRequestedEventRequest = EhrRequestedEventBuilder
                 .withDefaultEventValues()
                 .build();
@@ -55,5 +58,8 @@ class EhrRequestedEventIntegrationTest {
                 String.format("v1/1970/01/01/03/%s.json", ehrRequestedEventRequest.getEventId()),
                 expectedS3UploadEvent.toString()
         );
+
+        //verify logging called 5 times
+        // check captor and messages and size hakky41
     }
 }
