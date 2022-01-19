@@ -31,10 +31,9 @@ public class CustomResponseBodyAdviceAdapter implements ResponseBodyAdvice<Objec
                                   ServerHttpResponse serverHttpResponse) {
 
         if (serverHttpRequest instanceof ServletServerHttpRequest &&
-                serverHttpResponse instanceof ServletServerHttpResponse) {
-
+                serverHttpResponse instanceof ServletServerHttpResponse &&
+                serverHttpRequest.getURI().getPath().contains("registration")) {
             logger.info("Response for request on URI: " + serverHttpRequest.getURI().getPath(), object);
-
         }
 
         return object;

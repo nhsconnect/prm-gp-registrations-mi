@@ -26,8 +26,9 @@ public class CustomRequestBodyAdviceAdapter extends RequestBodyAdviceAdapter {
                                 MethodParameter parameter, Type targetType,
                                 Class<? extends HttpMessageConverter<?>> converterType) {
 
-        logger.info("Incoming request on URI: " + httpServletRequest.getRequestURI(), body);
-
+        if(httpServletRequest.getRequestURI().contains("registration")) {
+            logger.info("Incoming request on URI: " + httpServletRequest.getRequestURI(), body);
+        }
         return super.afterBodyRead(body, inputMessage, parameter, targetType, converterType);
     }
 }
