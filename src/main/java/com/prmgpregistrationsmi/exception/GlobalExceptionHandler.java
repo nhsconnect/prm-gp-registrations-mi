@@ -61,7 +61,7 @@ public class GlobalExceptionHandler {
         logger.warn("MethodArgumentNotValidException - " + message, fieldErrors
                 .stream()
                 .map(FieldError::getField)
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList()), ex.getMessage());
 
         ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, message, fieldErrorsList);
 
