@@ -23,12 +23,10 @@ public class S3FileUploader {
 
     public void uploadJsonObject(Object object, String s3Key) throws UnableToUploadToS3Exception {
         String jsonString = asJsonString(object);
-        //TODO: ADD INTEGRATION TEST [PRMT-2388]
         logger.info("Attempting to upload object to S3: " + jsonString + " to location: " + s3Key, object);
 
         try {
             amazonS3Client.putObject(outputBucketLocation, s3Key, jsonString);
-            //TODO: ADD INTEGRATION TEST [PRMT-2388]
             logger.info("Successfully uploaded JSON to S3", object);
         } catch (AmazonClientException amazonClientException) {
             throw new UnableToUploadToS3Exception(amazonClientException);

@@ -77,16 +77,6 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(apiError, apiError.getStatus());
     }
 
-//    @ExceptionHandler(RuntimeException.class)
-//    //TODO: Add a more generic exception
-//    public ResponseEntity<ApiError> genericException(RuntimeException ex) {
-//        logger.error("Error caught in generic exception handler", ex.getMessage());
-//
-//        ApiError apiError = new ApiError(HttpStatus.INTERNAL_SERVER_ERROR, "Something went wrong", "");
-//
-//        return new ResponseEntity<>(apiError, apiError.getStatus());
-//    }
-
     private String getErrorMessageDetailsWithField(JsonMappingException exception) {
         return exception.getPath().size() > 0 ?
                 exception.getPath().get(0).getFieldName() + ": " + exception.getOriginalMessage() :
