@@ -23,7 +23,7 @@ public class S3FileUploader {
 
     public void uploadJsonObject(Object object, String s3Key) throws UnableToUploadToS3Exception {
         String jsonString = asJsonString(object);
-        logger.info("Attempting to upload object to S3: " + jsonString + " to location: " + s3Key, object);
+        logger.info("Attempting to upload object to location: " + s3Key, object);
 
         try {
             amazonS3Client.putObject(outputBucketLocation, s3Key, jsonString);
