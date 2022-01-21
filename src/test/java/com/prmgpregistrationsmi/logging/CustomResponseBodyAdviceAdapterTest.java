@@ -3,8 +3,10 @@ package com.prmgpregistrationsmi.logging;
 import com.prmgpregistrationsmi.model.gp2gp.EhrRequested.EhrRequestedEvent;
 import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrRequestedEventBuilder;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
+import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 
@@ -17,6 +19,9 @@ import static org.mockito.Mockito.when;
 
 
 class CustomResponseBodyAdviceAdapterTest {
+    @Mock
+    private Class<? extends HttpMessageConverter<?>> converterType;
+
     @Test
     void shouldReturnSameObject() throws URISyntaxException {
         ServerHttpRequest serverHttpRequest = mock(ServerHttpRequest.class);
@@ -31,7 +36,7 @@ class CustomResponseBodyAdviceAdapterTest {
                 .build();
 
         Object result = customResponseBodyAdviceAdapter.beforeBodyWrite(testEvent,
-                mock(MethodParameter.class), mock(MediaType.class), null, serverHttpRequest,
+                mock(MethodParameter.class), mock(MediaType.class), converterType, serverHttpRequest,
                 mock(ServerHttpResponse.class));
 
         assertEquals(testEvent, result);
