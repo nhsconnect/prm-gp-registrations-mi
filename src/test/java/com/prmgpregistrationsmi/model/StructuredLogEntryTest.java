@@ -1,14 +1,13 @@
 package com.prmgpregistrationsmi.model;
 
-import com.prmgpregistrationsmi.model.gp2gp.EhrRequested.EhrRequestedEvent;
-import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrRequestedEventBuilder;
+import com.prmgpregistrationsmi.model.gp2gp.EhrGenerated.EhrGeneratedEhrDetails;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.core.impl.Log4jLogEvent;
 import org.apache.logging.log4j.message.ObjectMessage;
 import org.apache.logging.log4j.message.ParameterizedMessage;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -40,8 +39,9 @@ class StructuredLogEntryTest {
 
     @Test
     void shouldCreateStructuredLogEntryFromALogEventWithObject() {
-        EhrRequestedEvent testEvent = EhrRequestedEventBuilder
-                .withDefaultEventValues()
+        EhrGeneratedEhrDetails testEvent = EhrGeneratedEhrDetails
+                .builder()
+                .ehrStructuredSizeBytes(1L)
                 .build();
 
         String expectedMessage = "Some message string";
@@ -52,6 +52,6 @@ class StructuredLogEntryTest {
         StructuredLogEntry actualLog = StructuredLogEntry.getEntryFromLogEvent(expectedLog);
 
         assertEquals(expectedMessage,actualLog.getMessage());
-        assert(Arrays.equals(expectedLog.getMessage().getParameters(), actualLog.getData()));
+        assertEquals(Optional.of(testEvent), actualLog.getData());
     }
 }
