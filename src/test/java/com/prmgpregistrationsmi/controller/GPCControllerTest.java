@@ -4,6 +4,7 @@ import com.prmgpregistrationsmi.exception.UnableToUploadToS3Exception;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
+import com.prmgpregistrationsmi.model.Event.PatientSwitchingStandardType;
 import com.prmgpregistrationsmi.model.gpc.MigrateStructuredRecordRequest.MigrateStructuredRecordRequestEvent;
 import com.prmgpregistrationsmi.model.gpc.MigrateStructuredRecordResponse.MigrateStructuredRecordResponseEvent;
 import com.prmgpregistrationsmi.model.gpc.RegistrationStarted.RegistrationStartedEvent;
@@ -42,11 +43,13 @@ class GPCControllerTest {
                 .eventId(testEvent.getEventId())
                 .build();
 
-        when(registrationService.saveEvent(testEvent, EventType.REGISTRATION_STARTED)).thenReturn(eventDAO);
+        PatientSwitchingStandardType patientSwitchingStandardType = PatientSwitchingStandardType.GP_CONNECT;
+
+        when(registrationService.saveEvent(testEvent, EventType.REGISTRATION_STARTED, patientSwitchingStandardType)).thenReturn(eventDAO);
 
         EventResponse actualResponse = gpcController.registrationStartedEvent(testEvent);
 
-        verify(registrationService).saveEvent(testEvent, EventType.REGISTRATION_STARTED);
+        verify(registrationService).saveEvent(testEvent, EventType.REGISTRATION_STARTED, patientSwitchingStandardType);
 
         EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
         assertEquals(actualResponse, expectedEventResponse);
@@ -62,11 +65,13 @@ class GPCControllerTest {
                 .eventId(testEvent.getEventId())
                 .build();
 
-        when(registrationService.saveEvent(testEvent, EventType.MIGRATE_STRUCTURED_RECORD_REQUEST)).thenReturn(eventDAO);
+        PatientSwitchingStandardType patientSwitchingStandardType = PatientSwitchingStandardType.GP_CONNECT;
+
+        when(registrationService.saveEvent(testEvent, EventType.MIGRATE_STRUCTURED_RECORD_REQUEST, patientSwitchingStandardType)).thenReturn(eventDAO);
 
         EventResponse actualResponse = gpcController.migrateStructuredRecordRequestEvent(testEvent);
 
-        verify(registrationService).saveEvent(testEvent, EventType.MIGRATE_STRUCTURED_RECORD_REQUEST);
+        verify(registrationService).saveEvent(testEvent, EventType.MIGRATE_STRUCTURED_RECORD_REQUEST, patientSwitchingStandardType);
 
         EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
         assertEquals(actualResponse, expectedEventResponse);
@@ -82,11 +87,13 @@ class GPCControllerTest {
                 .eventId(testEvent.getEventId())
                 .build();
 
-        when(registrationService.saveEvent(testEvent, EventType.MIGRATE_STRUCTURED_RECORD_RESPONSE)).thenReturn(eventDAO);
+        PatientSwitchingStandardType patientSwitchingStandardType = PatientSwitchingStandardType.GP_CONNECT;
+
+        when(registrationService.saveEvent(testEvent, EventType.MIGRATE_STRUCTURED_RECORD_RESPONSE, patientSwitchingStandardType)).thenReturn(eventDAO);
 
         EventResponse actualResponse = gpcController.migrateStructuredRecordResponseEvent(testEvent);
 
-        verify(registrationService).saveEvent(testEvent, EventType.MIGRATE_STRUCTURED_RECORD_RESPONSE);
+        verify(registrationService).saveEvent(testEvent, EventType.MIGRATE_STRUCTURED_RECORD_RESPONSE, patientSwitchingStandardType);
 
         EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
         assertEquals(actualResponse, expectedEventResponse);

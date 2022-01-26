@@ -4,6 +4,7 @@ import com.prmgpregistrationsmi.exception.UnableToUploadToS3Exception;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
+import com.prmgpregistrationsmi.model.Event.PatientSwitchingStandardType;
 import com.prmgpregistrationsmi.model.gp2gp.EhrGenerated.EhrGeneratedEvent;
 import com.prmgpregistrationsmi.model.gp2gp.EhrRequested.EhrRequestedEvent;
 import com.prmgpregistrationsmi.model.gp2gp.EhrSent.EhrSentEvent;
@@ -37,7 +38,7 @@ public class GP2GPController {
     )
     public EventResponse registrationStartedEvent(
             @Valid @RequestBody RegistrationStartedEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.REGISTRATION_STARTED);
+        EventDAO eventDAO = registrationService.saveEvent(event, EventType.REGISTRATION_STARTED, PatientSwitchingStandardType.GP2GP);
         return new EventResponse(eventDAO.getEventId());
     }
 
@@ -48,7 +49,7 @@ public class GP2GPController {
     )
     public EventResponse ehrRequestedEvent(
             @Valid @RequestBody EhrRequestedEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.EHR_REQUESTED);
+        EventDAO eventDAO = registrationService.saveEvent(event, EventType.EHR_REQUESTED, PatientSwitchingStandardType.GP2GP);
         return new EventResponse(eventDAO.getEventId());
     }
 
@@ -59,7 +60,7 @@ public class GP2GPController {
     )
     public EventResponse ehrGeneratedEvent(
             @Valid @RequestBody EhrGeneratedEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.EHR_GENERATED);
+        EventDAO eventDAO = registrationService.saveEvent(event, EventType.EHR_GENERATED, PatientSwitchingStandardType.GP2GP);
         return new EventResponse(eventDAO.getEventId());
     }
 
@@ -70,7 +71,7 @@ public class GP2GPController {
     )
     public EventResponse ehrSentEvent(
             @Valid @RequestBody EhrSentEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.EHR_SENT);
+        EventDAO eventDAO = registrationService.saveEvent(event, EventType.EHR_SENT, PatientSwitchingStandardType.GP2GP);
         return new EventResponse(eventDAO.getEventId());
     }
 }

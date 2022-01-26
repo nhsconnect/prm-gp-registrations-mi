@@ -4,6 +4,7 @@ import com.prmgpregistrationsmi.exception.UnableToUploadToS3Exception;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
+import com.prmgpregistrationsmi.model.Event.PatientSwitchingStandardType;
 import com.prmgpregistrationsmi.model.gpc.MigrateStructuredRecordRequest.MigrateStructuredRecordRequestEvent;
 import com.prmgpregistrationsmi.model.gpc.MigrateStructuredRecordResponse.MigrateStructuredRecordResponseEvent;
 import com.prmgpregistrationsmi.model.gpc.RegistrationStarted.RegistrationStartedEvent;
@@ -34,7 +35,7 @@ public class GPCController {
     )
     public EventResponse registrationStartedEvent(
             @Valid @RequestBody RegistrationStartedEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.REGISTRATION_STARTED);
+        EventDAO eventDAO = registrationService.saveEvent(event, EventType.REGISTRATION_STARTED, PatientSwitchingStandardType.GP_CONNECT);
         return new EventResponse(eventDAO.getEventId());
     }
 
@@ -45,7 +46,7 @@ public class GPCController {
     )
     public EventResponse migrateStructuredRecordRequestEvent(
             @Valid @RequestBody MigrateStructuredRecordRequestEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.MIGRATE_STRUCTURED_RECORD_REQUEST);
+        EventDAO eventDAO = registrationService.saveEvent(event, EventType.MIGRATE_STRUCTURED_RECORD_REQUEST, PatientSwitchingStandardType.GP_CONNECT);
         return new EventResponse(eventDAO.getEventId());
     }
 
@@ -56,7 +57,7 @@ public class GPCController {
     )
     public EventResponse migrateStructuredRecordResponseEvent(
             @Valid @RequestBody MigrateStructuredRecordResponseEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.MIGRATE_STRUCTURED_RECORD_RESPONSE);
+        EventDAO eventDAO = registrationService.saveEvent(event, EventType.MIGRATE_STRUCTURED_RECORD_RESPONSE, PatientSwitchingStandardType.GP_CONNECT);
         return new EventResponse(eventDAO.getEventId());
     }
 }

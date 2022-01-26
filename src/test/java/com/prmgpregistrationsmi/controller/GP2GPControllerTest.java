@@ -1,6 +1,7 @@
 package com.prmgpregistrationsmi.controller;
 
 import com.prmgpregistrationsmi.exception.UnableToUploadToS3Exception;
+import com.prmgpregistrationsmi.model.Event.PatientSwitchingStandardType;
 import com.prmgpregistrationsmi.model.gp2gp.EhrGenerated.EhrGeneratedEvent;
 import com.prmgpregistrationsmi.model.gp2gp.EhrRequested.EhrRequestedEvent;
 import com.prmgpregistrationsmi.model.gp2gp.EhrSent.EhrSentEvent;
@@ -43,12 +44,13 @@ class GP2GPControllerTest {
         EventDAO eventDAO = EventDAO.builder()
                 .eventId(testEvent.getEventId())
                 .build();
+        PatientSwitchingStandardType patientSwitchingStandardType = PatientSwitchingStandardType.GP2GP;
 
-        when(registrationService.saveEvent(testEvent, EventType.REGISTRATION_STARTED)).thenReturn(eventDAO);
+        when(registrationService.saveEvent(testEvent, EventType.REGISTRATION_STARTED, patientSwitchingStandardType)).thenReturn(eventDAO);
 
         EventResponse actualResponse = gp2gpController.registrationStartedEvent(testEvent);
 
-        verify(registrationService).saveEvent(testEvent, EventType.REGISTRATION_STARTED);
+        verify(registrationService).saveEvent(testEvent, EventType.REGISTRATION_STARTED, patientSwitchingStandardType);
 
         EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
         assertEquals(actualResponse, expectedEventResponse);
@@ -63,12 +65,13 @@ class GP2GPControllerTest {
         EventDAO eventDAO = EventDAO.builder()
                 .eventId(testEvent.getEventId())
                 .build();
+        PatientSwitchingStandardType patientSwitchingStandardType = PatientSwitchingStandardType.GP2GP;
 
-        when(registrationService.saveEvent(testEvent, EventType.EHR_REQUESTED)).thenReturn(eventDAO);
+        when(registrationService.saveEvent(testEvent, EventType.EHR_REQUESTED, patientSwitchingStandardType)).thenReturn(eventDAO);
 
         EventResponse actualResponse = gp2gpController.ehrRequestedEvent(testEvent);
 
-        verify(registrationService).saveEvent(testEvent, EventType.EHR_REQUESTED);
+        verify(registrationService).saveEvent(testEvent, EventType.EHR_REQUESTED, patientSwitchingStandardType);
 
         EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
         assertEquals(actualResponse, expectedEventResponse);
@@ -83,12 +86,13 @@ class GP2GPControllerTest {
         EventDAO eventDAO = EventDAO.builder()
                 .eventId(testEvent.getEventId())
                 .build();
+        PatientSwitchingStandardType patientSwitchingStandardType = PatientSwitchingStandardType.GP2GP;
 
-        when(registrationService.saveEvent(testEvent, EventType.EHR_GENERATED)).thenReturn(eventDAO);
+        when(registrationService.saveEvent(testEvent, EventType.EHR_GENERATED, patientSwitchingStandardType)).thenReturn(eventDAO);
 
         EventResponse actualResponse = gp2gpController.ehrGeneratedEvent(testEvent);
 
-        verify(registrationService).saveEvent(testEvent, EventType.EHR_GENERATED);
+        verify(registrationService).saveEvent(testEvent, EventType.EHR_GENERATED, patientSwitchingStandardType);
 
         EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
         assertEquals(actualResponse, expectedEventResponse);
@@ -104,11 +108,13 @@ class GP2GPControllerTest {
                 .eventId(testEvent.getEventId())
                 .build();
 
-        when(registrationService.saveEvent(testEvent, EventType.EHR_SENT)).thenReturn(eventDAO);
+        PatientSwitchingStandardType patientSwitchingStandardType = PatientSwitchingStandardType.GP2GP;
+
+        when(registrationService.saveEvent(testEvent, EventType.EHR_SENT, patientSwitchingStandardType)).thenReturn(eventDAO);
 
         EventResponse actualResponse = gp2gpController.ehrSentEvent(testEvent);
 
-        verify(registrationService).saveEvent(testEvent, EventType.EHR_SENT);
+        verify(registrationService).saveEvent(testEvent, EventType.EHR_SENT, patientSwitchingStandardType);
 
         EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
         assertEquals(actualResponse, expectedEventResponse);
