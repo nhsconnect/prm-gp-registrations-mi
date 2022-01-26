@@ -12,11 +12,13 @@ class EventDAOTest {
 
         RegistrationStartedEvent testEvent = RegistrationStartedEventBuilder.withDefaultEventValues().build();
         EventType gp2gpRegistrationStartedEventType = EventType.REGISTRATION_STARTED;
-        EventDAO actualEventDAO = EventDAO.fromEvent(testEvent, gp2gpRegistrationStartedEventType);
+        PatientSwitchingStandardType patientSwitchingStandardType = PatientSwitchingStandardType.GP2GP;
+        EventDAO actualEventDAO = EventDAO.fromEvent(testEvent, gp2gpRegistrationStartedEventType, patientSwitchingStandardType);
 
         assertEquals(actualEventDAO.getEventId(), testEvent.getEventId());
         assertEquals(actualEventDAO.getEventGeneratedDateTime(), testEvent.getEventGeneratedDateTime());
         assertEquals(actualEventDAO.getEventType(), gp2gpRegistrationStartedEventType);
+        assertEquals(actualEventDAO.getPatientSwitchingStandardType(), patientSwitchingStandardType);
         assertEquals(actualEventDAO.getRegistrationId(), testEvent.getRegistrationId());
         assertEquals(actualEventDAO.getReportingSystemSupplier(), testEvent.getReportingSystemSupplier());
         assertEquals(actualEventDAO.getReportingPracticeOdsCode(), testEvent.getReportingPracticeOdsCode());

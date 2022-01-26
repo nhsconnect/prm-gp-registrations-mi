@@ -1,6 +1,7 @@
 package com.prmgpregistrationsmi.integrationtest.gp2gp;
 
 import com.amazonaws.services.s3.AmazonS3Client;
+import com.prmgpregistrationsmi.model.Event.PatientSwitchingStandardType;
 import com.prmgpregistrationsmi.model.gp2gp.EhrSent.EhrSentEvent;
 import com.prmgpregistrationsmi.model.gp2gp.EhrSent.EhrSentPayload;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
@@ -43,6 +44,7 @@ class EhrSentEventIntegrationTest {
                 ehrSentEventRequest.getEventId(),
                 ehrSentEventRequest.getEventGeneratedDateTime(),
                 EventType.EHR_SENT,
+                PatientSwitchingStandardType.GP2GP,
                 ehrSentEventRequest.getRegistrationId(),
                 ehrSentEventRequest.getReportingSystemSupplier(),
                 ehrSentEventRequest.getReportingPracticeOdsCode(),

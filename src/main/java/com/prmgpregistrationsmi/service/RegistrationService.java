@@ -22,7 +22,7 @@ public class RegistrationService {
     private final S3FileUploader eventS3Client;
 
     public EventDAO saveEvent(Event event, EventType eventType, PatientSwitchingStandardType patientSwitchingStandardType) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = EventDAO.fromEvent(event, eventType);
+        EventDAO eventDAO = EventDAO.fromEvent(event, eventType, patientSwitchingStandardType);
         String s3Key = getS3Key(event);
         eventS3Client.uploadJsonObject(eventDAO, s3Key);
         return eventDAO;

@@ -24,11 +24,11 @@ class RegistrationServiceTest {
                 .withDefaultEventValues()
                 .build();
         EventType gp2gpRegistrationStartedEventType = EventType.REGISTRATION_STARTED;
-        PatientSwitchingStandardType patientSwitchingStandardType = PatientSwitchingStandardType.GP2GP;
+        PatientSwitchingStandardType gp2gpPatientSwitchingStandardType = PatientSwitchingStandardType.GP2GP;
 
-        EventDAO expectedEventDAO = EventDAO.fromEvent(testEvent, gp2gpRegistrationStartedEventType);
+        EventDAO expectedEventDAO = EventDAO.fromEvent(testEvent, gp2gpRegistrationStartedEventType, gp2gpPatientSwitchingStandardType);
 
-        EventDAO eventDAO = registrationService.saveEvent(testEvent, gp2gpRegistrationStartedEventType, patientSwitchingStandardType);
+        EventDAO eventDAO = registrationService.saveEvent(testEvent, gp2gpRegistrationStartedEventType, gp2gpPatientSwitchingStandardType);
 
         verify(eventS3ClientMock, times(1)).uploadJsonObject(eq(expectedEventDAO), anyString());
         assertEquals(eventDAO, expectedEventDAO);

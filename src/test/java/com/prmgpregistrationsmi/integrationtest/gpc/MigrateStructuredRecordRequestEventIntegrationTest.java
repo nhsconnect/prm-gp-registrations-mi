@@ -4,6 +4,7 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
+import com.prmgpregistrationsmi.model.Event.PatientSwitchingStandardType;
 import com.prmgpregistrationsmi.model.gpc.MigrateStructuredRecordRequest.MigrateStructuredRecordRequestEvent;
 import com.prmgpregistrationsmi.model.gpc.MigrateStructuredRecordRequest.MigrateStructuredRecordRequestPayload;
 import com.prmgpregistrationsmi.testhelpers.gpc.MigrateStructuredRecordRequestEventBuilder;
@@ -43,6 +44,7 @@ class MigrateStructuredRecordRequestEventIntegrationTest {
                 migrateStructuredRecordRequestEventRequest.getEventId(),
                 migrateStructuredRecordRequestEventRequest.getEventGeneratedDateTime(),
                 EventType.MIGRATE_STRUCTURED_RECORD_REQUEST,
+                PatientSwitchingStandardType.GP_CONNECT,
                 migrateStructuredRecordRequestEventRequest.getRegistrationId(),
                 migrateStructuredRecordRequestEventRequest.getReportingSystemSupplier(),
                 migrateStructuredRecordRequestEventRequest.getReportingPracticeOdsCode(),
