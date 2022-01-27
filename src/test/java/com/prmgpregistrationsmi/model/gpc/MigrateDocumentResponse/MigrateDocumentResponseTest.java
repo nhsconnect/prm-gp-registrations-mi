@@ -1,4 +1,4 @@
-package com.prmgpregistrationsmi.model.gpc.MigrateStructuredRecordResponse;
+package com.prmgpregistrationsmi.model.gpc.MigrateDocumentResponse;
 
 import com.prmgpregistrationsmi.model.Event.EventPayload.GPTransferMetadata;
 import com.prmgpregistrationsmi.model.Event.EventPayload.Migration;
@@ -6,7 +6,7 @@ import com.prmgpregistrationsmi.model.Event.EventPayload.Registration;
 import com.prmgpregistrationsmi.testhelpers.GPTransferMetadataBuilder;
 import com.prmgpregistrationsmi.testhelpers.MigrationBuilder;
 import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
-import com.prmgpregistrationsmi.testhelpers.gpc.MigrateStructuredRecordResponseEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.gpc.MigrateDocumentResponseEventBuilder;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
@@ -18,16 +18,16 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class MigrateStructuredRecordResponseTest {
+class MigrateDocumentResponseResponseTest {
     private final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
     @Test
     void shouldNotThrowConstraintViolationWhenEventFieldsAreValid() {
-        MigrateStructuredRecordResponseEvent event = MigrateStructuredRecordResponseEventBuilder
+        MigrateDocumentResponseEvent event = MigrateDocumentResponseEventBuilder
                 .withDefaultEventValues()
                 .build();
 
-        Set<ConstraintViolation<MigrateStructuredRecordResponseEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<MigrateDocumentResponseEvent>> violations = validator.validate(event);
 
         assertEquals(0, violations.size());
     }
@@ -39,20 +39,20 @@ class MigrateStructuredRecordResponseTest {
                 .withDefaultRegistration()
                 .requestingPracticeOdsCode(requestingPracticeOdsCode)
                 .build();
-        MigrateStructuredRecordResponsePayload payload = MigrateStructuredRecordResponseEventBuilder
-                .withDefaultMigrateStructuredRecordResponsePayload()
+        MigrateDocumentResponsePayload payload = MigrateDocumentResponseEventBuilder
+                .withDefaultMigrateDocumentResponsePayload()
                 .registration(registrationPayload)
                 .build();
-        MigrateStructuredRecordResponseEvent event = MigrateStructuredRecordResponseEventBuilder
+        MigrateDocumentResponseEvent event = MigrateDocumentResponseEventBuilder
                 .withDefaultEventValues()
                 .payload(payload)
                 .build();
 
-        Set<ConstraintViolation<MigrateStructuredRecordResponseEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<MigrateDocumentResponseEvent>> violations = validator.validate(event);
 
         assertEquals(1, violations.size());
 
-        ConstraintViolation<MigrateStructuredRecordResponseEvent> violation = violations.iterator().next();
+        ConstraintViolation<MigrateDocumentResponseEvent> violation = violations.iterator().next();
         assertEquals("must not be empty", violation.getMessage());
         assertEquals("payload.registration.requestingPracticeOdsCode", violation.getPropertyPath().toString());
     }
@@ -64,20 +64,20 @@ class MigrateStructuredRecordResponseTest {
                 .withDefaultRegistration()
                 .sendingPracticeOdsCode(sendingPracticeOdsCode)
                 .build();
-        MigrateStructuredRecordResponsePayload payload = MigrateStructuredRecordResponseEventBuilder
-                .withDefaultMigrateStructuredRecordResponsePayload()
+        MigrateDocumentResponsePayload payload = MigrateDocumentResponseEventBuilder
+                .withDefaultMigrateDocumentResponsePayload()
                 .registration(payloadRegistration)
                 .build();
-        MigrateStructuredRecordResponseEvent event = MigrateStructuredRecordResponseEventBuilder
+        MigrateDocumentResponseEvent event = MigrateDocumentResponseEventBuilder
                 .withDefaultEventValues()
                 .payload(payload)
                 .build();
 
-        Set<ConstraintViolation<MigrateStructuredRecordResponseEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<MigrateDocumentResponseEvent>> violations = validator.validate(event);
 
         assertEquals(1, violations.size());
 
-        ConstraintViolation<MigrateStructuredRecordResponseEvent> violation = violations.iterator().next();
+        ConstraintViolation<MigrateDocumentResponseEvent> violation = violations.iterator().next();
         assertEquals("must not be empty", violation.getMessage());
         assertEquals("payload.registration.sendingPracticeOdsCode", violation.getPropertyPath().toString());
     }
@@ -90,21 +90,21 @@ class MigrateStructuredRecordResponseTest {
                 .conversationId(conversationId)
                 .build();
 
-        MigrateStructuredRecordResponsePayload payload = MigrateStructuredRecordResponseEventBuilder
-                .withDefaultMigrateStructuredRecordResponsePayload()
+        MigrateDocumentResponsePayload payload = MigrateDocumentResponseEventBuilder
+                .withDefaultMigrateDocumentResponsePayload()
                 .gpTransferMetadata(gpcPayload)
                 .build();
 
-        MigrateStructuredRecordResponseEvent event = MigrateStructuredRecordResponseEventBuilder
+        MigrateDocumentResponseEvent event = MigrateDocumentResponseEventBuilder
                 .withDefaultEventValues()
                 .payload(payload)
                 .build();
 
-        Set<ConstraintViolation<MigrateStructuredRecordResponseEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<MigrateDocumentResponseEvent>> violations = validator.validate(event);
 
         assertEquals(1, violations.size());
 
-        ConstraintViolation<MigrateStructuredRecordResponseEvent> violation = violations.iterator().next();
+        ConstraintViolation<MigrateDocumentResponseEvent> violation = violations.iterator().next();
         assertEquals("must not be empty", violation.getMessage());
         assertEquals("payload.gpTransferMetadata.conversationId", violation.getPropertyPath().toString());
     }
@@ -116,48 +116,74 @@ class MigrateStructuredRecordResponseTest {
                 .transferEventDateTime(null)
                 .build();
 
-        MigrateStructuredRecordResponsePayload payload = MigrateStructuredRecordResponseEventBuilder
-                .withDefaultMigrateStructuredRecordResponsePayload()
+        MigrateDocumentResponsePayload payload = MigrateDocumentResponseEventBuilder
+                .withDefaultMigrateDocumentResponsePayload()
                 .gpTransferMetadata(gpcPayload)
                 .build();
 
-        MigrateStructuredRecordResponseEvent event = MigrateStructuredRecordResponseEventBuilder
+        MigrateDocumentResponseEvent event = MigrateDocumentResponseEventBuilder
                 .withDefaultEventValues()
                 .payload(payload)
                 .build();
 
-        Set<ConstraintViolation<MigrateStructuredRecordResponseEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<MigrateDocumentResponseEvent>> violations = validator.validate(event);
 
         assertEquals(1, violations.size());
 
-        ConstraintViolation<MigrateStructuredRecordResponseEvent> violation = violations.iterator().next();
+        ConstraintViolation<MigrateDocumentResponseEvent> violation = violations.iterator().next();
         assertEquals("must not be null", violation.getMessage());
         assertEquals("payload.gpTransferMetadata.transferEventDateTime", violation.getPropertyPath().toString());
     }
 
     @Test
-    void shouldThrowConstraintViolationWhenStatusInPayloadIsNull() {
-        Migration structuredRecordMigrationPayload = MigrationBuilder
-                .withSuccessfulMigration()
-                .status(null)
+    void shouldThrowConstraintViolationWhenAttachmentInPayloadIsNull() {
+        GPTransferMetadata gpcPayload = GPTransferMetadataBuilder
+                .withDefaultGPTransferMetadata()
                 .build();
 
-        MigrateStructuredRecordResponsePayload payload = MigrateStructuredRecordResponseEventBuilder
-                .withDefaultMigrateStructuredRecordResponsePayload()
-                .structuredRecordMigration(structuredRecordMigrationPayload)
+        MigrateDocumentResponsePayload payload = MigrateDocumentResponseEventBuilder
+                .withDefaultMigrateDocumentResponsePayload()
+                .gpTransferMetadata(gpcPayload)
+                .attachment(null)
                 .build();
 
-        MigrateStructuredRecordResponseEvent event = MigrateStructuredRecordResponseEventBuilder
+        MigrateDocumentResponseEvent event = MigrateDocumentResponseEventBuilder
                 .withDefaultEventValues()
                 .payload(payload)
                 .build();
 
-        Set<ConstraintViolation<MigrateStructuredRecordResponseEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<MigrateDocumentResponseEvent>> violations = validator.validate(event);
 
         assertEquals(1, violations.size());
 
-        ConstraintViolation<MigrateStructuredRecordResponseEvent> violation = violations.iterator().next();
+        ConstraintViolation<MigrateDocumentResponseEvent> violation = violations.iterator().next();
         assertEquals("must not be null", violation.getMessage());
-        assertEquals("payload.structuredRecordMigration.status", violation.getPropertyPath().toString());
+        assertEquals("payload.attachment", violation.getPropertyPath().toString());
+    }
+
+    @Test
+    void shouldThrowConstraintViolationWhenMigrationStatusInPayloadIsNull() {
+        Migration documentMigration = MigrationBuilder
+                .withSuccessfulMigration()
+                .status(null)
+                .build();
+
+        MigrateDocumentResponsePayload payload = MigrateDocumentResponseEventBuilder
+                .withDefaultMigrateDocumentResponsePayload()
+                .documentMigration(documentMigration)
+                .build();
+
+        MigrateDocumentResponseEvent event = MigrateDocumentResponseEventBuilder
+                .withDefaultEventValues()
+                .payload(payload)
+                .build();
+
+        Set<ConstraintViolation<MigrateDocumentResponseEvent>> violations = validator.validate(event);
+
+        assertEquals(1, violations.size());
+
+        ConstraintViolation<MigrateDocumentResponseEvent> violation = violations.iterator().next();
+        assertEquals("must not be null", violation.getMessage());
+        assertEquals("payload.documentMigration.status", violation.getPropertyPath().toString());
     }
 }
