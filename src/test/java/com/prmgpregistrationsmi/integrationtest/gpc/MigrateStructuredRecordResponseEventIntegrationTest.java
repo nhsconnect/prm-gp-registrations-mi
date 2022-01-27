@@ -55,7 +55,7 @@ class MigrateStructuredRecordResponseEventIntegrationTest {
                 "/registration/" + API_VERSION + "/gpconnect/migrateStructuredRecordResponse", migrateStructuredRecordResponseEventResponse, EventResponse.class);
 
         EventResponse expectedResponse = new EventResponse(expectedS3UploadEvent.getEventId());
-        assertEquals(expectedResponse, actualResponseEvent);
+        assertEquals(expectedResponse.getEventId(), actualResponseEvent.getEventId());
 
         verify(mockAmazonS3Client).putObject(
                 "test_bucket",
