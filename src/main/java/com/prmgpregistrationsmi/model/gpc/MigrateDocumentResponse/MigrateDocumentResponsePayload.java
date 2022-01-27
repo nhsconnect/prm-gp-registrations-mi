@@ -6,10 +6,12 @@ import com.prmgpregistrationsmi.model.Event.EventPayload.Migration;
 import com.prmgpregistrationsmi.model.Event.EventPayload.Registration;
 import com.prmgpregistrationsmi.model.Event.Payload;
 import lombok.Builder;
+import lombok.Getter;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+@Getter
 @Builder
 public class MigrateDocumentResponsePayload implements Payload {
     @Valid

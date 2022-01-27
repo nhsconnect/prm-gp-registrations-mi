@@ -6,11 +6,13 @@ import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.model.Event.PatientSwitchingStandardType;
 import com.prmgpregistrationsmi.model.gpc.MigrateDocumentRequest.MigrateDocumentRequestEvent;
+import com.prmgpregistrationsmi.model.gpc.MigrateDocumentResponse.MigrateDocumentResponseEvent;
 import com.prmgpregistrationsmi.model.gpc.MigrateStructuredRecordRequest.MigrateStructuredRecordRequestEvent;
 import com.prmgpregistrationsmi.model.gpc.MigrateStructuredRecordResponse.MigrateStructuredRecordResponseEvent;
 import com.prmgpregistrationsmi.model.gpc.RegistrationStarted.RegistrationStartedEvent;
 import com.prmgpregistrationsmi.service.RegistrationService;
 import com.prmgpregistrationsmi.testhelpers.gpc.MigrateDocumentRequestEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.gpc.MigrateDocumentResponseEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.gpc.MigrateStructuredRecordRequestEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.gpc.MigrateStructuredRecordResponseEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.gpc.RegistrationStartedEventBuilder;
@@ -121,5 +123,27 @@ class GPCControllerTest {
 
         EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
         assertEquals(actualResponse, expectedEventResponse);
+    }
+
+    @Test
+    void MigrateDocumentResponseEventReturnsEventResponse() throws UnableToUploadToS3Exception {
+        MigrateDocumentResponseEvent testEvent = MigrateDocumentResponseEventBuilder
+                .withDefaultEventValues()
+                .build();
+
+        EventDAO eventDAO = EventDAO.builder()
+                .eventId(testEvent.getEventId())
+                .build();
+
+        PatientSwitchingStandardType patientSwitchingStandardType = PatientSwitchingStandardType.GP_CONNECT;
+
+        when(registrationService.saveEvent(testEvent, EventType.MIGRATE_DOCUMENT_RESPONSE, patientSwitchingStandardType)).thenReturn(eventDAO);
+
+        EventResponse actualResponse = gpcController.migrateDocumentResponseEvent(testEvent);
+
+        verify(registrationService).saveEvent(testEvent, EventType.MIGRATE_DOCUMENT_RESPONSE, patientSwitchingStandardType);
+
+        EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
+        assertEquals(expectedEventResponse, actualResponse);
     }
 }

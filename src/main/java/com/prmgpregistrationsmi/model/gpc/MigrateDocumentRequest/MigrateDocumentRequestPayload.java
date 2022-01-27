@@ -13,7 +13,6 @@ import javax.validation.constraints.NotNull;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
 public class MigrateDocumentRequestPayload implements Payload {
 
     @Valid
