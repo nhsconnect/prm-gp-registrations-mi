@@ -6,6 +6,7 @@ import com.prmgpregistrationsmi.model.gp2gp.EhrGenerated.EhrGeneratedEhrDetails;
 import com.prmgpregistrationsmi.model.gp2gp.EhrGenerated.EhrGeneratedEvent;
 import com.prmgpregistrationsmi.model.gp2gp.EhrGenerated.EhrGeneratedPayload;
 import com.prmgpregistrationsmi.model.gp2gp.EhrGenerated.UnsupportedDataItemDetails;
+import com.prmgpregistrationsmi.testhelpers.AttachmentBuilder;
 import com.prmgpregistrationsmi.testhelpers.GPTransferMetadataBuilder;
 import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
 
@@ -24,17 +25,12 @@ public class EhrGeneratedEventBuilder {
     }
 
     public static EhrGeneratedEhrDetails.EhrGeneratedEhrDetailsBuilder withDefaultEhrGeneratedEhrDetails() {
-        Attachment attachmentDetailsWithClinicalType = Attachment.builder()
-                .attachmentId("3424-342456-3424-342456")
-                .clinicalType("Scanned document")
-                .mimeType("application/pdf")
-                .sizeBytes(3084322L)
+        Attachment attachmentDetailsWithClinicalType = AttachmentBuilder
+                .withDefaultPDFFile()
                 .build();
 
-        Attachment attachmentDetailsWithoutClinicalType = Attachment.builder()
-                .attachmentId("1323-132345-1323-132345")
-                .mimeType("audio/mpeg")
-                .sizeBytes(24352346L)
+        Attachment attachmentDetailsWithoutClinicalType = AttachmentBuilder
+                .withDefaultAudioFile()
                 .build();
 
         Placeholder placeholderDetails = Placeholder.builder()
