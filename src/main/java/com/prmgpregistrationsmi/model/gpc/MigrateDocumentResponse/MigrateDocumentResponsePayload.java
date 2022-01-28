@@ -20,6 +20,7 @@ public class MigrateDocumentResponsePayload implements Payload {
     @Valid
     @NotNull
     private GPTransferMetadata gpTransferMetadata;
+    @Valid
     @NotNull
     private Attachment attachment;
     @Valid
