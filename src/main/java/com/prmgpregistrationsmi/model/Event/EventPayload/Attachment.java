@@ -1,6 +1,13 @@
 package com.prmgpregistrationsmi.model.Event.EventPayload;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @NoArgsConstructor
@@ -8,8 +15,11 @@ import lombok.*;
 @Builder
 @EqualsAndHashCode
 public class Attachment {
+    @NotEmpty
     private String attachmentId;
     private String clinicalType;
+    @NotEmpty
     private String mimeType;
+    @NotNull
     private Long sizeBytes;
 }

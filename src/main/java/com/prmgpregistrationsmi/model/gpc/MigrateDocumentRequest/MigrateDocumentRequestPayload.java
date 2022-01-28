@@ -23,6 +23,7 @@ public class MigrateDocumentRequestPayload implements Payload {
     @NotNull
     private GPTransferMetadata gpTransferMetadata;
 
+    @Valid
     @NotNull
     private Attachment attachment;
 }
