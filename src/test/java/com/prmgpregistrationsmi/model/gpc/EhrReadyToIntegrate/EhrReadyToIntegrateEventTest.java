@@ -52,6 +52,7 @@ public class EhrReadyToIntegrateEventTest {
                 .withDefaultEhrReadyToIntegratePayload()
                 .registration(null)
                 .build();
+
         EhrReadyToIntegrateEvent event = EhrReadyToIntegrateEventBuilder
                 .withDefaultEventValues()
                 .payload(payload)
@@ -70,8 +71,12 @@ public class EhrReadyToIntegrateEventTest {
     void shouldThrowConstraintViolationWhenRegistrationFieldsAreInvalid() {
         EhrReadyToIntegratePayload payload = EhrReadyToIntegrateEventBuilder
                 .withDefaultEhrReadyToIntegratePayload()
-                .registration(RegistrationBuilder.withDefaultRegistration().requestingPracticeOdsCode(null).build())
+                .registration(RegistrationBuilder
+                        .withDefaultRegistration()
+                        .requestingPracticeOdsCode(null)
+                        .build())
                 .build();
+
         EhrReadyToIntegrateEvent event = EhrReadyToIntegrateEventBuilder
                 .withDefaultEventValues()
                 .payload(payload)
@@ -90,9 +95,9 @@ public class EhrReadyToIntegrateEventTest {
     void shouldThrowConstraintViolationWhenGpTransferMetadataIsNull() {
         EhrReadyToIntegratePayload payload = EhrReadyToIntegrateEventBuilder
                 .withDefaultEhrReadyToIntegratePayload()
-                .registration(RegistrationBuilder.withDefaultRegistration().build())
                 .gpTransferMetadata(null)
                 .build();
+
         EhrReadyToIntegrateEvent event = EhrReadyToIntegrateEventBuilder
                 .withDefaultEventValues()
                 .payload(payload)
@@ -111,12 +116,12 @@ public class EhrReadyToIntegrateEventTest {
     void shouldThrowConstraintViolationWhenGpTransferMetadataFieldsAreInvalid() {
         EhrReadyToIntegratePayload payload = EhrReadyToIntegrateEventBuilder
                 .withDefaultEhrReadyToIntegratePayload()
-                .registration(RegistrationBuilder.withDefaultRegistration().build())
                 .gpTransferMetadata(GPTransferMetadataBuilder
                         .withDefaultGPTransferMetadata()
                         .conversationId(null)
                         .build())
                 .build();
+
         EhrReadyToIntegrateEvent event = EhrReadyToIntegrateEventBuilder
                 .withDefaultEventValues().payload(payload).build();
 
@@ -133,12 +138,13 @@ public class EhrReadyToIntegrateEventTest {
     void shouldThrowConstraintViolationWhenEhrDetailsAreMissing() {
         EhrReadyToIntegratePayload payload = EhrReadyToIntegrateEventBuilder
                 .withDefaultEhrReadyToIntegratePayload()
-                .registration(RegistrationBuilder.withDefaultRegistration().build())
-                .gpTransferMetadata(GPTransferMetadataBuilder.withDefaultGPTransferMetadata().build())
                 .ehr(null)
                 .build();
+
         EhrReadyToIntegrateEvent event = EhrReadyToIntegrateEventBuilder
-                .withDefaultEventValues().payload(payload).build();
+                .withDefaultEventValues()
+                .payload(payload)
+                .build();
 
         Set<ConstraintViolation<EhrReadyToIntegrateEvent>> violations = validator.validate(event);
 
@@ -151,19 +157,23 @@ public class EhrReadyToIntegrateEventTest {
 
     @Test
     void shouldThrowConstraintViolationWhenDegradeDetailsAreMissing() {
-        Degrade incompleteDegrade = DegradeBuilder.withDefaultValues().code(null).build();
+        Degrade incompleteDegrade = DegradeBuilder
+                .withDefaultValues()
+                .code(null)
+                .build();
 
         EhrReadyToIntegratePayload payload = EhrReadyToIntegrateEventBuilder
                 .withDefaultEhrReadyToIntegratePayload()
-                .registration(RegistrationBuilder.withDefaultRegistration().build())
-                .gpTransferMetadata(GPTransferMetadataBuilder.withDefaultGPTransferMetadata().build())
                 .ehr(EhrReadyToIntegrateEventBuilder
                         .withDefaultEhrDetails()
                         .degrade(List.of(incompleteDegrade))
                         .build())
                 .build();
+
         EhrReadyToIntegrateEvent event = EhrReadyToIntegrateEventBuilder
-                .withDefaultEventValues().payload(payload).build();
+                .withDefaultEventValues()
+                .payload(payload)
+                .build();
 
         Set<ConstraintViolation<EhrReadyToIntegrateEvent>> violations = validator.validate(event);
 
@@ -177,17 +187,19 @@ public class EhrReadyToIntegrateEventTest {
     @Test
     void shouldAcceptEmptyListOfDegrades() {
         List<Degrade> emptyListOfDegrades = List.of();
+
         EhrReadyToIntegratePayload payload = EhrReadyToIntegrateEventBuilder
                 .withDefaultEhrReadyToIntegratePayload()
-                .registration(RegistrationBuilder.withDefaultRegistration().build())
-                .gpTransferMetadata(GPTransferMetadataBuilder.withDefaultGPTransferMetadata().build())
                 .ehr(EhrReadyToIntegrateEventBuilder
                         .withDefaultEhrDetails()
                         .degrade(emptyListOfDegrades)
                         .build())
                 .build();
+
         EhrReadyToIntegrateEvent event = EhrReadyToIntegrateEventBuilder
-                .withDefaultEventValues().payload(payload).build();
+                .withDefaultEventValues()
+                .payload(payload)
+                .build();
 
         Set<ConstraintViolation<EhrReadyToIntegrateEvent>> violations = validator.validate(event);
 
