@@ -26,14 +26,13 @@ public class EhrReadyToIntegrateEventBuilder {
         return EhrReadyToIntegratePayload.builder()
                 .registration(RegistrationBuilder.withDefaultRegistration().build())
                 .gpTransferMetadata(GPTransferMetadataBuilder.withDefaultGPTransferMetadata().build())
-                .ehr(withDefaultEhrDetails());
+                .ehr(withDefaultEhrDetails().build());
     }
 
-    private static EhrReadyToIntegrateEhrDetails withDefaultEhrDetails() {
-        List<Degrade> degrades = List.of(DegradeBuilder.withDefaultDegradeValues().build());
+    public static EhrReadyToIntegrateEhrDetails.EhrReadyToIntegrateEhrDetailsBuilder withDefaultEhrDetails() {
+        List<Degrade> degrades = List.of(DegradeBuilder.withDefaultValues().build());
 
         return EhrReadyToIntegrateEhrDetails.builder()
-                .degrade(degrades)
-                .build();
+                .degrade(degrades);
     }
 }

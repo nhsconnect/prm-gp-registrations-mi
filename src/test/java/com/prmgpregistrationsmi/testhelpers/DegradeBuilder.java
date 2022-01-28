@@ -13,16 +13,16 @@ public class DegradeBuilder {
                 .system("https://snomed.info/sct");
     }
 
-    public static DegradeCode.DegradeCodeBuilder withDefaultDegradeCode() {
+    public static DegradeCode.DegradeCodeBuilder withDefaultDegradeCoding() {
         List<SystemCoding> systemCodings = List.of(withDefaultSystemCoding().build());
         return DegradeCode.builder()
                 .coding(systemCodings);
     }
 
-    public static Degrade.DegradeBuilder withDefaultDegradeValues() {
+    public static Degrade.DegradeBuilder withDefaultValues() {
         return Degrade.builder()
                 .type("attachment")
                 .metadata("something about this degrade")
-                .code(withDefaultDegradeCode().build());
+                .code(withDefaultDegradeCoding().build());
     }
 }

@@ -48,7 +48,7 @@ class AttachmentTest {
     }
 
     @Test
-    void shouldThrowConstraintViolationWhenAttachmentMimeTypeInPayloadIsNullOrEmpty() {
+    void shouldThrowConstraintViolationWhenAttachmentSizeBytesIsNull() {
         Attachment attachment = AttachmentBuilder.withDefaultAudioFile()
                 .sizeBytes(null)
                 .build();

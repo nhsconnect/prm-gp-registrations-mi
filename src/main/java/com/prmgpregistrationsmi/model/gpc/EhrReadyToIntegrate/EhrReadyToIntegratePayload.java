@@ -18,5 +18,7 @@ public class EhrReadyToIntegratePayload implements Payload {
     @NotNull
     private GPTransferMetadata gpTransferMetadata;
 
+    @Valid
+    @NotNull
     private EhrReadyToIntegrateEhrDetails ehr;
 }
