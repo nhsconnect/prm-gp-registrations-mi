@@ -2,9 +2,10 @@ package com.prmgpregistrationsmi.testhelpers.gp2gp;
 
 import com.prmgpregistrationsmi.model.gp2gp.EhrGenerated.EhrGeneratedEvent;
 import com.prmgpregistrationsmi.model.gp2gp.EhrGenerated.EhrGeneratedPayload;
-import com.prmgpregistrationsmi.model.gp2gp.EhrGenerated.UnsupportedDataItemDetails;
+import com.prmgpregistrationsmi.model.Event.EventPayload.UnsupportedDataItem;
 import com.prmgpregistrationsmi.testhelpers.GPTransferMetadataBuilder;
 import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
+import com.prmgpregistrationsmi.testhelpers.UnsupportedDataItemBuilder;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -21,11 +22,7 @@ public class EhrGeneratedEventBuilder {
     }
 
     public static EhrGeneratedPayload.EhrGeneratedPayloadBuilder withDefaultEhrGeneratedPayload() {
-        UnsupportedDataItemDetails unsupportedDataItem = UnsupportedDataItemDetails.builder()
-                .type("allergy/flag")
-                .uniqueIdentifier("1323-132345-1323-132345")
-                .reason("reason for being unsupported / why is it unsupported in gp2gp / what would have to change in gp2gp to express this")
-                .build();
+        UnsupportedDataItem unsupportedDataItem = UnsupportedDataItemBuilder.withDefaultValues().build();
 
         return EhrGeneratedPayload.builder()
                 .registration(RegistrationBuilder.withDefaultRegistration().build())

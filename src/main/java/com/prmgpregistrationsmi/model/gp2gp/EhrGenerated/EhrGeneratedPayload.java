@@ -2,6 +2,7 @@ package com.prmgpregistrationsmi.model.gp2gp.EhrGenerated;
 
 import com.prmgpregistrationsmi.model.Event.EventPayload.GPTransferMetadata;
 import com.prmgpregistrationsmi.model.Event.EventPayload.Registration;
+import com.prmgpregistrationsmi.model.Event.EventPayload.UnsupportedDataItem;
 import com.prmgpregistrationsmi.model.Event.Payload;
 import lombok.*;
 
@@ -26,5 +27,5 @@ public class EhrGeneratedPayload implements Payload {
     @Valid
     @NotNull
     private EhrGeneratedEhrDetails ehr;
-    private List<@Valid UnsupportedDataItemDetails> unsupportedDataItem;
+    private List<@Valid UnsupportedDataItem> unsupportedDataItem;
 }

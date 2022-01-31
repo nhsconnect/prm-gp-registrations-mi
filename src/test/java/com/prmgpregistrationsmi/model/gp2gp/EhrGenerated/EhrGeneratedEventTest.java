@@ -2,6 +2,7 @@ package com.prmgpregistrationsmi.model.gp2gp.EhrGenerated;
 
 import com.prmgpregistrationsmi.model.Event.EventPayload.GPTransferMetadata;
 import com.prmgpregistrationsmi.model.Event.EventPayload.Registration;
+import com.prmgpregistrationsmi.model.Event.EventPayload.UnsupportedDataItem;
 import com.prmgpregistrationsmi.testhelpers.GPTransferMetadataBuilder;
 import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
 import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrGeneratedEhrDetailsBuilder;
@@ -190,7 +191,7 @@ class EhrGeneratedEventTest {
 
     @Test
     void shouldAllowAnEmptyListOfUnsupportedDataItems() {
-        List<UnsupportedDataItemDetails> emptyList = List.of();
+        List<UnsupportedDataItem> emptyList = List.of();
         EhrGeneratedPayload payload = EhrGeneratedEventBuilder
                 .withDefaultEhrGeneratedPayload()
                 .unsupportedDataItem(emptyList)
@@ -208,7 +209,7 @@ class EhrGeneratedEventTest {
 
     @Test
     void shouldThrowConstraintViolationWhenUnsupportedDataItemsInTheListAreInvalid() {
-        UnsupportedDataItemDetails unsupportedDataItem = UnsupportedDataItemDetails.builder()
+        UnsupportedDataItem unsupportedDataItem = UnsupportedDataItem.builder()
                 .type("allergy/flag")
                 .uniqueIdentifier(null)
                 .reason("reason for being unsupported / why is it unsupported in gp2gp / what would have to change in gp2gp to express this")

@@ -1,4 +1,4 @@
-package com.prmgpregistrationsmi.model.gp2gp.EhrGenerated;
+package com.prmgpregistrationsmi.model.Event.EventPayload;
 
 import lombok.*;
 
@@ -9,9 +9,11 @@ import javax.validation.constraints.NotEmpty;
 @AllArgsConstructor
 @Builder
 @EqualsAndHashCode
-public class UnsupportedDataItemDetails {
+public class UnsupportedDataItem {
+    @NotEmpty
     private String type;
     @NotEmpty
     private String uniqueIdentifier;
+    @NotEmpty
     private String reason;
 }
