@@ -19,6 +19,6 @@ public class RegistrationStartedEventBuilder {
 
     public static RegistrationStartedPayload.RegistrationStartedPayloadBuilder withDefaultRegistrationStartedPayload() {
         return RegistrationStartedPayload.builder()
-                .registration(RegistrationStartedBuilder.withDefaultRegistrationStarted().build());
+                .registration(RegistrationStartedBuilder.withDefaultValues().build());
     }
 }
