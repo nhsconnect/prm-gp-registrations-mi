@@ -1,4 +1,4 @@
-package com.prmgpregistrationsmi.model.Event;
+package com.prmgpregistrationsmi.model.Event.EventPayload;
 
 import com.prmgpregistrationsmi.model.Event.EventPayload.Degrade;
 import com.prmgpregistrationsmi.model.Event.EventPayload.DegradeCode;
