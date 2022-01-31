@@ -27,6 +27,22 @@ class RegistrationStartedEventTest {
     }
 
     @Test
+    void shouldThrowConstraintViolationWhenPayloadIsNull() {
+        RegistrationStartedEvent event = RegistrationStartedEventBuilder
+                .withDefaultEventValues()
+                .payload(null)
+                .build();
+
+        Set<ConstraintViolation<RegistrationStartedEvent>> violations = validator.validate(event);
+
+        assertEquals(1, violations.size());
+
+        ConstraintViolation<RegistrationStartedEvent> violation = violations.iterator().next();
+        assertEquals("must not be null", violation.getMessage());
+        assertEquals("payload", violation.getPropertyPath().toString());
+    }
+
+    @Test
     void shouldThrowConstraintViolationWhenRegistrationStartedIsNull() {
         RegistrationStartedPayload payload = RegistrationStartedEventBuilder
                 .withDefaultRegistrationStartedPayload()

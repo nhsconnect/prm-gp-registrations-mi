@@ -31,6 +31,22 @@ class MigrateStructuredRecordResponseEventTest {
     }
 
     @Test
+    void shouldThrowConstraintViolationWhenPayloadIsNull() {
+        MigrateStructuredRecordResponseEvent event = MigrateStructuredRecordResponseEventBuilder
+                .withDefaultEventValues()
+                .payload(null)
+                .build();
+
+        Set<ConstraintViolation<MigrateStructuredRecordResponseEvent>> violations = validator.validate(event);
+
+        assertEquals(1, violations.size());
+
+        ConstraintViolation<MigrateStructuredRecordResponseEvent> violation = violations.iterator().next();
+        assertEquals("must not be null", violation.getMessage());
+        assertEquals("payload", violation.getPropertyPath().toString());
+    }
+
+    @Test
     void shouldThrowConstraintViolationWhenRegistrationIsNull() {
         MigrateStructuredRecordResponsePayload payload = MigrateStructuredRecordResponseEventBuilder
                 .withDefaultMigrateStructuredRecordResponsePayload()
