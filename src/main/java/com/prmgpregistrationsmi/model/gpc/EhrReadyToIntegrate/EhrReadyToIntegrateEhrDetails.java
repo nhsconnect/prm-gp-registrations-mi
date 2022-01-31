@@ -14,6 +14,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EhrReadyToIntegrateEhrDetails {
-    @Valid
-    private List<Degrade> degrade;
+
+    private List<@Valid Degrade> degrade;
 }

@@ -156,7 +156,29 @@ public class EhrReadyToIntegrateEventTest {
     }
 
     @Test
-    void shouldThrowConstraintViolationWhenDegradeDetailsAreMissing() {
+    void shouldAcceptEmptyListOfDegrades() {
+        List<Degrade> emptyListOfDegrades = List.of();
+
+        EhrReadyToIntegratePayload payload = EhrReadyToIntegrateEventBuilder
+                .withDefaultEhrReadyToIntegratePayload()
+                .ehr(EhrReadyToIntegrateEventBuilder
+                        .withDefaultEhrDetails()
+                        .degrade(emptyListOfDegrades)
+                        .build())
+                .build();
+
+        EhrReadyToIntegrateEvent event = EhrReadyToIntegrateEventBuilder
+                .withDefaultEventValues()
+                .payload(payload)
+                .build();
+
+        Set<ConstraintViolation<EhrReadyToIntegrateEvent>> violations = validator.validate(event);
+
+        assertEquals(0, violations.size());
+    }
+
+    @Test
+    void shouldThrowConstraintViolationWhenDegradeDetailsInTheListAreInvalid() {
         Degrade incompleteDegrade = DegradeBuilder
                 .withDefaultValues()
                 .code(null)
@@ -182,27 +204,5 @@ public class EhrReadyToIntegrateEventTest {
         ConstraintViolation<EhrReadyToIntegrateEvent> violation = violations.iterator().next();
         assertEquals("must not be null", violation.getMessage());
         assertEquals("payload.ehr.degrade[0].code", violation.getPropertyPath().toString());
-    }
-
-    @Test
-    void shouldAcceptEmptyListOfDegrades() {
-        List<Degrade> emptyListOfDegrades = List.of();
-
-        EhrReadyToIntegratePayload payload = EhrReadyToIntegrateEventBuilder
-                .withDefaultEhrReadyToIntegratePayload()
-                .ehr(EhrReadyToIntegrateEventBuilder
-                        .withDefaultEhrDetails()
-                        .degrade(emptyListOfDegrades)
-                        .build())
-                .build();
-
-        EhrReadyToIntegrateEvent event = EhrReadyToIntegrateEventBuilder
-                .withDefaultEventValues()
-                .payload(payload)
-                .build();
-
-        Set<ConstraintViolation<EhrReadyToIntegrateEvent>> violations = validator.validate(event);
-
-        assertEquals(0, violations.size());
     }
 }

@@ -14,7 +14,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DegradeCode {
-    @Valid
     @NotEmpty
-    private List<SystemCoding> coding;
+    private List<@Valid SystemCoding> coding;
 }
