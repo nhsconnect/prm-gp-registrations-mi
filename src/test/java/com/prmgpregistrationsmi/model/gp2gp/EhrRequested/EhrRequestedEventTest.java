@@ -1,13 +1,11 @@
 package com.prmgpregistrationsmi.model.gp2gp.EhrRequested;
 
-import com.prmgpregistrationsmi.model.Event.EventPayload.Registration;
 import com.prmgpregistrationsmi.model.Event.EventPayload.GPTransferMetadata;
+import com.prmgpregistrationsmi.model.Event.EventPayload.Registration;
 import com.prmgpregistrationsmi.testhelpers.GPTransferMetadataBuilder;
 import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
 import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrRequestedEventBuilder;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.NullAndEmptySource;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -30,12 +28,46 @@ class EhrRequestedEventTest {
         assertEquals(0, violations.size());
     }
 
-    @ParameterizedTest
-    @NullAndEmptySource
-    void shouldThrowConstraintViolationWhenRequestingPracticeOdsCodeInPayloadIsNullOrEmpty(String requestingPracticeOdsCode) {
+    @Test
+    void shouldThrowConstraintViolationWhenPayloadIsNull() {
+        EhrRequestedEvent event = EhrRequestedEventBuilder
+                .withDefaultEventValues().payload(null).build();
+
+        Set<ConstraintViolation<EhrRequestedEvent>> violations = validator.validate(event);
+
+        assertEquals(1, violations.size());
+
+        ConstraintViolation<EhrRequestedEvent> violation = violations.iterator().next();
+        assertEquals("must not be null", violation.getMessage());
+        assertEquals("payload", violation.getPropertyPath().toString());
+    }
+
+    @Test
+    void shouldThrowConstraintViolationWhenRegistrationIsNull() {
+        EhrRequestedPayload payload = EhrRequestedEventBuilder
+                .withDefaultEhrRequestedPayload()
+                .registration(null)
+                .build();
+
+        EhrRequestedEvent event = EhrRequestedEventBuilder
+                .withDefaultEventValues()
+                .payload(payload)
+                .build();
+
+        Set<ConstraintViolation<EhrRequestedEvent>> violations = validator.validate(event);
+
+        assertEquals(1, violations.size());
+
+        ConstraintViolation<EhrRequestedEvent> violation = violations.iterator().next();
+        assertEquals("must not be null", violation.getMessage());
+        assertEquals("payload.registration", violation.getPropertyPath().toString());
+    }
+
+    @Test
+    void shouldThrowConstraintViolationWhenRegistrationFieldsAreInvalid() {
         Registration registrationPayload = RegistrationBuilder
                 .withDefaultRegistration()
-                .requestingPracticeOdsCode(requestingPracticeOdsCode)
+                .requestingPracticeOdsCode(null)
                 .build();
 
         EhrRequestedPayload payload = EhrRequestedEventBuilder
@@ -57,17 +89,11 @@ class EhrRequestedEventTest {
         assertEquals("payload.registration.requestingPracticeOdsCode", violation.getPropertyPath().toString());
     }
 
-    @ParameterizedTest
-    @NullAndEmptySource
-    void shouldThrowConstraintViolationWhenSendingPracticeOdsCodeInPayloadIsNullOrEmpty(String sendingPracticeOdsCode) {
-        Registration registrationPayload = RegistrationBuilder
-                .withDefaultRegistration()
-                .sendingPracticeOdsCode(sendingPracticeOdsCode)
-                .build();
-
+    @Test
+    void shouldThrowConstraintViolationWhenGPTransferMetadataIsNull() {
         EhrRequestedPayload payload = EhrRequestedEventBuilder
                 .withDefaultEhrRequestedPayload()
-                .registration(registrationPayload)
+                .gpTransferMetadata(null)
                 .build();
 
         EhrRequestedEvent event = EhrRequestedEventBuilder
@@ -80,16 +106,15 @@ class EhrRequestedEventTest {
         assertEquals(1, violations.size());
 
         ConstraintViolation<EhrRequestedEvent> violation = violations.iterator().next();
-        assertEquals("must not be empty", violation.getMessage());
-        assertEquals("payload.registration.sendingPracticeOdsCode", violation.getPropertyPath().toString());
+        assertEquals("must not be null", violation.getMessage());
+        assertEquals("payload.gpTransferMetadata", violation.getPropertyPath().toString());
     }
 
-    @ParameterizedTest
-    @NullAndEmptySource
-    void shouldThrowConstraintViolationWhenConversationIdInPayloadIsNullOrEmpty(String conversationId) {
+    @Test
+    void shouldThrowConstraintViolationWhenGPTransferMetadataFieldsAreInvalid() {
         GPTransferMetadata gpTransferMetadata = GPTransferMetadataBuilder
                 .withDefaultGPTransferMetadata()
-                .conversationId(conversationId)
+                .conversationId(null)
                 .build();
 
         EhrRequestedPayload payload = EhrRequestedEventBuilder
@@ -109,31 +134,5 @@ class EhrRequestedEventTest {
         ConstraintViolation<EhrRequestedEvent> violation = violations.iterator().next();
         assertEquals("must not be empty", violation.getMessage());
         assertEquals("payload.gpTransferMetadata.conversationId", violation.getPropertyPath().toString());
-    }
-
-    @Test
-    void shouldThrowConstraintViolationWhenTransferEventDateTimeInPayloadIsNull() {
-        GPTransferMetadata gpTransferMetadata = GPTransferMetadataBuilder
-                .withDefaultGPTransferMetadata()
-                .transferEventDateTime(null)
-                .build();
-
-        EhrRequestedPayload payload = EhrRequestedEventBuilder
-                .withDefaultEhrRequestedPayload()
-                .gpTransferMetadata(gpTransferMetadata)
-                .build();
-
-        EhrRequestedEvent event = EhrRequestedEventBuilder
-                .withDefaultEventValues()
-                .payload(payload)
-                .build();
-
-        Set<ConstraintViolation<EhrRequestedEvent>> violations = validator.validate(event);
-
-        assertEquals(1, violations.size());
-
-        ConstraintViolation<EhrRequestedEvent> violation = violations.iterator().next();
-        assertEquals("must not be null", violation.getMessage());
-        assertEquals("payload.gpTransferMetadata.transferEventDateTime", violation.getPropertyPath().toString());
     }
 }
