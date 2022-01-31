@@ -1,6 +1,5 @@
 package com.prmgpregistrationsmi.model.Event.EventPayload;
 
-import com.prmgpregistrationsmi.model.Event.EventPayload.Attachment;
 import com.prmgpregistrationsmi.testhelpers.AttachmentBuilder;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;

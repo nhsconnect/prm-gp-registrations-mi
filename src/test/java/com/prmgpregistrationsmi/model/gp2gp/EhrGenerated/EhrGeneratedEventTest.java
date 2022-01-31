@@ -4,14 +4,14 @@ import com.prmgpregistrationsmi.model.Event.EventPayload.GPTransferMetadata;
 import com.prmgpregistrationsmi.model.Event.EventPayload.Registration;
 import com.prmgpregistrationsmi.testhelpers.GPTransferMetadataBuilder;
 import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
+import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrGeneratedEhrDetailsBuilder;
 import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrGeneratedEventBuilder;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.NullAndEmptySource;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
+import java.util.List;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -30,12 +30,49 @@ class EhrGeneratedEventTest {
         assertEquals(0, violations.size());
     }
 
-    @ParameterizedTest
-    @NullAndEmptySource
-    void shouldThrowConstraintViolationWhenRequestingPracticeOdsCodeInPayloadIsNullOrEmpty(String requestingPracticeOdsCode) {
+    @Test
+    void shouldThrowConstraintViolationWhenPayloadIsNull() {
+        EhrGeneratedEvent event = EhrGeneratedEventBuilder
+                .withDefaultEventValues()
+                .payload(null)
+                .build();
+
+        Set<ConstraintViolation<EhrGeneratedEvent>> violations = validator.validate(event);
+
+        assertEquals(1, violations.size());
+
+        ConstraintViolation<EhrGeneratedEvent> violation = violations.iterator().next();
+        assertEquals("must not be null", violation.getMessage());
+        assertEquals("payload", violation.getPropertyPath().toString());
+    }
+
+
+    @Test
+    void shouldThrowConstraintViolationWhenRegistrationIsNull() {
+        EhrGeneratedPayload payload = EhrGeneratedEventBuilder
+                .withDefaultEhrGeneratedPayload()
+                .registration(null)
+                .build();
+
+        EhrGeneratedEvent event = EhrGeneratedEventBuilder
+                .withDefaultEventValues()
+                .payload(payload)
+                .build();
+
+        Set<ConstraintViolation<EhrGeneratedEvent>> violations = validator.validate(event);
+
+        assertEquals(1, violations.size());
+
+        ConstraintViolation<EhrGeneratedEvent> violation = violations.iterator().next();
+        assertEquals("must not be null", violation.getMessage());
+        assertEquals("payload.registration", violation.getPropertyPath().toString());
+    }
+
+    @Test
+    void shouldThrowConstraintViolationWhenRegistrationFieldsAreInvalid() {
         Registration registrationPayload = RegistrationBuilder
                 .withDefaultRegistration()
-                .requestingPracticeOdsCode(requestingPracticeOdsCode)
+                .requestingPracticeOdsCode(null)
                 .build();
 
         EhrGeneratedPayload payload = EhrGeneratedEventBuilder
@@ -57,17 +94,11 @@ class EhrGeneratedEventTest {
         assertEquals("payload.registration.requestingPracticeOdsCode", violation.getPropertyPath().toString());
     }
 
-    @ParameterizedTest
-    @NullAndEmptySource
-    void shouldThrowConstraintViolationWhenSendingPracticeOdsCodeInPayloadIsNullOrEmpty(String sendingPracticeOdsCode) {
-        Registration registrationPayload = RegistrationBuilder
-                .withDefaultRegistration()
-                .sendingPracticeOdsCode(sendingPracticeOdsCode)
-                .build();
-
+    @Test
+    void shouldThrowConstraintViolationWhenGPTransferMetadataIsNull() {
         EhrGeneratedPayload payload = EhrGeneratedEventBuilder
                 .withDefaultEhrGeneratedPayload()
-                .registration(registrationPayload)
+                .gpTransferMetadata(null)
                 .build();
 
         EhrGeneratedEvent event = EhrGeneratedEventBuilder
@@ -80,16 +111,15 @@ class EhrGeneratedEventTest {
         assertEquals(1, violations.size());
 
         ConstraintViolation<EhrGeneratedEvent> violation = violations.iterator().next();
-        assertEquals("must not be empty", violation.getMessage());
-        assertEquals("payload.registration.sendingPracticeOdsCode", violation.getPropertyPath().toString());
+        assertEquals("must not be null", violation.getMessage());
+        assertEquals("payload.gpTransferMetadata", violation.getPropertyPath().toString());
     }
 
-    @ParameterizedTest
-    @NullAndEmptySource
-    void shouldThrowConstraintViolationWhenConversationIdInPayloadIsNullOrEmpty(String conversationId) {
+    @Test
+    void shouldThrowConstraintViolationWhenGPTransferMetadataFieldsAreInvalid() {
         GPTransferMetadata gpTransferMetadata = GPTransferMetadataBuilder
                 .withDefaultGPTransferMetadata()
-                .conversationId(conversationId)
+                .conversationId(null)
                 .build();
 
         EhrGeneratedPayload payload = EhrGeneratedEventBuilder
@@ -112,15 +142,10 @@ class EhrGeneratedEventTest {
     }
 
     @Test
-    void shouldThrowConstraintViolationWhenTransferEventDateTimeInPayloadIsNull() {
-        GPTransferMetadata gpTransferMetadata = GPTransferMetadataBuilder
-                .withDefaultGPTransferMetadata()
-                .transferEventDateTime(null)
-                .build();
-
+    void shouldThrowConstraintViolationWhenEhrGeneratedEhrDetailsInPayloadIsNull() {
         EhrGeneratedPayload payload = EhrGeneratedEventBuilder
                 .withDefaultEhrGeneratedPayload()
-                .gpTransferMetadata(gpTransferMetadata)
+                .ehr(null)
                 .build();
 
         EhrGeneratedEvent event = EhrGeneratedEventBuilder
@@ -134,13 +159,13 @@ class EhrGeneratedEventTest {
 
         ConstraintViolation<EhrGeneratedEvent> violation = violations.iterator().next();
         assertEquals("must not be null", violation.getMessage());
-        assertEquals("payload.gpTransferMetadata.transferEventDateTime", violation.getPropertyPath().toString());
+        assertEquals("payload.ehr", violation.getPropertyPath().toString());
     }
 
     @Test
-    void shouldThrowConstraintViolationWhenEhrTotalSizeBytesInPayloadIsNull() {
-        EhrGeneratedEhrDetails ehrPayload = EhrGeneratedEventBuilder
-                .withDefaultEhrGeneratedEhrDetails()
+    void shouldThrowConstraintViolationWhenEhrGeneratedEhrDetailsFieldsAreInvalid() {
+        EhrGeneratedEhrDetails ehrPayload = EhrGeneratedEhrDetailsBuilder
+                .withDefaultValues()
                 .ehrTotalSizeBytes(null)
                 .build();
 
@@ -164,15 +189,34 @@ class EhrGeneratedEventTest {
     }
 
     @Test
-    void shouldThrowConstraintViolationWhenEhrStructuredSizeBytesInPayloadIsNull() {
-        EhrGeneratedEhrDetails ehrPayload = EhrGeneratedEventBuilder
-                .withDefaultEhrGeneratedEhrDetails()
-                .ehrStructuredSizeBytes(null)
+    void shouldAllowAnEmptyListOfUnsupportedDataItems() {
+        List<UnsupportedDataItemDetails> emptyList = List.of();
+        EhrGeneratedPayload payload = EhrGeneratedEventBuilder
+                .withDefaultEhrGeneratedPayload()
+                .unsupportedDataItem(emptyList)
+                .build();
+
+        EhrGeneratedEvent event = EhrGeneratedEventBuilder
+                .withDefaultEventValues()
+                .payload(payload)
+                .build();
+
+        Set<ConstraintViolation<EhrGeneratedEvent>> violations = validator.validate(event);
+
+        assertEquals(0, violations.size());
+    }
+
+    @Test
+    void shouldThrowConstraintViolationWhenUnsupportedDataItemsInTheListAreInvalid() {
+        UnsupportedDataItemDetails unsupportedDataItem = UnsupportedDataItemDetails.builder()
+                .type("allergy/flag")
+                .uniqueIdentifier(null)
+                .reason("reason for being unsupported / why is it unsupported in gp2gp / what would have to change in gp2gp to express this")
                 .build();
 
         EhrGeneratedPayload payload = EhrGeneratedEventBuilder
                 .withDefaultEhrGeneratedPayload()
-                .ehr(ehrPayload)
+                .unsupportedDataItem(List.of(unsupportedDataItem))
                 .build();
 
         EhrGeneratedEvent event = EhrGeneratedEventBuilder
@@ -185,7 +229,7 @@ class EhrGeneratedEventTest {
         assertEquals(1, violations.size());
 
         ConstraintViolation<EhrGeneratedEvent> violation = violations.iterator().next();
-        assertEquals("must not be null", violation.getMessage());
-        assertEquals("payload.ehr.ehrStructuredSizeBytes", violation.getPropertyPath().toString());
+        assertEquals("must not be empty", violation.getMessage());
+        assertEquals("payload.unsupportedDataItem[0].uniqueIdentifier", violation.getPropertyPath().toString());
     }
 }

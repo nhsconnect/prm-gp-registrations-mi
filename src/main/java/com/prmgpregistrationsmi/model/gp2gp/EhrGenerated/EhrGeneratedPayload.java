@@ -26,5 +26,5 @@ public class EhrGeneratedPayload implements Payload {
     @Valid
     @NotNull
     private EhrGeneratedEhrDetails ehr;
-    private List<UnsupportedDataItemDetails> unsupportedDataItem;
+    private List<@Valid UnsupportedDataItemDetails> unsupportedDataItem;
 }

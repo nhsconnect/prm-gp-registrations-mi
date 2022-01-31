@@ -1,6 +1,5 @@
 package com.prmgpregistrationsmi.model.Event.EventPayload;
 
-import com.prmgpregistrationsmi.model.Event.EventPayload.GPTransferMetadata;
 import com.prmgpregistrationsmi.testhelpers.GPTransferMetadataBuilder;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

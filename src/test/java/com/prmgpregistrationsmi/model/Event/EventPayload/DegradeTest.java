@@ -1,8 +1,5 @@
 package com.prmgpregistrationsmi.model.Event.EventPayload;
 
-import com.prmgpregistrationsmi.model.Event.EventPayload.Degrade;
-import com.prmgpregistrationsmi.model.Event.EventPayload.DegradeCode;
-import com.prmgpregistrationsmi.model.Event.EventPayload.SystemCoding;
 import com.prmgpregistrationsmi.testhelpers.DegradeBuilder;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -112,8 +109,8 @@ class DegradeTest {
     void shouldThrowConstraintViolationWhenSystemCodingDegradeCodeIsNullOrEmpty(String degradeCode) {
         List<SystemCoding> systemCodings = List.of(
                 DegradeBuilder.withDefaultSystemCoding()
-                .code(degradeCode)
-                .build());
+                        .code(degradeCode)
+                        .build());
 
         DegradeCode coding = DegradeBuilder
                 .withDefaultDegradeCoding()

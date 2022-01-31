@@ -2,8 +2,13 @@ package com.prmgpregistrationsmi.model.gp2gp.EhrGenerated;
 
 import com.prmgpregistrationsmi.model.Event.EventPayload.Attachment;
 import com.prmgpregistrationsmi.model.Event.EventPayload.Placeholder;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -17,6 +22,6 @@ public class EhrGeneratedEhrDetails {
     private Long ehrTotalSizeBytes;
     @NotNull
     private Long ehrStructuredSizeBytes;
-    private List<Attachment> attachment;
-    private List<Placeholder> placeholder;
+    private List<@Valid Attachment> attachment;
+    private List<@Valid Placeholder> placeholder;
 }
