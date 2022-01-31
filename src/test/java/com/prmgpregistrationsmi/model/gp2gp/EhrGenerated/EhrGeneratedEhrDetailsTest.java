@@ -3,6 +3,7 @@ package com.prmgpregistrationsmi.model.gp2gp.EhrGenerated;
 import com.prmgpregistrationsmi.model.Event.EventPayload.Attachment;
 import com.prmgpregistrationsmi.model.Event.EventPayload.Placeholder;
 import com.prmgpregistrationsmi.testhelpers.AttachmentBuilder;
+import com.prmgpregistrationsmi.testhelpers.PlaceholderBuilder;
 import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrGeneratedEhrDetailsBuilder;
 import org.junit.jupiter.api.Test;
 
@@ -99,12 +100,9 @@ class EhrGeneratedEhrDetailsTest {
 
     @Test
     void shouldThrowConstraintViolationWhenPlaceholdersInTheListAreInvalid() {
-        Placeholder placeholderDetails = Placeholder.builder()
+        Placeholder placeholderDetails = PlaceholderBuilder
+                .withDefaultValues()
                 .placeholderId(null)
-                .attachmentId("1323-132345-1323-132345")
-                .generatedBy("XYZ4567")
-                .reason(1)
-                .originalMimeType("audio/mpeg")
                 .build();
 
         List<Placeholder> emptyList = List.of(placeholderDetails);

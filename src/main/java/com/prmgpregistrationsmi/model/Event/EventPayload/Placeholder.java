@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Positive;
 
 @Getter
 @NoArgsConstructor
@@ -16,8 +17,12 @@ import javax.validation.constraints.NotEmpty;
 public class Placeholder {
     @NotEmpty
     private String placeholderId;
+    @NotEmpty
     private String attachmentId;
+    @NotEmpty
     private String generatedBy;
+    @Positive
     private Integer reason;
+    @NotEmpty
     private String originalMimeType;
 }
