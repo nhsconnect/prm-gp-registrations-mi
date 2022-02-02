@@ -11,6 +11,7 @@ import com.prmgpregistrationsmi.model.gpc.MigrateDocumentRequest.MigrateDocument
 import com.prmgpregistrationsmi.model.gpc.MigrateDocumentResponse.MigrateDocumentResponseEvent;
 import com.prmgpregistrationsmi.model.gpc.MigrateStructuredRecordRequest.MigrateStructuredRecordRequestEvent;
 import com.prmgpregistrationsmi.model.gpc.MigrateStructuredRecordResponse.MigrateStructuredRecordResponseEvent;
+import com.prmgpregistrationsmi.model.gpc.RegistrationCompleted.RegistrationCompletedEvent;
 import com.prmgpregistrationsmi.model.gpc.RegistrationStarted.RegistrationStartedEvent;
 import com.prmgpregistrationsmi.service.RegistrationService;
 import com.prmgpregistrationsmi.testhelpers.gpc.EhrIntegratedEventBuilder;
@@ -19,6 +20,7 @@ import com.prmgpregistrationsmi.testhelpers.gpc.MigrateDocumentRequestEventBuild
 import com.prmgpregistrationsmi.testhelpers.gpc.MigrateDocumentResponseEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.gpc.MigrateStructuredRecordRequestEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.gpc.MigrateStructuredRecordResponseEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.gpc.RegistrationCompletedEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.gpc.RegistrationStartedEventBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -190,6 +192,28 @@ class GPCControllerTest {
         EventResponse actualResponse = gpcController.ehrIntegratedEvent(testEvent);
 
         verify(registrationService).saveEvent(testEvent, EventType.EHR_INTEGRATED, patientSwitchingStandardType);
+
+        EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
+        assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
+    }
+
+    @Test
+    void shouldReturnEventIdWhenReceivingRegistrationCompletedEvent() throws UnableToUploadToS3Exception {
+        RegistrationCompletedEvent testEvent = RegistrationCompletedEventBuilder
+                .withDefaultEventValues()
+                .build();
+
+        EventDAO eventDAO = EventDAO.builder()
+                .eventId(testEvent.getEventId())
+                .build();
+
+        PatientSwitchingStandardType patientSwitchingStandardType = PatientSwitchingStandardType.GP_CONNECT;
+
+        when(registrationService.saveEvent(testEvent, EventType.REGISTRATION_COMPLETED, patientSwitchingStandardType)).thenReturn(eventDAO);
+
+        EventResponse actualResponse = gpcController.registrationCompletedEvent(testEvent);
+
+        verify(registrationService).saveEvent(testEvent, EventType.REGISTRATION_COMPLETED, patientSwitchingStandardType);
 
         EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
         assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
