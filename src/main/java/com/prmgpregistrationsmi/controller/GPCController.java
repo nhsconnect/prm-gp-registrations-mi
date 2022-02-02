@@ -5,6 +5,7 @@ import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.model.Event.PatientSwitchingStandardType;
+import com.prmgpregistrationsmi.model.gpc.EhrIntegrated.EhrIntegratedEvent;
 import com.prmgpregistrationsmi.model.gpc.EhrReadyToIntegrate.EhrReadyToIntegrateEvent;
 import com.prmgpregistrationsmi.model.gpc.MigrateDocumentRequest.MigrateDocumentRequestEvent;
 import com.prmgpregistrationsmi.model.gpc.MigrateDocumentResponse.MigrateDocumentResponseEvent;
@@ -94,6 +95,17 @@ public class GPCController {
     public EventResponse ehrReadyToIntegrateEvent(
             @Valid @RequestBody EhrReadyToIntegrateEvent event) throws UnableToUploadToS3Exception {
         EventDAO eventDAO = registrationService.saveEvent(event, EventType.EHR_READY_TO_INTEGRATE, PatientSwitchingStandardType.GP_CONNECT);
+        return new EventResponse(eventDAO.getEventId());
+    }
+
+    @PostMapping(
+            value = "/ehrIntegrated",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public EventResponse ehrIntegratedEvent(
+            @Valid @RequestBody EhrIntegratedEvent event) throws UnableToUploadToS3Exception {
+        EventDAO eventDAO = registrationService.saveEvent(event, EventType.EHR_INTEGRATED, PatientSwitchingStandardType.GP_CONNECT);
         return new EventResponse(eventDAO.getEventId());
     }
 }

@@ -5,6 +5,7 @@ import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.model.Event.PatientSwitchingStandardType;
+import com.prmgpregistrationsmi.model.gpc.EhrIntegrated.EhrIntegratedEvent;
 import com.prmgpregistrationsmi.model.gpc.EhrReadyToIntegrate.EhrReadyToIntegrateEvent;
 import com.prmgpregistrationsmi.model.gpc.MigrateDocumentRequest.MigrateDocumentRequestEvent;
 import com.prmgpregistrationsmi.model.gpc.MigrateDocumentResponse.MigrateDocumentResponseEvent;
@@ -12,6 +13,7 @@ import com.prmgpregistrationsmi.model.gpc.MigrateStructuredRecordRequest.Migrate
 import com.prmgpregistrationsmi.model.gpc.MigrateStructuredRecordResponse.MigrateStructuredRecordResponseEvent;
 import com.prmgpregistrationsmi.model.gpc.RegistrationStarted.RegistrationStartedEvent;
 import com.prmgpregistrationsmi.service.RegistrationService;
+import com.prmgpregistrationsmi.testhelpers.gpc.EhrIntegratedEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.gpc.EhrReadyToIntegrateEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.gpc.MigrateDocumentRequestEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.gpc.MigrateDocumentResponseEventBuilder;
@@ -40,7 +42,7 @@ class GPCControllerTest {
     }
 
     @Test
-    void registrationStartedEventReturnsEventResponse() throws UnableToUploadToS3Exception {
+    void shouldReturnEventIdWhenReceivingRegistrationStartedEvent() throws UnableToUploadToS3Exception {
         RegistrationStartedEvent testEvent = RegistrationStartedEventBuilder
                 .withDefaultEventValues()
                 .build();
@@ -58,11 +60,11 @@ class GPCControllerTest {
         verify(registrationService).saveEvent(testEvent, EventType.REGISTRATION_STARTED, patientSwitchingStandardType);
 
         EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
-        assertEquals(actualResponse, expectedEventResponse);
+        assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
     }
 
     @Test
-    void MigrateStructuredRecordRequestEventReturnsEventResponse() throws UnableToUploadToS3Exception {
+    void shouldReturnEventIdWhenReceivingMigrateStructuredRecordRequestEvent() throws UnableToUploadToS3Exception {
         MigrateStructuredRecordRequestEvent testEvent = MigrateStructuredRecordRequestEventBuilder
                 .withDefaultEventValues()
                 .build();
@@ -80,11 +82,11 @@ class GPCControllerTest {
         verify(registrationService).saveEvent(testEvent, EventType.MIGRATE_STRUCTURED_RECORD_REQUEST, patientSwitchingStandardType);
 
         EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
-        assertEquals(actualResponse, expectedEventResponse);
+        assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
     }
 
     @Test
-    void MigrateStructuredRecordResponseEventReturnsEventResponse() throws UnableToUploadToS3Exception {
+    void shouldReturnEventIdWhenReceivingMigrateStructuredRecordResponseEvent() throws UnableToUploadToS3Exception {
         MigrateStructuredRecordResponseEvent testEvent = MigrateStructuredRecordResponseEventBuilder
                 .withDefaultEventValues()
                 .build();
@@ -102,11 +104,11 @@ class GPCControllerTest {
         verify(registrationService).saveEvent(testEvent, EventType.MIGRATE_STRUCTURED_RECORD_RESPONSE, patientSwitchingStandardType);
 
         EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
-        assertEquals(actualResponse, expectedEventResponse);
+        assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
     }
 
     @Test
-    void MigrateDocumentRequestEventReturnsEventResponse() throws UnableToUploadToS3Exception {
+    void shouldReturnEventIdWhenReceivingMigrateDocumentRequestEvent() throws UnableToUploadToS3Exception {
         MigrateDocumentRequestEvent testEvent = MigrateDocumentRequestEventBuilder
                 .withDefaultEventValues()
                 .build();
@@ -124,11 +126,11 @@ class GPCControllerTest {
         verify(registrationService).saveEvent(testEvent, EventType.MIGRATE_DOCUMENT_REQUEST, patientSwitchingStandardType);
 
         EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
-        assertEquals(actualResponse, expectedEventResponse);
+        assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
     }
 
     @Test
-    void MigrateDocumentResponseEventReturnsEventResponse() throws UnableToUploadToS3Exception {
+    void shouldReturnEventIdWhenReceivingMigrateDocumentResponseEvent() throws UnableToUploadToS3Exception {
         MigrateDocumentResponseEvent testEvent = MigrateDocumentResponseEventBuilder
                 .withDefaultEventValues()
                 .build();
@@ -146,11 +148,11 @@ class GPCControllerTest {
         verify(registrationService).saveEvent(testEvent, EventType.MIGRATE_DOCUMENT_RESPONSE, patientSwitchingStandardType);
 
         EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
-        assertEquals(expectedEventResponse, actualResponse);
+        assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
     }
 
     @Test
-    void EhrReadyToIntegrateEventReturnsEventResponse() throws UnableToUploadToS3Exception {
+    void shouldReturnEventIdWhenReceivingEhrReadyToIntegrateEvent() throws UnableToUploadToS3Exception {
         EhrReadyToIntegrateEvent testEvent = EhrReadyToIntegrateEventBuilder
                 .withDefaultEventValues()
                 .build();
@@ -168,6 +170,28 @@ class GPCControllerTest {
         verify(registrationService).saveEvent(testEvent, EventType.EHR_READY_TO_INTEGRATE, patientSwitchingStandardType);
 
         EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
-        assertEquals(expectedEventResponse, actualResponse);
+        assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
+    }
+
+    @Test
+    void shouldReturnEventIdWhenReceivingEhrIntegratedEvent() throws UnableToUploadToS3Exception {
+        EhrIntegratedEvent testEvent = EhrIntegratedEventBuilder
+                .withDefaultEventValues()
+                .build();
+
+        EventDAO eventDAO = EventDAO.builder()
+                .eventId(testEvent.getEventId())
+                .build();
+
+        PatientSwitchingStandardType patientSwitchingStandardType = PatientSwitchingStandardType.GP_CONNECT;
+
+        when(registrationService.saveEvent(testEvent, EventType.EHR_INTEGRATED, patientSwitchingStandardType)).thenReturn(eventDAO);
+
+        EventResponse actualResponse = gpcController.ehrIntegratedEvent(testEvent);
+
+        verify(registrationService).saveEvent(testEvent, EventType.EHR_INTEGRATED, patientSwitchingStandardType);
+
+        EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
+        assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
     }
 }
