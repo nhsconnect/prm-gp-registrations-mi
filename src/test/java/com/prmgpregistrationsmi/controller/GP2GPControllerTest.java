@@ -53,7 +53,7 @@ class GP2GPControllerTest {
         verify(registrationService).saveEvent(testEvent, EventType.REGISTRATION_STARTED, patientSwitchingStandardType);
 
         EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
-        assertEquals(actualResponse, expectedEventResponse);
+        assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
     }
 
     @Test
@@ -74,7 +74,7 @@ class GP2GPControllerTest {
         verify(registrationService).saveEvent(testEvent, EventType.EHR_REQUESTED, patientSwitchingStandardType);
 
         EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
-        assertEquals(actualResponse, expectedEventResponse);
+        assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
     }
 
     @Test
@@ -95,7 +95,7 @@ class GP2GPControllerTest {
         verify(registrationService).saveEvent(testEvent, EventType.EHR_GENERATED, patientSwitchingStandardType);
 
         EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
-        assertEquals(actualResponse, expectedEventResponse);
+        assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
     }
 
     @Test
@@ -117,6 +117,6 @@ class GP2GPControllerTest {
         verify(registrationService).saveEvent(testEvent, EventType.EHR_SENT, patientSwitchingStandardType);
 
         EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
-        assertEquals(actualResponse, expectedEventResponse);
+        assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
     }
 }
