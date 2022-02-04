@@ -223,7 +223,6 @@ class GPCControllerTest {
         assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
     }
 
-
     @Test
     void shouldReturnEventIdWhenReceivingErrorEvent() throws UnableToUploadToS3Exception {
         ErrorEvent testEvent = ErrorEventBuilder
@@ -245,8 +244,6 @@ class GPCControllerTest {
         EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
         assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
     }
-
-
 
     @Test
     void shouldReturnEventIdWhenReceivingInternalTransferEvent() throws UnableToUploadToS3Exception {
