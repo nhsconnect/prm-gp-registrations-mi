@@ -9,12 +9,14 @@ import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.model.gp2gp.RegistrationStarted.RegistrationStartedEvent;
+import com.prmgpregistrationsmi.model.gp2gp.EhrIntegrated.EhrIntegratedEvent;
 import com.prmgpregistrationsmi.model.gp2gp.RegistrationCompleted.RegistrationCompletedEvent;
 import com.prmgpregistrationsmi.service.RegistrationService;
 import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrGeneratedEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrRequestedEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrSentEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.gp2gp.RegistrationStartedEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrIntegratedEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.gp2gp.RegistrationCompletedEventBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -117,6 +119,28 @@ class GP2GPControllerTest {
         EventResponse actualResponse = gp2gpController.ehrSentEvent(testEvent);
 
         verify(registrationService).saveEvent(testEvent, EventType.EHR_SENT, patientSwitchingStandardType);
+
+        EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
+        assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
+    }
+
+    @Test
+    void shouldReturnEventIdWhenReceivingEhrIntegratedEvent() throws UnableToUploadToS3Exception {
+        EhrIntegratedEvent testEvent = EhrIntegratedEventBuilder
+                .withDefaultEventValues()
+                .build();
+
+        EventDAO eventDAO = EventDAO.builder()
+                .eventId(testEvent.getEventId())
+                .build();
+
+        PatientSwitchingStandardType patientSwitchingStandardType = PatientSwitchingStandardType.GP2GP;
+
+        when(registrationService.saveEvent(testEvent, EventType.EHR_INTEGRATED, patientSwitchingStandardType)).thenReturn(eventDAO);
+
+        EventResponse actualResponse = gp2gpController.ehrIntegratedEvent(testEvent);
+
+        verify(registrationService).saveEvent(testEvent, EventType.EHR_INTEGRATED, patientSwitchingStandardType);
 
         EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
         assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
