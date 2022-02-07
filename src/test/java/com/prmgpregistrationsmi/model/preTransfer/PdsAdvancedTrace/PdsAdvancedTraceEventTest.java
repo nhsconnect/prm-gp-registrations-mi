@@ -43,6 +43,26 @@ class PdsAdvancedTraceEventTest {
     }
 
     @Test
+    void shouldThrowConstraintViolationWhenSmartcardPresentIsNull() {
+        PdsAdvancedTracePayload payload = PdsAdvancedTraceEventBuilder
+                .withDefaultPdsAdvancedTracePayload()
+                .smartcardPresent(null)
+                .build();
+        PdsAdvancedTraceEvent event = PdsAdvancedTraceEventBuilder
+                .withDefaultEventValues()
+                .payload(payload)
+                .build();
+
+        Set<ConstraintViolation<PdsAdvancedTraceEvent>> violations = validator.validate(event);
+
+        assertEquals(1, violations.size());
+
+        ConstraintViolation<PdsAdvancedTraceEvent> violation = violations.iterator().next();
+        assertEquals("must not be null", violation.getMessage());
+        assertEquals("payload.smartcardPresent", violation.getPropertyPath().toString());
+    }
+
+    @Test
     void shouldThrowConstraintViolationWhenDemographicTraceStatusIsNull() {
         PdsAdvancedTracePayload payload = PdsAdvancedTraceEventBuilder
                 .withDefaultPdsAdvancedTracePayload()

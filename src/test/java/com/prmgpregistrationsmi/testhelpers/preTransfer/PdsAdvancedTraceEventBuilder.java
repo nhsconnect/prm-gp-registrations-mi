@@ -1,6 +1,5 @@
 package com.prmgpregistrationsmi.testhelpers.preTransfer;
 
-import com.prmgpregistrationsmi.model.Event.Event;
 import com.prmgpregistrationsmi.model.preTransfer.PdsAdvancedTrace.PdsAdvancedTraceEvent;
 import com.prmgpregistrationsmi.model.preTransfer.PdsAdvancedTrace.PdsAdvancedTracePayload;
 import com.prmgpregistrationsmi.testhelpers.StatusDetailsBuilder;
@@ -20,6 +19,7 @@ public class PdsAdvancedTraceEventBuilder {
 
     public static PdsAdvancedTracePayload.PdsAdvancedTracePayloadBuilder withDefaultPdsAdvancedTracePayload() {
         return PdsAdvancedTracePayload.builder()
+                .smartcardPresent(true)
                 .demographicTraceStatus(StatusDetailsBuilder.withSuccessfulStatus().build());
     }
 }
