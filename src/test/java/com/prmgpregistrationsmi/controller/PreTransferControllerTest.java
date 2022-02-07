@@ -4,7 +4,7 @@ import com.prmgpregistrationsmi.exception.UnableToUploadToS3Exception;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
-import com.prmgpregistrationsmi.model.Event.PatientSwitchingStandardType;
+import com.prmgpregistrationsmi.model.Event.TransferProtocol;
 import com.prmgpregistrationsmi.model.preTransfer.PdsAdvancedTrace.PdsAdvancedTraceEvent;
 import com.prmgpregistrationsmi.service.RegistrationService;
 import com.prmgpregistrationsmi.testhelpers.preTransfer.PdsAdvancedTraceEventBuilder;
@@ -39,13 +39,13 @@ class PreTransferControllerTest {
                 .eventId(testEvent.getEventId())
                 .build();
 
-        PatientSwitchingStandardType patientSwitchingStandardType = PatientSwitchingStandardType.PRE_TRANSFER;
+        TransferProtocol transferProtocol = TransferProtocol.PRE_TRANSFER;
 
-        when(registrationService.saveEvent(testEvent, EventType.PDS_ADVANCED_TRACE, patientSwitchingStandardType)).thenReturn(eventDAO);
+        when(registrationService.saveEvent(testEvent, EventType.PDS_ADVANCED_TRACE, transferProtocol)).thenReturn(eventDAO);
 
         EventResponse actualResponse = preTransferController.pdsAdvancedTraceEvent(testEvent);
 
-        verify(registrationService).saveEvent(testEvent, EventType.PDS_ADVANCED_TRACE, patientSwitchingStandardType);
+        verify(registrationService).saveEvent(testEvent, EventType.PDS_ADVANCED_TRACE, transferProtocol);
 
         EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
         assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());

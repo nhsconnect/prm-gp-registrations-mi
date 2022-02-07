@@ -4,7 +4,7 @@ import com.prmgpregistrationsmi.exception.UnableToUploadToS3Exception;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
-import com.prmgpregistrationsmi.model.Event.PatientSwitchingStandardType;
+import com.prmgpregistrationsmi.model.Event.TransferProtocol;
 import com.prmgpregistrationsmi.model.gp2gp.EhrGenerated.EhrGeneratedEvent;
 import com.prmgpregistrationsmi.model.gp2gp.EhrIntegrated.EhrIntegratedEvent;
 import com.prmgpregistrationsmi.model.gp2gp.EhrRequested.EhrRequestedEvent;
@@ -41,7 +41,7 @@ public class GP2GPController {
     )
     public EventResponse registrationStartedEvent(
             @Valid @RequestBody RegistrationStartedEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.REGISTRATION_STARTED, PatientSwitchingStandardType.GP2GP);
+        EventDAO eventDAO = registrationService.saveEvent(event, EventType.REGISTRATION_STARTED, TransferProtocol.GP2GP);
         return new EventResponse(eventDAO.getEventId());
     }
 
@@ -52,7 +52,7 @@ public class GP2GPController {
     )
     public EventResponse ehrRequestedEvent(
             @Valid @RequestBody EhrRequestedEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.EHR_REQUESTED, PatientSwitchingStandardType.GP2GP);
+        EventDAO eventDAO = registrationService.saveEvent(event, EventType.EHR_REQUESTED, TransferProtocol.GP2GP);
         return new EventResponse(eventDAO.getEventId());
     }
 
@@ -63,7 +63,7 @@ public class GP2GPController {
     )
     public EventResponse ehrGeneratedEvent(
             @Valid @RequestBody EhrGeneratedEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.EHR_GENERATED, PatientSwitchingStandardType.GP2GP);
+        EventDAO eventDAO = registrationService.saveEvent(event, EventType.EHR_GENERATED, TransferProtocol.GP2GP);
         return new EventResponse(eventDAO.getEventId());
     }
 
@@ -74,7 +74,7 @@ public class GP2GPController {
     )
     public EventResponse ehrSentEvent(
             @Valid @RequestBody EhrSentEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.EHR_SENT, PatientSwitchingStandardType.GP2GP);
+        EventDAO eventDAO = registrationService.saveEvent(event, EventType.EHR_SENT, TransferProtocol.GP2GP);
         return new EventResponse(eventDAO.getEventId());
     }
 
@@ -85,7 +85,7 @@ public class GP2GPController {
     )
     public EventResponse registrationCompletedEvent(
             @Valid @RequestBody RegistrationCompletedEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.REGISTRATION_COMPLETED, PatientSwitchingStandardType.GP2GP);
+        EventDAO eventDAO = registrationService.saveEvent(event, EventType.REGISTRATION_COMPLETED, TransferProtocol.GP2GP);
         return new EventResponse(eventDAO.getEventId());
     }
 
@@ -96,7 +96,7 @@ public class GP2GPController {
     )
     public EventResponse ehrIntegratedEvent(
             @Valid @RequestBody EhrIntegratedEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.EHR_INTEGRATED, PatientSwitchingStandardType.GP2GP);
+        EventDAO eventDAO = registrationService.saveEvent(event, EventType.EHR_INTEGRATED, TransferProtocol.GP2GP);
         return new EventResponse(eventDAO.getEventId());
     }
 
@@ -107,7 +107,7 @@ public class GP2GPController {
     )
     public EventResponse ehrValidatedEvent(
             @Valid @RequestBody EhrValidatedEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.EHR_VALIDATED, PatientSwitchingStandardType.GP2GP);
+        EventDAO eventDAO = registrationService.saveEvent(event, EventType.EHR_VALIDATED, TransferProtocol.GP2GP);
         return new EventResponse(eventDAO.getEventId());
     }
 }

@@ -4,7 +4,7 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
-import com.prmgpregistrationsmi.model.Event.PatientSwitchingStandardType;
+import com.prmgpregistrationsmi.model.Event.TransferProtocol;
 import com.prmgpregistrationsmi.model.gp2gp.RegistrationCompleted.RegistrationCompletedEvent;
 import com.prmgpregistrationsmi.testhelpers.gp2gp.RegistrationCompletedEventBuilder;
 import org.junit.jupiter.api.Test;
@@ -39,7 +39,7 @@ class RegistrationCompletedEventIntegrationTest {
                 registrationCompletedEventRequest.getEventId(),
                 registrationCompletedEventRequest.getEventGeneratedDateTime(),
                 EventType.REGISTRATION_COMPLETED,
-                PatientSwitchingStandardType.GP2GP,
+                TransferProtocol.GP2GP,
                 registrationCompletedEventRequest.getRegistrationId(),
                 registrationCompletedEventRequest.getReportingSystemSupplier(),
                 registrationCompletedEventRequest.getReportingPracticeOdsCode(),

@@ -4,7 +4,7 @@ import com.prmgpregistrationsmi.exception.UnableToUploadToS3Exception;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
-import com.prmgpregistrationsmi.model.Event.PatientSwitchingStandardType;
+import com.prmgpregistrationsmi.model.Event.TransferProtocol;
 import com.prmgpregistrationsmi.model.gpc.EhrIntegrated.EhrIntegratedEvent;
 import com.prmgpregistrationsmi.model.gpc.EhrReadyToIntegrate.EhrReadyToIntegrateEvent;
 import com.prmgpregistrationsmi.model.gpc.Error.ErrorEvent;
@@ -57,13 +57,13 @@ class GPCControllerTest {
                 .eventId(testEvent.getEventId())
                 .build();
 
-        PatientSwitchingStandardType patientSwitchingStandardType = PatientSwitchingStandardType.GP_CONNECT;
+        TransferProtocol transferProtocol = TransferProtocol.GP_CONNECT;
 
-        when(registrationService.saveEvent(testEvent, EventType.REGISTRATION_STARTED, patientSwitchingStandardType)).thenReturn(eventDAO);
+        when(registrationService.saveEvent(testEvent, EventType.REGISTRATION_STARTED, transferProtocol)).thenReturn(eventDAO);
 
         EventResponse actualResponse = gpcController.registrationStartedEvent(testEvent);
 
-        verify(registrationService).saveEvent(testEvent, EventType.REGISTRATION_STARTED, patientSwitchingStandardType);
+        verify(registrationService).saveEvent(testEvent, EventType.REGISTRATION_STARTED, transferProtocol);
 
         EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
         assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
@@ -79,13 +79,13 @@ class GPCControllerTest {
                 .eventId(testEvent.getEventId())
                 .build();
 
-        PatientSwitchingStandardType patientSwitchingStandardType = PatientSwitchingStandardType.GP_CONNECT;
+        TransferProtocol transferProtocol = TransferProtocol.GP_CONNECT;
 
-        when(registrationService.saveEvent(testEvent, EventType.MIGRATE_STRUCTURED_RECORD_REQUEST, patientSwitchingStandardType)).thenReturn(eventDAO);
+        when(registrationService.saveEvent(testEvent, EventType.MIGRATE_STRUCTURED_RECORD_REQUEST, transferProtocol)).thenReturn(eventDAO);
 
         EventResponse actualResponse = gpcController.migrateStructuredRecordRequestEvent(testEvent);
 
-        verify(registrationService).saveEvent(testEvent, EventType.MIGRATE_STRUCTURED_RECORD_REQUEST, patientSwitchingStandardType);
+        verify(registrationService).saveEvent(testEvent, EventType.MIGRATE_STRUCTURED_RECORD_REQUEST, transferProtocol);
 
         EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
         assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
@@ -101,13 +101,13 @@ class GPCControllerTest {
                 .eventId(testEvent.getEventId())
                 .build();
 
-        PatientSwitchingStandardType patientSwitchingStandardType = PatientSwitchingStandardType.GP_CONNECT;
+        TransferProtocol transferProtocol = TransferProtocol.GP_CONNECT;
 
-        when(registrationService.saveEvent(testEvent, EventType.MIGRATE_STRUCTURED_RECORD_RESPONSE, patientSwitchingStandardType)).thenReturn(eventDAO);
+        when(registrationService.saveEvent(testEvent, EventType.MIGRATE_STRUCTURED_RECORD_RESPONSE, transferProtocol)).thenReturn(eventDAO);
 
         EventResponse actualResponse = gpcController.migrateStructuredRecordResponseEvent(testEvent);
 
-        verify(registrationService).saveEvent(testEvent, EventType.MIGRATE_STRUCTURED_RECORD_RESPONSE, patientSwitchingStandardType);
+        verify(registrationService).saveEvent(testEvent, EventType.MIGRATE_STRUCTURED_RECORD_RESPONSE, transferProtocol);
 
         EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
         assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
@@ -123,13 +123,13 @@ class GPCControllerTest {
                 .eventId(testEvent.getEventId())
                 .build();
 
-        PatientSwitchingStandardType patientSwitchingStandardType = PatientSwitchingStandardType.GP_CONNECT;
+        TransferProtocol transferProtocol = TransferProtocol.GP_CONNECT;
 
-        when(registrationService.saveEvent(testEvent, EventType.MIGRATE_DOCUMENT_REQUEST, patientSwitchingStandardType)).thenReturn(eventDAO);
+        when(registrationService.saveEvent(testEvent, EventType.MIGRATE_DOCUMENT_REQUEST, transferProtocol)).thenReturn(eventDAO);
 
         EventResponse actualResponse = gpcController.migrateDocumentRequestEvent(testEvent);
 
-        verify(registrationService).saveEvent(testEvent, EventType.MIGRATE_DOCUMENT_REQUEST, patientSwitchingStandardType);
+        verify(registrationService).saveEvent(testEvent, EventType.MIGRATE_DOCUMENT_REQUEST, transferProtocol);
 
         EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
         assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
@@ -145,13 +145,13 @@ class GPCControllerTest {
                 .eventId(testEvent.getEventId())
                 .build();
 
-        PatientSwitchingStandardType patientSwitchingStandardType = PatientSwitchingStandardType.GP_CONNECT;
+        TransferProtocol transferProtocol = TransferProtocol.GP_CONNECT;
 
-        when(registrationService.saveEvent(testEvent, EventType.MIGRATE_DOCUMENT_RESPONSE, patientSwitchingStandardType)).thenReturn(eventDAO);
+        when(registrationService.saveEvent(testEvent, EventType.MIGRATE_DOCUMENT_RESPONSE, transferProtocol)).thenReturn(eventDAO);
 
         EventResponse actualResponse = gpcController.migrateDocumentResponseEvent(testEvent);
 
-        verify(registrationService).saveEvent(testEvent, EventType.MIGRATE_DOCUMENT_RESPONSE, patientSwitchingStandardType);
+        verify(registrationService).saveEvent(testEvent, EventType.MIGRATE_DOCUMENT_RESPONSE, transferProtocol);
 
         EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
         assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
@@ -167,13 +167,13 @@ class GPCControllerTest {
                 .eventId(testEvent.getEventId())
                 .build();
 
-        PatientSwitchingStandardType patientSwitchingStandardType = PatientSwitchingStandardType.GP_CONNECT;
+        TransferProtocol transferProtocol = TransferProtocol.GP_CONNECT;
 
-        when(registrationService.saveEvent(testEvent, EventType.EHR_READY_TO_INTEGRATE, patientSwitchingStandardType)).thenReturn(eventDAO);
+        when(registrationService.saveEvent(testEvent, EventType.EHR_READY_TO_INTEGRATE, transferProtocol)).thenReturn(eventDAO);
 
         EventResponse actualResponse = gpcController.ehrReadyToIntegrateEvent(testEvent);
 
-        verify(registrationService).saveEvent(testEvent, EventType.EHR_READY_TO_INTEGRATE, patientSwitchingStandardType);
+        verify(registrationService).saveEvent(testEvent, EventType.EHR_READY_TO_INTEGRATE, transferProtocol);
 
         EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
         assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
@@ -189,13 +189,13 @@ class GPCControllerTest {
                 .eventId(testEvent.getEventId())
                 .build();
 
-        PatientSwitchingStandardType patientSwitchingStandardType = PatientSwitchingStandardType.GP_CONNECT;
+        TransferProtocol transferProtocol = TransferProtocol.GP_CONNECT;
 
-        when(registrationService.saveEvent(testEvent, EventType.EHR_INTEGRATED, patientSwitchingStandardType)).thenReturn(eventDAO);
+        when(registrationService.saveEvent(testEvent, EventType.EHR_INTEGRATED, transferProtocol)).thenReturn(eventDAO);
 
         EventResponse actualResponse = gpcController.ehrIntegratedEvent(testEvent);
 
-        verify(registrationService).saveEvent(testEvent, EventType.EHR_INTEGRATED, patientSwitchingStandardType);
+        verify(registrationService).saveEvent(testEvent, EventType.EHR_INTEGRATED, transferProtocol);
 
         EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
         assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
@@ -211,13 +211,13 @@ class GPCControllerTest {
                 .eventId(testEvent.getEventId())
                 .build();
 
-        PatientSwitchingStandardType patientSwitchingStandardType = PatientSwitchingStandardType.GP_CONNECT;
+        TransferProtocol transferProtocol = TransferProtocol.GP_CONNECT;
 
-        when(registrationService.saveEvent(testEvent, EventType.REGISTRATION_COMPLETED, patientSwitchingStandardType)).thenReturn(eventDAO);
+        when(registrationService.saveEvent(testEvent, EventType.REGISTRATION_COMPLETED, transferProtocol)).thenReturn(eventDAO);
 
         EventResponse actualResponse = gpcController.registrationCompletedEvent(testEvent);
 
-        verify(registrationService).saveEvent(testEvent, EventType.REGISTRATION_COMPLETED, patientSwitchingStandardType);
+        verify(registrationService).saveEvent(testEvent, EventType.REGISTRATION_COMPLETED, transferProtocol);
 
         EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
         assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
@@ -233,13 +233,13 @@ class GPCControllerTest {
                 .eventId(testEvent.getEventId())
                 .build();
 
-        PatientSwitchingStandardType patientSwitchingStandardType = PatientSwitchingStandardType.GP_CONNECT;
+        TransferProtocol transferProtocol = TransferProtocol.GP_CONNECT;
 
-        when(registrationService.saveEvent(testEvent, EventType.ERROR, patientSwitchingStandardType)).thenReturn(eventDAO);
+        when(registrationService.saveEvent(testEvent, EventType.ERROR, transferProtocol)).thenReturn(eventDAO);
 
         EventResponse actualResponse = gpcController.errorEvent(testEvent);
 
-        verify(registrationService).saveEvent(testEvent, EventType.ERROR, patientSwitchingStandardType);
+        verify(registrationService).saveEvent(testEvent, EventType.ERROR, transferProtocol);
 
         EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
         assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
@@ -255,13 +255,13 @@ class GPCControllerTest {
                 .eventId(testEvent.getEventId())
                 .build();
 
-        PatientSwitchingStandardType patientSwitchingStandardType = PatientSwitchingStandardType.GP_CONNECT;
+        TransferProtocol transferProtocol = TransferProtocol.GP_CONNECT;
 
-        when(registrationService.saveEvent(testEvent, EventType.INTERNAL_TRANSFER, patientSwitchingStandardType)).thenReturn(eventDAO);
+        when(registrationService.saveEvent(testEvent, EventType.INTERNAL_TRANSFER, transferProtocol)).thenReturn(eventDAO);
 
         EventResponse actualResponse = gpcController.internalTransferEvent(testEvent);
 
-        verify(registrationService).saveEvent(testEvent, EventType.INTERNAL_TRANSFER, patientSwitchingStandardType);
+        verify(registrationService).saveEvent(testEvent, EventType.INTERNAL_TRANSFER, transferProtocol);
 
         EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
         assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());

@@ -4,7 +4,7 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
-import com.prmgpregistrationsmi.model.Event.PatientSwitchingStandardType;
+import com.prmgpregistrationsmi.model.Event.TransferProtocol;
 import com.prmgpregistrationsmi.model.preTransfer.PdsAdvancedTrace.PdsAdvancedTraceEvent;
 import com.prmgpregistrationsmi.model.preTransfer.PdsAdvancedTrace.PdsAdvancedTracePayload;
 import com.prmgpregistrationsmi.testhelpers.preTransfer.PdsAdvancedTraceEventBuilder;
@@ -44,7 +44,7 @@ class PdsAdvancedTraceEventIntegrationTest {
                 ehrIntegratedEventRequest.getEventId(),
                 ehrIntegratedEventRequest.getEventGeneratedDateTime(),
                 EventType.PDS_ADVANCED_TRACE,
-                PatientSwitchingStandardType.PRE_TRANSFER,
+                TransferProtocol.PRE_TRANSFER,
                 ehrIntegratedEventRequest.getRegistrationId(),
                 ehrIntegratedEventRequest.getReportingSystemSupplier(),
                 ehrIntegratedEventRequest.getReportingPracticeOdsCode(),

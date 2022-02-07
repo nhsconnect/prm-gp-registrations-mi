@@ -2,7 +2,7 @@ package com.prmgpregistrationsmi.model.Event.EventPayload;
 
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventType;
-import com.prmgpregistrationsmi.model.Event.PatientSwitchingStandardType;
+import com.prmgpregistrationsmi.model.Event.TransferProtocol;
 import com.prmgpregistrationsmi.model.gp2gp.RegistrationStarted.RegistrationStartedEvent;
 import com.prmgpregistrationsmi.testhelpers.gp2gp.RegistrationStartedEventBuilder;
 import org.junit.jupiter.api.Test;
@@ -15,13 +15,13 @@ class EventDAOTest {
 
         RegistrationStartedEvent testEvent = RegistrationStartedEventBuilder.withDefaultEventValues().build();
         EventType gp2gpRegistrationStartedEventType = EventType.REGISTRATION_STARTED;
-        PatientSwitchingStandardType patientSwitchingStandardType = PatientSwitchingStandardType.GP2GP;
-        EventDAO actualEventDAO = EventDAO.fromEvent(testEvent, gp2gpRegistrationStartedEventType, patientSwitchingStandardType);
+        TransferProtocol transferProtocol = TransferProtocol.GP2GP;
+        EventDAO actualEventDAO = EventDAO.fromEvent(testEvent, gp2gpRegistrationStartedEventType, transferProtocol);
 
         assertEquals(actualEventDAO.getEventId(), testEvent.getEventId());
         assertEquals(actualEventDAO.getEventGeneratedDateTime(), testEvent.getEventGeneratedDateTime());
         assertEquals(actualEventDAO.getEventType(), gp2gpRegistrationStartedEventType);
-        assertEquals(actualEventDAO.getPatientSwitchingStandardType(), patientSwitchingStandardType);
+        assertEquals(actualEventDAO.getTransferProtocol(), transferProtocol);
         assertEquals(actualEventDAO.getRegistrationId(), testEvent.getRegistrationId());
         assertEquals(actualEventDAO.getReportingSystemSupplier(), testEvent.getReportingSystemSupplier());
         assertEquals(actualEventDAO.getReportingPracticeOdsCode(), testEvent.getReportingPracticeOdsCode());

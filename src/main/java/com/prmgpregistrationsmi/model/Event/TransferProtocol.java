@@ -1,6 +1,6 @@
 package com.prmgpregistrationsmi.model.Event;
 
-public enum PatientSwitchingStandardType {
+public enum TransferProtocol {
     GP2GP,
     GP_CONNECT,
     PRE_TRANSFER

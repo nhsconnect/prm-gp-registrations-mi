@@ -4,7 +4,7 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
-import com.prmgpregistrationsmi.model.Event.PatientSwitchingStandardType;
+import com.prmgpregistrationsmi.model.Event.TransferProtocol;
 import com.prmgpregistrationsmi.model.gpc.MigrateDocumentResponse.MigrateDocumentResponseEvent;
 import com.prmgpregistrationsmi.model.gpc.MigrateDocumentResponse.MigrateDocumentResponsePayload;
 import com.prmgpregistrationsmi.testhelpers.gpc.MigrateDocumentResponseEventBuilder;
@@ -44,7 +44,7 @@ class MigrateDocumentResponseEventIntegrationTest {
                 migrateDocumentResponseEventRequest.getEventId(),
                 migrateDocumentResponseEventRequest.getEventGeneratedDateTime(),
                 EventType.MIGRATE_DOCUMENT_RESPONSE,
-                PatientSwitchingStandardType.GP_CONNECT,
+                TransferProtocol.GP_CONNECT,
                 migrateDocumentResponseEventRequest.getRegistrationId(),
                 migrateDocumentResponseEventRequest.getReportingSystemSupplier(),
                 migrateDocumentResponseEventRequest.getReportingPracticeOdsCode(),

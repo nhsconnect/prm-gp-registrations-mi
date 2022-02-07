@@ -4,9 +4,8 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
-import com.prmgpregistrationsmi.model.Event.PatientSwitchingStandardType;
+import com.prmgpregistrationsmi.model.Event.TransferProtocol;
 import com.prmgpregistrationsmi.model.gpc.Error.ErrorEvent;
-import com.prmgpregistrationsmi.model.gpc.Error.ErrorPayload;
 import com.prmgpregistrationsmi.testhelpers.gpc.ErrorEventBuilder;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +39,7 @@ class ErrorEventIntegrationTest {
                 errorEventRequest.getEventId(),
                 errorEventRequest.getEventGeneratedDateTime(),
                 EventType.ERROR,
-                PatientSwitchingStandardType.GP_CONNECT,
+                TransferProtocol.GP_CONNECT,
                 errorEventRequest.getRegistrationId(),
                 errorEventRequest.getReportingSystemSupplier(),
                 errorEventRequest.getReportingPracticeOdsCode(),

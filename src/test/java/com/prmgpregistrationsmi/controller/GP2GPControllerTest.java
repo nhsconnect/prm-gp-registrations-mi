@@ -1,7 +1,7 @@
 package com.prmgpregistrationsmi.controller;
 
 import com.prmgpregistrationsmi.exception.UnableToUploadToS3Exception;
-import com.prmgpregistrationsmi.model.Event.PatientSwitchingStandardType;
+import com.prmgpregistrationsmi.model.Event.TransferProtocol;
 import com.prmgpregistrationsmi.model.gp2gp.EhrGenerated.EhrGeneratedEvent;
 import com.prmgpregistrationsmi.model.gp2gp.EhrRequested.EhrRequestedEvent;
 import com.prmgpregistrationsmi.model.gp2gp.EhrSent.EhrSentEvent;
@@ -50,13 +50,13 @@ class GP2GPControllerTest {
         EventDAO eventDAO = EventDAO.builder()
                 .eventId(testEvent.getEventId())
                 .build();
-        PatientSwitchingStandardType patientSwitchingStandardType = PatientSwitchingStandardType.GP2GP;
+        TransferProtocol transferProtocol = TransferProtocol.GP2GP;
 
-        when(registrationService.saveEvent(testEvent, EventType.REGISTRATION_STARTED, patientSwitchingStandardType)).thenReturn(eventDAO);
+        when(registrationService.saveEvent(testEvent, EventType.REGISTRATION_STARTED, transferProtocol)).thenReturn(eventDAO);
 
         EventResponse actualResponse = gp2gpController.registrationStartedEvent(testEvent);
 
-        verify(registrationService).saveEvent(testEvent, EventType.REGISTRATION_STARTED, patientSwitchingStandardType);
+        verify(registrationService).saveEvent(testEvent, EventType.REGISTRATION_STARTED, transferProtocol);
 
         EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
         assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
@@ -71,13 +71,13 @@ class GP2GPControllerTest {
         EventDAO eventDAO = EventDAO.builder()
                 .eventId(testEvent.getEventId())
                 .build();
-        PatientSwitchingStandardType patientSwitchingStandardType = PatientSwitchingStandardType.GP2GP;
+        TransferProtocol transferProtocol = TransferProtocol.GP2GP;
 
-        when(registrationService.saveEvent(testEvent, EventType.EHR_REQUESTED, patientSwitchingStandardType)).thenReturn(eventDAO);
+        when(registrationService.saveEvent(testEvent, EventType.EHR_REQUESTED, transferProtocol)).thenReturn(eventDAO);
 
         EventResponse actualResponse = gp2gpController.ehrRequestedEvent(testEvent);
 
-        verify(registrationService).saveEvent(testEvent, EventType.EHR_REQUESTED, patientSwitchingStandardType);
+        verify(registrationService).saveEvent(testEvent, EventType.EHR_REQUESTED, transferProtocol);
 
         EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
         assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
@@ -92,13 +92,13 @@ class GP2GPControllerTest {
         EventDAO eventDAO = EventDAO.builder()
                 .eventId(testEvent.getEventId())
                 .build();
-        PatientSwitchingStandardType patientSwitchingStandardType = PatientSwitchingStandardType.GP2GP;
+        TransferProtocol transferProtocol = TransferProtocol.GP2GP;
 
-        when(registrationService.saveEvent(testEvent, EventType.EHR_GENERATED, patientSwitchingStandardType)).thenReturn(eventDAO);
+        when(registrationService.saveEvent(testEvent, EventType.EHR_GENERATED, transferProtocol)).thenReturn(eventDAO);
 
         EventResponse actualResponse = gp2gpController.ehrGeneratedEvent(testEvent);
 
-        verify(registrationService).saveEvent(testEvent, EventType.EHR_GENERATED, patientSwitchingStandardType);
+        verify(registrationService).saveEvent(testEvent, EventType.EHR_GENERATED, transferProtocol);
 
         EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
         assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
@@ -114,13 +114,13 @@ class GP2GPControllerTest {
                 .eventId(testEvent.getEventId())
                 .build();
 
-        PatientSwitchingStandardType patientSwitchingStandardType = PatientSwitchingStandardType.GP2GP;
+        TransferProtocol transferProtocol = TransferProtocol.GP2GP;
 
-        when(registrationService.saveEvent(testEvent, EventType.EHR_SENT, patientSwitchingStandardType)).thenReturn(eventDAO);
+        when(registrationService.saveEvent(testEvent, EventType.EHR_SENT, transferProtocol)).thenReturn(eventDAO);
 
         EventResponse actualResponse = gp2gpController.ehrSentEvent(testEvent);
 
-        verify(registrationService).saveEvent(testEvent, EventType.EHR_SENT, patientSwitchingStandardType);
+        verify(registrationService).saveEvent(testEvent, EventType.EHR_SENT, transferProtocol);
 
         EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
         assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
@@ -136,13 +136,13 @@ class GP2GPControllerTest {
                 .eventId(testEvent.getEventId())
                 .build();
 
-        PatientSwitchingStandardType patientSwitchingStandardType = PatientSwitchingStandardType.GP2GP;
+        TransferProtocol transferProtocol = TransferProtocol.GP2GP;
 
-        when(registrationService.saveEvent(testEvent, EventType.EHR_INTEGRATED, patientSwitchingStandardType)).thenReturn(eventDAO);
+        when(registrationService.saveEvent(testEvent, EventType.EHR_INTEGRATED, transferProtocol)).thenReturn(eventDAO);
 
         EventResponse actualResponse = gp2gpController.ehrIntegratedEvent(testEvent);
 
-        verify(registrationService).saveEvent(testEvent, EventType.EHR_INTEGRATED, patientSwitchingStandardType);
+        verify(registrationService).saveEvent(testEvent, EventType.EHR_INTEGRATED, transferProtocol);
 
         EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
         assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
@@ -158,13 +158,13 @@ class GP2GPControllerTest {
                 .eventId(testEvent.getEventId())
                 .build();
 
-        PatientSwitchingStandardType patientSwitchingStandardType = PatientSwitchingStandardType.GP2GP;
+        TransferProtocol transferProtocol = TransferProtocol.GP2GP;
 
-        when(registrationService.saveEvent(testEvent, EventType.REGISTRATION_COMPLETED, patientSwitchingStandardType)).thenReturn(eventDAO);
+        when(registrationService.saveEvent(testEvent, EventType.REGISTRATION_COMPLETED, transferProtocol)).thenReturn(eventDAO);
 
         EventResponse actualResponse = gp2gpController.registrationCompletedEvent(testEvent);
 
-        verify(registrationService).saveEvent(testEvent, EventType.REGISTRATION_COMPLETED, patientSwitchingStandardType);
+        verify(registrationService).saveEvent(testEvent, EventType.REGISTRATION_COMPLETED, transferProtocol);
 
         EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
         assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
@@ -180,13 +180,13 @@ class GP2GPControllerTest {
                 .eventId(testEvent.getEventId())
                 .build();
 
-        PatientSwitchingStandardType patientSwitchingStandardType = PatientSwitchingStandardType.GP2GP;
+        TransferProtocol transferProtocol = TransferProtocol.GP2GP;
 
-        when(registrationService.saveEvent(testEvent, EventType.EHR_VALIDATED, patientSwitchingStandardType)).thenReturn(eventDAO);
+        when(registrationService.saveEvent(testEvent, EventType.EHR_VALIDATED, transferProtocol)).thenReturn(eventDAO);
 
         EventResponse actualResponse = gp2gpController.ehrValidatedEvent(testEvent);
 
-        verify(registrationService).saveEvent(testEvent, EventType.EHR_VALIDATED, patientSwitchingStandardType);
+        verify(registrationService).saveEvent(testEvent, EventType.EHR_VALIDATED, transferProtocol);
 
         EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
         assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());

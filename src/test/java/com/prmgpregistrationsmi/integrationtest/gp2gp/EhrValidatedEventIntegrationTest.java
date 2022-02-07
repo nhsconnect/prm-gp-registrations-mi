@@ -4,7 +4,7 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
-import com.prmgpregistrationsmi.model.Event.PatientSwitchingStandardType;
+import com.prmgpregistrationsmi.model.Event.TransferProtocol;
 import com.prmgpregistrationsmi.model.gp2gp.EhrValidated.EhrValidatedEvent;
 import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrValidatedEventBuilder;
 import org.junit.jupiter.api.Test;
@@ -39,7 +39,7 @@ class EhrValidatedEventIntegrationTest {
                 ehrValidatedEventRequest.getEventId(),
                 ehrValidatedEventRequest.getEventGeneratedDateTime(),
                 EventType.EHR_VALIDATED,
-                PatientSwitchingStandardType.GP2GP,
+                TransferProtocol.GP2GP,
                 ehrValidatedEventRequest.getRegistrationId(),
                 ehrValidatedEventRequest.getReportingSystemSupplier(),
                 ehrValidatedEventRequest.getReportingPracticeOdsCode(),

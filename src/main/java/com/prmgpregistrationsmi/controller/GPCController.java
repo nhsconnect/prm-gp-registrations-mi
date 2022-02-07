@@ -4,7 +4,7 @@ import com.prmgpregistrationsmi.exception.UnableToUploadToS3Exception;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
-import com.prmgpregistrationsmi.model.Event.PatientSwitchingStandardType;
+import com.prmgpregistrationsmi.model.Event.TransferProtocol;
 import com.prmgpregistrationsmi.model.gpc.EhrIntegrated.EhrIntegratedEvent;
 import com.prmgpregistrationsmi.model.gpc.EhrReadyToIntegrate.EhrReadyToIntegrateEvent;
 import com.prmgpregistrationsmi.model.gpc.Error.ErrorEvent;
@@ -42,7 +42,7 @@ public class GPCController {
     )
     public EventResponse registrationStartedEvent(
             @Valid @RequestBody RegistrationStartedEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.REGISTRATION_STARTED, PatientSwitchingStandardType.GP_CONNECT);
+        EventDAO eventDAO = registrationService.saveEvent(event, EventType.REGISTRATION_STARTED, TransferProtocol.GP_CONNECT);
         return new EventResponse(eventDAO.getEventId());
     }
 
@@ -53,7 +53,7 @@ public class GPCController {
     )
     public EventResponse migrateStructuredRecordRequestEvent(
             @Valid @RequestBody MigrateStructuredRecordRequestEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.MIGRATE_STRUCTURED_RECORD_REQUEST, PatientSwitchingStandardType.GP_CONNECT);
+        EventDAO eventDAO = registrationService.saveEvent(event, EventType.MIGRATE_STRUCTURED_RECORD_REQUEST, TransferProtocol.GP_CONNECT);
         return new EventResponse(eventDAO.getEventId());
     }
 
@@ -64,7 +64,7 @@ public class GPCController {
     )
     public EventResponse migrateStructuredRecordResponseEvent(
             @Valid @RequestBody MigrateStructuredRecordResponseEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.MIGRATE_STRUCTURED_RECORD_RESPONSE, PatientSwitchingStandardType.GP_CONNECT);
+        EventDAO eventDAO = registrationService.saveEvent(event, EventType.MIGRATE_STRUCTURED_RECORD_RESPONSE, TransferProtocol.GP_CONNECT);
         return new EventResponse(eventDAO.getEventId());
     }
 
@@ -75,7 +75,7 @@ public class GPCController {
     )
     public EventResponse migrateDocumentRequestEvent(
             @Valid @RequestBody MigrateDocumentRequestEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.MIGRATE_DOCUMENT_REQUEST, PatientSwitchingStandardType.GP_CONNECT);
+        EventDAO eventDAO = registrationService.saveEvent(event, EventType.MIGRATE_DOCUMENT_REQUEST, TransferProtocol.GP_CONNECT);
         return new EventResponse(eventDAO.getEventId());
     }
 
@@ -86,7 +86,7 @@ public class GPCController {
     )
     public EventResponse migrateDocumentResponseEvent(
             @Valid @RequestBody MigrateDocumentResponseEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.MIGRATE_DOCUMENT_RESPONSE, PatientSwitchingStandardType.GP_CONNECT);
+        EventDAO eventDAO = registrationService.saveEvent(event, EventType.MIGRATE_DOCUMENT_RESPONSE, TransferProtocol.GP_CONNECT);
         return new EventResponse(eventDAO.getEventId());
     }
 
@@ -97,7 +97,7 @@ public class GPCController {
     )
     public EventResponse ehrReadyToIntegrateEvent(
             @Valid @RequestBody EhrReadyToIntegrateEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.EHR_READY_TO_INTEGRATE, PatientSwitchingStandardType.GP_CONNECT);
+        EventDAO eventDAO = registrationService.saveEvent(event, EventType.EHR_READY_TO_INTEGRATE, TransferProtocol.GP_CONNECT);
         return new EventResponse(eventDAO.getEventId());
     }
 
@@ -108,7 +108,7 @@ public class GPCController {
     )
     public EventResponse ehrIntegratedEvent(
             @Valid @RequestBody EhrIntegratedEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.EHR_INTEGRATED, PatientSwitchingStandardType.GP_CONNECT);
+        EventDAO eventDAO = registrationService.saveEvent(event, EventType.EHR_INTEGRATED, TransferProtocol.GP_CONNECT);
         return new EventResponse(eventDAO.getEventId());
     }
 
@@ -119,7 +119,7 @@ public class GPCController {
     )
     public EventResponse registrationCompletedEvent(
             @Valid @RequestBody RegistrationCompletedEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.REGISTRATION_COMPLETED, PatientSwitchingStandardType.GP_CONNECT);
+        EventDAO eventDAO = registrationService.saveEvent(event, EventType.REGISTRATION_COMPLETED, TransferProtocol.GP_CONNECT);
         return new EventResponse(eventDAO.getEventId());
     }
 
@@ -130,7 +130,7 @@ public class GPCController {
     )
     public EventResponse errorEvent(
             @Valid @RequestBody ErrorEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.ERROR, PatientSwitchingStandardType.GP_CONNECT);
+        EventDAO eventDAO = registrationService.saveEvent(event, EventType.ERROR, TransferProtocol.GP_CONNECT);
         return new EventResponse(eventDAO.getEventId());
     }
 
@@ -141,7 +141,7 @@ public class GPCController {
     )
     public EventResponse internalTransferEvent(
             @Valid @RequestBody InternalTransferEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.INTERNAL_TRANSFER, PatientSwitchingStandardType.GP_CONNECT);
+        EventDAO eventDAO = registrationService.saveEvent(event, EventType.INTERNAL_TRANSFER, TransferProtocol.GP_CONNECT);
         return new EventResponse(eventDAO.getEventId());
     }
 }

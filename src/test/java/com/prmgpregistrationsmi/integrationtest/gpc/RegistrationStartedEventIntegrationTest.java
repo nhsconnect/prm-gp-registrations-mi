@@ -4,7 +4,7 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
-import com.prmgpregistrationsmi.model.Event.PatientSwitchingStandardType;
+import com.prmgpregistrationsmi.model.Event.TransferProtocol;
 import com.prmgpregistrationsmi.model.gpc.RegistrationStarted.RegistrationStartedEvent;
 import com.prmgpregistrationsmi.model.gpc.RegistrationStarted.RegistrationStartedPayload;
 import com.prmgpregistrationsmi.testhelpers.gpc.RegistrationStartedEventBuilder;
@@ -44,7 +44,7 @@ class RegistrationStartedEventIntegrationTest {
                 registrationStartedEventRequest.getEventId(),
                 registrationStartedEventRequest.getEventGeneratedDateTime(),
                 EventType.REGISTRATION_STARTED,
-                PatientSwitchingStandardType.GP_CONNECT,
+                TransferProtocol.GP_CONNECT,
                 registrationStartedEventRequest.getRegistrationId(),
                 registrationStartedEventRequest.getReportingSystemSupplier(),
                 registrationStartedEventRequest.getReportingPracticeOdsCode(),

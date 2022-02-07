@@ -14,18 +14,18 @@ public class EventDAO {
     private String eventId;
     private LocalDateTime eventGeneratedDateTime;
     private EventType eventType;
-    private PatientSwitchingStandardType patientSwitchingStandardType;
+    private TransferProtocol transferProtocol;
     private String registrationId;
     private String reportingSystemSupplier;
     private String reportingPracticeOdsCode;
     private Payload payload;
 
-    public static EventDAO fromEvent(Event event, EventType eventType, PatientSwitchingStandardType patientSwitchingStandardType) {
+    public static EventDAO fromEvent(Event event, EventType eventType, TransferProtocol transferProtocol) {
         return new EventDAO(
                 event.getEventId(),
                 event.getEventGeneratedDateTime(),
                 eventType,
-                patientSwitchingStandardType,
+                transferProtocol,
                 event.getRegistrationId(),
                 event.getReportingSystemSupplier(),
                 event.getReportingPracticeOdsCode(),

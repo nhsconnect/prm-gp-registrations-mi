@@ -4,7 +4,7 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
-import com.prmgpregistrationsmi.model.Event.PatientSwitchingStandardType;
+import com.prmgpregistrationsmi.model.Event.TransferProtocol;
 import com.prmgpregistrationsmi.model.gpc.EhrReadyToIntegrate.EhrReadyToIntegrateEvent;
 import com.prmgpregistrationsmi.model.gpc.EhrReadyToIntegrate.EhrReadyToIntegratePayload;
 import com.prmgpregistrationsmi.testhelpers.gpc.EhrReadyToIntegrateEventBuilder;
@@ -44,7 +44,7 @@ class EhrReadyToIntegrateEventIntegrationTest {
                 ehrReadyToIntegrateEventRequest.getEventId(),
                 ehrReadyToIntegrateEventRequest.getEventGeneratedDateTime(),
                 EventType.EHR_READY_TO_INTEGRATE,
-                PatientSwitchingStandardType.GP_CONNECT,
+                TransferProtocol.GP_CONNECT,
                 ehrReadyToIntegrateEventRequest.getRegistrationId(),
                 ehrReadyToIntegrateEventRequest.getReportingSystemSupplier(),
                 ehrReadyToIntegrateEventRequest.getReportingPracticeOdsCode(),

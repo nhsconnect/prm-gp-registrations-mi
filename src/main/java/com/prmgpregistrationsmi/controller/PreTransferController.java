@@ -4,7 +4,7 @@ import com.prmgpregistrationsmi.exception.UnableToUploadToS3Exception;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
-import com.prmgpregistrationsmi.model.Event.PatientSwitchingStandardType;
+import com.prmgpregistrationsmi.model.Event.TransferProtocol;
 import com.prmgpregistrationsmi.model.preTransfer.PdsAdvancedTrace.PdsAdvancedTraceEvent;
 import com.prmgpregistrationsmi.service.RegistrationService;
 import lombok.AllArgsConstructor;
@@ -33,7 +33,7 @@ public class PreTransferController {
     )
     public EventResponse pdsAdvancedTraceEvent(
             @Valid @RequestBody PdsAdvancedTraceEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.PDS_ADVANCED_TRACE, PatientSwitchingStandardType.PRE_TRANSFER);
+        EventDAO eventDAO = registrationService.saveEvent(event, EventType.PDS_ADVANCED_TRACE, TransferProtocol.PRE_TRANSFER);
         return new EventResponse(eventDAO.getEventId());
     }
 }

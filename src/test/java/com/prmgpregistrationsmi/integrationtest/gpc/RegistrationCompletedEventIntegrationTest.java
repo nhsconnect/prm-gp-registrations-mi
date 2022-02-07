@@ -4,9 +4,8 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
-import com.prmgpregistrationsmi.model.Event.PatientSwitchingStandardType;
+import com.prmgpregistrationsmi.model.Event.TransferProtocol;
 import com.prmgpregistrationsmi.model.gpc.RegistrationCompleted.RegistrationCompletedEvent;
-import com.prmgpregistrationsmi.model.gpc.RegistrationCompleted.RegistrationCompletedPayload;
 import com.prmgpregistrationsmi.testhelpers.gpc.RegistrationCompletedEventBuilder;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +39,7 @@ class RegistrationCompletedEventIntegrationTest {
                 registrationCompletedEventRequest.getEventId(),
                 registrationCompletedEventRequest.getEventGeneratedDateTime(),
                 EventType.REGISTRATION_COMPLETED,
-                PatientSwitchingStandardType.GP_CONNECT,
+                TransferProtocol.GP_CONNECT,
                 registrationCompletedEventRequest.getRegistrationId(),
                 registrationCompletedEventRequest.getReportingSystemSupplier(),
                 registrationCompletedEventRequest.getReportingPracticeOdsCode(),
