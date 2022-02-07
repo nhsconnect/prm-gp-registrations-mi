@@ -1,0 +1,53 @@
+package com.prmgpregistrationsmi.controller;
+
+import com.prmgpregistrationsmi.exception.UnableToUploadToS3Exception;
+import com.prmgpregistrationsmi.model.Event.EventDAO;
+import com.prmgpregistrationsmi.model.Event.EventResponse;
+import com.prmgpregistrationsmi.model.Event.EventType;
+import com.prmgpregistrationsmi.model.Event.PatientSwitchingStandardType;
+import com.prmgpregistrationsmi.model.preTransfer.PdsAdvancedTrace.PdsAdvancedTraceEvent;
+import com.prmgpregistrationsmi.service.RegistrationService;
+import com.prmgpregistrationsmi.testhelpers.preTransfer.PdsAdvancedTraceEventBuilder;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+@ExtendWith(MockitoExtension.class)
+class PreTransferControllerTest {
+    @Mock
+    private RegistrationService registrationService;
+    private PreTransferController preTransferController;
+
+    @BeforeEach
+    void setUp() {
+        preTransferController =  new PreTransferController(registrationService);
+    }
+
+    @Test
+    void shouldReturnEventIdWhenReceivingRegistrationStartedEvent() throws UnableToUploadToS3Exception {
+        PdsAdvancedTraceEvent testEvent = PdsAdvancedTraceEventBuilder
+                .withDefaultEventValues()
+                .build();
+
+        EventDAO eventDAO = EventDAO.builder()
+                .eventId(testEvent.getEventId())
+                .build();
+
+        PatientSwitchingStandardType patientSwitchingStandardType = PatientSwitchingStandardType.PRE_TRANSFER;
+
+        when(registrationService.saveEvent(testEvent, EventType.PDS_ADVANCED_TRACE, patientSwitchingStandardType)).thenReturn(eventDAO);
+
+        EventResponse actualResponse = preTransferController.pdsAdvancedTraceEvent(testEvent);
+
+        verify(registrationService).saveEvent(testEvent, EventType.PDS_ADVANCED_TRACE, patientSwitchingStandardType);
+
+        EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
+        assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
+    }
+}
