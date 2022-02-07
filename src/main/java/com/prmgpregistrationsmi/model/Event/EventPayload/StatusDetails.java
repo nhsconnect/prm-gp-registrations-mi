@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @Builder
 @EqualsAndHashCode
-public class Migration {
+public class StatusDetails {
     @NotNull
     private Status status;
     private String reason;

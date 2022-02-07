@@ -1,10 +1,10 @@
 package com.prmgpregistrationsmi.model.gpc.MigrateStructuredRecordResponse;
 
 import com.prmgpregistrationsmi.model.Event.EventPayload.GPTransferMetadata;
-import com.prmgpregistrationsmi.model.Event.EventPayload.Migration;
+import com.prmgpregistrationsmi.model.Event.EventPayload.StatusDetails;
 import com.prmgpregistrationsmi.model.Event.EventPayload.Registration;
 import com.prmgpregistrationsmi.testhelpers.GPTransferMetadataBuilder;
-import com.prmgpregistrationsmi.testhelpers.MigrationBuilder;
+import com.prmgpregistrationsmi.testhelpers.StatusDetailsBuilder;
 import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
 import com.prmgpregistrationsmi.testhelpers.gpc.MigrateStructuredRecordResponseEventBuilder;
 import org.junit.jupiter.api.Test;
@@ -165,8 +165,8 @@ class MigrateStructuredRecordResponseEventTest {
 
     @Test
     void shouldThrowConstraintViolationWhenStructuredRecordMigrationFieldsAreInvalid() {
-        Migration structuredRecordMigrationPayload = MigrationBuilder
-                .withSuccessfulMigration()
+        StatusDetails structuredRecordMigrationPayload = StatusDetailsBuilder
+                .withSuccessfulStatus()
                 .status(null)
                 .build();
 

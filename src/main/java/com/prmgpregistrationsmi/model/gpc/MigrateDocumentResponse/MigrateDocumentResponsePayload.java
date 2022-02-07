@@ -2,7 +2,7 @@ package com.prmgpregistrationsmi.model.gpc.MigrateDocumentResponse;
 
 import com.prmgpregistrationsmi.model.Event.EventPayload.Attachment;
 import com.prmgpregistrationsmi.model.Event.EventPayload.GPTransferMetadata;
-import com.prmgpregistrationsmi.model.Event.EventPayload.Migration;
+import com.prmgpregistrationsmi.model.Event.EventPayload.StatusDetails;
 import com.prmgpregistrationsmi.model.Event.EventPayload.Registration;
 import com.prmgpregistrationsmi.model.Event.Payload;
 import lombok.Builder;
@@ -25,5 +25,5 @@ public class MigrateDocumentResponsePayload implements Payload {
     private Attachment attachment;
     @Valid
     @NotNull
-    private Migration documentMigration;
+    private StatusDetails documentMigration;
 }

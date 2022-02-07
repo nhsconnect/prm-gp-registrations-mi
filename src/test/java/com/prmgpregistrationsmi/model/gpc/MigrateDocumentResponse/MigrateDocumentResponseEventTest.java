@@ -2,7 +2,7 @@ package com.prmgpregistrationsmi.model.gpc.MigrateDocumentResponse;
 
 import com.prmgpregistrationsmi.testhelpers.AttachmentBuilder;
 import com.prmgpregistrationsmi.testhelpers.GPTransferMetadataBuilder;
-import com.prmgpregistrationsmi.testhelpers.MigrationBuilder;
+import com.prmgpregistrationsmi.testhelpers.StatusDetailsBuilder;
 import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
 import com.prmgpregistrationsmi.testhelpers.gpc.MigrateDocumentResponseEventBuilder;
 import org.junit.jupiter.api.Test;
@@ -202,8 +202,8 @@ class MigrateDocumentResponseEventTest {
     void shouldThrowConstraintViolationWhenDocumentMigrationFieldsAreInvalid() {
         MigrateDocumentResponsePayload payload = MigrateDocumentResponseEventBuilder
                 .withDefaultMigrateDocumentResponsePayload()
-                .documentMigration(MigrationBuilder
-                        .withSuccessfulMigration()
+                .documentMigration(StatusDetailsBuilder
+                        .withSuccessfulStatus()
                         .status(null)
                         .build())
                 .build();

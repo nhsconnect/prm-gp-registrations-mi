@@ -1,7 +1,7 @@
 package com.prmgpregistrationsmi.model.gpc.MigrateStructuredRecordResponse;
 
 import com.prmgpregistrationsmi.model.Event.EventPayload.GPTransferMetadata;
-import com.prmgpregistrationsmi.model.Event.EventPayload.Migration;
+import com.prmgpregistrationsmi.model.Event.EventPayload.StatusDetails;
 import com.prmgpregistrationsmi.model.Event.EventPayload.Registration;
 import com.prmgpregistrationsmi.model.Event.Payload;
 import lombok.*;
@@ -23,5 +23,5 @@ public class MigrateStructuredRecordResponsePayload implements Payload {
     private GPTransferMetadata gpTransferMetadata;
     @Valid
     @NotNull
-    private Migration structuredRecordMigration;
+    private StatusDetails structuredRecordMigration;
 }

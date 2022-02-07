@@ -4,7 +4,7 @@ import com.prmgpregistrationsmi.model.gpc.MigrateDocumentResponse.MigrateDocumen
 import com.prmgpregistrationsmi.model.gpc.MigrateDocumentResponse.MigrateDocumentResponsePayload;
 import com.prmgpregistrationsmi.testhelpers.AttachmentBuilder;
 import com.prmgpregistrationsmi.testhelpers.GPTransferMetadataBuilder;
-import com.prmgpregistrationsmi.testhelpers.MigrationBuilder;
+import com.prmgpregistrationsmi.testhelpers.StatusDetailsBuilder;
 import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
 
 import java.time.LocalDateTime;
@@ -25,7 +25,7 @@ public class MigrateDocumentResponseEventBuilder {
                 .registration(RegistrationBuilder.withDefaultRegistration().build())
                 .gpTransferMetadata(GPTransferMetadataBuilder.withDefaultGPTransferMetadata().build())
                 .attachment(AttachmentBuilder.withDefaultPDFFile().build())
-                .documentMigration(MigrationBuilder.withSuccessfulMigration().build());
+                .documentMigration(StatusDetailsBuilder.withSuccessfulStatus().build());
 
     }
 }
