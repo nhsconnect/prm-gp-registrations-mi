@@ -6,6 +6,7 @@ import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.model.Event.TransferProtocol;
 import com.prmgpregistrationsmi.model.preTransfer.PdsAdvancedTrace.PdsAdvancedTraceEvent;
+import com.prmgpregistrationsmi.model.preTransfer.PdsGeneralUpdate.PdsGeneralUpdateEvent;
 import com.prmgpregistrationsmi.service.RegistrationService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
@@ -34,6 +35,17 @@ public class PreTransferController {
     public EventResponse pdsAdvancedTraceEvent(
             @Valid @RequestBody PdsAdvancedTraceEvent event) throws UnableToUploadToS3Exception {
         EventDAO eventDAO = registrationService.saveEvent(event, EventType.PDS_ADVANCED_TRACE, TransferProtocol.PRE_TRANSFER);
+        return new EventResponse(eventDAO.getEventId());
+    }
+
+    @PostMapping(
+            value = "/pdsGeneralUpdate",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public EventResponse pdsGeneralUpdateEvent(
+            @Valid @RequestBody PdsGeneralUpdateEvent event) throws UnableToUploadToS3Exception {
+        EventDAO eventDAO = registrationService.saveEvent(event, EventType.PDS_GENERAL_UPDATE, TransferProtocol.PRE_TRANSFER);
         return new EventResponse(eventDAO.getEventId());
     }
 }
