@@ -7,9 +7,11 @@ import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.model.Event.TransferProtocol;
 import com.prmgpregistrationsmi.model.preTransfer.PdsAdvancedTrace.PdsAdvancedTraceEvent;
 import com.prmgpregistrationsmi.model.preTransfer.PdsGeneralUpdate.PdsGeneralUpdateEvent;
+import com.prmgpregistrationsmi.model.preTransfer.SdsLookup.SdsLookupEvent;
 import com.prmgpregistrationsmi.service.RegistrationService;
 import com.prmgpregistrationsmi.testhelpers.preTransfer.PdsAdvancedTraceEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.preTransfer.PdsGeneralUpdateEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.preTransfer.SdsLookupEventBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -70,6 +72,29 @@ class PreTransferControllerTest {
         EventResponse actualResponse = preTransferController.pdsGeneralUpdateEvent(testEvent);
 
         verify(registrationService).saveEvent(testEvent, EventType.PDS_GENERAL_UPDATE, transferProtocol);
+
+        EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
+        assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
+    }
+
+
+    @Test
+    void shouldReturnEventIdWhenReceivingSdsLookupEvent() throws UnableToUploadToS3Exception {
+        SdsLookupEvent testEvent = SdsLookupEventBuilder
+                .withDefaultEventValues()
+                .build();
+
+        EventDAO eventDAO = EventDAO.builder()
+                .eventId(testEvent.getEventId())
+                .build();
+
+        TransferProtocol transferProtocol = TransferProtocol.PRE_TRANSFER;
+
+        when(registrationService.saveEvent(testEvent, EventType.SDS_LOOKUP, transferProtocol)).thenReturn(eventDAO);
+
+        EventResponse actualResponse = preTransferController.sdsLookupEvent(testEvent);
+
+        verify(registrationService).saveEvent(testEvent, EventType.SDS_LOOKUP, transferProtocol);
 
         EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
         assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());

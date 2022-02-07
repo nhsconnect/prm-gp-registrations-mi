@@ -11,6 +11,9 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 @Builder
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class SdsLookupPayload implements Payload {
     @Valid
     @NotNull
