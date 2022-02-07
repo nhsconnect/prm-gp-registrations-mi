@@ -32,35 +32,35 @@ class PdsGeneralUpdateEventIntegrationTest {
 
     @Test
     void shouldUploadPdsGeneralUpdateEventToS3() {
-        PdsGeneralUpdateEvent ehrIntegratedEventRequest = PdsGeneralUpdateEventBuilder
+        PdsGeneralUpdateEvent pdsGeneralUpdateEventRequest = PdsGeneralUpdateEventBuilder
                 .withDefaultEventValues()
                 .build();
 
-        PdsGeneralUpdatePayload ehrIntegratedPayload = PdsGeneralUpdateEventBuilder
+        PdsGeneralUpdatePayload pdsGeneralUpdatePayload = PdsGeneralUpdateEventBuilder
                 .withDefaultPdsGeneralUpdatePayload()
                 .build();
 
         EventDAO expectedS3UploadEvent = new EventDAO(
-                ehrIntegratedEventRequest.getEventId(),
-                ehrIntegratedEventRequest.getEventGeneratedDateTime(),
+                pdsGeneralUpdateEventRequest.getEventId(),
+                pdsGeneralUpdateEventRequest.getEventGeneratedDateTime(),
                 EventType.PDS_GENERAL_UPDATE,
                 TransferProtocol.PRE_TRANSFER,
-                ehrIntegratedEventRequest.getRegistrationId(),
-                ehrIntegratedEventRequest.getReportingSystemSupplier(),
-                ehrIntegratedEventRequest.getReportingPracticeOdsCode(),
-                ehrIntegratedPayload
+                pdsGeneralUpdateEventRequest.getRegistrationId(),
+                pdsGeneralUpdateEventRequest.getReportingSystemSupplier(),
+                pdsGeneralUpdateEventRequest.getReportingPracticeOdsCode(),
+                pdsGeneralUpdatePayload
         );
 
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
                 "/registration/" + API_VERSION + "/preTransfer/pdsGeneralUpdate",
-                ehrIntegratedEventRequest, EventResponse.class);
+                pdsGeneralUpdateEventRequest, EventResponse.class);
 
         EventResponse expectedResponse = new EventResponse(expectedS3UploadEvent.getEventId());
         assertEquals(expectedResponse.getEventId(), actualResponseEvent.getEventId());
 
         verify(mockAmazonS3Client).putObject(
                 "test_bucket",
-                String.format("v1/1970/01/01/03/%s.json", ehrIntegratedEventRequest.getEventId()),
+                String.format("v1/1970/01/01/03/%s.json", pdsGeneralUpdateEventRequest.getEventId()),
                 expectedS3UploadEvent.toString()
         );
     }
