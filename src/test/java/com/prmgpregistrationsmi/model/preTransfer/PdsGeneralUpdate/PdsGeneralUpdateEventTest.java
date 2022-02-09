@@ -25,12 +25,12 @@ class PdsGeneralUpdateEventTest {
                 .withSuccessfulStatus()
                 .status(status)
                 .build();
-        PdsGeneralUpdatePayload payload = PdsGeneralUpdateEventBuilder
-                .withDefaultPdsGeneralUpdatePayload()
+        PdsGeneralUpdatePayload payload = PdsGeneralUpdatePayload.builder()
                 .demographicTraceStatus(demographicTraceStatus)
                 .build();
         PdsGeneralUpdateEvent event = PdsGeneralUpdateEventBuilder
                 .withDefaultEventValues()
+                .payload(payload)
                 .build();
 
         Set<ConstraintViolation<PdsGeneralUpdateEvent>> violations = validator.validate(event);
