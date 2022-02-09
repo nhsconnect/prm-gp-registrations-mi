@@ -1,9 +1,12 @@
 package com.prmgpregistrationsmi.model.preTransfer.PdsGeneralUpdate;
 
+import com.prmgpregistrationsmi.model.Event.EventPayload.Status;
 import com.prmgpregistrationsmi.model.Event.EventPayload.StatusDetails;
 import com.prmgpregistrationsmi.testhelpers.StatusDetailsBuilder;
 import com.prmgpregistrationsmi.testhelpers.preTransfer.PdsGeneralUpdateEventBuilder;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -15,8 +18,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class PdsGeneralUpdateEventTest {
     private final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
-    @Test
-    void shouldNotThrowConstraintViolationWhenEventFieldsAreValid() {
+    @ParameterizedTest
+    @EnumSource(Status.class)
+    void shouldNotThrowConstraintViolationWhenEventFieldsAreValidStatus(Status status) {
+        StatusDetails demographicTraceStatus = StatusDetailsBuilder
+                .withSuccessfulStatus()
+                .status(status)
+                .build();
+        PdsGeneralUpdatePayload payload = PdsGeneralUpdateEventBuilder
+                .withDefaultPdsGeneralUpdatePayload()
+                .demographicTraceStatus(demographicTraceStatus)
+                .build();
         PdsGeneralUpdateEvent event = PdsGeneralUpdateEventBuilder
                 .withDefaultEventValues()
                 .build();

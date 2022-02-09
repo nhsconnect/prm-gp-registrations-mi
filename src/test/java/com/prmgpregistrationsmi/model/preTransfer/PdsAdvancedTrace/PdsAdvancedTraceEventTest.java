@@ -1,9 +1,12 @@
 package com.prmgpregistrationsmi.model.preTransfer.PdsAdvancedTrace;
 
+import com.prmgpregistrationsmi.model.Event.EventPayload.Status;
 import com.prmgpregistrationsmi.model.Event.EventPayload.StatusDetails;
 import com.prmgpregistrationsmi.testhelpers.StatusDetailsBuilder;
 import com.prmgpregistrationsmi.testhelpers.preTransfer.PdsAdvancedTraceEventBuilder;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -15,11 +18,22 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class PdsAdvancedTraceEventTest {
     private final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
-    @Test
-    void shouldNotThrowConstraintViolationWhenEventFieldsAreValid() {
+    @ParameterizedTest
+    @EnumSource(Status.class)
+    void shouldNotThrowConstraintViolationWhenEventFieldsAreValid(Status status) {
+        StatusDetails demographicTraceStatus = StatusDetailsBuilder
+                .withSuccessfulStatus()
+                .status(status)
+                .build();
+        PdsAdvancedTracePayload payload = PdsAdvancedTraceEventBuilder
+                .withDefaultPdsAdvancedTracePayload()
+                .demographicTraceStatus(demographicTraceStatus)
+                .build();
         PdsAdvancedTraceEvent event = PdsAdvancedTraceEventBuilder
                 .withDefaultEventValues()
+                .payload(payload)
                 .build();
+
 
         Set<ConstraintViolation<PdsAdvancedTraceEvent>> violations = validator.validate(event);
 
