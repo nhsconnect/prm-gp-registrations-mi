@@ -1,4 +1,4 @@
-package com.prmgpregistrationsmi.model.preTransfer.PdsAdvancedTrace;
+package com.prmgpregistrationsmi.model.preTransfer.PdsTrace;
 
 import com.prmgpregistrationsmi.model.Event.EventPayload.StatusDetails;
 import com.prmgpregistrationsmi.model.Event.Payload;
@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class PdsAdvancedTracePayload implements Payload {
+public class PdsTracePayload implements Payload {
     @Valid
     @NotNull
     private StatusDetails demographicTraceStatus;

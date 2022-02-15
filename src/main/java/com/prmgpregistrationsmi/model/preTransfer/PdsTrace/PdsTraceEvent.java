@@ -1,4 +1,4 @@
-package com.prmgpregistrationsmi.model.preTransfer.PdsAdvancedTrace;
+package com.prmgpregistrationsmi.model.preTransfer.PdsTrace;
 
 import com.prmgpregistrationsmi.model.Event.Event;
 import com.prmgpregistrationsmi.model.Event.Payload;
@@ -12,10 +12,10 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class PdsAdvancedTraceEvent extends Event {
+public class PdsTraceEvent extends Event {
     @Valid
     @NotNull
-    private PdsAdvancedTracePayload payload;
+    private com.prmgpregistrationsmi.model.preTransfer.PdsTrace.PdsTracePayload payload;
 
     @Override
     public Payload getPayload() { return payload; }

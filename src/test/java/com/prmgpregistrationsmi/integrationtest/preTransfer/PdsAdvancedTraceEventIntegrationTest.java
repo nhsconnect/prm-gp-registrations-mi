@@ -5,9 +5,9 @@ import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.model.Event.TransferProtocol;
-import com.prmgpregistrationsmi.model.preTransfer.PdsAdvancedTrace.PdsAdvancedTraceEvent;
-import com.prmgpregistrationsmi.model.preTransfer.PdsAdvancedTrace.PdsAdvancedTracePayload;
-import com.prmgpregistrationsmi.testhelpers.preTransfer.PdsAdvancedTraceEventBuilder;
+import com.prmgpregistrationsmi.model.preTransfer.PdsTrace.PdsTraceEvent;
+import com.prmgpregistrationsmi.model.preTransfer.PdsTrace.PdsTracePayload;
+import com.prmgpregistrationsmi.testhelpers.preTransfer.PdsTraceEventBuilder;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class PdsAdvancedTraceEventIntegrationTest {
+class PdsTraceEventIntegrationTest {
     @LocalServerPort
     private int port;
 
@@ -30,36 +30,36 @@ class PdsAdvancedTraceEventIntegrationTest {
     AmazonS3Client mockAmazonS3Client;
 
     @Test
-    void shouldUploadPdsAdvancedTraceEventToS3() {
-        PdsAdvancedTraceEvent pdsAdvancedTraceEventRequest = PdsAdvancedTraceEventBuilder
+    void shouldUploadPdsTraceEventToS3() {
+        PdsTraceEvent pdsTraceEventRequest = PdsTraceEventBuilder
                 .withDefaultEventValues()
                 .build();
 
-        PdsAdvancedTracePayload pdsAdvancedTracePayload = PdsAdvancedTraceEventBuilder
-                .withDefaultPdsAdvancedTracePayload()
+        PdsTracePayload pdsTracePayload = PdsTraceEventBuilder
+                .withDefaultPdsTracePayload()
                 .build();
 
         EventDAO expectedS3UploadEvent = new EventDAO(
-                pdsAdvancedTraceEventRequest.getEventId(),
-                pdsAdvancedTraceEventRequest.getEventGeneratedDateTime(),
-                EventType.PDS_ADVANCED_TRACE,
+                pdsTraceEventRequest.getEventId(),
+                pdsTraceEventRequest.getEventGeneratedDateTime(),
+                EventType.PDS_TRACE,
                 TransferProtocol.PRE_TRANSFER,
-                pdsAdvancedTraceEventRequest.getRegistrationId(),
-                pdsAdvancedTraceEventRequest.getReportingSystemSupplier(),
-                pdsAdvancedTraceEventRequest.getReportingPracticeOdsCode(),
-                pdsAdvancedTracePayload
+                pdsTraceEventRequest.getRegistrationId(),
+                pdsTraceEventRequest.getReportingSystemSupplier(),
+                pdsTraceEventRequest.getReportingPracticeOdsCode(),
+                pdsTracePayload
         );
 
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
-                "/preTransfer/pdsAdvancedTrace",
-                pdsAdvancedTraceEventRequest, EventResponse.class);
+                "/preTransfer/pdsTrace",
+                pdsTraceEventRequest, EventResponse.class);
 
         EventResponse expectedResponse = new EventResponse(expectedS3UploadEvent.getEventId());
         assertEquals(expectedResponse.getEventId(), actualResponseEvent.getEventId());
 
         verify(mockAmazonS3Client).putObject(
                 "test_bucket",
-                String.format("v1/1970/01/01/03/%s.json", pdsAdvancedTraceEventRequest.getEventId()),
+                String.format("v1/1970/01/01/03/%s.json", pdsTraceEventRequest.getEventId()),
                 expectedS3UploadEvent.toString()
         );
     }

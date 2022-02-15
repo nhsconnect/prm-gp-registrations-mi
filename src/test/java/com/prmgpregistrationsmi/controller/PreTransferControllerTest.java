@@ -5,13 +5,13 @@ import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.model.Event.TransferProtocol;
-import com.prmgpregistrationsmi.model.preTransfer.PdsAdvancedTrace.PdsAdvancedTraceEvent;
 import com.prmgpregistrationsmi.model.preTransfer.PdsGeneralUpdate.PdsGeneralUpdateEvent;
+import com.prmgpregistrationsmi.model.preTransfer.PdsTrace.PdsTraceEvent;
 import com.prmgpregistrationsmi.model.preTransfer.RegistrationStarted.RegistrationStartedEvent;
 import com.prmgpregistrationsmi.model.preTransfer.SdsLookup.SdsLookupEvent;
 import com.prmgpregistrationsmi.service.RegistrationService;
-import com.prmgpregistrationsmi.testhelpers.preTransfer.PdsAdvancedTraceEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.preTransfer.PdsGeneralUpdateEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.preTransfer.PdsTraceEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.preTransfer.RegistrationStartedEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.preTransfer.SdsLookupEventBuilder;
 import org.junit.jupiter.api.BeforeEach;
@@ -57,8 +57,8 @@ class PreTransferControllerTest {
     }
 
     @Test
-    void shouldReturnEventIdWhenReceivingPdsAdvancedTraceEvent() throws UnableToUploadToS3Exception {
-        PdsAdvancedTraceEvent testEvent = PdsAdvancedTraceEventBuilder
+    void shouldReturnEventIdWhenReceivingPdsTraceEvent() throws UnableToUploadToS3Exception {
+        PdsTraceEvent testEvent = PdsTraceEventBuilder
                 .withDefaultEventValues()
                 .build();
 
@@ -68,11 +68,11 @@ class PreTransferControllerTest {
 
         TransferProtocol transferProtocol = TransferProtocol.PRE_TRANSFER;
 
-        when(registrationService.saveEvent(testEvent, EventType.PDS_ADVANCED_TRACE, transferProtocol)).thenReturn(eventDAO);
+        when(registrationService.saveEvent(testEvent, EventType.PDS_TRACE, transferProtocol)).thenReturn(eventDAO);
 
-        EventResponse actualResponse = preTransferController.pdsAdvancedTraceEvent(testEvent);
+        EventResponse actualResponse = preTransferController.pdsTraceEvent(testEvent);
 
-        verify(registrationService).saveEvent(testEvent, EventType.PDS_ADVANCED_TRACE, transferProtocol);
+        verify(registrationService).saveEvent(testEvent, EventType.PDS_TRACE, transferProtocol);
 
         EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
         assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());

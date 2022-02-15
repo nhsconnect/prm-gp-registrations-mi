@@ -5,8 +5,8 @@ import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.model.Event.TransferProtocol;
-import com.prmgpregistrationsmi.model.preTransfer.PdsAdvancedTrace.PdsAdvancedTraceEvent;
 import com.prmgpregistrationsmi.model.preTransfer.PdsGeneralUpdate.PdsGeneralUpdateEvent;
+import com.prmgpregistrationsmi.model.preTransfer.PdsTrace.PdsTraceEvent;
 import com.prmgpregistrationsmi.model.preTransfer.RegistrationStarted.RegistrationStartedEvent;
 import com.prmgpregistrationsmi.model.preTransfer.SdsLookup.SdsLookupEvent;
 import com.prmgpregistrationsmi.service.RegistrationService;
@@ -39,13 +39,13 @@ public class PreTransferController {
     }
 
     @PostMapping(
-            value = "/pdsAdvancedTrace",
+            value = "/pdsTrace",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public EventResponse pdsAdvancedTraceEvent(
-            @Valid @RequestBody PdsAdvancedTraceEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.PDS_ADVANCED_TRACE, TransferProtocol.PRE_TRANSFER);
+    public EventResponse pdsTraceEvent(
+            @Valid @RequestBody PdsTraceEvent event) throws UnableToUploadToS3Exception {
+        EventDAO eventDAO = registrationService.saveEvent(event, EventType.PDS_TRACE, TransferProtocol.PRE_TRANSFER);
         return new EventResponse(eventDAO.getEventId());
     }
 
