@@ -1,8 +1,8 @@
-package com.prmgpregistrationsmi.model.gpc.RegistrationStarted;
+package com.prmgpregistrationsmi.model.preTransfer.RegistrationStarted;
 
 import com.prmgpregistrationsmi.model.Event.EventPayload.RegistrationStarted;
 import com.prmgpregistrationsmi.testhelpers.RegistrationStartedBuilder;
-import com.prmgpregistrationsmi.testhelpers.gpc.RegistrationStartedEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.preTransfer.RegistrationStartedEventBuilder;
 import org.junit.jupiter.api.Test;
 
 import javax.validation.ConstraintViolation;

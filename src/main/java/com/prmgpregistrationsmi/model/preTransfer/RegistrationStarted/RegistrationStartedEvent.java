@@ -1,4 +1,4 @@
-package com.prmgpregistrationsmi.model.gp2gp.RegistrationStarted;
+package com.prmgpregistrationsmi.model.preTransfer.RegistrationStarted;
 
 import com.prmgpregistrationsmi.model.Event.Event;
 import com.prmgpregistrationsmi.model.Event.Payload;

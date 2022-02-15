@@ -1,7 +1,7 @@
-package com.prmgpregistrationsmi.testhelpers.gp2gp;
+package com.prmgpregistrationsmi.testhelpers.preTransfer;
 
-import com.prmgpregistrationsmi.model.gp2gp.RegistrationStarted.RegistrationStartedEvent;
-import com.prmgpregistrationsmi.model.gp2gp.RegistrationStarted.RegistrationStartedPayload;
+import com.prmgpregistrationsmi.model.preTransfer.RegistrationStarted.RegistrationStartedEvent;
+import com.prmgpregistrationsmi.model.preTransfer.RegistrationStarted.RegistrationStartedPayload;
 import com.prmgpregistrationsmi.testhelpers.RegistrationStartedBuilder;
 
 import java.time.LocalDateTime;

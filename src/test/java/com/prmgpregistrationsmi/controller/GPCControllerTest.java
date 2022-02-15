@@ -14,7 +14,6 @@ import com.prmgpregistrationsmi.model.gpc.MigrateDocumentResponse.MigrateDocumen
 import com.prmgpregistrationsmi.model.gpc.MigrateStructuredRecordRequest.MigrateStructuredRecordRequestEvent;
 import com.prmgpregistrationsmi.model.gpc.MigrateStructuredRecordResponse.MigrateStructuredRecordResponseEvent;
 import com.prmgpregistrationsmi.model.gpc.RegistrationCompleted.RegistrationCompletedEvent;
-import com.prmgpregistrationsmi.model.gpc.RegistrationStarted.RegistrationStartedEvent;
 import com.prmgpregistrationsmi.service.RegistrationService;
 import com.prmgpregistrationsmi.testhelpers.gpc.EhrIntegratedEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.gpc.EhrReadyToIntegrateEventBuilder;
@@ -25,7 +24,6 @@ import com.prmgpregistrationsmi.testhelpers.gpc.MigrateDocumentResponseEventBuil
 import com.prmgpregistrationsmi.testhelpers.gpc.MigrateStructuredRecordRequestEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.gpc.MigrateStructuredRecordResponseEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.gpc.RegistrationCompletedEventBuilder;
-import com.prmgpregistrationsmi.testhelpers.gpc.RegistrationStartedEventBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -44,29 +42,7 @@ class GPCControllerTest {
 
     @BeforeEach
     void setUp() {
-        gpcController =  new GPCController(registrationService);
-    }
-
-    @Test
-    void shouldReturnEventIdWhenReceivingRegistrationStartedEvent() throws UnableToUploadToS3Exception {
-        RegistrationStartedEvent testEvent = RegistrationStartedEventBuilder
-                .withDefaultEventValues()
-                .build();
-
-        EventDAO eventDAO = EventDAO.builder()
-                .eventId(testEvent.getEventId())
-                .build();
-
-        TransferProtocol transferProtocol = TransferProtocol.GP_CONNECT;
-
-        when(registrationService.saveEvent(testEvent, EventType.REGISTRATION_STARTED, transferProtocol)).thenReturn(eventDAO);
-
-        EventResponse actualResponse = gpcController.registrationStartedEvent(testEvent);
-
-        verify(registrationService).saveEvent(testEvent, EventType.REGISTRATION_STARTED, transferProtocol);
-
-        EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
-        assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
+        gpcController = new GPCController(registrationService);
     }
 
     @Test

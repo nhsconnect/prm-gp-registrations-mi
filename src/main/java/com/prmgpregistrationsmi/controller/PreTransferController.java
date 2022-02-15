@@ -7,6 +7,7 @@ import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.model.Event.TransferProtocol;
 import com.prmgpregistrationsmi.model.preTransfer.PdsAdvancedTrace.PdsAdvancedTraceEvent;
 import com.prmgpregistrationsmi.model.preTransfer.PdsGeneralUpdate.PdsGeneralUpdateEvent;
+import com.prmgpregistrationsmi.model.preTransfer.RegistrationStarted.RegistrationStartedEvent;
 import com.prmgpregistrationsmi.model.preTransfer.SdsLookup.SdsLookupEvent;
 import com.prmgpregistrationsmi.service.RegistrationService;
 import lombok.AllArgsConstructor;
@@ -25,6 +26,17 @@ import javax.validation.Valid;
 @Validated
 public class PreTransferController {
     private final RegistrationService registrationService;
+
+    @PostMapping(
+            value = "/registrationStarted",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public EventResponse registrationStartedEvent(
+            @Valid @RequestBody RegistrationStartedEvent event) throws UnableToUploadToS3Exception {
+        EventDAO eventDAO = registrationService.saveEvent(event, EventType.REGISTRATION_STARTED, TransferProtocol.PRE_TRANSFER);
+        return new EventResponse(eventDAO.getEventId());
+    }
 
     @PostMapping(
             value = "/pdsAdvancedTrace",

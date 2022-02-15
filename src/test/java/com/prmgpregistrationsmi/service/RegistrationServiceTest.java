@@ -4,8 +4,8 @@ import com.prmgpregistrationsmi.exception.UnableToUploadToS3Exception;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.model.Event.TransferProtocol;
-import com.prmgpregistrationsmi.model.gp2gp.RegistrationStarted.RegistrationStartedEvent;
-import com.prmgpregistrationsmi.testhelpers.gp2gp.RegistrationStartedEventBuilder;
+import com.prmgpregistrationsmi.model.preTransfer.RegistrationStarted.RegistrationStartedEvent;
+import com.prmgpregistrationsmi.testhelpers.preTransfer.RegistrationStartedEventBuilder;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;

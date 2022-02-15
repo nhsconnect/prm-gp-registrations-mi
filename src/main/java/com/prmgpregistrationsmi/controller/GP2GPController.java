@@ -11,7 +11,6 @@ import com.prmgpregistrationsmi.model.gp2gp.EhrRequested.EhrRequestedEvent;
 import com.prmgpregistrationsmi.model.gp2gp.EhrSent.EhrSentEvent;
 import com.prmgpregistrationsmi.model.gp2gp.EhrValidated.EhrValidatedEvent;
 import com.prmgpregistrationsmi.model.gp2gp.RegistrationCompleted.RegistrationCompletedEvent;
-import com.prmgpregistrationsmi.model.gp2gp.RegistrationStarted.RegistrationStartedEvent;
 import com.prmgpregistrationsmi.service.RegistrationService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
@@ -30,17 +29,6 @@ import javax.validation.Valid;
 @Validated
 public class GP2GPController {
     private final RegistrationService registrationService;
-
-    @PostMapping(
-            value = "/registrationStarted",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
-    public EventResponse registrationStartedEvent(
-            @Valid @RequestBody RegistrationStartedEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.REGISTRATION_STARTED, TransferProtocol.GP2GP);
-        return new EventResponse(eventDAO.getEventId());
-    }
 
     @PostMapping(
             value = "/ehrRequested",

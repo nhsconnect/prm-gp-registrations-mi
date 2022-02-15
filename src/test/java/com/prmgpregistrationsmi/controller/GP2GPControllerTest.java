@@ -11,7 +11,6 @@ import com.prmgpregistrationsmi.model.gp2gp.EhrRequested.EhrRequestedEvent;
 import com.prmgpregistrationsmi.model.gp2gp.EhrSent.EhrSentEvent;
 import com.prmgpregistrationsmi.model.gp2gp.EhrValidated.EhrValidatedEvent;
 import com.prmgpregistrationsmi.model.gp2gp.RegistrationCompleted.RegistrationCompletedEvent;
-import com.prmgpregistrationsmi.model.gp2gp.RegistrationStarted.RegistrationStartedEvent;
 import com.prmgpregistrationsmi.service.RegistrationService;
 import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrGeneratedEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrIntegratedEventBuilder;
@@ -19,7 +18,6 @@ import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrRequestedEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrSentEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrValidatedEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.gp2gp.RegistrationCompletedEventBuilder;
-import com.prmgpregistrationsmi.testhelpers.gp2gp.RegistrationStartedEventBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -39,27 +37,6 @@ class GP2GPControllerTest {
     @BeforeEach
     void setUp() {
         gp2gpController =  new GP2GPController(registrationService);
-    }
-
-    @Test
-    void registrationStartedEventReturnsEventResponse() throws UnableToUploadToS3Exception {
-        RegistrationStartedEvent testEvent = RegistrationStartedEventBuilder
-                .withDefaultEventValues()
-                .build();
-
-        EventDAO eventDAO = EventDAO.builder()
-                .eventId(testEvent.getEventId())
-                .build();
-        TransferProtocol transferProtocol = TransferProtocol.GP2GP;
-
-        when(registrationService.saveEvent(testEvent, EventType.REGISTRATION_STARTED, transferProtocol)).thenReturn(eventDAO);
-
-        EventResponse actualResponse = gp2gpController.registrationStartedEvent(testEvent);
-
-        verify(registrationService).saveEvent(testEvent, EventType.REGISTRATION_STARTED, transferProtocol);
-
-        EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
-        assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
     }
 
     @Test

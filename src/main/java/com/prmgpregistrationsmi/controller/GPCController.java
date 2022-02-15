@@ -14,7 +14,6 @@ import com.prmgpregistrationsmi.model.gpc.MigrateDocumentResponse.MigrateDocumen
 import com.prmgpregistrationsmi.model.gpc.MigrateStructuredRecordRequest.MigrateStructuredRecordRequestEvent;
 import com.prmgpregistrationsmi.model.gpc.MigrateStructuredRecordResponse.MigrateStructuredRecordResponseEvent;
 import com.prmgpregistrationsmi.model.gpc.RegistrationCompleted.RegistrationCompletedEvent;
-import com.prmgpregistrationsmi.model.gpc.RegistrationStarted.RegistrationStartedEvent;
 import com.prmgpregistrationsmi.service.RegistrationService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
@@ -32,17 +31,6 @@ import javax.validation.Valid;
 @Validated
 public class GPCController {
     private final RegistrationService registrationService;
-
-    @PostMapping(
-            value = "/registrationStarted",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
-    public EventResponse registrationStartedEvent(
-            @Valid @RequestBody RegistrationStartedEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.REGISTRATION_STARTED, TransferProtocol.GP_CONNECT);
-        return new EventResponse(eventDAO.getEventId());
-    }
 
     @PostMapping(
             value = "/migrateStructuredRecordRequest",
