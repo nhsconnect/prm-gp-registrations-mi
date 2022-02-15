@@ -13,7 +13,6 @@ import com.prmgpregistrationsmi.model.gpc.MigrateDocumentRequest.MigrateDocument
 import com.prmgpregistrationsmi.model.gpc.MigrateDocumentResponse.MigrateDocumentResponseEvent;
 import com.prmgpregistrationsmi.model.gpc.MigrateStructuredRecordRequest.MigrateStructuredRecordRequestEvent;
 import com.prmgpregistrationsmi.model.gpc.MigrateStructuredRecordResponse.MigrateStructuredRecordResponseEvent;
-import com.prmgpregistrationsmi.model.gpc.RegistrationCompleted.RegistrationCompletedEvent;
 import com.prmgpregistrationsmi.service.RegistrationService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
@@ -95,17 +94,6 @@ public class GPCController {
     public EventResponse ehrIntegratedEvent(
             @Valid @RequestBody EhrIntegratedEvent event) throws UnableToUploadToS3Exception {
         EventDAO eventDAO = registrationService.saveEvent(event, EventType.EHR_INTEGRATED, TransferProtocol.GP_CONNECT);
-        return new EventResponse(eventDAO.getEventId());
-    }
-
-    @PostMapping(
-            value = "/registrationCompleted",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
-    public EventResponse registrationCompletedEvent(
-            @Valid @RequestBody RegistrationCompletedEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.REGISTRATION_COMPLETED, TransferProtocol.GP_CONNECT);
         return new EventResponse(eventDAO.getEventId());
     }
 

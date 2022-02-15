@@ -13,7 +13,6 @@ import com.prmgpregistrationsmi.model.gpc.MigrateDocumentRequest.MigrateDocument
 import com.prmgpregistrationsmi.model.gpc.MigrateDocumentResponse.MigrateDocumentResponseEvent;
 import com.prmgpregistrationsmi.model.gpc.MigrateStructuredRecordRequest.MigrateStructuredRecordRequestEvent;
 import com.prmgpregistrationsmi.model.gpc.MigrateStructuredRecordResponse.MigrateStructuredRecordResponseEvent;
-import com.prmgpregistrationsmi.model.gpc.RegistrationCompleted.RegistrationCompletedEvent;
 import com.prmgpregistrationsmi.service.RegistrationService;
 import com.prmgpregistrationsmi.testhelpers.gpc.EhrIntegratedEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.gpc.EhrReadyToIntegrateEventBuilder;
@@ -23,7 +22,6 @@ import com.prmgpregistrationsmi.testhelpers.gpc.MigrateDocumentRequestEventBuild
 import com.prmgpregistrationsmi.testhelpers.gpc.MigrateDocumentResponseEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.gpc.MigrateStructuredRecordRequestEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.gpc.MigrateStructuredRecordResponseEventBuilder;
-import com.prmgpregistrationsmi.testhelpers.gpc.RegistrationCompletedEventBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -172,28 +170,6 @@ class GPCControllerTest {
         EventResponse actualResponse = gpcController.ehrIntegratedEvent(testEvent);
 
         verify(registrationService).saveEvent(testEvent, EventType.EHR_INTEGRATED, transferProtocol);
-
-        EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
-        assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
-    }
-
-    @Test
-    void shouldReturnEventIdWhenReceivingRegistrationCompletedEvent() throws UnableToUploadToS3Exception {
-        RegistrationCompletedEvent testEvent = RegistrationCompletedEventBuilder
-                .withDefaultEventValues()
-                .build();
-
-        EventDAO eventDAO = EventDAO.builder()
-                .eventId(testEvent.getEventId())
-                .build();
-
-        TransferProtocol transferProtocol = TransferProtocol.GP_CONNECT;
-
-        when(registrationService.saveEvent(testEvent, EventType.REGISTRATION_COMPLETED, transferProtocol)).thenReturn(eventDAO);
-
-        EventResponse actualResponse = gpcController.registrationCompletedEvent(testEvent);
-
-        verify(registrationService).saveEvent(testEvent, EventType.REGISTRATION_COMPLETED, transferProtocol);
 
         EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
         assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
