@@ -26,10 +26,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
-import static com.prmgpregistrationsmi.controller.GP2GPController.API_VERSION;
-
 @RestController
-@RequestMapping("registration/" + API_VERSION + "/gpconnect")
+@RequestMapping("gpconnect")
 @AllArgsConstructor
 @Validated
 public class GPCController {

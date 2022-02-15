@@ -10,8 +10,8 @@ import com.prmgpregistrationsmi.model.gp2gp.EhrIntegrated.EhrIntegratedEvent;
 import com.prmgpregistrationsmi.model.gp2gp.EhrRequested.EhrRequestedEvent;
 import com.prmgpregistrationsmi.model.gp2gp.EhrSent.EhrSentEvent;
 import com.prmgpregistrationsmi.model.gp2gp.EhrValidated.EhrValidatedEvent;
-import com.prmgpregistrationsmi.model.gp2gp.RegistrationStarted.RegistrationStartedEvent;
 import com.prmgpregistrationsmi.model.gp2gp.RegistrationCompleted.RegistrationCompletedEvent;
+import com.prmgpregistrationsmi.model.gp2gp.RegistrationStarted.RegistrationStartedEvent;
 import com.prmgpregistrationsmi.service.RegistrationService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
@@ -23,16 +23,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
-import static com.prmgpregistrationsmi.controller.GP2GPController.API_VERSION;
-
 
 @RestController
-@RequestMapping("registration/" + API_VERSION + "/gp2gp")
+@RequestMapping("gp2gp")
 @AllArgsConstructor
 @Validated
 public class GP2GPController {
     private final RegistrationService registrationService;
-    public static final String API_VERSION = "v1";
 
     @PostMapping(
             value = "/registrationStarted",

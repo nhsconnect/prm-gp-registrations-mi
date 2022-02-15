@@ -1,7 +1,7 @@
 package com.prmgpregistrationsmi.testhelpers.gpc;
 
-import com.prmgpregistrationsmi.model.gpc.RegistrationCompleted.RegistrationCompletedPayload;
 import com.prmgpregistrationsmi.model.gpc.RegistrationCompleted.RegistrationCompletedEvent;
+import com.prmgpregistrationsmi.model.gpc.RegistrationCompleted.RegistrationCompletedPayload;
 import com.prmgpregistrationsmi.testhelpers.GPTransferMetadataBuilder;
 import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
 

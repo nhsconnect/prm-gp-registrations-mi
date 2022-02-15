@@ -4,8 +4,8 @@ import com.prmgpregistrationsmi.model.gpc.MigrateDocumentResponse.MigrateDocumen
 import com.prmgpregistrationsmi.model.gpc.MigrateDocumentResponse.MigrateDocumentResponsePayload;
 import com.prmgpregistrationsmi.testhelpers.AttachmentBuilder;
 import com.prmgpregistrationsmi.testhelpers.GPTransferMetadataBuilder;
-import com.prmgpregistrationsmi.testhelpers.StatusDetailsBuilder;
 import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
+import com.prmgpregistrationsmi.testhelpers.StatusDetailsBuilder;
 
 import java.time.LocalDateTime;
 

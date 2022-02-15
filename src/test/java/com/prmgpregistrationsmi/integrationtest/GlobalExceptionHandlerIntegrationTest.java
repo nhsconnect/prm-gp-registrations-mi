@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static com.prmgpregistrationsmi.controller.GP2GPController.API_VERSION;
 import static com.prmgpregistrationsmi.utils.JsonHelper.asJsonString;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -45,7 +44,7 @@ class GlobalExceptionHandlerIntegrationTest {
                 "reportingSystemSupplier: must not be empty",
                 "eventId: must not be empty"));
 
-        mockMvc.perform(post("/registration/" + API_VERSION + "/gp2gp/registrationStarted").content(asJsonString(emptyRequestBody))
+        mockMvc.perform(post("/gp2gp/registrationStarted").content(asJsonString(emptyRequestBody))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof MethodArgumentNotValidException))
@@ -61,7 +60,7 @@ class GlobalExceptionHandlerIntegrationTest {
                 "Invalid request field",
                 new ArrayList<>(Collections.singleton("eventGeneratedDateTime: Expected array or string.")));
 
-        mockMvc.perform(post("/registration/" + API_VERSION + "/gp2gp/registrationStarted").content(requestBody)
+        mockMvc.perform(post("/gp2gp/registrationStarted").content(requestBody)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException().getCause() instanceof MismatchedInputException))
@@ -77,7 +76,7 @@ class GlobalExceptionHandlerIntegrationTest {
                 "Invalid JSON",
                 new ArrayList<>(Collections.singleton("Unable to parse JSON")));
 
-        mockMvc.perform(post("/registration/" + API_VERSION + "/gp2gp/registrationStarted").content(requestBody)
+        mockMvc.perform(post("/gp2gp/registrationStarted").content(requestBody)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException().getCause() instanceof JsonParseException))
@@ -93,7 +92,7 @@ class GlobalExceptionHandlerIntegrationTest {
                 "Invalid JSON",
                 new ArrayList<>(Collections.singleton("eventId: Unexpected end-of-input in VALUE_STRING")));
 
-        mockMvc.perform(post("/registration/" + API_VERSION + "/gp2gp/registrationStarted").content(requestBody)
+        mockMvc.perform(post("/gp2gp/registrationStarted").content(requestBody)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException().getCause() instanceof JsonMappingException))

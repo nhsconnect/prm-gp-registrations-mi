@@ -1,7 +1,11 @@
 package com.prmgpregistrationsmi.model.Event;
 
 import com.prmgpregistrationsmi.utils.JsonHelper;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 

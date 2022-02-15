@@ -3,8 +3,8 @@ package com.prmgpregistrationsmi.testhelpers.gpc;
 import com.prmgpregistrationsmi.model.gpc.MigrateStructuredRecordResponse.MigrateStructuredRecordResponseEvent;
 import com.prmgpregistrationsmi.model.gpc.MigrateStructuredRecordResponse.MigrateStructuredRecordResponsePayload;
 import com.prmgpregistrationsmi.testhelpers.GPTransferMetadataBuilder;
-import com.prmgpregistrationsmi.testhelpers.StatusDetailsBuilder;
 import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
+import com.prmgpregistrationsmi.testhelpers.StatusDetailsBuilder;
 
 import java.time.LocalDateTime;
 
