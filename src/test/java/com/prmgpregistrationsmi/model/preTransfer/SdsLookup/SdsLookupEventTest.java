@@ -21,13 +21,13 @@ class SdsLookupEventTest {
     @ParameterizedTest
     @EnumSource(Status.class)
     void shouldNotThrowConstraintViolationWhenEventFieldsAreValid(Status status) {
-        StatusDetails demographicTraceStatus = StatusDetailsBuilder
+        StatusDetails transferCompatibilityStatus = StatusDetailsBuilder
                 .withSuccessfulStatus()
                 .status(status)
                 .build();
         SdsLookupPayload payload = SdsLookupEventBuilder
                 .withDefaultSdsLookupPayload()
-                .demographicTraceStatus(demographicTraceStatus)
+                .transferCompatibilityStatus(transferCompatibilityStatus)
                 .build();
         SdsLookupEvent event = SdsLookupEventBuilder
                 .withDefaultEventValues()
@@ -56,10 +56,10 @@ class SdsLookupEventTest {
     }
 
     @Test
-    void shouldThrowConstraintViolationWhenDemographicTraceStatusIsNull() {
+    void shouldThrowConstraintViolationWhenTransferCompatibilityStatusIsNull() {
         SdsLookupPayload payload = SdsLookupEventBuilder
                 .withDefaultSdsLookupPayload()
-                .demographicTraceStatus(null)
+                .transferCompatibilityStatus(null)
                 .build();
         SdsLookupEvent event = SdsLookupEventBuilder
                 .withDefaultEventValues()
@@ -72,18 +72,18 @@ class SdsLookupEventTest {
 
         ConstraintViolation<SdsLookupEvent> violation = violations.iterator().next();
         assertEquals("must not be null", violation.getMessage());
-        assertEquals("payload.demographicTraceStatus", violation.getPropertyPath().toString());
+        assertEquals("payload.transferCompatibilityStatus", violation.getPropertyPath().toString());
     }
 
     @Test
     void shouldThrowConstraintViolationWhenStatusDetailsFieldsAreInvalid() {
-        StatusDetails demographicTraceStatus = StatusDetailsBuilder
+        StatusDetails transferCompatibilityStatus = StatusDetailsBuilder
                 .withSuccessfulStatus()
                 .status(null)
                 .build();
         SdsLookupPayload payload = SdsLookupEventBuilder
                 .withDefaultSdsLookupPayload()
-                .demographicTraceStatus(demographicTraceStatus)
+                .transferCompatibilityStatus(transferCompatibilityStatus)
                 .build();
         SdsLookupEvent event = SdsLookupEventBuilder
                 .withDefaultEventValues()
@@ -96,6 +96,6 @@ class SdsLookupEventTest {
 
         ConstraintViolation<SdsLookupEvent> violation = violations.iterator().next();
         assertEquals("must not be null", violation.getMessage());
-        assertEquals("payload.demographicTraceStatus.status", violation.getPropertyPath().toString());
+        assertEquals("payload.transferCompatibilityStatus.status", violation.getPropertyPath().toString());
     }
 }

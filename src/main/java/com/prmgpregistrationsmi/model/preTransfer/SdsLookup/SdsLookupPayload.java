@@ -17,5 +17,5 @@ import javax.validation.constraints.NotNull;
 public class SdsLookupPayload implements Payload {
     @Valid
     @NotNull
-    private StatusDetails demographicTraceStatus;
+    private StatusDetails transferCompatibilityStatus;
 }

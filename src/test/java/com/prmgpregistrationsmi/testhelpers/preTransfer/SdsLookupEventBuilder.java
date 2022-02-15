@@ -19,6 +19,6 @@ public class SdsLookupEventBuilder {
 
     public static SdsLookupPayload.SdsLookupPayloadBuilder withDefaultSdsLookupPayload() {
         return SdsLookupPayload.builder()
-                .demographicTraceStatus(StatusDetailsBuilder.withSuccessfulStatus().build());
+                .transferCompatibilityStatus(StatusDetailsBuilder.withSuccessfulStatus().build());
     }
 }
