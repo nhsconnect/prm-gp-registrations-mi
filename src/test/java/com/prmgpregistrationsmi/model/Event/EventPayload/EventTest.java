@@ -18,6 +18,17 @@ public class EventTest {
     private final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
     @Test
+    void shouldNotThrowConstraintViolationWhenEventFieldsAreValid() {
+        RegistrationStartedEvent event = RegistrationStartedEventBuilder
+                .withDefaultEventValues()
+                .build();
+
+        Set<ConstraintViolation<RegistrationStartedEvent>> violations = validator.validate(event);
+
+        assertEquals(0, violations.size());
+    }
+
+    @Test
     void shouldThrowConstraintViolationWhenEventIdIsNull() {
         RegistrationStartedEvent event = RegistrationStartedEventBuilder
                     .withDefaultEventValues()
@@ -62,6 +73,22 @@ public class EventTest {
 
         ConstraintViolation<RegistrationStartedEvent> violation = violations.iterator().next();
         assertEquals("must not be empty", violation.getMessage());
+        assertEquals("registrationId", violation.getPropertyPath().toString());
+    }
+
+    @Test
+    void shouldThrowConstraintViolationWhenRegistrationIdContainsInvalidCharacters() {
+        RegistrationStartedEvent event = RegistrationStartedEventBuilder
+                .withDefaultEventValues()
+                .registrationId("ID_REGISTRATION@^%£$")
+                .build();
+
+        Set<ConstraintViolation<RegistrationStartedEvent>> violations = validator.validate(event);
+
+        assertEquals(1, violations.size());
+
+        ConstraintViolation<RegistrationStartedEvent> violation = violations.iterator().next();
+        assertEquals("must only contain letters, numbers, dashes or underscores", violation.getMessage());
         assertEquals("registrationId", violation.getPropertyPath().toString());
     }
 

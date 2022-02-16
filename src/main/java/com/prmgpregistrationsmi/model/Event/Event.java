@@ -9,6 +9,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
 
 @Getter
@@ -22,6 +23,7 @@ public abstract class Event implements HasPayload {
     @NotNull
     private LocalDateTime eventGeneratedDateTime;
     @Length(min = 4, max = 32)
+    @Pattern(regexp="[A-Za-z0-9-_]+", message="must only contain letters, numbers, dashes or underscores")
     @NotEmpty
     private String registrationId;
     @NotEmpty
