@@ -37,6 +37,22 @@ class EhrValidatedEhrDetailsTest {
     }
 
     @Test
+    void shouldThrowConstraintViolationWhenEhrTotalSizeBytesIsNegative() {
+        EhrValidatedEhrDetails ehrPayload = EhrValidatedEhrDetailsBuilder
+                .withDefaultValues()
+                .ehrTotalSizeBytes(-1L)
+                .build();
+
+        Set<ConstraintViolation<EhrValidatedEhrDetails>> violations = validator.validate(ehrPayload);
+
+        assertEquals(1, violations.size());
+
+        ConstraintViolation<EhrValidatedEhrDetails> violation = violations.iterator().next();
+        assertEquals("must be greater than or equal to 0", violation.getMessage());
+        assertEquals("ehrTotalSizeBytes", violation.getPropertyPath().toString());
+    }
+
+    @Test
     void shouldThrowConstraintViolationWhenEhrStructuredSizeBytesIsNull() {
         EhrValidatedEhrDetails ehrPayload = EhrValidatedEhrDetailsBuilder
                 .withDefaultValues()
@@ -49,6 +65,22 @@ class EhrValidatedEhrDetailsTest {
 
         ConstraintViolation<EhrValidatedEhrDetails> violation = violations.iterator().next();
         assertEquals("must not be null", violation.getMessage());
+        assertEquals("ehrStructuredSizeBytes", violation.getPropertyPath().toString());
+    }
+
+    @Test
+    void shouldThrowConstraintViolationWhenEhrStructuredSizeBytesIsNegative() {
+        EhrValidatedEhrDetails ehrPayload = EhrValidatedEhrDetailsBuilder
+                .withDefaultValues()
+                .ehrStructuredSizeBytes(-1L)
+                .build();
+
+        Set<ConstraintViolation<EhrValidatedEhrDetails>> violations = validator.validate(ehrPayload);
+
+        assertEquals(1, violations.size());
+
+        ConstraintViolation<EhrValidatedEhrDetails> violation = violations.iterator().next();
+        assertEquals("must be greater than or equal to 0", violation.getMessage());
         assertEquals("ehrStructuredSizeBytes", violation.getPropertyPath().toString());
     }
 

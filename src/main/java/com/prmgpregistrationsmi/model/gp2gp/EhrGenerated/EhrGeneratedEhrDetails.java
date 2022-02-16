@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
 import java.util.List;
 
 @Getter
@@ -19,8 +20,10 @@ import java.util.List;
 @EqualsAndHashCode
 public class EhrGeneratedEhrDetails {
     @NotNull
+    @PositiveOrZero
     private Long ehrTotalSizeBytes;
     @NotNull
+    @PositiveOrZero
     private Long ehrStructuredSizeBytes;
     private List<@Valid Attachment> attachment;
     private List<@Valid Placeholder> placeholder;
