@@ -218,7 +218,7 @@ class MigrateDocumentResponseEventTest {
         assertEquals(1, violations.size());
 
         ConstraintViolation<MigrateDocumentResponseEvent> violation = violations.iterator().next();
-        assertEquals("must not be null", violation.getMessage());
+        assertEquals("must be either SUCCESS or FAILURE", violation.getMessage());
         assertEquals("payload.documentMigration.status", violation.getPropertyPath().toString());
     }
 }

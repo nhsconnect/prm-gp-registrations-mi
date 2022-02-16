@@ -94,7 +94,7 @@ class PdsGeneralUpdateEventTest {
         assertEquals(1, violations.size());
 
         ConstraintViolation<PdsGeneralUpdateEvent> violation = violations.iterator().next();
-        assertEquals("must not be null", violation.getMessage());
+        assertEquals("must be either SUCCESS or FAILURE", violation.getMessage());
         assertEquals("payload.demographicTraceStatus.status", violation.getPropertyPath().toString());
     }
 }

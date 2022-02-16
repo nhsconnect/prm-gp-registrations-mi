@@ -95,7 +95,7 @@ class SdsLookupEventTest {
         assertEquals(1, violations.size());
 
         ConstraintViolation<SdsLookupEvent> violation = violations.iterator().next();
-        assertEquals("must not be null", violation.getMessage());
+        assertEquals("must be either SUCCESS or FAILURE", violation.getMessage());
         assertEquals("payload.transferCompatibilityStatus.status", violation.getPropertyPath().toString());
     }
 }

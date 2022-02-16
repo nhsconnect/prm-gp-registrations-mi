@@ -185,7 +185,7 @@ class MigrateStructuredRecordResponseEventTest {
         assertEquals(1, violations.size());
 
         ConstraintViolation<MigrateStructuredRecordResponseEvent> violation = violations.iterator().next();
-        assertEquals("must not be null", violation.getMessage());
+        assertEquals("must be either SUCCESS or FAILURE", violation.getMessage());
         assertEquals("payload.structuredRecordMigration.status", violation.getPropertyPath().toString());
     }
 }
