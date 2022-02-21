@@ -61,6 +61,21 @@ class AttachmentTest {
         assertEquals("sizeBytes", violation.getPropertyPath().toString());
     }
 
+    @Test
+    void shouldThrowConstraintViolationWhenAttachmentSizeBytesIsNegative() {
+        Attachment attachment = AttachmentBuilder.withDefaultAudioFile()
+                .sizeBytes(-1L)
+                .build();
+
+        Set<ConstraintViolation<Attachment>> violations = validator.validate(attachment);
+
+        assertEquals(1, violations.size());
+
+        ConstraintViolation<Attachment> violation = violations.iterator().next();
+        assertEquals("must be greater than or equal to 0", violation.getMessage());
+        assertEquals("sizeBytes", violation.getPropertyPath().toString());
+    }
+
     @ParameterizedTest
     @NullAndEmptySource
     void shouldAllowClinicalTypeToBeNullOrEmpty(String clinicalType) {
