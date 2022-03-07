@@ -2,7 +2,6 @@ package com.prmgpregistrationsmi.model.gpc.EhrReadyToIntegrate;
 
 import com.prmgpregistrationsmi.model.Event.EventPayload.Degrade;
 import com.prmgpregistrationsmi.testhelpers.DegradeBuilder;
-import com.prmgpregistrationsmi.testhelpers.GPTransferMetadataBuilder;
 import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
 import com.prmgpregistrationsmi.testhelpers.gpc.EhrReadyToIntegrateEventBuilder;
 import org.junit.jupiter.api.Test;
@@ -89,49 +88,6 @@ public class EhrReadyToIntegrateEventTest {
         ConstraintViolation<EhrReadyToIntegrateEvent> violation = violations.iterator().next();
         assertEquals("must not be empty", violation.getMessage());
         assertEquals("payload.registration.requestingPracticeOdsCode", violation.getPropertyPath().toString());
-    }
-
-    @Test
-    void shouldThrowConstraintViolationWhenGpTransferMetadataIsNull() {
-        EhrReadyToIntegratePayload payload = EhrReadyToIntegrateEventBuilder
-                .withDefaultEhrReadyToIntegratePayload()
-                .gpTransferMetadata(null)
-                .build();
-
-        EhrReadyToIntegrateEvent event = EhrReadyToIntegrateEventBuilder
-                .withDefaultEventValues()
-                .payload(payload)
-                .build();
-
-        Set<ConstraintViolation<EhrReadyToIntegrateEvent>> violations = validator.validate(event);
-
-        assertEquals(1, violations.size());
-
-        ConstraintViolation<EhrReadyToIntegrateEvent> violation = violations.iterator().next();
-        assertEquals("must not be null", violation.getMessage());
-        assertEquals("payload.gpTransferMetadata", violation.getPropertyPath().toString());
-    }
-
-    @Test
-    void shouldThrowConstraintViolationWhenGpTransferMetadataFieldsAreInvalid() {
-        EhrReadyToIntegratePayload payload = EhrReadyToIntegrateEventBuilder
-                .withDefaultEhrReadyToIntegratePayload()
-                .gpTransferMetadata(GPTransferMetadataBuilder
-                        .withDefaultGPTransferMetadata()
-                        .conversationId(null)
-                        .build())
-                .build();
-
-        EhrReadyToIntegrateEvent event = EhrReadyToIntegrateEventBuilder
-                .withDefaultEventValues().payload(payload).build();
-
-        Set<ConstraintViolation<EhrReadyToIntegrateEvent>> violations = validator.validate(event);
-
-        assertEquals(1, violations.size());
-
-        ConstraintViolation<EhrReadyToIntegrateEvent> violation = violations.iterator().next();
-        assertEquals("must not be empty", violation.getMessage());
-        assertEquals("payload.gpTransferMetadata.conversationId", violation.getPropertyPath().toString());
     }
 
     @Test

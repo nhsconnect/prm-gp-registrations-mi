@@ -1,9 +1,7 @@
 package com.prmgpregistrationsmi.model.gpc.MigrateStructuredRecordResponse;
 
-import com.prmgpregistrationsmi.model.Event.EventPayload.GPTransferMetadata;
 import com.prmgpregistrationsmi.model.Event.EventPayload.Registration;
 import com.prmgpregistrationsmi.model.Event.EventPayload.StatusDetails;
-import com.prmgpregistrationsmi.testhelpers.GPTransferMetadataBuilder;
 import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
 import com.prmgpregistrationsmi.testhelpers.StatusDetailsBuilder;
 import com.prmgpregistrationsmi.testhelpers.gpc.MigrateStructuredRecordResponseEventBuilder;
@@ -88,58 +86,6 @@ class MigrateStructuredRecordResponseEventTest {
         ConstraintViolation<MigrateStructuredRecordResponseEvent> violation = violations.iterator().next();
         assertEquals("must not be empty", violation.getMessage());
         assertEquals("payload.registration.requestingPracticeOdsCode", violation.getPropertyPath().toString());
-    }
-
-    @Test
-    void shouldThrowConstraintViolationWhenGPTransferMetadataInPayloadIsNull() {
-        GPTransferMetadata gpcPayload = GPTransferMetadataBuilder
-                .withDefaultGPTransferMetadata()
-                .conversationId(null)
-                .build();
-
-        MigrateStructuredRecordResponsePayload payload = MigrateStructuredRecordResponseEventBuilder
-                .withDefaultMigrateStructuredRecordResponsePayload()
-                .gpTransferMetadata(gpcPayload)
-                .build();
-
-        MigrateStructuredRecordResponseEvent event = MigrateStructuredRecordResponseEventBuilder
-                .withDefaultEventValues()
-                .payload(payload)
-                .build();
-
-        Set<ConstraintViolation<MigrateStructuredRecordResponseEvent>> violations = validator.validate(event);
-
-        assertEquals(1, violations.size());
-
-        ConstraintViolation<MigrateStructuredRecordResponseEvent> violation = violations.iterator().next();
-        assertEquals("must not be empty", violation.getMessage());
-        assertEquals("payload.gpTransferMetadata.conversationId", violation.getPropertyPath().toString());
-    }
-
-    @Test
-    void shouldThrowConstraintViolationWhenGPTransferMetadataFieldsAreInvalid() {
-        GPTransferMetadata gpcPayload = GPTransferMetadataBuilder
-                .withDefaultGPTransferMetadata()
-                .conversationId(null)
-                .build();
-
-        MigrateStructuredRecordResponsePayload payload = MigrateStructuredRecordResponseEventBuilder
-                .withDefaultMigrateStructuredRecordResponsePayload()
-                .gpTransferMetadata(gpcPayload)
-                .build();
-
-        MigrateStructuredRecordResponseEvent event = MigrateStructuredRecordResponseEventBuilder
-                .withDefaultEventValues()
-                .payload(payload)
-                .build();
-
-        Set<ConstraintViolation<MigrateStructuredRecordResponseEvent>> violations = validator.validate(event);
-
-        assertEquals(1, violations.size());
-
-        ConstraintViolation<MigrateStructuredRecordResponseEvent> violation = violations.iterator().next();
-        assertEquals("must not be empty", violation.getMessage());
-        assertEquals("payload.gpTransferMetadata.conversationId", violation.getPropertyPath().toString());
     }
 
     @Test

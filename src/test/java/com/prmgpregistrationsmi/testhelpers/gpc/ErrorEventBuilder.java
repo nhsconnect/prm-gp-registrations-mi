@@ -4,7 +4,6 @@ import com.prmgpregistrationsmi.model.gpc.Error.ErrorEvent;
 import com.prmgpregistrationsmi.model.gpc.Error.ErrorPayload;
 import com.prmgpregistrationsmi.testhelpers.DefaultEventValues;
 import com.prmgpregistrationsmi.testhelpers.ErrorDetailsBuilder;
-import com.prmgpregistrationsmi.testhelpers.GPTransferMetadataBuilder;
 import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
 
 public class ErrorEventBuilder {
@@ -22,7 +21,6 @@ public class ErrorEventBuilder {
     public static ErrorPayload.ErrorPayloadBuilder withDefaultErrorPayload() {
         return ErrorPayload.builder()
                 .registration(RegistrationBuilder.withDefaultRegistration().build())
-                .gpTransferMetadata(GPTransferMetadataBuilder.withDefaultGPTransferMetadata().build())
                 .error(ErrorDetailsBuilder.withDefaultValues().build());
     }
 }

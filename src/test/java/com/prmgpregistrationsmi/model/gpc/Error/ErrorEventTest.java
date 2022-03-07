@@ -2,7 +2,6 @@ package com.prmgpregistrationsmi.model.gpc.Error;
 
 import com.prmgpregistrationsmi.model.Event.EventPayload.ErrorDetails;
 import com.prmgpregistrationsmi.testhelpers.ErrorDetailsBuilder;
-import com.prmgpregistrationsmi.testhelpers.GPTransferMetadataBuilder;
 import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
 import com.prmgpregistrationsmi.testhelpers.gpc.ErrorEventBuilder;
 import org.junit.jupiter.api.Test;
@@ -88,49 +87,6 @@ public class ErrorEventTest {
         ConstraintViolation<ErrorEvent> violation = violations.iterator().next();
         assertEquals("must not be empty", violation.getMessage());
         assertEquals("payload.registration.requestingPracticeOdsCode", violation.getPropertyPath().toString());
-    }
-
-    @Test
-    void shouldThrowConstraintViolationWhenGpTransferMetadataIsNull() {
-        ErrorPayload payload = ErrorEventBuilder
-                .withDefaultErrorPayload()
-                .gpTransferMetadata(null)
-                .build();
-
-        ErrorEvent event = ErrorEventBuilder
-                .withDefaultEventValues()
-                .payload(payload)
-                .build();
-
-        Set<ConstraintViolation<ErrorEvent>> violations = validator.validate(event);
-
-        assertEquals(1, violations.size());
-
-        ConstraintViolation<ErrorEvent> violation = violations.iterator().next();
-        assertEquals("must not be null", violation.getMessage());
-        assertEquals("payload.gpTransferMetadata", violation.getPropertyPath().toString());
-    }
-
-    @Test
-    void shouldThrowConstraintViolationWhenGpTransferMetadataFieldsAreInvalid() {
-        ErrorPayload payload = ErrorEventBuilder
-                .withDefaultErrorPayload()
-                .gpTransferMetadata(GPTransferMetadataBuilder
-                        .withDefaultGPTransferMetadata()
-                        .conversationId(null)
-                        .build())
-                .build();
-
-        ErrorEvent event = ErrorEventBuilder
-                .withDefaultEventValues().payload(payload).build();
-
-        Set<ConstraintViolation<ErrorEvent>> violations = validator.validate(event);
-
-        assertEquals(1, violations.size());
-
-        ConstraintViolation<ErrorEvent> violation = violations.iterator().next();
-        assertEquals("must not be empty", violation.getMessage());
-        assertEquals("payload.gpTransferMetadata.conversationId", violation.getPropertyPath().toString());
     }
 
     @Test

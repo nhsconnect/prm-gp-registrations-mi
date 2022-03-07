@@ -1,7 +1,6 @@
 package com.prmgpregistrationsmi.model.gpc.InternalTransfer;
 
 import com.prmgpregistrationsmi.model.Event.EventPayload.IntegrationOutcome;
-import com.prmgpregistrationsmi.testhelpers.GPTransferMetadataBuilder;
 import com.prmgpregistrationsmi.testhelpers.IntegrationOutcomeBuilder;
 import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
 import com.prmgpregistrationsmi.testhelpers.gpc.InternalTransferEventBuilder;
@@ -88,49 +87,6 @@ public class InternalTransferEventTest {
         ConstraintViolation<InternalTransferEvent> violation = violations.iterator().next();
         assertEquals("must not be empty", violation.getMessage());
         assertEquals("payload.registration.requestingPracticeOdsCode", violation.getPropertyPath().toString());
-    }
-
-    @Test
-    void shouldThrowConstraintViolationWhenGpTransferMetadataIsNull() {
-        InternalTransferPayload payload = InternalTransferEventBuilder
-                .withDefaultInternalTransferPayload()
-                .gpTransferMetadata(null)
-                .build();
-
-        InternalTransferEvent event = InternalTransferEventBuilder
-                .withDefaultEventValues()
-                .payload(payload)
-                .build();
-
-        Set<ConstraintViolation<InternalTransferEvent>> violations = validator.validate(event);
-
-        assertEquals(1, violations.size());
-
-        ConstraintViolation<InternalTransferEvent> violation = violations.iterator().next();
-        assertEquals("must not be null", violation.getMessage());
-        assertEquals("payload.gpTransferMetadata", violation.getPropertyPath().toString());
-    }
-
-    @Test
-    void shouldThrowConstraintViolationWhenGpTransferMetadataFieldsAreInvalid() {
-        InternalTransferPayload payload = InternalTransferEventBuilder
-                .withDefaultInternalTransferPayload()
-                .gpTransferMetadata(GPTransferMetadataBuilder
-                        .withDefaultGPTransferMetadata()
-                        .conversationId(null)
-                        .build())
-                .build();
-
-        InternalTransferEvent event = InternalTransferEventBuilder
-                .withDefaultEventValues().payload(payload).build();
-
-        Set<ConstraintViolation<InternalTransferEvent>> violations = validator.validate(event);
-
-        assertEquals(1, violations.size());
-
-        ConstraintViolation<InternalTransferEvent> violation = violations.iterator().next();
-        assertEquals("must not be empty", violation.getMessage());
-        assertEquals("payload.gpTransferMetadata.conversationId", violation.getPropertyPath().toString());
     }
 
     @Test

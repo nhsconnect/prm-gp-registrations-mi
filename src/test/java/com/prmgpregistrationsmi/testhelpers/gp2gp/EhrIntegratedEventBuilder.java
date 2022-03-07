@@ -3,7 +3,6 @@ package com.prmgpregistrationsmi.testhelpers.gp2gp;
 import com.prmgpregistrationsmi.model.gp2gp.EhrIntegrated.EhrIntegratedEvent;
 import com.prmgpregistrationsmi.model.gp2gp.EhrIntegrated.EhrIntegratedPayload;
 import com.prmgpregistrationsmi.testhelpers.DefaultEventValues;
-import com.prmgpregistrationsmi.testhelpers.GPTransferMetadataBuilder;
 import com.prmgpregistrationsmi.testhelpers.IntegrationOutcomeBuilder;
 import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
 
@@ -22,7 +21,6 @@ public class EhrIntegratedEventBuilder {
     public static EhrIntegratedPayload.EhrIntegratedPayloadBuilder withDefaultEhrIntegratedPayload() {
         return EhrIntegratedPayload.builder()
                 .registration(RegistrationBuilder.withDefaultRegistration().build())
-                .gpTransferMetadata(GPTransferMetadataBuilder.withDefaultGPTransferMetadata().build())
                 .integration(IntegrationOutcomeBuilder.withDefaultValues().build());
     }
 }

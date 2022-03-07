@@ -3,7 +3,6 @@ package com.prmgpregistrationsmi.testhelpers.gp2gp;
 import com.prmgpregistrationsmi.model.gp2gp.EhrSent.EhrSentEvent;
 import com.prmgpregistrationsmi.model.gp2gp.EhrSent.EhrSentPayload;
 import com.prmgpregistrationsmi.testhelpers.DefaultEventValues;
-import com.prmgpregistrationsmi.testhelpers.GPTransferMetadataBuilder;
 import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
 
 public class EhrSentEventBuilder {
@@ -20,7 +19,6 @@ public class EhrSentEventBuilder {
 
     public static EhrSentPayload.EhrSentPayloadBuilder withDefaultEhrSentPayload() {
         return EhrSentPayload.builder()
-                .registration(RegistrationBuilder.withDefaultRegistration().build())
-                .gpTransferMetadata(GPTransferMetadataBuilder.withDefaultGPTransferMetadata().build());
+                .registration(RegistrationBuilder.withDefaultRegistration().build());
     }
 }

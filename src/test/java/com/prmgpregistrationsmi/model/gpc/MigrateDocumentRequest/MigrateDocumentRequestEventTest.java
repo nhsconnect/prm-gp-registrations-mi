@@ -1,7 +1,6 @@
 package com.prmgpregistrationsmi.model.gpc.MigrateDocumentRequest;
 
 import com.prmgpregistrationsmi.testhelpers.AttachmentBuilder;
-import com.prmgpregistrationsmi.testhelpers.GPTransferMetadataBuilder;
 import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
 import com.prmgpregistrationsmi.testhelpers.gpc.MigrateDocumentRequestEventBuilder;
 import org.junit.jupiter.api.Test;
@@ -86,49 +85,6 @@ class MigrateDocumentRequestEventTest {
         ConstraintViolation<MigrateDocumentRequestEvent> violation = violations.iterator().next();
         assertEquals("must not be empty", violation.getMessage());
         assertEquals("payload.registration.requestingPracticeOdsCode", violation.getPropertyPath().toString());
-    }
-
-    @Test
-    void shouldThrowConstraintViolationWhenGpTransferMetadataIsNull() {
-        MigrateDocumentRequestPayload payload = MigrateDocumentRequestEventBuilder
-                .withDefaultMigrateDocumentRequestPayload()
-                .gpTransferMetadata(null)
-                .build();
-
-        MigrateDocumentRequestEvent event = MigrateDocumentRequestEventBuilder
-                .withDefaultEventValues()
-                .payload(payload)
-                .build();
-
-        Set<ConstraintViolation<MigrateDocumentRequestEvent>> violations = validator.validate(event);
-
-        assertEquals(1, violations.size());
-
-        ConstraintViolation<MigrateDocumentRequestEvent> violation = violations.iterator().next();
-        assertEquals("must not be null", violation.getMessage());
-        assertEquals("payload.gpTransferMetadata", violation.getPropertyPath().toString());
-    }
-
-    @Test
-    void shouldThrowConstraintViolationWhenGpTransferMetadataFieldsAreInvalid() {
-        MigrateDocumentRequestPayload payload = MigrateDocumentRequestEventBuilder
-                .withDefaultMigrateDocumentRequestPayload()
-                .gpTransferMetadata(GPTransferMetadataBuilder
-                        .withDefaultGPTransferMetadata()
-                        .conversationId(null)
-                        .build())
-                .build();
-
-        MigrateDocumentRequestEvent event = MigrateDocumentRequestEventBuilder
-                .withDefaultEventValues().payload(payload).build();
-
-        Set<ConstraintViolation<MigrateDocumentRequestEvent>> violations = validator.validate(event);
-
-        assertEquals(1, violations.size());
-
-        ConstraintViolation<MigrateDocumentRequestEvent> violation = violations.iterator().next();
-        assertEquals("must not be empty", violation.getMessage());
-        assertEquals("payload.gpTransferMetadata.conversationId", violation.getPropertyPath().toString());
     }
 
     @Test

@@ -1,9 +1,7 @@
 package com.prmgpregistrationsmi.model.gp2gp.EhrGenerated;
 
-import com.prmgpregistrationsmi.model.Event.EventPayload.GPTransferMetadata;
 import com.prmgpregistrationsmi.model.Event.EventPayload.Registration;
 import com.prmgpregistrationsmi.model.Event.EventPayload.UnsupportedDataItem;
-import com.prmgpregistrationsmi.testhelpers.GPTransferMetadataBuilder;
 import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
 import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrGeneratedEhrDetailsBuilder;
 import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrGeneratedEventBuilder;
@@ -93,53 +91,6 @@ class EhrGeneratedEventTest {
         ConstraintViolation<EhrGeneratedEvent> violation = violations.iterator().next();
         assertEquals("must not be empty", violation.getMessage());
         assertEquals("payload.registration.requestingPracticeOdsCode", violation.getPropertyPath().toString());
-    }
-
-    @Test
-    void shouldThrowConstraintViolationWhenGPTransferMetadataIsNull() {
-        EhrGeneratedPayload payload = EhrGeneratedEventBuilder
-                .withDefaultEhrGeneratedPayload()
-                .gpTransferMetadata(null)
-                .build();
-
-        EhrGeneratedEvent event = EhrGeneratedEventBuilder
-                .withDefaultEventValues()
-                .payload(payload)
-                .build();
-
-        Set<ConstraintViolation<EhrGeneratedEvent>> violations = validator.validate(event);
-
-        assertEquals(1, violations.size());
-
-        ConstraintViolation<EhrGeneratedEvent> violation = violations.iterator().next();
-        assertEquals("must not be null", violation.getMessage());
-        assertEquals("payload.gpTransferMetadata", violation.getPropertyPath().toString());
-    }
-
-    @Test
-    void shouldThrowConstraintViolationWhenGPTransferMetadataFieldsAreInvalid() {
-        GPTransferMetadata gpTransferMetadata = GPTransferMetadataBuilder
-                .withDefaultGPTransferMetadata()
-                .conversationId(null)
-                .build();
-
-        EhrGeneratedPayload payload = EhrGeneratedEventBuilder
-                .withDefaultEhrGeneratedPayload()
-                .gpTransferMetadata(gpTransferMetadata)
-                .build();
-
-        EhrGeneratedEvent event = EhrGeneratedEventBuilder
-                .withDefaultEventValues()
-                .payload(payload)
-                .build();
-
-        Set<ConstraintViolation<EhrGeneratedEvent>> violations = validator.validate(event);
-
-        assertEquals(1, violations.size());
-
-        ConstraintViolation<EhrGeneratedEvent> violation = violations.iterator().next();
-        assertEquals("must not be empty", violation.getMessage());
-        assertEquals("payload.gpTransferMetadata.conversationId", violation.getPropertyPath().toString());
     }
 
     @Test

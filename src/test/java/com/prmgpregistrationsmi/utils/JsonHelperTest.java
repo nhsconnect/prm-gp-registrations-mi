@@ -1,11 +1,10 @@
 package com.prmgpregistrationsmi.utils;
 
-import com.prmgpregistrationsmi.model.Event.EventPayload.GPTransferMetadata;
+import com.prmgpregistrationsmi.testhelpers.RegistrationStartedBuilder;
 import org.json.simple.JSONObject;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
-import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -34,12 +33,12 @@ class JsonHelperTest {
 
     @Test
     void shouldConvertObjectWithDateTimeToJsonWithDateTimeString() {
-        Object testObject =  GPTransferMetadata.builder()
-                .conversationId("some-id")
-                .transferEventDateTime(LocalDateTime.of(2020, 2, 8, 8, 30))
+        Object testObject =  RegistrationStartedBuilder
+                .withDefaultValues()
                 .build();
 
-        assertEquals("{\"conversationId\":\"some-id\",\"transferEventDateTime\":\"2020-02-08T08:30:00\"}",
+        assertEquals("{\"registrationStartedDateTime\":\"2020-02-08T09:30:00\",\"requestingPracticeOdsCode\":\"ABC1234\"," +
+                        "\"registrationType\":\"newRegistrant\"}",
                 JsonHelper.asJsonString(testObject));
     }
 }

@@ -4,7 +4,6 @@ import com.prmgpregistrationsmi.model.gpc.MigrateDocumentRequest.MigrateDocument
 import com.prmgpregistrationsmi.model.gpc.MigrateDocumentRequest.MigrateDocumentRequestPayload;
 import com.prmgpregistrationsmi.testhelpers.AttachmentBuilder;
 import com.prmgpregistrationsmi.testhelpers.DefaultEventValues;
-import com.prmgpregistrationsmi.testhelpers.GPTransferMetadataBuilder;
 import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
 
 public class MigrateDocumentRequestEventBuilder {
@@ -22,7 +21,6 @@ public class MigrateDocumentRequestEventBuilder {
     public static MigrateDocumentRequestPayload.MigrateDocumentRequestPayloadBuilder withDefaultMigrateDocumentRequestPayload() {
         return MigrateDocumentRequestPayload.builder()
                 .registration(RegistrationBuilder.withDefaultRegistration().build())
-                .gpTransferMetadata(GPTransferMetadataBuilder.withDefaultGPTransferMetadata().build())
                 .attachment(AttachmentBuilder.withDefaultPDFFile().build());
 
     }

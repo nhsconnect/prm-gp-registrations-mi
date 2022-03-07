@@ -4,7 +4,6 @@ import com.prmgpregistrationsmi.model.Event.EventPayload.UnsupportedDataItem;
 import com.prmgpregistrationsmi.model.gp2gp.EhrGenerated.EhrGeneratedEvent;
 import com.prmgpregistrationsmi.model.gp2gp.EhrGenerated.EhrGeneratedPayload;
 import com.prmgpregistrationsmi.testhelpers.DefaultEventValues;
-import com.prmgpregistrationsmi.testhelpers.GPTransferMetadataBuilder;
 import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
 import com.prmgpregistrationsmi.testhelpers.UnsupportedDataItemBuilder;
 
@@ -27,7 +26,6 @@ public class EhrGeneratedEventBuilder {
 
         return EhrGeneratedPayload.builder()
                 .registration(RegistrationBuilder.withDefaultRegistration().build())
-                .gpTransferMetadata(GPTransferMetadataBuilder.withDefaultGPTransferMetadata().build())
                 .ehr(EhrGeneratedEhrDetailsBuilder.withDefaultValues().build())
                 .unsupportedDataItem(List.of(unsupportedDataItem));
     }

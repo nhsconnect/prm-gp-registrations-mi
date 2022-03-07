@@ -6,7 +6,6 @@ import com.prmgpregistrationsmi.model.gpc.EhrReadyToIntegrate.EhrReadyToIntegrat
 import com.prmgpregistrationsmi.model.gpc.EhrReadyToIntegrate.EhrReadyToIntegratePayload;
 import com.prmgpregistrationsmi.testhelpers.DefaultEventValues;
 import com.prmgpregistrationsmi.testhelpers.DegradeBuilder;
-import com.prmgpregistrationsmi.testhelpers.GPTransferMetadataBuilder;
 import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
 
 import java.util.List;
@@ -26,7 +25,6 @@ public class EhrReadyToIntegrateEventBuilder {
     public static EhrReadyToIntegratePayload.EhrReadyToIntegratePayloadBuilder withDefaultEhrReadyToIntegratePayload() {
         return EhrReadyToIntegratePayload.builder()
                 .registration(RegistrationBuilder.withDefaultRegistration().build())
-                .gpTransferMetadata(GPTransferMetadataBuilder.withDefaultGPTransferMetadata().build())
                 .ehr(withDefaultEhrDetails().build());
     }
 
