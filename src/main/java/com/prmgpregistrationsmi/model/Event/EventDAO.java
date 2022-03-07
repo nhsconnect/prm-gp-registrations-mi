@@ -19,7 +19,6 @@ public class EventDAO {
     private LocalDateTime eventGeneratedDateTime;
     private EventType eventType;
     private TransferProtocol transferProtocol;
-    private String registrationId;
     private String reportingSystemSupplier;
     private String reportingPracticeOdsCode;
     private Payload payload;
@@ -30,7 +29,6 @@ public class EventDAO {
                 event.getEventGeneratedDateTime(),
                 eventType,
                 transferProtocol,
-                event.getRegistrationId(),
                 event.getReportingSystemSupplier(),
                 event.getReportingPracticeOdsCode(),
                 event.getPayload()

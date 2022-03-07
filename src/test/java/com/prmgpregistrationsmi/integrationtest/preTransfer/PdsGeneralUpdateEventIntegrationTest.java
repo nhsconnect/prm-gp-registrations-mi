@@ -44,7 +44,6 @@ class PdsGeneralUpdateEventIntegrationTest {
                 pdsGeneralUpdateEventRequest.getEventGeneratedDateTime(),
                 EventType.PDS_GENERAL_UPDATE,
                 TransferProtocol.PRE_TRANSFER,
-                pdsGeneralUpdateEventRequest.getRegistrationId(),
                 pdsGeneralUpdateEventRequest.getReportingSystemSupplier(),
                 pdsGeneralUpdateEventRequest.getReportingPracticeOdsCode(),
                 pdsGeneralUpdatePayload

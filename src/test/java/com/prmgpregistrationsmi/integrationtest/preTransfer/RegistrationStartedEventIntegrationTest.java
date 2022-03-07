@@ -44,7 +44,6 @@ class RegistrationStartedEventIntegrationTest {
                 registrationStartedEventRequest.getEventGeneratedDateTime(),
                 EventType.REGISTRATION_STARTED,
                 TransferProtocol.PRE_TRANSFER,
-                registrationStartedEventRequest.getRegistrationId(),
                 registrationStartedEventRequest.getReportingSystemSupplier(),
                 registrationStartedEventRequest.getReportingPracticeOdsCode(),
                 registrationStartedPayload

@@ -44,7 +44,6 @@ class SdsLookupEventIntegrationTest {
                 sdsLookupEventRequest.getEventGeneratedDateTime(),
                 EventType.SDS_LOOKUP,
                 TransferProtocol.PRE_TRANSFER,
-                sdsLookupEventRequest.getRegistrationId(),
                 sdsLookupEventRequest.getReportingSystemSupplier(),
                 sdsLookupEventRequest.getReportingPracticeOdsCode(),
                 sdsLookupPayload

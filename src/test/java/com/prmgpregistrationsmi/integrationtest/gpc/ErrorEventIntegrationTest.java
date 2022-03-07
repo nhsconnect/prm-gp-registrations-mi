@@ -39,7 +39,6 @@ class ErrorEventIntegrationTest {
                 errorEventRequest.getEventGeneratedDateTime(),
                 EventType.ERROR,
                 TransferProtocol.GP_CONNECT,
-                errorEventRequest.getRegistrationId(),
                 errorEventRequest.getReportingSystemSupplier(),
                 errorEventRequest.getReportingPracticeOdsCode(),
                 ErrorEventBuilder.withDefaultErrorPayload().build()

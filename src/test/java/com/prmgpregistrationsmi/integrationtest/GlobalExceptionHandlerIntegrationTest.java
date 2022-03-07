@@ -39,7 +39,6 @@ class GlobalExceptionHandlerIntegrationTest {
                 "Failed to validate fields", List.of(
                 "reportingPracticeOdsCode: must not be empty",
                 "eventGeneratedDateTime: must not be null",
-                "registrationId: must not be empty",
                 "payload: must not be null",
                 "reportingSystemSupplier: must not be empty",
                 "eventId: must not be empty"));

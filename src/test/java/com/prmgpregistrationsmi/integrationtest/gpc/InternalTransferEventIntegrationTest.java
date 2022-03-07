@@ -39,7 +39,6 @@ class InternalTransferEventIntegrationTest {
                 internalTransferEventRequest.getEventGeneratedDateTime(),
                 EventType.INTERNAL_TRANSFER,
                 TransferProtocol.GP_CONNECT,
-                internalTransferEventRequest.getRegistrationId(),
                 internalTransferEventRequest.getReportingSystemSupplier(),
                 internalTransferEventRequest.getReportingPracticeOdsCode(),
                 InternalTransferEventBuilder

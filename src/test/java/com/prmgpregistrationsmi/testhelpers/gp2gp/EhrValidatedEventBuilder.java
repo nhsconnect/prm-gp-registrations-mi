@@ -12,7 +12,6 @@ public class EhrValidatedEventBuilder {
         return EhrValidatedEvent.builder()
                 .eventId("some-id")
                 .eventGeneratedDateTime(LocalDateTime.of(1970, 1, 1, 3, 30))
-                .registrationId("some-registration-id")
                 .reportingSystemSupplier("some-reporting-system-supplier")
                 .reportingPracticeOdsCode("some-reporting-practice-ods-code")
                 .payload(withDefaultEhrValidatedPayload().build());

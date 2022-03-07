@@ -44,7 +44,6 @@ class EhrReadyToIntegrateEventIntegrationTest {
                 ehrReadyToIntegrateEventRequest.getEventGeneratedDateTime(),
                 EventType.EHR_READY_TO_INTEGRATE,
                 TransferProtocol.GP_CONNECT,
-                ehrReadyToIntegrateEventRequest.getRegistrationId(),
                 ehrReadyToIntegrateEventRequest.getReportingSystemSupplier(),
                 ehrReadyToIntegrateEventRequest.getReportingPracticeOdsCode(),
                 ehrReadyToIntegratePayload

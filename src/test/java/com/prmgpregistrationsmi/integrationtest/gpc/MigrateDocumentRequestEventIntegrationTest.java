@@ -44,7 +44,6 @@ class MigrateDocumentRequestEventIntegrationTest {
                 migrateDocumentRequestEventRequest.getEventGeneratedDateTime(),
                 EventType.MIGRATE_DOCUMENT_REQUEST,
                 TransferProtocol.GP_CONNECT,
-                migrateDocumentRequestEventRequest.getRegistrationId(),
                 migrateDocumentRequestEventRequest.getReportingSystemSupplier(),
                 migrateDocumentRequestEventRequest.getReportingPracticeOdsCode(),
                 migrateDocumentRequestPayload

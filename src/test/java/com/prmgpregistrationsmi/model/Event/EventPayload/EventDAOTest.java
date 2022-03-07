@@ -22,7 +22,6 @@ class EventDAOTest {
         assertEquals(actualEventDAO.getEventGeneratedDateTime(), testEvent.getEventGeneratedDateTime());
         assertEquals(actualEventDAO.getEventType(), gp2gpRegistrationStartedEventType);
         assertEquals(actualEventDAO.getTransferProtocol(), transferProtocol);
-        assertEquals(actualEventDAO.getRegistrationId(), testEvent.getRegistrationId());
         assertEquals(actualEventDAO.getReportingSystemSupplier(), testEvent.getReportingSystemSupplier());
         assertEquals(actualEventDAO.getReportingPracticeOdsCode(), testEvent.getReportingPracticeOdsCode());
         assertEquals(actualEventDAO.getPayload(), testEvent.getPayload());

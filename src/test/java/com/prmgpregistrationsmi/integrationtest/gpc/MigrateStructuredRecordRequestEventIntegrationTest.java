@@ -44,7 +44,6 @@ class MigrateStructuredRecordRequestEventIntegrationTest {
                 migrateStructuredRecordRequestEventRequest.getEventGeneratedDateTime(),
                 EventType.MIGRATE_STRUCTURED_RECORD_REQUEST,
                 TransferProtocol.GP_CONNECT,
-                migrateStructuredRecordRequestEventRequest.getRegistrationId(),
                 migrateStructuredRecordRequestEventRequest.getReportingSystemSupplier(),
                 migrateStructuredRecordRequestEventRequest.getReportingPracticeOdsCode(),
                 migrateStructuredRecordRequestPayload

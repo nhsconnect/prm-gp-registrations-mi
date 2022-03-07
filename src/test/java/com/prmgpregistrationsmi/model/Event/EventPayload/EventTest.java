@@ -5,7 +5,6 @@ import com.prmgpregistrationsmi.testhelpers.preTransfer.RegistrationStartedEvent
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
-import org.junit.jupiter.params.provider.ValueSource;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -58,55 +57,6 @@ public class EventTest {
         ConstraintViolation<RegistrationStartedEvent> violation = violations.iterator().next();
         assertEquals("must not be null", violation.getMessage());
         assertEquals("eventGeneratedDateTime", violation.getPropertyPath().toString());
-    }
-
-    @Test
-    void shouldThrowConstraintViolationWhenRegistrationIdIsNull() {
-        RegistrationStartedEvent event = RegistrationStartedEventBuilder
-                .withDefaultEventValues()
-                .registrationId(null)
-                .build();
-
-        Set<ConstraintViolation<RegistrationStartedEvent>> violations = validator.validate(event);
-
-       assertEquals(1, violations.size());
-
-        ConstraintViolation<RegistrationStartedEvent> violation = violations.iterator().next();
-        assertEquals("must not be empty", violation.getMessage());
-        assertEquals("registrationId", violation.getPropertyPath().toString());
-    }
-
-    @Test
-    void shouldThrowConstraintViolationWhenRegistrationIdContainsInvalidCharacters() {
-        RegistrationStartedEvent event = RegistrationStartedEventBuilder
-                .withDefaultEventValues()
-                .registrationId("ID_REGISTRATION@^%£$")
-                .build();
-
-        Set<ConstraintViolation<RegistrationStartedEvent>> violations = validator.validate(event);
-
-        assertEquals(1, violations.size());
-
-        ConstraintViolation<RegistrationStartedEvent> violation = violations.iterator().next();
-        assertEquals("must only contain letters, numbers, dashes or underscores", violation.getMessage());
-        assertEquals("registrationId", violation.getPropertyPath().toString());
-    }
-
-    @ParameterizedTest
-    @ValueSource(strings = {"abc", "000000000011111111112222222222333"})
-    void shouldThrowConstraintViolationWhenRegistrationIdLengthIsNotValid(String registrationId) {
-        RegistrationStartedEvent event = RegistrationStartedEventBuilder
-                .withDefaultEventValues()
-                .registrationId(registrationId)
-                .build();
-
-        Set<ConstraintViolation<RegistrationStartedEvent>> violations = validator.validate(event);
-
-        assertEquals(1, violations.size());
-
-        ConstraintViolation<RegistrationStartedEvent> violation = violations.iterator().next();
-        assertEquals("length must be between 4 and 32", violation.getMessage());
-        assertEquals("registrationId", violation.getPropertyPath().toString());
     }
 
     @ParameterizedTest

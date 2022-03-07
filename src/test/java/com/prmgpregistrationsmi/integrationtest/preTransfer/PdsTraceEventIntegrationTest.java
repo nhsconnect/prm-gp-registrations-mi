@@ -44,7 +44,6 @@ class PdsTraceEventIntegrationTest {
                 pdsTraceEventRequest.getEventGeneratedDateTime(),
                 EventType.PDS_TRACE,
                 TransferProtocol.PRE_TRANSFER,
-                pdsTraceEventRequest.getRegistrationId(),
                 pdsTraceEventRequest.getReportingSystemSupplier(),
                 pdsTraceEventRequest.getReportingPracticeOdsCode(),
                 pdsTracePayload

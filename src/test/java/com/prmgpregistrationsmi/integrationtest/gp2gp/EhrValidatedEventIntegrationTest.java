@@ -39,7 +39,6 @@ class EhrValidatedEventIntegrationTest {
                 ehrValidatedEventRequest.getEventGeneratedDateTime(),
                 EventType.EHR_VALIDATED,
                 TransferProtocol.GP2GP,
-                ehrValidatedEventRequest.getRegistrationId(),
                 ehrValidatedEventRequest.getReportingSystemSupplier(),
                 ehrValidatedEventRequest.getReportingPracticeOdsCode(),
                 ehrValidatedEventRequest.getPayload()

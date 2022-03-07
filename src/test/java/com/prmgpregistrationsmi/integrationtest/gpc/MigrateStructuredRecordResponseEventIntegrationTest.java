@@ -44,7 +44,6 @@ class MigrateStructuredRecordResponseEventIntegrationTest {
                 migrateStructuredRecordResponseEventResponse.getEventGeneratedDateTime(),
                 EventType.MIGRATE_STRUCTURED_RECORD_RESPONSE,
                 TransferProtocol.GP_CONNECT,
-                migrateStructuredRecordResponseEventResponse.getRegistrationId(),
                 migrateStructuredRecordResponseEventResponse.getReportingSystemSupplier(),
                 migrateStructuredRecordResponseEventResponse.getReportingPracticeOdsCode(),
                 migrateStructuredRecordResponsePayload
