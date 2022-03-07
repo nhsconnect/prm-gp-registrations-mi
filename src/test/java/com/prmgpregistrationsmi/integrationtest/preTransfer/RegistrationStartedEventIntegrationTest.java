@@ -6,7 +6,7 @@ import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.model.Event.TransferProtocol;
 import com.prmgpregistrationsmi.model.preTransfer.RegistrationStarted.RegistrationStartedEvent;
-import com.prmgpregistrationsmi.model.preTransfer.RegistrationStarted.RegistrationStartedPayload;
+import com.prmgpregistrationsmi.testhelpers.EventDAOBuilder;
 import com.prmgpregistrationsmi.testhelpers.preTransfer.RegistrationStartedEventBuilder;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,19 +35,10 @@ class RegistrationStartedEventIntegrationTest {
                 .withDefaultEventValues()
                 .build();
 
-        RegistrationStartedPayload registrationStartedPayload = RegistrationStartedEventBuilder
-                .withDefaultRegistrationStartedPayload()
+        EventDAO expectedS3UploadEvent = EventDAOBuilder.withEvent(registrationStartedEventRequest)
+                .eventType(EventType.REGISTRATION_STARTED)
+                .transferProtocol(TransferProtocol.PRE_TRANSFER)
                 .build();
-
-        EventDAO expectedS3UploadEvent = new EventDAO(
-                registrationStartedEventRequest.getEventId(),
-                registrationStartedEventRequest.getEventGeneratedDateTime(),
-                EventType.REGISTRATION_STARTED,
-                TransferProtocol.PRE_TRANSFER,
-                registrationStartedEventRequest.getReportingSystemSupplier(),
-                registrationStartedEventRequest.getReportingPracticeOdsCode(),
-                registrationStartedPayload
-        );
 
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
                 "/preTransfer/registrationStarted", registrationStartedEventRequest, EventResponse.class);

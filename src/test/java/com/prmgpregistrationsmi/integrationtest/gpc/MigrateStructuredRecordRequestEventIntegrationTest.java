@@ -6,7 +6,7 @@ import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.model.Event.TransferProtocol;
 import com.prmgpregistrationsmi.model.gpc.MigrateStructuredRecordRequest.MigrateStructuredRecordRequestEvent;
-import com.prmgpregistrationsmi.model.gpc.MigrateStructuredRecordRequest.MigrateStructuredRecordRequestPayload;
+import com.prmgpregistrationsmi.testhelpers.EventDAOBuilder;
 import com.prmgpregistrationsmi.testhelpers.gpc.MigrateStructuredRecordRequestEventBuilder;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,19 +35,10 @@ class MigrateStructuredRecordRequestEventIntegrationTest {
                 .withDefaultEventValues()
                 .build();
 
-        MigrateStructuredRecordRequestPayload migrateStructuredRecordRequestPayload = MigrateStructuredRecordRequestEventBuilder
-                .withDefaultMigrateStructuredRecordRequestPayload()
+        EventDAO expectedS3UploadEvent = EventDAOBuilder.withEvent(migrateStructuredRecordRequestEventRequest)
+                .eventType(EventType.MIGRATE_STRUCTURED_RECORD_REQUEST)
+                .transferProtocol(TransferProtocol.GP_CONNECT)
                 .build();
-
-        EventDAO expectedS3UploadEvent = new EventDAO(
-                migrateStructuredRecordRequestEventRequest.getEventId(),
-                migrateStructuredRecordRequestEventRequest.getEventGeneratedDateTime(),
-                EventType.MIGRATE_STRUCTURED_RECORD_REQUEST,
-                TransferProtocol.GP_CONNECT,
-                migrateStructuredRecordRequestEventRequest.getReportingSystemSupplier(),
-                migrateStructuredRecordRequestEventRequest.getReportingPracticeOdsCode(),
-                migrateStructuredRecordRequestPayload
-        );
 
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
                 "/gpconnect/migrateStructuredRecordRequest", migrateStructuredRecordRequestEventRequest, EventResponse.class);

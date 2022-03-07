@@ -6,7 +6,7 @@ import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.model.Event.TransferProtocol;
 import com.prmgpregistrationsmi.model.gpc.EhrReadyToIntegrate.EhrReadyToIntegrateEvent;
-import com.prmgpregistrationsmi.model.gpc.EhrReadyToIntegrate.EhrReadyToIntegratePayload;
+import com.prmgpregistrationsmi.testhelpers.EventDAOBuilder;
 import com.prmgpregistrationsmi.testhelpers.gpc.EhrReadyToIntegrateEventBuilder;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,19 +35,10 @@ class EhrReadyToIntegrateEventIntegrationTest {
                 .withDefaultEventValues()
                 .build();
 
-        EhrReadyToIntegratePayload ehrReadyToIntegratePayload = EhrReadyToIntegrateEventBuilder
-                .withDefaultEhrReadyToIntegratePayload()
+        EventDAO expectedS3UploadEvent = EventDAOBuilder.withEvent(ehrReadyToIntegrateEventRequest)
+                .eventType(EventType.EHR_READY_TO_INTEGRATE)
+                .transferProtocol(TransferProtocol.GP_CONNECT)
                 .build();
-
-        EventDAO expectedS3UploadEvent = new EventDAO(
-                ehrReadyToIntegrateEventRequest.getEventId(),
-                ehrReadyToIntegrateEventRequest.getEventGeneratedDateTime(),
-                EventType.EHR_READY_TO_INTEGRATE,
-                TransferProtocol.GP_CONNECT,
-                ehrReadyToIntegrateEventRequest.getReportingSystemSupplier(),
-                ehrReadyToIntegrateEventRequest.getReportingPracticeOdsCode(),
-                ehrReadyToIntegratePayload
-        );
 
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
                 "/gpconnect/ehrReadyToIntegrate",

@@ -92,4 +92,37 @@ public class EventTest {
         assertEquals("must not be empty", violation.getMessage());
         assertEquals("reportingPracticeOdsCode", violation.getPropertyPath().toString());
     }
+
+    @ParameterizedTest
+    @NullAndEmptySource
+    void shouldThrowConstraintViolationWhenConversationIdIsNullOrEmpty(String conversationId) {
+        RegistrationStartedEvent event = RegistrationStartedEventBuilder
+                .withDefaultEventValues()
+                .conversationId(conversationId)
+                .build();
+
+        Set<ConstraintViolation<RegistrationStartedEvent>> violations = validator.validate(event);
+
+        assertEquals(1, violations.size());
+
+        ConstraintViolation<RegistrationStartedEvent> violation = violations.iterator().next();
+        assertEquals("must not be empty", violation.getMessage());
+        assertEquals("conversationId", violation.getPropertyPath().toString());
+    }
+
+    @Test
+    void shouldThrowConstraintViolationWhenTransferEventDateTimeIsNull() {
+        RegistrationStartedEvent event = RegistrationStartedEventBuilder
+                .withDefaultEventValues()
+                .transferEventDateTime(null)
+                .build();
+
+        Set<ConstraintViolation<RegistrationStartedEvent>> violations = validator.validate(event);
+
+        assertEquals(1, violations.size());
+
+        ConstraintViolation<RegistrationStartedEvent> violation = violations.iterator().next();
+        assertEquals("must not be null", violation.getMessage());
+        assertEquals("transferEventDateTime", violation.getPropertyPath().toString());
+    }
 }

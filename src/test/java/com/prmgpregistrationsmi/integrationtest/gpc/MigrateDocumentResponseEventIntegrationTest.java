@@ -6,7 +6,7 @@ import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.model.Event.TransferProtocol;
 import com.prmgpregistrationsmi.model.gpc.MigrateDocumentResponse.MigrateDocumentResponseEvent;
-import com.prmgpregistrationsmi.model.gpc.MigrateDocumentResponse.MigrateDocumentResponsePayload;
+import com.prmgpregistrationsmi.testhelpers.EventDAOBuilder;
 import com.prmgpregistrationsmi.testhelpers.gpc.MigrateDocumentResponseEventBuilder;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,19 +35,10 @@ class MigrateDocumentResponseEventIntegrationTest {
                 .withDefaultEventValues()
                 .build();
 
-        MigrateDocumentResponsePayload migrateDocumentResponsePayload = MigrateDocumentResponseEventBuilder
-                .withDefaultMigrateDocumentResponsePayload()
+        EventDAO expectedS3UploadEvent = EventDAOBuilder.withEvent(migrateDocumentResponseEventRequest)
+                .eventType(EventType.MIGRATE_DOCUMENT_RESPONSE)
+                .transferProtocol(TransferProtocol.GP_CONNECT)
                 .build();
-
-        EventDAO expectedS3UploadEvent = new EventDAO(
-                migrateDocumentResponseEventRequest.getEventId(),
-                migrateDocumentResponseEventRequest.getEventGeneratedDateTime(),
-                EventType.MIGRATE_DOCUMENT_RESPONSE,
-                TransferProtocol.GP_CONNECT,
-                migrateDocumentResponseEventRequest.getReportingSystemSupplier(),
-                migrateDocumentResponseEventRequest.getReportingPracticeOdsCode(),
-                migrateDocumentResponsePayload
-        );
 
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
                 "/gpconnect/migrateDocumentResponse",

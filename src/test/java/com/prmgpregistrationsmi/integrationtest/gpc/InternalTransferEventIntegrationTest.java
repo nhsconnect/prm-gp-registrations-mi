@@ -6,6 +6,7 @@ import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.model.Event.TransferProtocol;
 import com.prmgpregistrationsmi.model.gpc.InternalTransfer.InternalTransferEvent;
+import com.prmgpregistrationsmi.testhelpers.EventDAOBuilder;
 import com.prmgpregistrationsmi.testhelpers.gpc.InternalTransferEventBuilder;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,17 +35,10 @@ class InternalTransferEventIntegrationTest {
                 .withDefaultEventValues()
                 .build();
 
-        EventDAO expectedS3UploadEvent = new EventDAO(
-                internalTransferEventRequest.getEventId(),
-                internalTransferEventRequest.getEventGeneratedDateTime(),
-                EventType.INTERNAL_TRANSFER,
-                TransferProtocol.GP_CONNECT,
-                internalTransferEventRequest.getReportingSystemSupplier(),
-                internalTransferEventRequest.getReportingPracticeOdsCode(),
-                InternalTransferEventBuilder
-                        .withDefaultInternalTransferPayload()
-                        .build()
-        );
+        EventDAO expectedS3UploadEvent = EventDAOBuilder.withEvent(internalTransferEventRequest)
+                .eventType(EventType.INTERNAL_TRANSFER)
+                .transferProtocol(TransferProtocol.GP_CONNECT)
+                .build();
 
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
                 "/gpconnect/internalTransfer",

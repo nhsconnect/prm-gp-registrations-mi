@@ -6,6 +6,7 @@ import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.model.Event.TransferProtocol;
 import com.prmgpregistrationsmi.model.gpc.Error.ErrorEvent;
+import com.prmgpregistrationsmi.testhelpers.EventDAOBuilder;
 import com.prmgpregistrationsmi.testhelpers.gpc.ErrorEventBuilder;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,15 +35,10 @@ class ErrorEventIntegrationTest {
                 .withDefaultEventValues()
                 .build();
 
-        EventDAO expectedS3UploadEvent = new EventDAO(
-                errorEventRequest.getEventId(),
-                errorEventRequest.getEventGeneratedDateTime(),
-                EventType.ERROR,
-                TransferProtocol.GP_CONNECT,
-                errorEventRequest.getReportingSystemSupplier(),
-                errorEventRequest.getReportingPracticeOdsCode(),
-                ErrorEventBuilder.withDefaultErrorPayload().build()
-        );
+        EventDAO expectedS3UploadEvent = EventDAOBuilder.withEvent(errorEventRequest)
+                .eventType(EventType.ERROR)
+                .transferProtocol(TransferProtocol.GP_CONNECT)
+                .build();
 
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
                 "/gpconnect/error",

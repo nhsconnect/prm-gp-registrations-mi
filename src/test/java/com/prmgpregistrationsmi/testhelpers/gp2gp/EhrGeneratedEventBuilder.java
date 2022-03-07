@@ -3,20 +3,22 @@ package com.prmgpregistrationsmi.testhelpers.gp2gp;
 import com.prmgpregistrationsmi.model.Event.EventPayload.UnsupportedDataItem;
 import com.prmgpregistrationsmi.model.gp2gp.EhrGenerated.EhrGeneratedEvent;
 import com.prmgpregistrationsmi.model.gp2gp.EhrGenerated.EhrGeneratedPayload;
+import com.prmgpregistrationsmi.testhelpers.DefaultEventValues;
 import com.prmgpregistrationsmi.testhelpers.GPTransferMetadataBuilder;
 import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
 import com.prmgpregistrationsmi.testhelpers.UnsupportedDataItemBuilder;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 public class EhrGeneratedEventBuilder {
     public static EhrGeneratedEvent.EhrGeneratedEventBuilder<?, ?> withDefaultEventValues() {
         return EhrGeneratedEvent.builder()
-                .eventId("some-id")
-                .eventGeneratedDateTime(LocalDateTime.of(1970, 1, 1, 3, 30))
-                .reportingSystemSupplier("some-reporting-system-supplier")
-                .reportingPracticeOdsCode("some-reporting-practice-ods-code")
+                .eventId(DefaultEventValues.EVENT_ID)
+                .eventGeneratedDateTime(DefaultEventValues.EVENT_GENERATED_DATE_TIME)
+                .reportingSystemSupplier(DefaultEventValues.REPORTING_SYSTEM_SUPPLIER)
+                .reportingPracticeOdsCode(DefaultEventValues.REPORTING_PRACTICE_ODS_CODE)
+                .conversationId(DefaultEventValues.CONVERSATION_ID)
+                .transferEventDateTime(DefaultEventValues.TRANSFER_EVENT_DATE_TIME)
                 .payload(withDefaultEhrGeneratedPayload().build());
     }
 

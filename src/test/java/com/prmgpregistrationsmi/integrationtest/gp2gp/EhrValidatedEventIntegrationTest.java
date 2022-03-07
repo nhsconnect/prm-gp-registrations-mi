@@ -6,6 +6,7 @@ import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.model.Event.TransferProtocol;
 import com.prmgpregistrationsmi.model.gp2gp.EhrValidated.EhrValidatedEvent;
+import com.prmgpregistrationsmi.testhelpers.EventDAOBuilder;
 import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrValidatedEventBuilder;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,15 +35,10 @@ class EhrValidatedEventIntegrationTest {
                 .withDefaultEventValues()
                 .build();
 
-        EventDAO expectedS3UploadEvent = new EventDAO(
-                ehrValidatedEventRequest.getEventId(),
-                ehrValidatedEventRequest.getEventGeneratedDateTime(),
-                EventType.EHR_VALIDATED,
-                TransferProtocol.GP2GP,
-                ehrValidatedEventRequest.getReportingSystemSupplier(),
-                ehrValidatedEventRequest.getReportingPracticeOdsCode(),
-                ehrValidatedEventRequest.getPayload()
-        );
+        EventDAO expectedS3UploadEvent = EventDAOBuilder.withEvent(ehrValidatedEventRequest)
+                .eventType(EventType.EHR_VALIDATED)
+                .transferProtocol(TransferProtocol.GP2GP)
+                .build();
 
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
                 "/gp2gp/ehrValidated", ehrValidatedEventRequest, EventResponse.class);

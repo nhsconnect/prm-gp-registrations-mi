@@ -24,6 +24,8 @@ class EventDAOTest {
         assertEquals(actualEventDAO.getTransferProtocol(), transferProtocol);
         assertEquals(actualEventDAO.getReportingSystemSupplier(), testEvent.getReportingSystemSupplier());
         assertEquals(actualEventDAO.getReportingPracticeOdsCode(), testEvent.getReportingPracticeOdsCode());
+        assertEquals(actualEventDAO.getConversationId(), testEvent.getConversationId());
+        assertEquals(actualEventDAO.getTransferEventDateTime(), testEvent.getTransferEventDateTime());
         assertEquals(actualEventDAO.getPayload(), testEvent.getPayload());
     }
 }

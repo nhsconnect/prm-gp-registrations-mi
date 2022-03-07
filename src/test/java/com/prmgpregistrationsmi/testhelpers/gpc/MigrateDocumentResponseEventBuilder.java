@@ -3,19 +3,20 @@ package com.prmgpregistrationsmi.testhelpers.gpc;
 import com.prmgpregistrationsmi.model.gpc.MigrateDocumentResponse.MigrateDocumentResponseEvent;
 import com.prmgpregistrationsmi.model.gpc.MigrateDocumentResponse.MigrateDocumentResponsePayload;
 import com.prmgpregistrationsmi.testhelpers.AttachmentBuilder;
+import com.prmgpregistrationsmi.testhelpers.DefaultEventValues;
 import com.prmgpregistrationsmi.testhelpers.GPTransferMetadataBuilder;
 import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
 import com.prmgpregistrationsmi.testhelpers.StatusDetailsBuilder;
 
-import java.time.LocalDateTime;
-
 public class MigrateDocumentResponseEventBuilder {
     public static MigrateDocumentResponseEvent.MigrateDocumentResponseEventBuilder<?, ?> withDefaultEventValues() {
         return MigrateDocumentResponseEvent.builder()
-                .eventId("some-id")
-                .eventGeneratedDateTime(LocalDateTime.of(1970, 1, 1, 3, 30))
-                .reportingSystemSupplier("some-reporting-system-supplier")
-                .reportingPracticeOdsCode("some-reporting-practice-ods-code")
+                .eventId(DefaultEventValues.EVENT_ID)
+                .eventGeneratedDateTime(DefaultEventValues.EVENT_GENERATED_DATE_TIME)
+                .reportingSystemSupplier(DefaultEventValues.REPORTING_SYSTEM_SUPPLIER)
+                .reportingPracticeOdsCode(DefaultEventValues.REPORTING_PRACTICE_ODS_CODE)
+                .conversationId(DefaultEventValues.CONVERSATION_ID)
+                .transferEventDateTime(DefaultEventValues.TRANSFER_EVENT_DATE_TIME)
                 .payload(withDefaultMigrateDocumentResponsePayload().build());
     }
 

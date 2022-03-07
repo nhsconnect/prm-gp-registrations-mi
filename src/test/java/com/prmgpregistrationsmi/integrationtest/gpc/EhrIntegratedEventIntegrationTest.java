@@ -6,7 +6,7 @@ import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.model.Event.TransferProtocol;
 import com.prmgpregistrationsmi.model.gpc.EhrIntegrated.EhrIntegratedEvent;
-import com.prmgpregistrationsmi.model.gpc.EhrIntegrated.EhrIntegratedPayload;
+import com.prmgpregistrationsmi.testhelpers.EventDAOBuilder;
 import com.prmgpregistrationsmi.testhelpers.gpc.EhrIntegratedEventBuilder;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,19 +35,10 @@ class EhrIntegratedEventIntegrationTest {
                 .withDefaultEventValues()
                 .build();
 
-        EhrIntegratedPayload ehrIntegratedPayload = EhrIntegratedEventBuilder
-                .withDefaultEhrIntegratedPayload()
+        EventDAO expectedS3UploadEvent = EventDAOBuilder.withEvent(ehrIntegratedEventRequest)
+                .eventType(EventType.EHR_INTEGRATED)
+                .transferProtocol(TransferProtocol.GP_CONNECT)
                 .build();
-
-        EventDAO expectedS3UploadEvent = new EventDAO(
-                ehrIntegratedEventRequest.getEventId(),
-                ehrIntegratedEventRequest.getEventGeneratedDateTime(),
-                EventType.EHR_INTEGRATED,
-                TransferProtocol.GP_CONNECT,
-                ehrIntegratedEventRequest.getReportingSystemSupplier(),
-                ehrIntegratedEventRequest.getReportingPracticeOdsCode(),
-                ehrIntegratedPayload
-        );
 
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
                 "/gpconnect/ehrIntegrated",

@@ -6,7 +6,7 @@ import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.model.Event.TransferProtocol;
 import com.prmgpregistrationsmi.model.gp2gp.EhrSent.EhrSentEvent;
-import com.prmgpregistrationsmi.model.gp2gp.EhrSent.EhrSentPayload;
+import com.prmgpregistrationsmi.testhelpers.EventDAOBuilder;
 import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrSentEventBuilder;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,19 +35,10 @@ class EhrSentEventIntegrationTest {
                 .withDefaultEventValues()
                 .build();
 
-        EhrSentPayload ehrSentPayload = EhrSentEventBuilder
-                .withDefaultEhrSentPayload()
+        EventDAO expectedS3UploadEvent = EventDAOBuilder.withEvent(ehrSentEventRequest)
+                .eventType(EventType.EHR_SENT)
+                .transferProtocol(TransferProtocol.GP2GP)
                 .build();
-
-        EventDAO expectedS3UploadEvent = new EventDAO(
-                ehrSentEventRequest.getEventId(),
-                ehrSentEventRequest.getEventGeneratedDateTime(),
-                EventType.EHR_SENT,
-                TransferProtocol.GP2GP,
-                ehrSentEventRequest.getReportingSystemSupplier(),
-                ehrSentEventRequest.getReportingPracticeOdsCode(),
-                ehrSentPayload
-        );
 
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
                 "/gp2gp/ehrSent", ehrSentEventRequest, EventResponse.class);

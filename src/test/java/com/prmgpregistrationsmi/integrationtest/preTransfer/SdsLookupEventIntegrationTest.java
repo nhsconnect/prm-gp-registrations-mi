@@ -6,7 +6,7 @@ import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.model.Event.TransferProtocol;
 import com.prmgpregistrationsmi.model.preTransfer.SdsLookup.SdsLookupEvent;
-import com.prmgpregistrationsmi.model.preTransfer.SdsLookup.SdsLookupPayload;
+import com.prmgpregistrationsmi.testhelpers.EventDAOBuilder;
 import com.prmgpregistrationsmi.testhelpers.preTransfer.SdsLookupEventBuilder;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,19 +35,10 @@ class SdsLookupEventIntegrationTest {
                 .withDefaultEventValues()
                 .build();
 
-        SdsLookupPayload sdsLookupPayload = SdsLookupEventBuilder
-                .withDefaultSdsLookupPayload()
+        EventDAO expectedS3UploadEvent = EventDAOBuilder.withEvent(sdsLookupEventRequest)
+                .eventType(EventType.SDS_LOOKUP)
+                .transferProtocol(TransferProtocol.PRE_TRANSFER)
                 .build();
-
-        EventDAO expectedS3UploadEvent = new EventDAO(
-                sdsLookupEventRequest.getEventId(),
-                sdsLookupEventRequest.getEventGeneratedDateTime(),
-                EventType.SDS_LOOKUP,
-                TransferProtocol.PRE_TRANSFER,
-                sdsLookupEventRequest.getReportingSystemSupplier(),
-                sdsLookupEventRequest.getReportingPracticeOdsCode(),
-                sdsLookupPayload
-        );
 
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
                 "/preTransfer/sdsLookup",

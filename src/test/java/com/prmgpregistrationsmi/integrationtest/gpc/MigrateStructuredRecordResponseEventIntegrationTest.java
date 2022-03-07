@@ -6,7 +6,7 @@ import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.model.Event.TransferProtocol;
 import com.prmgpregistrationsmi.model.gpc.MigrateStructuredRecordResponse.MigrateStructuredRecordResponseEvent;
-import com.prmgpregistrationsmi.model.gpc.MigrateStructuredRecordResponse.MigrateStructuredRecordResponsePayload;
+import com.prmgpregistrationsmi.testhelpers.EventDAOBuilder;
 import com.prmgpregistrationsmi.testhelpers.gpc.MigrateStructuredRecordResponseEventBuilder;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,19 +35,10 @@ class MigrateStructuredRecordResponseEventIntegrationTest {
                 .withDefaultEventValues()
                 .build();
 
-        MigrateStructuredRecordResponsePayload migrateStructuredRecordResponsePayload = MigrateStructuredRecordResponseEventBuilder
-                .withDefaultMigrateStructuredRecordResponsePayload()
+        EventDAO expectedS3UploadEvent = EventDAOBuilder.withEvent(migrateStructuredRecordResponseEventResponse)
+                .eventType(EventType.MIGRATE_STRUCTURED_RECORD_RESPONSE)
+                .transferProtocol(TransferProtocol.GP_CONNECT)
                 .build();
-
-        EventDAO expectedS3UploadEvent = new EventDAO(
-                migrateStructuredRecordResponseEventResponse.getEventId(),
-                migrateStructuredRecordResponseEventResponse.getEventGeneratedDateTime(),
-                EventType.MIGRATE_STRUCTURED_RECORD_RESPONSE,
-                TransferProtocol.GP_CONNECT,
-                migrateStructuredRecordResponseEventResponse.getReportingSystemSupplier(),
-                migrateStructuredRecordResponseEventResponse.getReportingPracticeOdsCode(),
-                migrateStructuredRecordResponsePayload
-        );
 
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
                 "/gpconnect/migrateStructuredRecordResponse", migrateStructuredRecordResponseEventResponse, EventResponse.class);

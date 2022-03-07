@@ -6,7 +6,7 @@ import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.model.Event.TransferProtocol;
 import com.prmgpregistrationsmi.model.preTransfer.PdsGeneralUpdate.PdsGeneralUpdateEvent;
-import com.prmgpregistrationsmi.model.preTransfer.PdsGeneralUpdate.PdsGeneralUpdatePayload;
+import com.prmgpregistrationsmi.testhelpers.EventDAOBuilder;
 import com.prmgpregistrationsmi.testhelpers.preTransfer.PdsGeneralUpdateEventBuilder;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,19 +35,10 @@ class PdsGeneralUpdateEventIntegrationTest {
                 .withDefaultEventValues()
                 .build();
 
-        PdsGeneralUpdatePayload pdsGeneralUpdatePayload = PdsGeneralUpdateEventBuilder
-                .withDefaultPdsGeneralUpdatePayload()
+        EventDAO expectedS3UploadEvent = EventDAOBuilder.withEvent(pdsGeneralUpdateEventRequest)
+                .eventType(EventType.PDS_GENERAL_UPDATE)
+                .transferProtocol(TransferProtocol.PRE_TRANSFER)
                 .build();
-
-        EventDAO expectedS3UploadEvent = new EventDAO(
-                pdsGeneralUpdateEventRequest.getEventId(),
-                pdsGeneralUpdateEventRequest.getEventGeneratedDateTime(),
-                EventType.PDS_GENERAL_UPDATE,
-                TransferProtocol.PRE_TRANSFER,
-                pdsGeneralUpdateEventRequest.getReportingSystemSupplier(),
-                pdsGeneralUpdateEventRequest.getReportingPracticeOdsCode(),
-                pdsGeneralUpdatePayload
-        );
 
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
                 "/preTransfer/pdsGeneralUpdate",

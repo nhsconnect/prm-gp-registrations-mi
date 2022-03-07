@@ -24,4 +24,8 @@ public abstract class Event implements HasPayload {
     private String reportingSystemSupplier;
     @NotEmpty
     private String reportingPracticeOdsCode;
+    @NotEmpty
+    private String conversationId;
+    @NotNull
+    private LocalDateTime transferEventDateTime;
 }

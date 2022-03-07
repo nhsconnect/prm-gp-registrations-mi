@@ -6,7 +6,7 @@ import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.model.Event.TransferProtocol;
 import com.prmgpregistrationsmi.model.preTransfer.PdsTrace.PdsTraceEvent;
-import com.prmgpregistrationsmi.model.preTransfer.PdsTrace.PdsTracePayload;
+import com.prmgpregistrationsmi.testhelpers.EventDAOBuilder;
 import com.prmgpregistrationsmi.testhelpers.preTransfer.PdsTraceEventBuilder;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,19 +35,10 @@ class PdsTraceEventIntegrationTest {
                 .withDefaultEventValues()
                 .build();
 
-        PdsTracePayload pdsTracePayload = PdsTraceEventBuilder
-                .withDefaultPdsTracePayload()
+        EventDAO expectedS3UploadEvent = EventDAOBuilder.withEvent(pdsTraceEventRequest)
+                .eventType(EventType.PDS_TRACE)
+                .transferProtocol(TransferProtocol.PRE_TRANSFER)
                 .build();
-
-        EventDAO expectedS3UploadEvent = new EventDAO(
-                pdsTraceEventRequest.getEventId(),
-                pdsTraceEventRequest.getEventGeneratedDateTime(),
-                EventType.PDS_TRACE,
-                TransferProtocol.PRE_TRANSFER,
-                pdsTraceEventRequest.getReportingSystemSupplier(),
-                pdsTraceEventRequest.getReportingPracticeOdsCode(),
-                pdsTracePayload
-        );
 
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
                 "/preTransfer/pdsTrace",

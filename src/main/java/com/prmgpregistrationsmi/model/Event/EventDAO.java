@@ -21,6 +21,8 @@ public class EventDAO {
     private TransferProtocol transferProtocol;
     private String reportingSystemSupplier;
     private String reportingPracticeOdsCode;
+    private String conversationId;
+    private LocalDateTime transferEventDateTime;
     private Payload payload;
 
     public static EventDAO fromEvent(Event event, EventType eventType, TransferProtocol transferProtocol) {
@@ -31,6 +33,8 @@ public class EventDAO {
                 transferProtocol,
                 event.getReportingSystemSupplier(),
                 event.getReportingPracticeOdsCode(),
+                event.getConversationId(),
+                event.getTransferEventDateTime(),
                 event.getPayload()
         );
     }
