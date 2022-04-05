@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 public class PdsTraceEvent extends Event {
     @Valid
     @NotNull
-    private com.prmgpregistrationsmi.model.preTransfer.PdsTrace.PdsTracePayload payload;
+    private PdsTracePayload payload;
 
     @Override
     public Payload getPayload() { return payload; }
