@@ -1,9 +1,9 @@
-package com.prmgpregistrationsmi.model.gpc.Error;
+package com.prmgpregistrationsmi.model.gp2gp.Error;
 
 import com.prmgpregistrationsmi.model.Event.EventPayload.ErrorDetails;
 import com.prmgpregistrationsmi.testhelpers.ErrorDetailsBuilder;
 import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
-import com.prmgpregistrationsmi.testhelpers.gpc.ErrorEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.gp2gp.ErrorEventBuilder;
 import org.junit.jupiter.api.Test;
 
 import javax.validation.ConstraintViolation;

@@ -10,12 +10,14 @@ import com.prmgpregistrationsmi.model.gp2gp.EhrIntegrated.EhrIntegratedEvent;
 import com.prmgpregistrationsmi.model.gp2gp.EhrRequested.EhrRequestedEvent;
 import com.prmgpregistrationsmi.model.gp2gp.EhrSent.EhrSentEvent;
 import com.prmgpregistrationsmi.model.gp2gp.EhrValidated.EhrValidatedEvent;
+import com.prmgpregistrationsmi.model.gp2gp.Error.ErrorEvent;
 import com.prmgpregistrationsmi.service.RegistrationService;
 import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrGeneratedEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrIntegratedEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrRequestedEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrSentEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrValidatedEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.gp2gp.ErrorEventBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -140,6 +142,28 @@ class GP2GPControllerTest {
         EventResponse actualResponse = gp2gpController.ehrValidatedEvent(testEvent);
 
         verify(registrationService).saveEvent(testEvent, EventType.EHR_VALIDATED, transferProtocol);
+
+        EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
+        assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
+    }
+
+    @Test
+    void shouldReturnEventIdWhenReceivingErrorEvent() throws UnableToUploadToS3Exception {
+        ErrorEvent testEvent = ErrorEventBuilder
+                .withDefaultEventValues()
+                .build();
+
+        EventDAO eventDAO = EventDAO.builder()
+                .eventId(testEvent.getEventId())
+                .build();
+
+        TransferProtocol transferProtocol = TransferProtocol.GP2GP;
+
+        when(registrationService.saveEvent(testEvent, EventType.ERROR, transferProtocol)).thenReturn(eventDAO);
+
+        EventResponse actualResponse = gp2gpController.errorEvent(testEvent);
+
+        verify(registrationService).saveEvent(testEvent, EventType.ERROR, transferProtocol);
 
         EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
         assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
