@@ -1,5 +1,5 @@
 plugins {
-	id 'org.springframework.boot' version '2.6.6'
+	id 'org.springframework.boot' version '2.7.0'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
 	id 'jacoco'
@@ -34,31 +34,16 @@ jar {
 }
 
 dependencies {
-	implementation('org.springframework.boot:spring-boot-starter-web') {
-		exclude group: 'org.apache.tomcat.embed', module: 'tomcat-embed-core'
-		exclude group: 'org.apache.tomcat.embed', module: 'tomcat-embed-websocket'
-	}
-
-	implementation('org.apache.tomcat.embed:tomcat-embed-core') {
-		version {
-			strictly '9.0.58'
-		}
-	}
-	implementation('org.apache.tomcat.embed:tomcat-embed-websocket') {
-		version {
-			strictly '9.0.58'
-		}
-	}
-
+	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
-	implementation 'org.springdoc:springdoc-openapi-ui:1.6.5'
-	implementation 'com.amazonaws:aws-java-sdk-s3:1.12.153'
+	implementation 'org.springdoc:springdoc-openapi-ui:1.6.8'
+	implementation 'com.amazonaws:aws-java-sdk-s3:1.12.220'
 	implementation 'org.springframework.boot:spring-boot-starter-log4j2'
-	compileOnly 'org.projectlombok:lombok:1.18.22'
+	compileOnly 'org.projectlombok:lombok:1.18.24'
 	annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	implementation 'com.github.spotbugs:spotbugs-annotations:4.5.3'
+	implementation 'com.github.spotbugs:spotbugs-annotations:4.6.0'
 	implementation 'com.googlecode.json-simple:json-simple:1.1.1'
 }
 
