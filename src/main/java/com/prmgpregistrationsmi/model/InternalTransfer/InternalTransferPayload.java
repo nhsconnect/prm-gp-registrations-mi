@@ -1,4 +1,4 @@
-package com.prmgpregistrationsmi.model.gpc.InternalTransfer;
+package com.prmgpregistrationsmi.model.InternalTransfer;
 
 import com.prmgpregistrationsmi.model.Event.EventPayload.IntegrationOutcome;
 import com.prmgpregistrationsmi.model.Event.EventPayload.Registration;

@@ -1,9 +1,9 @@
-package com.prmgpregistrationsmi.model.gpc.InternalTransfer;
+package com.prmgpregistrationsmi.model.InternalTransfer;
 
 import com.prmgpregistrationsmi.model.Event.EventPayload.IntegrationOutcome;
 import com.prmgpregistrationsmi.testhelpers.IntegrationOutcomeBuilder;
+import com.prmgpregistrationsmi.testhelpers.InternalTransferEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
-import com.prmgpregistrationsmi.testhelpers.gpc.InternalTransferEventBuilder;
 import org.junit.jupiter.api.Test;
 
 import javax.validation.ConstraintViolation;

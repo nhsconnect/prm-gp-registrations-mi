@@ -1,13 +1,13 @@
-package com.prmgpregistrationsmi.integrationtest.gpc;
+package com.prmgpregistrationsmi.integrationtest;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.model.Event.TransferProtocol;
-import com.prmgpregistrationsmi.model.gpc.InternalTransfer.InternalTransferEvent;
+import com.prmgpregistrationsmi.model.InternalTransfer.InternalTransferEvent;
 import com.prmgpregistrationsmi.testhelpers.EventDAOBuilder;
-import com.prmgpregistrationsmi.testhelpers.gpc.InternalTransferEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.InternalTransferEventBuilder;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,10 +1,7 @@
-package com.prmgpregistrationsmi.testhelpers.gpc;
+package com.prmgpregistrationsmi.testhelpers;
 
-import com.prmgpregistrationsmi.model.gpc.InternalTransfer.InternalTransferEvent;
-import com.prmgpregistrationsmi.model.gpc.InternalTransfer.InternalTransferPayload;
-import com.prmgpregistrationsmi.testhelpers.DefaultEventValues;
-import com.prmgpregistrationsmi.testhelpers.IntegrationOutcomeBuilder;
-import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
+import com.prmgpregistrationsmi.model.InternalTransfer.InternalTransferEvent;
+import com.prmgpregistrationsmi.model.InternalTransfer.InternalTransferPayload;
 
 public class InternalTransferEventBuilder {
     public static InternalTransferEvent.InternalTransferEventBuilder<?, ?> withDefaultEventValues() {
