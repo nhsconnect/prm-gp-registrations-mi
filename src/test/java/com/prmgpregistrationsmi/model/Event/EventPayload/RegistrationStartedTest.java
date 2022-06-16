@@ -1,7 +1,6 @@
 package com.prmgpregistrationsmi.model.Event.EventPayload;
 
 import com.prmgpregistrationsmi.testhelpers.RegistrationStartedBuilder;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 
@@ -15,22 +14,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class RegistrationStartedTest {
 
     private final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-
-    @Test
-    void shouldThrowConstraintViolationWhenRegistrationStartedDateTimeIsNull() {
-        RegistrationStarted registrationStarted = RegistrationStartedBuilder
-                .withDefaultValues()
-                .registrationStartedDateTime(null)
-                .build();
-
-        Set<ConstraintViolation<RegistrationStarted>> violations = validator.validate(registrationStarted);
-
-        assertEquals(1, violations.size());
-
-        ConstraintViolation<RegistrationStarted> violation = violations.iterator().next();
-        assertEquals("must not be null", violation.getMessage());
-        assertEquals("registrationStartedDateTime", violation.getPropertyPath().toString());
-    }
 
     @ParameterizedTest
     @NullAndEmptySource

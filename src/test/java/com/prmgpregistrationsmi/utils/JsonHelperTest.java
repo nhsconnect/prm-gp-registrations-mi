@@ -37,7 +37,7 @@ class JsonHelperTest {
                 .withDefaultValues()
                 .build();
 
-        assertEquals("{\"registrationStartedDateTime\":\"2020-02-08T09:30:00\",\"requestingPracticeOdsCode\":\"ABC1234\"," +
+        assertEquals("{\"requestingPracticeOdsCode\":\"ABC1234\"," +
                         "\"registrationType\":\"newRegistrant\"}",
                 JsonHelper.asJsonString(testObject));
     }
