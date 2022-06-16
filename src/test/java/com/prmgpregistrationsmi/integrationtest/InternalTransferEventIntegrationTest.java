@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.boot.test.web.server.LocalServerPort;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
@@ -37,11 +37,11 @@ class InternalTransferEventIntegrationTest {
 
         EventDAO expectedS3UploadEvent = EventDAOBuilder.withEvent(internalTransferEventRequest)
                 .eventType(EventType.INTERNAL_TRANSFER)
-                .transferProtocol(TransferProtocol.GP_CONNECT)
+                .transferProtocol(TransferProtocol.INTERNAL_TRANSFER)
                 .build();
 
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
-                "/gpconnect/internalTransfer",
+                "/internalTransfer",
                 internalTransferEventRequest, EventResponse.class);
 
         EventResponse expectedResponse = new EventResponse(expectedS3UploadEvent.getEventId());

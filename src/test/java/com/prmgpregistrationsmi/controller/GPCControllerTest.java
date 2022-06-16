@@ -5,7 +5,6 @@ import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.model.Event.TransferProtocol;
-import com.prmgpregistrationsmi.model.InternalTransfer.InternalTransferEvent;
 import com.prmgpregistrationsmi.model.gpc.EhrIntegrated.EhrIntegratedEvent;
 import com.prmgpregistrationsmi.model.gpc.EhrReadyToIntegrate.EhrReadyToIntegrateEvent;
 import com.prmgpregistrationsmi.model.gpc.Error.ErrorEvent;
@@ -14,7 +13,6 @@ import com.prmgpregistrationsmi.model.gpc.MigrateDocumentResponse.MigrateDocumen
 import com.prmgpregistrationsmi.model.gpc.MigrateStructuredRecordRequest.MigrateStructuredRecordRequestEvent;
 import com.prmgpregistrationsmi.model.gpc.MigrateStructuredRecordResponse.MigrateStructuredRecordResponseEvent;
 import com.prmgpregistrationsmi.service.RegistrationService;
-import com.prmgpregistrationsmi.testhelpers.InternalTransferEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.gpc.EhrIntegratedEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.gpc.EhrReadyToIntegrateEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.gpc.ErrorEventBuilder;
@@ -192,28 +190,6 @@ class GPCControllerTest {
         EventResponse actualResponse = gpcController.errorEvent(testEvent);
 
         verify(registrationService).saveEvent(testEvent, EventType.ERROR, transferProtocol);
-
-        EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
-        assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
-    }
-
-    @Test
-    void shouldReturnEventIdWhenReceivingInternalTransferEvent() throws UnableToUploadToS3Exception {
-        InternalTransferEvent testEvent = InternalTransferEventBuilder
-                .withDefaultEventValues()
-                .build();
-
-        EventDAO eventDAO = EventDAO.builder()
-                .eventId(testEvent.getEventId())
-                .build();
-
-        TransferProtocol transferProtocol = TransferProtocol.GP_CONNECT;
-
-        when(registrationService.saveEvent(testEvent, EventType.INTERNAL_TRANSFER, transferProtocol)).thenReturn(eventDAO);
-
-        EventResponse actualResponse = gpcController.internalTransferEvent(testEvent);
-
-        verify(registrationService).saveEvent(testEvent, EventType.INTERNAL_TRANSFER, transferProtocol);
 
         EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
         assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());

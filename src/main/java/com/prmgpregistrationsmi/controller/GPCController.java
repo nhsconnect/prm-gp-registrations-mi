@@ -5,7 +5,6 @@ import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.model.Event.TransferProtocol;
-import com.prmgpregistrationsmi.model.InternalTransfer.InternalTransferEvent;
 import com.prmgpregistrationsmi.model.gpc.EhrIntegrated.EhrIntegratedEvent;
 import com.prmgpregistrationsmi.model.gpc.EhrReadyToIntegrate.EhrReadyToIntegrateEvent;
 import com.prmgpregistrationsmi.model.gpc.Error.ErrorEvent;
@@ -105,17 +104,6 @@ public class GPCController {
     public EventResponse errorEvent(
             @Valid @RequestBody ErrorEvent event) throws UnableToUploadToS3Exception {
         EventDAO eventDAO = registrationService.saveEvent(event, EventType.ERROR, TransferProtocol.GP_CONNECT);
-        return new EventResponse(eventDAO.getEventId());
-    }
-
-    @PostMapping(
-            value = "/internalTransfer",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
-    public EventResponse internalTransferEvent(
-            @Valid @RequestBody InternalTransferEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.INTERNAL_TRANSFER, TransferProtocol.GP_CONNECT);
         return new EventResponse(eventDAO.getEventId());
     }
 }
