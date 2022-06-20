@@ -41,9 +41,8 @@ class PreTransferControllerTest {
                 .withDefaultEventValues()
                 .build();
 
-        EventDAO eventDAO = EventDAO.builder()
-                .eventId(testEvent.getEventId())
-                .build();
+        EventDAO eventDAO = EventDAO.builder().build();
+        
         TransferProtocol transferProtocol = TransferProtocol.PRE_TRANSFER;
 
         when(registrationService.saveEvent(testEvent, EventType.REGISTRATION_STARTED, transferProtocol)).thenReturn(eventDAO);
@@ -52,8 +51,7 @@ class PreTransferControllerTest {
 
         verify(registrationService).saveEvent(testEvent, EventType.REGISTRATION_STARTED, transferProtocol);
 
-        EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
-        assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
+        assertEquals(eventDAO.getEventId(), actualResponse.getEventId());
     }
 
     @Test
@@ -62,9 +60,7 @@ class PreTransferControllerTest {
                 .withDefaultEventValues()
                 .build();
 
-        EventDAO eventDAO = EventDAO.builder()
-                .eventId(testEvent.getEventId())
-                .build();
+        EventDAO eventDAO = EventDAO.builder().build();
 
         TransferProtocol transferProtocol = TransferProtocol.PRE_TRANSFER;
 
@@ -74,8 +70,7 @@ class PreTransferControllerTest {
 
         verify(registrationService).saveEvent(testEvent, EventType.PDS_TRACE, transferProtocol);
 
-        EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
-        assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
+        assertEquals(eventDAO.getEventId(), actualResponse.getEventId());
     }
 
     @Test
@@ -84,9 +79,7 @@ class PreTransferControllerTest {
                 .withDefaultEventValues()
                 .build();
 
-        EventDAO eventDAO = EventDAO.builder()
-                .eventId(testEvent.getEventId())
-                .build();
+        EventDAO eventDAO = EventDAO.builder().build();
 
         TransferProtocol transferProtocol = TransferProtocol.PRE_TRANSFER;
 
@@ -96,8 +89,7 @@ class PreTransferControllerTest {
 
         verify(registrationService).saveEvent(testEvent, EventType.PDS_GENERAL_UPDATE, transferProtocol);
 
-        EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
-        assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
+        assertEquals(eventDAO.getEventId(), actualResponse.getEventId());
     }
 
 
@@ -107,9 +99,7 @@ class PreTransferControllerTest {
                 .withDefaultEventValues()
                 .build();
 
-        EventDAO eventDAO = EventDAO.builder()
-                .eventId(testEvent.getEventId())
-                .build();
+        EventDAO eventDAO = EventDAO.builder().build();
 
         TransferProtocol transferProtocol = TransferProtocol.PRE_TRANSFER;
 
@@ -119,7 +109,6 @@ class PreTransferControllerTest {
 
         verify(registrationService).saveEvent(testEvent, EventType.SDS_LOOKUP, transferProtocol);
 
-        EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
-        assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
+        assertEquals(eventDAO.getEventId(), actualResponse.getEventId());
     }
 }

@@ -8,7 +8,7 @@ class UUIDBuilderTest {
     @Test
     void shouldReturnUUIDStringFromAnotherString() {
         String input = "a random string";
-        String result1 = UUIDBuilder.stringFromString(input);
+        String result1 = UUIDService.buildUUIDStringFromSeed(input);
 
         assertEquals(result1.length(), 36);
     }
@@ -16,9 +16,9 @@ class UUIDBuilderTest {
     @Test
     void shouldReturnSameUUIDGivenTheSameString() {
         String input = "a random string";
-        String result1 = UUIDBuilder.stringFromString(input);
-        String result2 = UUIDBuilder.stringFromString(input);
+        String result1 = UUIDService.buildUUIDStringFromSeed(input);
+        String result2 = UUIDService.buildUUIDStringFromSeed(input);
 
         assertEquals(result1, result2);
-    }    
+    }
 }

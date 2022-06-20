@@ -12,7 +12,6 @@ import java.util.List;
 public class EhrGeneratedEventBuilder {
     public static EhrGeneratedEvent.EhrGeneratedEventBuilder<?, ?> withDefaultEventValues() {
         return EhrGeneratedEvent.builder()
-                .eventId(DefaultEventValues.EVENT_ID)
                 .eventGeneratedDateTime(DefaultEventValues.EVENT_GENERATED_DATE_TIME)
                 .reportingSystemSupplier(DefaultEventValues.REPORTING_SYSTEM_SUPPLIER)
                 .reportingPracticeOdsCode(DefaultEventValues.REPORTING_PRACTICE_ODS_CODE)

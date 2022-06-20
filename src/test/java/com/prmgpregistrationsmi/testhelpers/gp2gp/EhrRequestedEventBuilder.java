@@ -8,7 +8,6 @@ import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
 public class EhrRequestedEventBuilder {
     public static EhrRequestedEvent.EhrRequestedEventBuilder<?, ?> withDefaultEventValues() {
         return EhrRequestedEvent.builder()
-                .eventId(DefaultEventValues.EVENT_ID)
                 .eventGeneratedDateTime(DefaultEventValues.EVENT_GENERATED_DATE_TIME)
                 .reportingSystemSupplier(DefaultEventValues.REPORTING_SYSTEM_SUPPLIER)
                 .reportingPracticeOdsCode(DefaultEventValues.REPORTING_PRACTICE_ODS_CODE)

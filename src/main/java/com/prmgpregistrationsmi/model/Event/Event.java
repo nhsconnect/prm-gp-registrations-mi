@@ -16,8 +16,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @EqualsAndHashCode
 public abstract class Event implements HasPayload {
-    @NotEmpty
-    private String eventId;
     @NotNull
     private LocalDateTime eventGeneratedDateTime;
     @NotEmpty

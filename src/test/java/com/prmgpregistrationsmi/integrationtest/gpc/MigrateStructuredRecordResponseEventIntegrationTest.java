@@ -8,6 +8,7 @@ import com.prmgpregistrationsmi.model.Event.TransferProtocol;
 import com.prmgpregistrationsmi.model.gpc.MigrateStructuredRecordResponse.MigrateStructuredRecordResponseEvent;
 import com.prmgpregistrationsmi.testhelpers.EventDAOBuilder;
 import com.prmgpregistrationsmi.testhelpers.gpc.MigrateStructuredRecordResponseEventBuilder;
+import com.prmgpregistrationsmi.utils.UUIDService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -36,6 +37,11 @@ class MigrateStructuredRecordResponseEventIntegrationTest {
                 .build();
 
         EventDAO expectedS3UploadEvent = EventDAOBuilder.withEvent(migrateStructuredRecordResponseEventResponse)
+                .eventId(UUIDService.buildUUIDStringFromSeed(
+                        migrateStructuredRecordResponseEventResponse.getConversationId() +
+                                EventType.MIGRATE_STRUCTURED_RECORD_RESPONSE +
+                                migrateStructuredRecordResponseEventResponse.getEventGeneratedDateTime().toString())
+                )
                 .eventType(EventType.MIGRATE_STRUCTURED_RECORD_RESPONSE)
                 .transferProtocol(TransferProtocol.GP_CONNECT)
                 .build();
@@ -43,12 +49,11 @@ class MigrateStructuredRecordResponseEventIntegrationTest {
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
                 "/gpconnect/migrateStructuredRecordResponse", migrateStructuredRecordResponseEventResponse, EventResponse.class);
 
-        EventResponse expectedResponse = new EventResponse(expectedS3UploadEvent.getEventId());
-        assertEquals(expectedResponse.getEventId(), actualResponseEvent.getEventId());
+        assertEquals(expectedS3UploadEvent.getEventId(), actualResponseEvent.getEventId());
 
         verify(mockAmazonS3Client).putObject(
                 "test_bucket",
-                String.format("v1/1970/01/01/03/%s.json", migrateStructuredRecordResponseEventResponse.getEventId()),
+                String.format("v1/1970/01/01/03/%s.json", expectedS3UploadEvent.getEventId()),
                 expectedS3UploadEvent.toString()
         );
     }
