@@ -47,9 +47,7 @@ class GPCControllerTest {
                 .withDefaultEventValues()
                 .build();
 
-        EventDAO eventDAO = EventDAO.builder()
-                .eventId(testEvent.getEventId())
-                .build();
+        EventDAO eventDAO = EventDAO.builder().build();
 
         TransferProtocol transferProtocol = TransferProtocol.GP_CONNECT;
 
@@ -59,8 +57,7 @@ class GPCControllerTest {
 
         verify(registrationService).saveEvent(testEvent, EventType.MIGRATE_STRUCTURED_RECORD_REQUEST, transferProtocol);
 
-        EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
-        assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
+        assertEquals(eventDAO.getEventId(), actualResponse.getEventId());
     }
 
     @Test
@@ -69,9 +66,7 @@ class GPCControllerTest {
                 .withDefaultEventValues()
                 .build();
 
-        EventDAO eventDAO = EventDAO.builder()
-                .eventId(testEvent.getEventId())
-                .build();
+        EventDAO eventDAO = EventDAO.builder().build();
 
         TransferProtocol transferProtocol = TransferProtocol.GP_CONNECT;
 
@@ -81,8 +76,7 @@ class GPCControllerTest {
 
         verify(registrationService).saveEvent(testEvent, EventType.MIGRATE_STRUCTURED_RECORD_RESPONSE, transferProtocol);
 
-        EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
-        assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
+        assertEquals(eventDAO.getEventId(), actualResponse.getEventId());
     }
 
     @Test
@@ -91,9 +85,7 @@ class GPCControllerTest {
                 .withDefaultEventValues()
                 .build();
 
-        EventDAO eventDAO = EventDAO.builder()
-                .eventId(testEvent.getEventId())
-                .build();
+        EventDAO eventDAO = EventDAO.builder().build();
 
         TransferProtocol transferProtocol = TransferProtocol.GP_CONNECT;
 
@@ -103,8 +95,7 @@ class GPCControllerTest {
 
         verify(registrationService).saveEvent(testEvent, EventType.MIGRATE_DOCUMENT_REQUEST, transferProtocol);
 
-        EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
-        assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
+        assertEquals(eventDAO.getEventId(), actualResponse.getEventId());
     }
 
     @Test
@@ -113,9 +104,7 @@ class GPCControllerTest {
                 .withDefaultEventValues()
                 .build();
 
-        EventDAO eventDAO = EventDAO.builder()
-                .eventId(testEvent.getEventId())
-                .build();
+        EventDAO eventDAO = EventDAO.builder().build();
 
         TransferProtocol transferProtocol = TransferProtocol.GP_CONNECT;
 
@@ -125,8 +114,7 @@ class GPCControllerTest {
 
         verify(registrationService).saveEvent(testEvent, EventType.MIGRATE_DOCUMENT_RESPONSE, transferProtocol);
 
-        EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
-        assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
+        assertEquals(eventDAO.getEventId(), actualResponse.getEventId());
     }
 
     @Test
@@ -135,9 +123,7 @@ class GPCControllerTest {
                 .withDefaultEventValues()
                 .build();
 
-        EventDAO eventDAO = EventDAO.builder()
-                .eventId(testEvent.getEventId())
-                .build();
+        EventDAO eventDAO = EventDAO.builder().build();
 
         TransferProtocol transferProtocol = TransferProtocol.GP_CONNECT;
 
@@ -147,8 +133,7 @@ class GPCControllerTest {
 
         verify(registrationService).saveEvent(testEvent, EventType.EHR_READY_TO_INTEGRATE, transferProtocol);
 
-        EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
-        assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
+        assertEquals(eventDAO.getEventId(), actualResponse.getEventId());
     }
 
     @Test
@@ -157,9 +142,7 @@ class GPCControllerTest {
                 .withDefaultEventValues()
                 .build();
 
-        EventDAO eventDAO = EventDAO.builder()
-                .eventId(testEvent.getEventId())
-                .build();
+        EventDAO eventDAO = EventDAO.builder().build();
 
         TransferProtocol transferProtocol = TransferProtocol.GP_CONNECT;
 
@@ -169,8 +152,7 @@ class GPCControllerTest {
 
         verify(registrationService).saveEvent(testEvent, EventType.EHR_INTEGRATED, transferProtocol);
 
-        EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
-        assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
+        assertEquals(eventDAO.getEventId(), actualResponse.getEventId());
     }
 
     @Test
@@ -179,9 +161,7 @@ class GPCControllerTest {
                 .withDefaultEventValues()
                 .build();
 
-        EventDAO eventDAO = EventDAO.builder()
-                .eventId(testEvent.getEventId())
-                .build();
+        EventDAO eventDAO = EventDAO.builder().build();
 
         TransferProtocol transferProtocol = TransferProtocol.GP_CONNECT;
 
@@ -191,7 +171,6 @@ class GPCControllerTest {
 
         verify(registrationService).saveEvent(testEvent, EventType.ERROR, transferProtocol);
 
-        EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
-        assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
+        assertEquals(eventDAO.getEventId(), actualResponse.getEventId());
     }
 }

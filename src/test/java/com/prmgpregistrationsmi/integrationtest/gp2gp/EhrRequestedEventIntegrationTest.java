@@ -8,6 +8,7 @@ import com.prmgpregistrationsmi.model.Event.TransferProtocol;
 import com.prmgpregistrationsmi.model.gp2gp.EhrRequested.EhrRequestedEvent;
 import com.prmgpregistrationsmi.testhelpers.EventDAOBuilder;
 import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrRequestedEventBuilder;
+import com.prmgpregistrationsmi.utils.UUIDService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -36,6 +37,11 @@ class EhrRequestedEventIntegrationTest {
                 .build();
 
         EventDAO expectedS3UploadEvent = EventDAOBuilder.withEvent(ehrRequestedEventRequest)
+                .eventId(UUIDService.buildUUIDStringFromSeed(
+                        ehrRequestedEventRequest.getConversationId() +
+                                EventType.EHR_REQUESTED +
+                                ehrRequestedEventRequest.getEventGeneratedDateTime().toString())
+                )
                 .eventType(EventType.EHR_REQUESTED)
                 .transferProtocol(TransferProtocol.GP2GP)
                 .build();
@@ -43,12 +49,11 @@ class EhrRequestedEventIntegrationTest {
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
                 "/gp2gp/ehrRequested", ehrRequestedEventRequest, EventResponse.class);
 
-        EventResponse expectedResponse = new EventResponse(expectedS3UploadEvent.getEventId());
-        assertEquals(expectedResponse.getEventId(), actualResponseEvent.getEventId());
+        assertEquals(expectedS3UploadEvent.getEventId(), actualResponseEvent.getEventId());
 
         verify(mockAmazonS3Client).putObject(
                 "test_bucket",
-                String.format("v1/1970/01/01/03/%s.json", ehrRequestedEventRequest.getEventId()),
+                String.format("v1/1970/01/01/03/%s.json", expectedS3UploadEvent.getEventId()),
                 expectedS3UploadEvent.toString()
         );
     }

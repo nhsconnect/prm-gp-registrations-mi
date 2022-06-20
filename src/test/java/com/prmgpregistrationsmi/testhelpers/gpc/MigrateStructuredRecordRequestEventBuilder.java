@@ -8,7 +8,6 @@ import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
 public class MigrateStructuredRecordRequestEventBuilder {
     public static MigrateStructuredRecordRequestEvent.MigrateStructuredRecordRequestEventBuilder<?, ?> withDefaultEventValues() {
         return MigrateStructuredRecordRequestEvent.builder()
-                .eventId(DefaultEventValues.EVENT_ID)
                 .eventGeneratedDateTime(DefaultEventValues.EVENT_GENERATED_DATE_TIME)
                 .reportingSystemSupplier(DefaultEventValues.REPORTING_SYSTEM_SUPPLIER)
                 .reportingPracticeOdsCode(DefaultEventValues.REPORTING_PRACTICE_ODS_CODE)

@@ -8,6 +8,7 @@ import com.prmgpregistrationsmi.model.Event.TransferProtocol;
 import com.prmgpregistrationsmi.model.preTransfer.SdsLookup.SdsLookupEvent;
 import com.prmgpregistrationsmi.testhelpers.EventDAOBuilder;
 import com.prmgpregistrationsmi.testhelpers.preTransfer.SdsLookupEventBuilder;
+import com.prmgpregistrationsmi.utils.UUIDService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -36,6 +37,11 @@ class SdsLookupEventIntegrationTest {
                 .build();
 
         EventDAO expectedS3UploadEvent = EventDAOBuilder.withEvent(sdsLookupEventRequest)
+                .eventId(UUIDService.buildUUIDStringFromSeed(
+                        sdsLookupEventRequest.getConversationId() +
+                                EventType.SDS_LOOKUP +
+                                sdsLookupEventRequest.getEventGeneratedDateTime().toString())
+                )
                 .eventType(EventType.SDS_LOOKUP)
                 .transferProtocol(TransferProtocol.PRE_TRANSFER)
                 .build();
@@ -44,12 +50,11 @@ class SdsLookupEventIntegrationTest {
                 "/preTransfer/sdsLookup",
                 sdsLookupEventRequest, EventResponse.class);
 
-        EventResponse expectedResponse = new EventResponse(expectedS3UploadEvent.getEventId());
-        assertEquals(expectedResponse.getEventId(), actualResponseEvent.getEventId());
+        assertEquals(expectedS3UploadEvent.getEventId(), actualResponseEvent.getEventId());
 
         verify(mockAmazonS3Client).putObject(
                 "test_bucket",
-                String.format("v1/1970/01/01/03/%s.json", sdsLookupEventRequest.getEventId()),
+                String.format("v1/1970/01/01/03/%s.json", expectedS3UploadEvent.getEventId()),
                 expectedS3UploadEvent.toString()
         );
     }

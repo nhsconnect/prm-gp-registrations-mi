@@ -28,22 +28,6 @@ public class EventTest {
     }
 
     @Test
-    void shouldThrowConstraintViolationWhenEventIdIsNull() {
-        RegistrationStartedEvent event = RegistrationStartedEventBuilder
-                    .withDefaultEventValues()
-                    .eventId(null)
-                    .build();
-
-        Set<ConstraintViolation<RegistrationStartedEvent>> violations = validator.validate(event);
-
-        assertEquals(1, violations.size());
-
-        ConstraintViolation<RegistrationStartedEvent> violation = violations.iterator().next();
-        assertEquals("must not be empty", violation.getMessage());
-        assertEquals("eventId", violation.getPropertyPath().toString());
-    }
-
-    @Test
     void shouldThrowConstraintViolationWhenEventGeneratedDateTimeIsNull() {
         RegistrationStartedEvent event = RegistrationStartedEventBuilder
                 .withDefaultEventValues()

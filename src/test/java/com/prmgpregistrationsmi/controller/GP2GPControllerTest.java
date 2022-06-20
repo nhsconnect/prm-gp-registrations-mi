@@ -45,9 +45,7 @@ class GP2GPControllerTest {
                 .withDefaultEventValues()
                 .build();
 
-        EventDAO eventDAO = EventDAO.builder()
-                .eventId(testEvent.getEventId())
-                .build();
+        EventDAO eventDAO = EventDAO.builder().build();
         TransferProtocol transferProtocol = TransferProtocol.GP2GP;
 
         when(registrationService.saveEvent(testEvent, EventType.EHR_REQUESTED, transferProtocol)).thenReturn(eventDAO);
@@ -56,8 +54,7 @@ class GP2GPControllerTest {
 
         verify(registrationService).saveEvent(testEvent, EventType.EHR_REQUESTED, transferProtocol);
 
-        EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
-        assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
+        assertEquals(eventDAO.getEventId(), actualResponse.getEventId());
     }
 
     @Test
@@ -66,9 +63,7 @@ class GP2GPControllerTest {
                 .withDefaultEventValues()
                 .build();
 
-        EventDAO eventDAO = EventDAO.builder()
-                .eventId(testEvent.getEventId())
-                .build();
+        EventDAO eventDAO = EventDAO.builder().build();
         TransferProtocol transferProtocol = TransferProtocol.GP2GP;
 
         when(registrationService.saveEvent(testEvent, EventType.EHR_GENERATED, transferProtocol)).thenReturn(eventDAO);
@@ -77,8 +72,7 @@ class GP2GPControllerTest {
 
         verify(registrationService).saveEvent(testEvent, EventType.EHR_GENERATED, transferProtocol);
 
-        EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
-        assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
+        assertEquals(eventDAO.getEventId(), actualResponse.getEventId());
     }
 
     @Test
@@ -87,9 +81,7 @@ class GP2GPControllerTest {
                 .withDefaultEventValues()
                 .build();
 
-        EventDAO eventDAO = EventDAO.builder()
-                .eventId(testEvent.getEventId())
-                .build();
+        EventDAO eventDAO = EventDAO.builder().build();
 
         TransferProtocol transferProtocol = TransferProtocol.GP2GP;
 
@@ -99,8 +91,7 @@ class GP2GPControllerTest {
 
         verify(registrationService).saveEvent(testEvent, EventType.EHR_SENT, transferProtocol);
 
-        EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
-        assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
+        assertEquals(eventDAO.getEventId(), actualResponse.getEventId());
     }
 
     @Test
@@ -109,9 +100,7 @@ class GP2GPControllerTest {
                 .withDefaultEventValues()
                 .build();
 
-        EventDAO eventDAO = EventDAO.builder()
-                .eventId(testEvent.getEventId())
-                .build();
+        EventDAO eventDAO = EventDAO.builder().build();
 
         TransferProtocol transferProtocol = TransferProtocol.GP2GP;
 
@@ -121,8 +110,7 @@ class GP2GPControllerTest {
 
         verify(registrationService).saveEvent(testEvent, EventType.EHR_INTEGRATED, transferProtocol);
 
-        EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
-        assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
+        assertEquals(eventDAO.getEventId(), actualResponse.getEventId());
     }
 
     @Test
@@ -131,9 +119,7 @@ class GP2GPControllerTest {
                 .withDefaultEventValues()
                 .build();
 
-        EventDAO eventDAO = EventDAO.builder()
-                .eventId(testEvent.getEventId())
-                .build();
+        EventDAO eventDAO = EventDAO.builder().build();
 
         TransferProtocol transferProtocol = TransferProtocol.GP2GP;
 
@@ -143,8 +129,7 @@ class GP2GPControllerTest {
 
         verify(registrationService).saveEvent(testEvent, EventType.EHR_VALIDATED, transferProtocol);
 
-        EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
-        assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
+        assertEquals(eventDAO.getEventId(), actualResponse.getEventId());
     }
 
     @Test
@@ -153,9 +138,7 @@ class GP2GPControllerTest {
                 .withDefaultEventValues()
                 .build();
 
-        EventDAO eventDAO = EventDAO.builder()
-                .eventId(testEvent.getEventId())
-                .build();
+        EventDAO eventDAO = EventDAO.builder().build();
 
         TransferProtocol transferProtocol = TransferProtocol.GP2GP;
 
@@ -165,7 +148,6 @@ class GP2GPControllerTest {
 
         verify(registrationService).saveEvent(testEvent, EventType.ERROR, transferProtocol);
 
-        EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
-        assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
+        assertEquals(eventDAO.getEventId(), actualResponse.getEventId());
     }
 }

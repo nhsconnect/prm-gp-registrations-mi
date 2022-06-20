@@ -23,7 +23,7 @@ public class RegistrationService {
 
     public EventDAO saveEvent(Event event, EventType eventType, TransferProtocol transferProtocol) throws UnableToUploadToS3Exception {
         EventDAO eventDAO = EventDAO.fromEvent(event, eventType, transferProtocol);
-        String s3Key = getS3Key(event);
+        String s3Key = getS3Key(eventDAO);
         eventS3Client.uploadJsonObject(eventDAO, s3Key);
         return eventDAO;
     }
@@ -40,11 +40,11 @@ public class RegistrationService {
         return String.format("%02d/%02d/%02d/%02d", eventGeneratedYear, eventGeneratedMonth, eventGeneratedDay, eventGeneratedHour);
     }
 
-    private String getS3Key(Event event) {
-        LocalDateTime eventGeneratedDateTime = event.getEventGeneratedDateTime();
+    private String getS3Key(EventDAO eventDao) {
+        LocalDateTime eventGeneratedDateTime = eventDao.getEventGeneratedDateTime();
         String s3DatePrefix = getS3DatePrefix(eventGeneratedDateTime);
 
-        String eventId = event.getEventId();
+        String eventId = eventDao.getEventId();
         String fileName = eventId + OUTPUT_EXTENSION;
 
         return String.format("%s/%s/%s", OUTPUT_VERSION, s3DatePrefix, fileName);

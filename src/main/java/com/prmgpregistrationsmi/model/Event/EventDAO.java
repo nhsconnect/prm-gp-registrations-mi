@@ -1,6 +1,7 @@
 package com.prmgpregistrationsmi.model.Event;
 
 import com.prmgpregistrationsmi.utils.JsonHelper;
+import com.prmgpregistrationsmi.utils.UUIDService;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -26,8 +27,9 @@ public class EventDAO {
     private Payload payload;
 
     public static EventDAO fromEvent(Event event, EventType eventType, TransferProtocol transferProtocol) {
+        String eventIdSeed = event.getConversationId() + eventType.toString() + event.getEventGeneratedDateTime().toString();
         return new EventDAO(
-                event.getEventId(),
+                UUIDService.buildUUIDStringFromSeed(eventIdSeed),
                 event.getEventGeneratedDateTime(),
                 eventType,
                 transferProtocol,

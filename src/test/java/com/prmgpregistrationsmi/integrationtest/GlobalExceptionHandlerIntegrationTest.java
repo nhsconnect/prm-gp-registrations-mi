@@ -41,7 +41,6 @@ class GlobalExceptionHandlerIntegrationTest {
                 "eventGeneratedDateTime: must not be null",
                 "payload: must not be null",
                 "reportingSystemSupplier: must not be empty",
-                "eventId: must not be empty",
                 "conversationId: must not be empty",
                 "transferEventDateTime: must not be null"));
 
@@ -54,7 +53,7 @@ class GlobalExceptionHandlerIntegrationTest {
 
     @Test
     void shouldReturnA400IfEventGeneratedDateTimeIsNotValid() throws Exception {
-        var requestBody = "{\"eventId\":\"some-id\",\"eventGeneratedDateTime\":" + false + "}";
+        var requestBody = "{\"eventGeneratedDateTime\":" + false + "}";
 
         ApiError expectedResponse = new ApiError(
                 HttpStatus.BAD_REQUEST,
@@ -86,12 +85,12 @@ class GlobalExceptionHandlerIntegrationTest {
 
     @Test
     void shouldReturnA400IfJsonIsUnableMapRequestIntoObject() throws Exception {
-        var requestBody = "{\"eventId\": \"}";
+        var requestBody = "{\"eventGeneratedDateTime\": \"}";
 
         ApiError expectedResponse = new ApiError(
                 HttpStatus.BAD_REQUEST,
                 "Invalid JSON",
-                new ArrayList<>(Collections.singleton("eventId: Unexpected end-of-input in VALUE_STRING")));
+                new ArrayList<>(Collections.singleton("eventGeneratedDateTime: Unexpected end-of-input in VALUE_STRING")));
 
         mockMvc.perform(post("/preTransfer/registrationStarted").content(requestBody)
                         .contentType(MediaType.APPLICATION_JSON))

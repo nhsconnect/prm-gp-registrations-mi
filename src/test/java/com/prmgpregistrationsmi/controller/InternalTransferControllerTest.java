@@ -36,9 +36,7 @@ class InternalTransferControllerTest {
                 .withDefaultEventValues()
                 .build();
 
-        EventDAO eventDAO = EventDAO.builder()
-                .eventId(testEvent.getEventId())
-                .build();
+        EventDAO eventDAO = EventDAO.builder().build();
 
         TransferProtocol transferProtocol = TransferProtocol.INTERNAL_TRANSFER;
 
@@ -48,7 +46,6 @@ class InternalTransferControllerTest {
 
         verify(registrationService).saveEvent(testEvent, EventType.INTERNAL_TRANSFER, transferProtocol);
 
-        EventResponse expectedEventResponse = new EventResponse(testEvent.getEventId());
-        assertEquals(expectedEventResponse.getEventId(), actualResponse.getEventId());
+        assertEquals(eventDAO.getEventId(), actualResponse.getEventId());
     }
 }

@@ -6,7 +6,6 @@ import com.prmgpregistrationsmi.model.InternalTransfer.InternalTransferPayload;
 public class InternalTransferEventBuilder {
     public static InternalTransferEvent.InternalTransferEventBuilder<?, ?> withDefaultEventValues() {
         return InternalTransferEvent.builder()
-                .eventId(DefaultEventValues.EVENT_ID)
                 .eventGeneratedDateTime(DefaultEventValues.EVENT_GENERATED_DATE_TIME)
                 .reportingSystemSupplier(DefaultEventValues.REPORTING_SYSTEM_SUPPLIER)
                 .reportingPracticeOdsCode(DefaultEventValues.REPORTING_PRACTICE_ODS_CODE)

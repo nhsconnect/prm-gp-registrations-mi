@@ -8,6 +8,7 @@ import com.prmgpregistrationsmi.model.Event.TransferProtocol;
 import com.prmgpregistrationsmi.model.InternalTransfer.InternalTransferEvent;
 import com.prmgpregistrationsmi.testhelpers.EventDAOBuilder;
 import com.prmgpregistrationsmi.testhelpers.InternalTransferEventBuilder;
+import com.prmgpregistrationsmi.utils.UUIDService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -36,6 +37,11 @@ class InternalTransferEventIntegrationTest {
                 .build();
 
         EventDAO expectedS3UploadEvent = EventDAOBuilder.withEvent(internalTransferEventRequest)
+                .eventId(UUIDService.buildUUIDStringFromSeed(
+                        internalTransferEventRequest.getConversationId() +
+                                EventType.INTERNAL_TRANSFER +
+                                internalTransferEventRequest.getEventGeneratedDateTime().toString())
+                )
                 .eventType(EventType.INTERNAL_TRANSFER)
                 .transferProtocol(TransferProtocol.INTERNAL_TRANSFER)
                 .build();
@@ -44,12 +50,11 @@ class InternalTransferEventIntegrationTest {
                 "/internalTransfer",
                 internalTransferEventRequest, EventResponse.class);
 
-        EventResponse expectedResponse = new EventResponse(expectedS3UploadEvent.getEventId());
-        assertEquals(expectedResponse.getEventId(), actualResponseEvent.getEventId());
+        assertEquals(expectedS3UploadEvent.getEventId(), actualResponseEvent.getEventId());
 
         verify(mockAmazonS3Client).putObject(
                 "test_bucket",
-                String.format("v1/1970/01/01/03/%s.json", internalTransferEventRequest.getEventId()),
+                String.format("v1/1970/01/01/03/%s.json", expectedS3UploadEvent.getEventId()),
                 expectedS3UploadEvent.toString()
         );
     }
