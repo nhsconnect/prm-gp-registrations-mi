@@ -1,4 +1,4 @@
-The MI Api endpoints are exported into a Postman Collection (v2.1)
+The MI API endpoints are exported into a Postman Collection (v2.1)
 
 There are 2 environment variables that need to be set:
 * `apikey` generated through the [NHS developer portal](https://portal.developer.nhs.uk/my-applications) - Application name: *GP Registrations Management Information API (Integration Testing Environment)*
