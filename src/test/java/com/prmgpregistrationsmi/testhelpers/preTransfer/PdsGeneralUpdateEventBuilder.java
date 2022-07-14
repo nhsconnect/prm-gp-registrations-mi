@@ -3,6 +3,7 @@ package com.prmgpregistrationsmi.testhelpers.preTransfer;
 import com.prmgpregistrationsmi.model.preTransfer.PdsGeneralUpdate.PdsGeneralUpdateEvent;
 import com.prmgpregistrationsmi.model.preTransfer.PdsGeneralUpdate.PdsGeneralUpdatePayload;
 import com.prmgpregistrationsmi.testhelpers.DefaultEventValues;
+import com.prmgpregistrationsmi.testhelpers.GPLinksBuilder;
 import com.prmgpregistrationsmi.testhelpers.StatusDetailsBuilder;
 
 public class PdsGeneralUpdateEventBuilder {
@@ -18,6 +19,7 @@ public class PdsGeneralUpdateEventBuilder {
 
     public static PdsGeneralUpdatePayload.PdsGeneralUpdatePayloadBuilder withDefaultPdsGeneralUpdatePayload() {
         return PdsGeneralUpdatePayload.builder()
-                .demographicTraceStatus(StatusDetailsBuilder.withSuccessfulStatus().build());
+                .demographicTraceStatus(StatusDetailsBuilder.withSuccessfulStatus().build())
+                .gpLinks(GPLinksBuilder.withPreviousNHSRegistration().build());
     }
 }

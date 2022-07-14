@@ -1,5 +1,6 @@
 package com.prmgpregistrationsmi.model.preTransfer.PdsGeneralUpdate;
 
+import com.prmgpregistrationsmi.model.Event.EventPayload.GPLinks;
 import com.prmgpregistrationsmi.model.Event.EventPayload.StatusDetails;
 import com.prmgpregistrationsmi.model.Event.Payload;
 import lombok.AllArgsConstructor;
@@ -18,4 +19,8 @@ public class PdsGeneralUpdatePayload implements Payload {
     @Valid
     @NotNull
     private StatusDetails demographicTraceStatus;
+
+    @Valid
+    @NotNull
+    private GPLinks gpLinks;
 }
