@@ -116,7 +116,8 @@ class PdsGeneralUpdateEventTest {
         });
         assertEquals(3, violations.size());
 
-        assertEquals(violations.get("payload.gpLinks.type"), "must not be null");
+        assertEquals(violations.get("payload.gpLinks.type"), "Must be one of the following: PREVIOUS_NHS_REGISTRATION, NO_PREVIOUS_NHS_REGISTRATION, " +
+                "MEDICAL_CARD, EX_SERVICE_FORM, BABY_CARD, OTHER");
         assertEquals(violations.get("payload.gpLinks.hasGMS1Form"), "must not be null");
         assertEquals(violations.get("payload.gpLinks.hasNHSNumber"), "must not be null");
     }
