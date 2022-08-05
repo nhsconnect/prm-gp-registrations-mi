@@ -21,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class SplunkWebClientTest {
 
     private static MockWebServer mockWebServer;
+    private static final String testToken = "testToken";
 
     @BeforeAll
     static void setUp() throws IOException {
@@ -38,7 +39,8 @@ class SplunkWebClientTest {
     @BeforeEach
     void initialize() {
         String baseUrl = String.format("http://localhost:%s", mockWebServer.getPort());
-        splunkWebClient = new SplunkWebClient(baseUrl);
+
+        splunkWebClient = new SplunkWebClient(baseUrl, testToken);
     }
 
     @Test
@@ -57,6 +59,26 @@ class SplunkWebClientTest {
         RecordedRequest recordedRequest = mockWebServer.takeRequest();
         assertEquals("POST", recordedRequest.getMethod());
         assertEquals("/endpoint", recordedRequest.getPath());
+        assertEquals(JsonHelper.asJsonString(eventDAO), recordedRequest.getBody().readUtf8());
+    }
+
+    @Test
+    void shouldSetCorrectAuthorizationHeaderWithToken() throws Exception {
+        EventDAO eventDAO = EventDAO.builder().eventId("123").build();
+
+        mockWebServer.enqueue(new MockResponse().setResponseCode(200));
+
+        Mono<ResponseEntity<Void>> responseEntityMono = splunkWebClient.sendEvent(eventDAO);
+
+        StepVerifier.create(responseEntityMono)
+                .expectNextMatches(responseEntity -> responseEntity.getStatusCode().equals(HttpStatus.OK))
+                .expectComplete()
+                .verify();
+
+        RecordedRequest recordedRequest = mockWebServer.takeRequest();
+        assertEquals("POST", recordedRequest.getMethod());
+        assertEquals("/endpoint", recordedRequest.getPath());
+        assertEquals(testToken, recordedRequest.getHeader("Authorization"));
         assertEquals(JsonHelper.asJsonString(eventDAO), recordedRequest.getBody().readUtf8());
     }
 }

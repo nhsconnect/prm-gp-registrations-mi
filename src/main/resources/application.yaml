@@ -1,5 +1,6 @@
 output_bucket: ${OUTPUT_MI_EVENTS_BUCKET:test_bucket}
 splunk_cloud_url: ${SPLUNK_CLOUD_URL:splunk-cloud-url}
+splunk_api_token: ${SPLUNK_API_TOKEN:test-token}
 
 springdoc:
   show-actuator: true
