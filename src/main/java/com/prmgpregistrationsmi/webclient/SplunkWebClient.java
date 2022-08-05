@@ -12,7 +12,7 @@ public class SplunkWebClient {
     private final WebClient client;
     private final String splunkApiToken;
 
-    public SplunkWebClient(@Value("${splunk_cloud_url}") String baseURL, @Value("${splunk_api_token}") String splunkApiToken) {
+    public SplunkWebClient(@Value("${splunk_cloud_url}") String baseURL, @Value("${splunk_cloud_api_token}") String splunkApiToken) {
         client = WebClient.create(baseURL);
         this.splunkApiToken = splunkApiToken;
     }
