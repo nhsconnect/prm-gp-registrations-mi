@@ -19,7 +19,7 @@ class ApplicationIntegrationTest {
 
     @Test
     void applicationIsHealthy() {
-        assertThat(restTemplate.getForObject("http://localhost:" + port + "/actuator/health",
+        assertThat(restTemplate.getForObject("http://localhost:" + port + "/_status",
                 String.class)).isEqualTo("{\"status\":\"UP\"}");
     }
 }

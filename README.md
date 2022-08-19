@@ -1,4 +1,4 @@
-# prm-gp-registrations-mi
+    # prm-gp-registrations-mi
 
 GP Registrations MI is a service used to collect Management Information describing patient transfers in the form of JSON events sent over a RESTful API.
 
@@ -34,9 +34,9 @@ To check the application is running, you can go to swagger:
 http://localhost:8080/swagger
 ```
 
-Or you can also hit the /health endpoint:
+Or you can also hit the status endpoint:
 ```
-http://localhost:8080/actuator/health
+http://localhost:8080/_status
 ```
 
 

@@ -4,8 +4,16 @@ splunk_cloud_api_token: ${SPLUNK_CLOUD_API_TOKEN:test_token}
 
 springdoc:
   show-actuator: true
+
   swagger-ui:
     path: /swagger
+
+management:
+  endpoints:
+    web:
+      base-path:
+      path-mapping:
+        health: /_status
 
 cloud:
   aws:
