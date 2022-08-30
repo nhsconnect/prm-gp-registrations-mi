@@ -1,8 +1,8 @@
 package com.prmgpregistrationsmi.testhelpers.gp2gp;
 
-import com.prmgpregistrationsmi.model.Event.EventPayload.UnsupportedDataItem;
-import com.prmgpregistrationsmi.model.gp2gp.EhrGenerated.EhrGeneratedEvent;
-import com.prmgpregistrationsmi.model.gp2gp.EhrGenerated.EhrGeneratedPayload;
+import com.prmgpregistrationsmi.model.deprecated.Event.EventPayload.UnsupportedDataItem;
+import com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrGenerated.EhrGeneratedEvent;
+import com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrGenerated.EhrGeneratedPayload;
 import com.prmgpregistrationsmi.testhelpers.DefaultEventValues;
 import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
 import com.prmgpregistrationsmi.testhelpers.UnsupportedDataItemBuilder;

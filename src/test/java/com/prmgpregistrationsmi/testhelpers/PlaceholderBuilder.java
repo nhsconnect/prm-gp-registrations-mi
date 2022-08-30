@@ -1,6 +1,6 @@
 package com.prmgpregistrationsmi.testhelpers;
 
-import com.prmgpregistrationsmi.model.Event.EventPayload.Placeholder;
+import com.prmgpregistrationsmi.model.deprecated.Event.EventPayload.Placeholder;
 
 public class PlaceholderBuilder {
     public static Placeholder.PlaceholderBuilder withDefaultValues() {

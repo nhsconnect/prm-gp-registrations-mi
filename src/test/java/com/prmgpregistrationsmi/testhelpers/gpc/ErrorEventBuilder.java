@@ -1,7 +1,7 @@
 package com.prmgpregistrationsmi.testhelpers.gpc;
 
-import com.prmgpregistrationsmi.model.gpc.Error.ErrorEvent;
-import com.prmgpregistrationsmi.model.gpc.Error.ErrorPayload;
+import com.prmgpregistrationsmi.model.deprecated.gpc.Error.ErrorEvent;
+import com.prmgpregistrationsmi.model.deprecated.gpc.Error.ErrorPayload;
 import com.prmgpregistrationsmi.testhelpers.DefaultEventValues;
 import com.prmgpregistrationsmi.testhelpers.ErrorDetailsBuilder;
 import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;

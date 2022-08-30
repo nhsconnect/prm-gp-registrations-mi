@@ -1,7 +1,7 @@
 package com.prmgpregistrationsmi.testhelpers.preTransfer;
 
-import com.prmgpregistrationsmi.model.preTransfer.SdsLookup.SdsLookupEvent;
-import com.prmgpregistrationsmi.model.preTransfer.SdsLookup.SdsLookupPayload;
+import com.prmgpregistrationsmi.model.deprecated.preTransfer.SdsLookup.SdsLookupEvent;
+import com.prmgpregistrationsmi.model.deprecated.preTransfer.SdsLookup.SdsLookupPayload;
 import com.prmgpregistrationsmi.testhelpers.DefaultEventValues;
 import com.prmgpregistrationsmi.testhelpers.StatusDetailsBuilder;
 

@@ -1,7 +1,7 @@
 package com.prmgpregistrationsmi.testhelpers;
 
-import com.prmgpregistrationsmi.model.InternalTransfer.InternalTransferEvent;
-import com.prmgpregistrationsmi.model.InternalTransfer.InternalTransferPayload;
+import com.prmgpregistrationsmi.model.deprecated.InternalTransfer.InternalTransferEvent;
+import com.prmgpregistrationsmi.model.deprecated.InternalTransfer.InternalTransferPayload;
 
 public class InternalTransferEventBuilder {
     public static InternalTransferEvent.InternalTransferEventBuilder<?, ?> withDefaultEventValues() {

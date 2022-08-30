@@ -1,0 +1,24 @@
+package com.prmgpregistrationsmi.model.deprecated.gpc.MigrateStructuredRecordRequest;
+
+import com.prmgpregistrationsmi.model.deprecated.Event.Event;
+import com.prmgpregistrationsmi.model.deprecated.Event.Payload;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@SuperBuilder
+public class MigrateStructuredRecordRequestEvent extends Event {
+    @NotNull
+    @Valid
+    private MigrateStructuredRecordRequestPayload payload;
+
+    @Override
+    public Payload getPayload() {
+        return payload;
+    }
+}

@@ -1,7 +1,7 @@
 package com.prmgpregistrationsmi.testhelpers;
 
-import com.prmgpregistrationsmi.model.Event.Event;
-import com.prmgpregistrationsmi.model.Event.EventDAO;
+import com.prmgpregistrationsmi.model.deprecated.Event.Event;
+import com.prmgpregistrationsmi.model.deprecated.Event.EventDAO;
 
 import java.util.UUID;
 

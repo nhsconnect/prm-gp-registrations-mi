@@ -1,6 +1,6 @@
 package com.prmgpregistrationsmi.testhelpers;
 
-import com.prmgpregistrationsmi.model.Event.EventPayload.IntegrationOutcome;
+import com.prmgpregistrationsmi.model.deprecated.Event.EventPayload.IntegrationOutcome;
 
 public class IntegrationOutcomeBuilder {
     public static IntegrationOutcome.IntegrationOutcomeBuilder withDefaultValues() {

@@ -1,6 +1,6 @@
 package com.prmgpregistrationsmi.testhelpers;
 
-import com.prmgpregistrationsmi.model.Event.EventPayload.UnsupportedDataItem;
+import com.prmgpregistrationsmi.model.deprecated.Event.EventPayload.UnsupportedDataItem;
 
 public class UnsupportedDataItemBuilder {
     public static UnsupportedDataItem.UnsupportedDataItemBuilder withDefaultValues() {

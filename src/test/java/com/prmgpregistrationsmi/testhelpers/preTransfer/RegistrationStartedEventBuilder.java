@@ -1,7 +1,7 @@
 package com.prmgpregistrationsmi.testhelpers.preTransfer;
 
-import com.prmgpregistrationsmi.model.preTransfer.RegistrationStarted.RegistrationStartedEvent;
-import com.prmgpregistrationsmi.model.preTransfer.RegistrationStarted.RegistrationStartedPayload;
+import com.prmgpregistrationsmi.model.deprecated.preTransfer.RegistrationStarted.RegistrationStartedEvent;
+import com.prmgpregistrationsmi.model.deprecated.preTransfer.RegistrationStarted.RegistrationStartedPayload;
 import com.prmgpregistrationsmi.testhelpers.DefaultEventValues;
 import com.prmgpregistrationsmi.testhelpers.RegistrationStartedBuilder;
 

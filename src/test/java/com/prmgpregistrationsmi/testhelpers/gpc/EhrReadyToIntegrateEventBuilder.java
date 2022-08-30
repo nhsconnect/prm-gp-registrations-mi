@@ -1,9 +1,9 @@
 package com.prmgpregistrationsmi.testhelpers.gpc;
 
-import com.prmgpregistrationsmi.model.Event.EventPayload.Degrade;
-import com.prmgpregistrationsmi.model.gpc.EhrReadyToIntegrate.EhrReadyToIntegrateEhrDetails;
-import com.prmgpregistrationsmi.model.gpc.EhrReadyToIntegrate.EhrReadyToIntegrateEvent;
-import com.prmgpregistrationsmi.model.gpc.EhrReadyToIntegrate.EhrReadyToIntegratePayload;
+import com.prmgpregistrationsmi.model.deprecated.Event.EventPayload.Degrade;
+import com.prmgpregistrationsmi.model.deprecated.gpc.EhrReadyToIntegrate.EhrReadyToIntegrateEhrDetails;
+import com.prmgpregistrationsmi.model.deprecated.gpc.EhrReadyToIntegrate.EhrReadyToIntegrateEvent;
+import com.prmgpregistrationsmi.model.deprecated.gpc.EhrReadyToIntegrate.EhrReadyToIntegratePayload;
 import com.prmgpregistrationsmi.testhelpers.DefaultEventValues;
 import com.prmgpregistrationsmi.testhelpers.DegradeBuilder;
 import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;

@@ -1,6 +1,6 @@
 package com.prmgpregistrationsmi.webclient;
 
-import com.prmgpregistrationsmi.model.Event.EventDAO;
+import com.prmgpregistrationsmi.model.deprecated.Event.EventDAO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;

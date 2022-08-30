@@ -1,6 +1,6 @@
 package com.prmgpregistrationsmi.testhelpers;
 
-import com.prmgpregistrationsmi.model.Event.EventPayload.ErrorDetails;
+import com.prmgpregistrationsmi.model.deprecated.Event.EventPayload.ErrorDetails;
 
 public class ErrorDetailsBuilder {
     public static ErrorDetails.ErrorDetailsBuilder withDefaultValues() {

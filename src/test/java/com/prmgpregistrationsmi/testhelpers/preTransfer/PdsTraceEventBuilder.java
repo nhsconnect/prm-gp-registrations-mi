@@ -1,7 +1,7 @@
 package com.prmgpregistrationsmi.testhelpers.preTransfer;
 
-import com.prmgpregistrationsmi.model.preTransfer.PdsTrace.PdsTraceEvent;
-import com.prmgpregistrationsmi.model.preTransfer.PdsTrace.PdsTracePayload;
+import com.prmgpregistrationsmi.model.deprecated.preTransfer.PdsTrace.PdsTraceEvent;
+import com.prmgpregistrationsmi.model.deprecated.preTransfer.PdsTrace.PdsTracePayload;
 import com.prmgpregistrationsmi.testhelpers.DefaultEventValues;
 import com.prmgpregistrationsmi.testhelpers.StatusDetailsBuilder;
 

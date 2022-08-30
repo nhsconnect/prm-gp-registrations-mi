@@ -1,7 +1,7 @@
 package com.prmgpregistrationsmi.testhelpers.gp2gp;
 
-import com.prmgpregistrationsmi.model.gp2gp.Error.ErrorEvent;
-import com.prmgpregistrationsmi.model.gp2gp.Error.ErrorPayload;
+import com.prmgpregistrationsmi.model.deprecated.gp2gp.Error.ErrorEvent;
+import com.prmgpregistrationsmi.model.deprecated.gp2gp.Error.ErrorPayload;
 import com.prmgpregistrationsmi.testhelpers.DefaultEventValues;
 import com.prmgpregistrationsmi.testhelpers.ErrorDetailsBuilder;
 import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
