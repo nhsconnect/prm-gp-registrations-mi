@@ -47,7 +47,7 @@ class MigrateDocumentResponseEventIntegrationTest {
                 .build();
 
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
-                "/gpconnect/migrateDocumentResponse",
+                "/migrateDocumentResponse",
                 migrateDocumentResponseEventRequest, EventResponse.class);
 
         assertEquals(expectedS3UploadEvent.getEventId(), actualResponseEvent.getEventId());

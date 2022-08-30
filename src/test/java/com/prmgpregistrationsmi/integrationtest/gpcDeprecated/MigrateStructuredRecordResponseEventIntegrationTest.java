@@ -47,7 +47,7 @@ class MigrateStructuredRecordResponseEventIntegrationTest {
                 .build();
 
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
-                "/gpconnect/migrateStructuredRecordResponse", migrateStructuredRecordResponseEventResponse, EventResponse.class);
+                "/migrateStructuredRecordResponse", migrateStructuredRecordResponseEventResponse, EventResponse.class);
 
         assertEquals(expectedS3UploadEvent.getEventId(), actualResponseEvent.getEventId());
 

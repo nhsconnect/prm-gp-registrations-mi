@@ -47,7 +47,7 @@ class PdsGeneralUpdateEventIntegrationTest {
                 .build();
 
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
-                "/preTransfer/pdsGeneralUpdate",
+                "/pdsGeneralUpdate",
                 pdsGeneralUpdateEventRequest, EventResponse.class);
 
         assertEquals(expectedS3UploadEvent.getEventId(), actualResponseEvent.getEventId());

@@ -47,7 +47,7 @@ class RegistrationStartedEventIntegrationTest {
                 .build();
 
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
-                "/preTransfer/registrationStarted", registrationStartedEventRequest, EventResponse.class);
+                "/registrationStarted", registrationStartedEventRequest, EventResponse.class);
 
         assertEquals(expectedS3UploadEvent.getEventId(), actualResponseEvent.getEventId());
 
