@@ -21,7 +21,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"eventGeneratedDateTime\": {{a_datetime}},\n  \"conversationId\": {{conversation_id}},\n  \"transferEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SUPPLIER_SYSTEM\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"registration\": {\n\n      \"registrationType\": \"newRegistrant\",\n      \"requestingPracticeOdsCode\": \"ABC1234\"\n    }\n  }\n}",
+							"raw": "{\n  \"eventGeneratedDateTime\": {{a_datetime}},\n  \"conversationId\": {{conversation_id}},\n  \"registrationEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SUPPLIER_SYSTEM\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"registration\": {\n\n      \"registrationType\": \"newRegistrant\",\n      \"requestingPracticeOdsCode\": \"ABC1234\"\n    }\n  }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -54,7 +54,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"eventGeneratedDateTime\": {{a_datetime}},\n  \"conversationId\": {{conversation_id}},\n  \"transferEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SUPPLIER_SYSTEM\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"smartcardPresent\": true,\n    \"demographicTraceStatus\": {\n      \"status\": \"FAILURE\",\n      \"reason\": \"patient not found\"\n    }\n  }\n}",
+							"raw": "{\n  \"eventGeneratedDateTime\": {{a_datetime}},\n  \"conversationId\": {{conversation_id}},\n  \"registrationEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SUPPLIER_SYSTEM\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"smartcardPresent\": true,\n    \"demographicTraceStatus\": {\n      \"status\": \"FAILURE\",\n      \"reason\": \"patient not found\"\n    }\n  }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -87,7 +87,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"eventGeneratedDateTime\": {{a_datetime}},\n  \"conversationId\": {{conversation_id}},\n  \"transferEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SUPPLIER_SYSTEM\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"transferCompatibilityStatus\": {\n      \"status\": \"SUCCESS\"\n    }\n  }\n}",
+							"raw": "{\n  \"eventGeneratedDateTime\": {{a_datetime}},\n  \"conversationId\": {{conversation_id}},\n  \"registrationEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SUPPLIER_SYSTEM\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"transferCompatibilityStatus\": {\n      \"status\": \"SUCCESS\"\n    }\n  }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -120,7 +120,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"eventGeneratedDateTime\": {{a_datetime}},\n  \"conversationId\": {{conversation_id}},\n  \"transferEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SUPPLIER_SYSTEM\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"demographicTraceStatus\": {\n      \"status\": \"SUCCESS\"\n    },\n   \"gpLinks\": {\n      \"type\": \"NO_PREVIOUS_NHS_REGISTRATION\",\n      \"hasGMS1Form\": false,\n      \"hasNHSNumber\": true,\n      \"otherType\": \"\"\n    }\n  }\n}",
+							"raw": "{\n  \"eventGeneratedDateTime\": {{a_datetime}},\n  \"conversationId\": {{conversation_id}},\n  \"registrationEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SUPPLIER_SYSTEM\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"demographicTraceStatus\": {\n      \"status\": \"SUCCESS\"\n    },\n   \"gpLinks\": {\n      \"type\": \"NO_PREVIOUS_NHS_REGISTRATION\",\n      \"hasGMS1Form\": false,\n      \"hasNHSNumber\": true,\n      \"otherType\": \"\"\n    }\n  }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -158,7 +158,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"eventGeneratedDateTime\": {{a_datetime}},\n  \"conversationId\": {{conversation_id}},\n  \"transferEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SUPPLIER_SYSTEM\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"registration\": {\n      \"requestingPracticeOdsCode\": \"ABC1234\",\n      \"sendingPracticeOdsCode\": \"XYZ4567\"\n    }\n  }\n}",
+							"raw": "{\n  \"eventGeneratedDateTime\": {{a_datetime}},\n  \"conversationId\": {{conversation_id}},\n  \"registrationEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SUPPLIER_SYSTEM\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"registration\": {\n      \"requestingPracticeOdsCode\": \"ABC1234\",\n      \"sendingPracticeOdsCode\": \"XYZ4567\"\n    }\n  }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -191,7 +191,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"eventGeneratedDateTime\": {{a_datetime}},\n  \"conversationId\": {{conversation_id}},\n  \"transferEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SUPPLIER_SYSTEM\",\n  \"reportingPracticeOdsCode\": \"XYZ4567\",\n  \"payload\": {\n    \"registration\": {\n      \"requestingPracticeOdsCode\": \"ABC1234\",\n      \"sendingPracticeOdsCode\": \"XYZ4567\"\n    },\n    \"ehr\": {\n      \"ehrTotalSizeBytes\": 5699433,\n      \"ehrStructuredSizeBytes\": 4096,\n      \"attachment\": [\n        {\n          \"attachmentId\": \"3424-342456-3424-342456\",\n          \"clinicalType\": \"Scanned document\",\n          \"mimeType\": \"application/pdf\",\n          \"sizeBytes\": 3084322\n        },\n        {\n          \"attachmentId\": \"1323-132345-1323-132345\",\n          \"mimeType\": \"audio/mpeg\",\n          \"sizeBytes\": 24352346\n        }\n      ],\n      \"placeholder\": [\n        {\n          \"placeholderId\": \"9876-987654-9876-987654\",\n          \"attachmentId\": \"1323-132345-1323-132345\",\n          \"generatedBy\": \"XYZ4567\",\n          \"reason\": 1,\n          \"originalMimeType\": \"audio/mpeg\"\n        }\n      ]\n    },\n    \"unsupportedDataItem\": [\n      {\n        \"type\": \"allergy/flag\",\n        \"uniqueIdentifier\": \"1323-132345-1323-132345\",\n        \"reason\": \"reason for being unsupported / why is it unsupported in gp2gp / what would have to change in gp2gp to express this\"\n      }\n    ]\n  }\n}",
+							"raw": "{\n  \"eventGeneratedDateTime\": {{a_datetime}},\n  \"conversationId\": {{conversation_id}},\n  \"registrationEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SUPPLIER_SYSTEM\",\n  \"reportingPracticeOdsCode\": \"XYZ4567\",\n  \"payload\": {\n    \"registration\": {\n      \"requestingPracticeOdsCode\": \"ABC1234\",\n      \"sendingPracticeOdsCode\": \"XYZ4567\"\n    },\n    \"ehr\": {\n      \"ehrTotalSizeBytes\": 5699433,\n      \"ehrStructuredSizeBytes\": 4096,\n      \"attachment\": [\n        {\n          \"attachmentId\": \"3424-342456-3424-342456\",\n          \"clinicalType\": \"Scanned document\",\n          \"mimeType\": \"application/pdf\",\n          \"sizeBytes\": 3084322\n        },\n        {\n          \"attachmentId\": \"1323-132345-1323-132345\",\n          \"mimeType\": \"audio/mpeg\",\n          \"sizeBytes\": 24352346\n        }\n      ],\n      \"placeholder\": [\n        {\n          \"placeholderId\": \"9876-987654-9876-987654\",\n          \"attachmentId\": \"1323-132345-1323-132345\",\n          \"generatedBy\": \"XYZ4567\",\n          \"reason\": 1,\n          \"originalMimeType\": \"audio/mpeg\"\n        }\n      ]\n    },\n    \"unsupportedDataItem\": [\n      {\n        \"type\": \"allergy/flag\",\n        \"uniqueIdentifier\": \"1323-132345-1323-132345\",\n        \"reason\": \"reason for being unsupported / why is it unsupported in gp2gp / what would have to change in gp2gp to express this\"\n      }\n    ]\n  }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -224,7 +224,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"eventGeneratedDateTime\": {{a_datetime}},\n  \"conversationId\": {{conversation_id}},\n  \"transferEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SUPPLIER_SYSTEM\",\n  \"reportingPracticeOdsCode\": \"XYZ4567\",\n  \"payload\": {\n    \"registration\": {\n      \"requestingPracticeOdsCode\": \"ABC1234\",\n      \"sendingPracticeOdsCode\": \"XYZ4567\"\n    }\n  }\n}",
+							"raw": "{\n  \"eventGeneratedDateTime\": {{a_datetime}},\n  \"conversationId\": {{conversation_id}},\n  \"registrationEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SUPPLIER_SYSTEM\",\n  \"reportingPracticeOdsCode\": \"XYZ4567\",\n  \"payload\": {\n    \"registration\": {\n      \"requestingPracticeOdsCode\": \"ABC1234\",\n      \"sendingPracticeOdsCode\": \"XYZ4567\"\n    }\n  }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -257,7 +257,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"eventGeneratedDateTime\": \"2022-06-06T09:00:00Z\",\n  \"conversationId\": {{conversation_id}},\n  \"transferEventDateTime\": \"2022-06-06T09:00:00Z\",\n  \"reportingSystemSupplier\": \"SUPPLIER_SYSTEM\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"registration\": {\n      \"requestingPracticeOdsCode\": \"ABC1234\",\n      \"sendingPracticeOdsCode\": \"XYZ4567\"\n    },\n    \"ehr\": {\n      \"ehrTotalSizeBytes\": 5699433,\n      \"ehrStructuredSizeBytes\": 4096,\n      \"degrade\": [\n        {\n          \"type\": \"core_ehr / attachment\",\n          \"metadata\": \"other degrades metadata\",\n          \"code\": {\n            \"coding\": [\n              {\n                \"code\": \"886721000000107\",\n                \"system\": \"http://snomed.info/sct\"\n              }\n            ]\n          }\n        }\n      ],\n      \"attachment\": [\n        {\n          \"attachmentId\": \"3424-342456-3424-342456\",\n          \"clinicalType\": \"Scanned document\",\n          \"mimeType\": \"application/pdf\",\n          \"sizeBytes\": 3084322\n        }\n      ],\n      \"placeholder\": [\n        {\n          \"placeholderId\": \"9876-987654-9876-987654\",\n          \"attachmentId\": \"1323-132345-1323-132345\",\n          \"generatedBy\": \"XYZ4567\",\n          \"reason\": 1,\n          \"originalMimeType\": \"audio/mpeg\"\n        },\n        {\n          \"placeholderId\": \"4354-435467-4354-435467\",\n          \"attachmentId\": \"3424-342456-3424-342456\",\n          \"generatedBy\": \"ABC1234\",\n          \"reason\": 2,\n          \"originalMimeType\": \"audio/mpeg\"\n        }\n      ]\n    }\n  }\n}",
+							"raw": "{\n  \"eventGeneratedDateTime\": \"2022-06-06T09:00:00Z\",\n  \"conversationId\": {{conversation_id}},\n  \"registrationEventDateTime\": \"2022-06-06T09:00:00Z\",\n  \"reportingSystemSupplier\": \"SUPPLIER_SYSTEM\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"registration\": {\n      \"requestingPracticeOdsCode\": \"ABC1234\",\n      \"sendingPracticeOdsCode\": \"XYZ4567\"\n    },\n    \"ehr\": {\n      \"ehrTotalSizeBytes\": 5699433,\n      \"ehrStructuredSizeBytes\": 4096,\n      \"degrade\": [\n        {\n          \"type\": \"core_ehr / attachment\",\n          \"metadata\": \"other degrades metadata\",\n          \"code\": {\n            \"coding\": [\n              {\n                \"code\": \"886721000000107\",\n                \"system\": \"http://snomed.info/sct\"\n              }\n            ]\n          }\n        }\n      ],\n      \"attachment\": [\n        {\n          \"attachmentId\": \"3424-342456-3424-342456\",\n          \"clinicalType\": \"Scanned document\",\n          \"mimeType\": \"application/pdf\",\n          \"sizeBytes\": 3084322\n        }\n      ],\n      \"placeholder\": [\n        {\n          \"placeholderId\": \"9876-987654-9876-987654\",\n          \"attachmentId\": \"1323-132345-1323-132345\",\n          \"generatedBy\": \"XYZ4567\",\n          \"reason\": 1,\n          \"originalMimeType\": \"audio/mpeg\"\n        },\n        {\n          \"placeholderId\": \"4354-435467-4354-435467\",\n          \"attachmentId\": \"3424-342456-3424-342456\",\n          \"generatedBy\": \"ABC1234\",\n          \"reason\": 2,\n          \"originalMimeType\": \"audio/mpeg\"\n        }\n      ]\n    }\n  }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -290,7 +290,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"eventGeneratedDateTime\": \"2022-06-06T12:00:00Z\",\n  \"conversationId\": {{conversation_id}},\n  \"transferEventDateTime\": \"2022-06-06T12:00:00Z\",\n  \"reportingSystemSupplier\": \"SUPPLIER_SYSTEM\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"registration\": {\n      \"requestingPracticeOdsCode\": \"ABC1234\",\n      \"sendingPracticeOdsCode\": \"XYZ4567\"\n    },\n    \"integration\": {\n      \"integrationStatus\": \"merged\",\n      \"reason\": \"some reason\"\n    }\n  }\n}",
+							"raw": "{\n  \"eventGeneratedDateTime\": \"2022-06-06T12:00:00Z\",\n  \"conversationId\": {{conversation_id}},\n  \"registrationEventDateTime\": \"2022-06-06T12:00:00Z\",\n  \"reportingSystemSupplier\": \"SUPPLIER_SYSTEM\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"registration\": {\n      \"requestingPracticeOdsCode\": \"ABC1234\",\n      \"sendingPracticeOdsCode\": \"XYZ4567\"\n    },\n    \"integration\": {\n      \"integrationStatus\": \"merged\",\n      \"reason\": \"some reason\"\n    }\n  }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -331,7 +331,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"eventGeneratedDateTime\": {{a_datetime}},\n  \"conversationId\": {{conversation_id}},\n  \"transferEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SUPPLIER_SYSTEM\",\n  \"reportingPracticeOdsCode\": \"XYZ4567\",\n  \"payload\": {\n    \"registration\": {\n      \"requestingPracticeOdsCode\": \"ABC1234\",\n      \"sendingPracticeOdsCode\": \"XYZ4567\"\n    },\n    \"error\": {\n      \"errorCode\": \"15\",\n      \"errorDescription\": \"Duplicate\"\n    }\n  }\n}",
+							"raw": "{\n  \"eventGeneratedDateTime\": {{a_datetime}},\n  \"conversationId\": {{conversation_id}},\n  \"registrationEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SUPPLIER_SYSTEM\",\n  \"reportingPracticeOdsCode\": \"XYZ4567\",\n  \"payload\": {\n    \"registration\": {\n      \"requestingPracticeOdsCode\": \"ABC1234\",\n      \"sendingPracticeOdsCode\": \"XYZ4567\"\n    },\n    \"error\": {\n      \"errorCode\": \"15\",\n      \"errorDescription\": \"Duplicate\"\n    }\n  }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -369,7 +369,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"eventGeneratedDateTime\": {{a_datetime}},\n  \"conversationId\": {{conversation_id}},\n  \"transferEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SUPPLIER_SYSTEM\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"registration\": {\n      \"requestingPracticeOdsCode\": \"ABC1234\",\n      \"sendingPracticeOdsCode\": \"XYZ4567\"\n    }\n  }\n}",
+							"raw": "{\n  \"eventGeneratedDateTime\": {{a_datetime}},\n  \"conversationId\": {{conversation_id}},\n  \"registrationEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SUPPLIER_SYSTEM\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"registration\": {\n      \"requestingPracticeOdsCode\": \"ABC1234\",\n      \"sendingPracticeOdsCode\": \"XYZ4567\"\n    }\n  }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -402,7 +402,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"eventGeneratedDateTime\": {{a_datetime}},\n  \"conversationId\": {{conversation_id}},\n  \"transferEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SUPPLIER_SYSTEM\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"registration\": {\n      \"requestingPracticeOdsCode\": \"ABC1234\",\n      \"sendingPracticeOdsCode\": \"XYZ4567\"\n    },\n    \"structuredRecordMigration\": {\n      \"status\": \"SUCCESS\",\n      \"reason\": \"\"\n    }\n  }\n}",
+							"raw": "{\n  \"eventGeneratedDateTime\": {{a_datetime}},\n  \"conversationId\": {{conversation_id}},\n  \"registrationEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SUPPLIER_SYSTEM\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"registration\": {\n      \"requestingPracticeOdsCode\": \"ABC1234\",\n      \"sendingPracticeOdsCode\": \"XYZ4567\"\n    },\n    \"structuredRecordMigration\": {\n      \"status\": \"SUCCESS\",\n      \"reason\": \"\"\n    }\n  }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -435,7 +435,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"eventGeneratedDateTime\": {{a_datetime}},\n  \"conversationId\": {{conversation_id}},\n  \"transferEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SUPPLIER_SYSTEM\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"registration\": {\n      \"requestingPracticeOdsCode\": \"ABC1234\",\n      \"sendingPracticeOdsCode\": \"XYZ4567\"\n  },\n    \"attachment\": {\n      \"attachmentId\": \"3424-342456-3424-342456\",\n      \"clinicalType\": \"Scanned document\",\n      \"mimeType\": \"application/pdf\",\n      \"sizeBytes\": 3084322\n    }\n  }\n}",
+							"raw": "{\n  \"eventGeneratedDateTime\": {{a_datetime}},\n  \"conversationId\": {{conversation_id}},\n  \"registrationEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SUPPLIER_SYSTEM\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"registration\": {\n      \"requestingPracticeOdsCode\": \"ABC1234\",\n      \"sendingPracticeOdsCode\": \"XYZ4567\"\n  },\n    \"attachment\": {\n      \"attachmentId\": \"3424-342456-3424-342456\",\n      \"clinicalType\": \"Scanned document\",\n      \"mimeType\": \"application/pdf\",\n      \"sizeBytes\": 3084322\n    }\n  }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -468,7 +468,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"eventGeneratedDateTime\": {{a_datetime}},\n  \"conversationId\": {{conversation_id}},\n  \"transferEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SUPPLIER_SYSTEM\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"registration\": {\n      \"requestingPracticeOdsCode\": \"ABC1234\",\n      \"sendingPracticeOdsCode\": \"XYZ4567\"\n    },\n    \"attachment\": {\n      \"attachmentId\": \"3424-342456-3424-342456\",\n      \"clinicalType\": \"Scanned document\",\n      \"mimeType\": \"application/pdf\",\n      \"sizeBytes\": 3084322\n    },\n    \"documentMigration\": {\n      \"status\": \"FAILURE\",\n      \"reason\": \"Large file size\"\n    }\n  }\n}",
+							"raw": "{\n  \"eventGeneratedDateTime\": {{a_datetime}},\n  \"conversationId\": {{conversation_id}},\n  \"registrationEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SUPPLIER_SYSTEM\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"registration\": {\n      \"requestingPracticeOdsCode\": \"ABC1234\",\n      \"sendingPracticeOdsCode\": \"XYZ4567\"\n    },\n    \"attachment\": {\n      \"attachmentId\": \"3424-342456-3424-342456\",\n      \"clinicalType\": \"Scanned document\",\n      \"mimeType\": \"application/pdf\",\n      \"sizeBytes\": 3084322\n    },\n    \"documentMigration\": {\n      \"status\": \"FAILURE\",\n      \"reason\": \"Large file size\"\n    }\n  }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -501,7 +501,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"eventGeneratedDateTime\": \"2022-06-06T09:00:00Z\",\n  \"conversationId\": {{conversation_id}},\n  \"transferEventDateTime\": \"2022-06-06T09:00:00Z\",\n  \"reportingSystemSupplier\": \"SUPPLIER_SYSTEM\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"registration\": {\n      \"requestingPracticeOdsCode\": \"ABC1234\",\n      \"sendingPracticeOdsCode\": \"XYZ4567\"\n    },\n    \"ehr\": {\n      \"degrade\": [\n        {\n          \"type\": \"core_ehr / attachment\",\n          \"metadata\": \"other degrades metadata\",\n          \"code\": {\n            \"coding\": [\n              {\n                \"code\": \"886721000000107\",\n                \"system\": \"http://snomed.info/sct\"\n              }\n            ]\n          }\n        }\n      ]\n    }\n  }\n}",
+							"raw": "{\n  \"eventGeneratedDateTime\": \"2022-06-06T09:00:00Z\",\n  \"conversationId\": {{conversation_id}},\n  \"registrationEventDateTime\": \"2022-06-06T09:00:00Z\",\n  \"reportingSystemSupplier\": \"SUPPLIER_SYSTEM\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"registration\": {\n      \"requestingPracticeOdsCode\": \"ABC1234\",\n      \"sendingPracticeOdsCode\": \"XYZ4567\"\n    },\n    \"ehr\": {\n      \"degrade\": [\n        {\n          \"type\": \"core_ehr / attachment\",\n          \"metadata\": \"other degrades metadata\",\n          \"code\": {\n            \"coding\": [\n              {\n                \"code\": \"886721000000107\",\n                \"system\": \"http://snomed.info/sct\"\n              }\n            ]\n          }\n        }\n      ]\n    }\n  }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -534,7 +534,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"eventGeneratedDateTime\": \"2022-06-06T12:00:00Z\",\n  \"conversationId\": {{conversation_id}},\n  \"transferEventDateTime\": \"2022-06-06T12:00:00Z\",\n  \"reportingSystemSupplier\": \"SUPPLIER_SYSTEM\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"registration\": {\n      \"requestingPracticeOdsCode\": \"ABC1234\",\n      \"sendingPracticeOdsCode\": \"XYZ4567\"\n    },\n    \"integration\": {\n      \"integrationStatus\": \"filed as attachment/ suppressed/ merged/ rejected\",\n      \"reason\": \"Reason for integration status\"\n    }\n  }\n}",
+							"raw": "{\n  \"eventGeneratedDateTime\": \"2022-06-06T12:00:00Z\",\n  \"conversationId\": {{conversation_id}},\n  \"registrationEventDateTime\": \"2022-06-06T12:00:00Z\",\n  \"reportingSystemSupplier\": \"SUPPLIER_SYSTEM\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"registration\": {\n      \"requestingPracticeOdsCode\": \"ABC1234\",\n      \"sendingPracticeOdsCode\": \"XYZ4567\"\n    },\n    \"integration\": {\n      \"integrationStatus\": \"filed as attachment/ suppressed/ merged/ rejected\",\n      \"reason\": \"Reason for integration status\"\n    }\n  }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -567,7 +567,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"eventGeneratedDateTime\": {{a_datetime}},\n  \"conversationId\": {{conversation_id}},\n  \"transferEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SUPPLIER_SYSTEM\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"registration\": {\n      \"requestingPracticeOdsCode\": \"ABC1234\",\n      \"sendingPracticeOdsCode\": \"XYZ4567\"\n    },\n    \"error\": {\n      \"errorCode\": \"15\",\n      \"errorDescription\": \"stacktrace? detailed error message?\"\n    }\n  }\n}",
+							"raw": "{\n  \"eventGeneratedDateTime\": {{a_datetime}},\n  \"conversationId\": {{conversation_id}},\n  \"registrationEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SUPPLIER_SYSTEM\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"registration\": {\n      \"requestingPracticeOdsCode\": \"ABC1234\",\n      \"sendingPracticeOdsCode\": \"XYZ4567\"\n    },\n    \"error\": {\n      \"errorCode\": \"15\",\n      \"errorDescription\": \"stacktrace? detailed error message?\"\n    }\n  }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -605,7 +605,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"eventGeneratedDateTime\": {{a_datetime}},\n  \"conversationId\": {{conversation_id}},\n  \"transferEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SUPPLIER_SYSTEM\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"registration\": {\n      \"requestingPracticeOdsCode\": \"ABC1234\",\n      \"sendingPracticeOdsCode\": \"XYZ4567\"\n    },\n    \"integration\": {\n      \"integrationStatus\": \"filed as attachment/ suppressed/ merged/ rejected\",\n      \"reason\": \"Reason for integration status\"\n    }\n  }\n}",
+							"raw": "{\n  \"eventGeneratedDateTime\": {{a_datetime}},\n  \"conversationId\": {{conversation_id}},\n  \"registrationEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SUPPLIER_SYSTEM\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"registration\": {\n      \"requestingPracticeOdsCode\": \"ABC1234\",\n      \"sendingPracticeOdsCode\": \"XYZ4567\"\n    },\n    \"integration\": {\n      \"integrationStatus\": \"filed as attachment/ suppressed/ merged/ rejected\",\n      \"reason\": \"Reason for integration status\"\n    }\n  }\n}",
 							"options": {
 								"raw": {
 									"language": "json"

@@ -13,7 +13,7 @@ public class EventDAOBuilder {
                 .reportingSystemSupplier(event.getReportingSystemSupplier())
                 .reportingPracticeOdsCode(event.getReportingPracticeOdsCode())
                 .conversationId(event.getConversationId())
-                .transferEventDateTime(event.getTransferEventDateTime())
+                .registrationEventDateTime(event.getRegistrationEventDateTime())
                 .payload(event.getPayload());
     }
 }

@@ -212,6 +212,4 @@ public class RegistrationController {
         EventDAO eventDAO = registrationService.saveEvent(event, EventType.ERROR, TransferProtocol.GP2GP);
         return new EventResponse(eventDAO.getEventId());
     }
-
-
 }

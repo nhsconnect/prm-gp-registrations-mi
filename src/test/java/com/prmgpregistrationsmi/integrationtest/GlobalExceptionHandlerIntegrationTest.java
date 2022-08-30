@@ -42,7 +42,7 @@ class GlobalExceptionHandlerIntegrationTest {
                 "payload: must not be null",
                 "reportingSystemSupplier: must not be empty",
                 "conversationId: must not be empty",
-                "transferEventDateTime: must not be null"));
+                "registrationEventDateTime: must not be null"));
 
         mockMvc.perform(post("/registration-started").content(asJsonString(emptyRequestBody))
                         .contentType(MediaType.APPLICATION_JSON))

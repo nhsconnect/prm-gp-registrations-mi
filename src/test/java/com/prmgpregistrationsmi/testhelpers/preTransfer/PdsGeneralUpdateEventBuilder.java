@@ -13,7 +13,7 @@ public class PdsGeneralUpdateEventBuilder {
                 .reportingSystemSupplier(DefaultEventValues.REPORTING_SYSTEM_SUPPLIER)
                 .reportingPracticeOdsCode(DefaultEventValues.REPORTING_PRACTICE_ODS_CODE)
                 .conversationId(DefaultEventValues.CONVERSATION_ID)
-                .transferEventDateTime(DefaultEventValues.TRANSFER_EVENT_DATE_TIME)
+                .registrationEventDateTime(DefaultEventValues.TRANSFER_EVENT_DATE_TIME)
                 .payload(withDefaultPdsGeneralUpdatePayload().build());
     }
 

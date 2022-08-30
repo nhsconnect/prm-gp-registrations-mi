@@ -25,5 +25,5 @@ public abstract class Event implements HasPayload {
     @NotEmpty
     private String conversationId;
     @NotNull
-    private LocalDateTime transferEventDateTime;
+    private LocalDateTime registrationEventDateTime;
 }

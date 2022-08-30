@@ -98,7 +98,7 @@ public class EventTest {
     void shouldThrowConstraintViolationWhenTransferEventDateTimeIsNull() {
         RegistrationStartedEvent event = RegistrationStartedEventBuilder
                 .withDefaultEventValues()
-                .transferEventDateTime(null)
+                .registrationEventDateTime(null)
                 .build();
 
         Set<ConstraintViolation<RegistrationStartedEvent>> violations = validator.validate(event);
@@ -107,6 +107,6 @@ public class EventTest {
 
         ConstraintViolation<RegistrationStartedEvent> violation = violations.iterator().next();
         assertEquals("must not be null", violation.getMessage());
-        assertEquals("transferEventDateTime", violation.getPropertyPath().toString());
+        assertEquals("registrationEventDateTime", violation.getPropertyPath().toString());
     }
 }
