@@ -29,7 +29,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{mi_api_url}}/preTransfer/registrationStarted",
+							"raw": "{{mi_api_url}}/preTransfer/registration-started",
 							"host": [
 								"{{mi_api_url}}"
 							],
@@ -62,7 +62,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{mi_api_url}}/preTransfer/pdsTrace",
+							"raw": "{{mi_api_url}}/preTransfer/pds-trace",
 							"host": [
 								"{{mi_api_url}}"
 							],
@@ -95,7 +95,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{mi_api_url}}/preTransfer/sdsLookup",
+							"raw": "{{mi_api_url}}/preTransfer/sds-lookup",
 							"host": [
 								"{{mi_api_url}}"
 							],
@@ -128,7 +128,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{mi_api_url}}/preTransfer/pdsGeneralUpdate",
+							"raw": "{{mi_api_url}}/preTransfer/pds-general-update",
 							"host": [
 								"{{mi_api_url}}"
 							],
@@ -166,7 +166,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{mi_api_url}}/gp2gp/ehrRequested",
+							"raw": "{{mi_api_url}}/gp2gp/ehr-requested",
 							"host": [
 								"{{mi_api_url}}"
 							],
@@ -199,7 +199,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{mi_api_url}}/gp2gp/ehrGenerated",
+							"raw": "{{mi_api_url}}/gp2gp/ehr-generated",
 							"host": [
 								"{{mi_api_url}}"
 							],
@@ -232,7 +232,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{mi_api_url}}/gp2gp/ehrSent",
+							"raw": "{{mi_api_url}}/gp2gp/ehr-sent",
 							"host": [
 								"{{mi_api_url}}"
 							],
@@ -265,7 +265,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{mi_api_url}}/gp2gp/ehrValidated",
+							"raw": "{{mi_api_url}}/gp2gp/ehr-validated",
 							"host": [
 								"{{mi_api_url}}"
 							],
@@ -298,7 +298,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{mi_api_url}}/gp2gp/ehrIntegrated",
+							"raw": "{{mi_api_url}}/gp2gp/ehr-integrated",
 							"host": [
 								"{{mi_api_url}}"
 							],
@@ -377,7 +377,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{mi_api_url}}/gpconnect/migrateStructuredRecordRequest",
+							"raw": "{{mi_api_url}}/gpconnect/migrate-structured-record-request",
 							"host": [
 								"{{mi_api_url}}"
 							],
@@ -410,7 +410,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{mi_api_url}}/gpconnect/migrateStructuredRecordResponse",
+							"raw": "{{mi_api_url}}/gpconnect/migrate-structured-record-response",
 							"host": [
 								"{{mi_api_url}}"
 							],
@@ -443,7 +443,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{mi_api_url}}/gpconnect/migrateDocumentRequest",
+							"raw": "{{mi_api_url}}/gpconnect/migrate-document-request",
 							"host": [
 								"{{mi_api_url}}"
 							],
@@ -476,7 +476,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{mi_api_url}}/gpconnect/migrateDocumentResponse",
+							"raw": "{{mi_api_url}}/gpconnect/migrate-document-response",
 							"host": [
 								"{{mi_api_url}}"
 							],
@@ -509,7 +509,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{mi_api_url}}/gpconnect/ehrReadyToIntegrate",
+							"raw": "{{mi_api_url}}/gpconnect/ehr-ready-to-integrate",
 							"host": [
 								"{{mi_api_url}}"
 							],
@@ -542,7 +542,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{mi_api_url}}/gpconnect/ehrIntegrated",
+							"raw": "{{mi_api_url}}/gpconnect/ehr-integrated",
 							"host": [
 								"{{mi_api_url}}"
 							],
@@ -613,7 +613,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{mi_api_url}}/internalTransfer",
+							"raw": "{{mi_api_url}}/internal-transfer",
 							"host": [
 								"{{mi_api_url}}"
 							],

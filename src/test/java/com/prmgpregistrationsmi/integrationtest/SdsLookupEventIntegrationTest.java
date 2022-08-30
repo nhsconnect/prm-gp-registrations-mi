@@ -47,7 +47,7 @@ class SdsLookupEventIntegrationTest {
                 .build();
 
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
-                "/sdsLookup",
+                "/sds-lookup",
                 sdsLookupEventRequest, EventResponse.class);
 
         assertEquals(expectedS3UploadEvent.getEventId(), actualResponseEvent.getEventId());

@@ -38,7 +38,7 @@ public class RegistrationController {
     private final RegistrationService registrationService;
 
     @PostMapping(
-            value = "/ehrRequested",
+            value = "/ehr-requested",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
@@ -49,7 +49,7 @@ public class RegistrationController {
     }
 
     @PostMapping(
-            value = "/ehrGenerated",
+            value = "/ehr-generated",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
@@ -60,7 +60,7 @@ public class RegistrationController {
     }
 
     @PostMapping(
-            value = "/ehrSent",
+            value = "/ehr-sent",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
@@ -71,7 +71,7 @@ public class RegistrationController {
     }
 
     @PostMapping(
-            value = "/ehrIntegrated",
+            value = "/ehr-integrated",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
@@ -82,7 +82,7 @@ public class RegistrationController {
     }
 
     @PostMapping(
-            value = "/ehrValidated",
+            value = "/ehr-validated",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
@@ -93,7 +93,7 @@ public class RegistrationController {
     }
 
     @PostMapping(
-            value = "/registrationStarted",
+            value = "/registration-started",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
@@ -104,7 +104,7 @@ public class RegistrationController {
     }
 
     @PostMapping(
-            value = "/pdsTrace",
+            value = "/pds-trace",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
@@ -115,7 +115,7 @@ public class RegistrationController {
     }
 
     @PostMapping(
-            value = "/pdsGeneralUpdate",
+            value = "/pds-general-update",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
@@ -126,7 +126,7 @@ public class RegistrationController {
     }
 
     @PostMapping(
-            value = "/sdsLookup",
+            value = "/sds-lookup",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
@@ -137,7 +137,7 @@ public class RegistrationController {
     }
 
     @PostMapping(
-            value = "/migrateStructuredRecordRequest",
+            value = "/migrate-structured-record-request",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
@@ -148,7 +148,7 @@ public class RegistrationController {
     }
 
     @PostMapping(
-            value = "/migrateStructuredRecordResponse",
+            value = "/migrate-structured-record-response",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
@@ -159,7 +159,7 @@ public class RegistrationController {
     }
 
     @PostMapping(
-            value = "/migrateDocumentRequest",
+            value = "/migrate-document-request",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
@@ -170,7 +170,7 @@ public class RegistrationController {
     }
 
     @PostMapping(
-            value = "/migrateDocumentResponse",
+            value = "/migrate-document-response",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
@@ -181,7 +181,7 @@ public class RegistrationController {
     }
 
     @PostMapping(
-            value = "/ehrReadyToIntegrate",
+            value = "/ehr-ready-to-integrate",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
@@ -192,7 +192,7 @@ public class RegistrationController {
     }
 
     @PostMapping(
-            value = "/internalTransfer",
+            value = "/internal-transfer",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )

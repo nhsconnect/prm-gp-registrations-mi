@@ -47,7 +47,7 @@ class EhrReadyToIntegrateEventIntegrationTest {
                 .build();
 
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
-                "/ehrReadyToIntegrate",
+                "/ehr-ready-to-integrate",
                 ehrReadyToIntegrateEventRequest, EventResponse.class);
 
         assertEquals(expectedS3UploadEvent.getEventId(), actualResponseEvent.getEventId());

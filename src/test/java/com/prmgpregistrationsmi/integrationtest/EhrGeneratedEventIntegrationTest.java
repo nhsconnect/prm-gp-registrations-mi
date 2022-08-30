@@ -47,7 +47,7 @@ class EhrGeneratedEventIntegrationTest {
                 .build();
 
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
-                "/ehrGenerated", ehrGeneratedEventRequest, EventResponse.class);
+                "/ehr-generated", ehrGeneratedEventRequest, EventResponse.class);
 
         assertEquals(expectedS3UploadEvent.getEventId(), actualResponseEvent.getEventId());
 

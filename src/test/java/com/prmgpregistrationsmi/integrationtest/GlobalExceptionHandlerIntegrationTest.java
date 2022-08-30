@@ -44,7 +44,7 @@ class GlobalExceptionHandlerIntegrationTest {
                 "conversationId: must not be empty",
                 "transferEventDateTime: must not be null"));
 
-        mockMvc.perform(post("/registrationStarted").content(asJsonString(emptyRequestBody))
+        mockMvc.perform(post("/registration-started").content(asJsonString(emptyRequestBody))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof MethodArgumentNotValidException))
@@ -60,7 +60,7 @@ class GlobalExceptionHandlerIntegrationTest {
                 "Invalid request field",
                 new ArrayList<>(Collections.singleton("eventGeneratedDateTime: Expected array or string.")));
 
-        mockMvc.perform(post("/registrationStarted").content(requestBody)
+        mockMvc.perform(post("/registration-started").content(requestBody)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException().getCause() instanceof MismatchedInputException))
@@ -76,7 +76,7 @@ class GlobalExceptionHandlerIntegrationTest {
                 "Invalid JSON",
                 new ArrayList<>(Collections.singleton("Unable to parse JSON")));
 
-        mockMvc.perform(post("/registrationStarted").content(requestBody)
+        mockMvc.perform(post("/registration-started").content(requestBody)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException().getCause() instanceof JsonParseException))
@@ -92,7 +92,7 @@ class GlobalExceptionHandlerIntegrationTest {
                 "Invalid JSON",
                 new ArrayList<>(Collections.singleton("eventGeneratedDateTime: Unexpected end-of-input in VALUE_STRING")));
 
-        mockMvc.perform(post("/registrationStarted").content(requestBody)
+        mockMvc.perform(post("/registration-started").content(requestBody)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException().getCause() instanceof JsonMappingException))

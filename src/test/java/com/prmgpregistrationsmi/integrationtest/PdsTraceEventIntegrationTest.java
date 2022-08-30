@@ -47,7 +47,7 @@ class PdsTraceEventIntegrationTest {
                 .build();
 
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
-                "/pdsTrace",
+                "/pds-trace",
                 pdsTraceEventRequest, EventResponse.class);
 
         assertEquals(expectedS3UploadEvent.getEventId(), actualResponseEvent.getEventId());
