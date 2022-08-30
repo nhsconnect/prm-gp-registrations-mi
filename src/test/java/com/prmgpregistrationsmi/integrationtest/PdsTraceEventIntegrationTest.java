@@ -1,13 +1,13 @@
-package com.prmgpregistrationsmi.integrationtest.gp2gpDeprecated;
+package com.prmgpregistrationsmi.integrationtest;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.prmgpregistrationsmi.model.deprecated.Event.EventDAO;
 import com.prmgpregistrationsmi.model.deprecated.Event.EventResponse;
 import com.prmgpregistrationsmi.model.deprecated.Event.EventType;
 import com.prmgpregistrationsmi.model.deprecated.Event.TransferProtocol;
-import com.prmgpregistrationsmi.model.deprecated.gp2gp.Error.ErrorEvent;
+import com.prmgpregistrationsmi.model.deprecated.preTransfer.PdsTrace.PdsTraceEvent;
 import com.prmgpregistrationsmi.testhelpers.EventDAOBuilder;
-import com.prmgpregistrationsmi.testhelpers.gp2gp.ErrorEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.preTransfer.PdsTraceEventBuilder;
 import com.prmgpregistrationsmi.utils.UUIDService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class ErrorEventIntegrationTest {
+class PdsTraceEventIntegrationTest {
     @LocalServerPort
     private int port;
 
@@ -31,24 +31,24 @@ class ErrorEventIntegrationTest {
     AmazonS3Client mockAmazonS3Client;
 
     @Test
-    void shouldUploadErrorEventToS3() {
-        ErrorEvent errorEventRequest = ErrorEventBuilder
+    void shouldUploadPdsTraceEventToS3() {
+        PdsTraceEvent pdsTraceEventRequest = PdsTraceEventBuilder
                 .withDefaultEventValues()
                 .build();
 
-        EventDAO expectedS3UploadEvent = EventDAOBuilder.withEvent(errorEventRequest)
+        EventDAO expectedS3UploadEvent = EventDAOBuilder.withEvent(pdsTraceEventRequest)
                 .eventId(UUIDService.buildUUIDStringFromSeed(
-                        errorEventRequest.getConversationId() +
-                                EventType.ERROR +
-                                errorEventRequest.getEventGeneratedDateTime().toString())
+                        pdsTraceEventRequest.getConversationId() +
+                                EventType.PDS_TRACE +
+                                pdsTraceEventRequest.getEventGeneratedDateTime().toString())
                 )
-                .eventType(EventType.ERROR)
-                .transferProtocol(TransferProtocol.GP2GP)
+                .eventType(EventType.PDS_TRACE)
+                .transferProtocol(TransferProtocol.PRE_TRANSFER)
                 .build();
 
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
-                "/error",
-                errorEventRequest, EventResponse.class);
+                "/pdsTrace",
+                pdsTraceEventRequest, EventResponse.class);
 
         assertEquals(expectedS3UploadEvent.getEventId(), actualResponseEvent.getEventId());
 

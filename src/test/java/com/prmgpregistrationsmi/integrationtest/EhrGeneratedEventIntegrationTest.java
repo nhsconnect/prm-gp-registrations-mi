@@ -1,13 +1,13 @@
-package com.prmgpregistrationsmi.integrationtest.preTransferDeprecated;
+package com.prmgpregistrationsmi.integrationtest;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.prmgpregistrationsmi.model.deprecated.Event.EventDAO;
 import com.prmgpregistrationsmi.model.deprecated.Event.EventResponse;
 import com.prmgpregistrationsmi.model.deprecated.Event.EventType;
 import com.prmgpregistrationsmi.model.deprecated.Event.TransferProtocol;
-import com.prmgpregistrationsmi.model.deprecated.preTransfer.RegistrationStarted.RegistrationStartedEvent;
+import com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrGenerated.EhrGeneratedEvent;
 import com.prmgpregistrationsmi.testhelpers.EventDAOBuilder;
-import com.prmgpregistrationsmi.testhelpers.preTransfer.RegistrationStartedEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrGeneratedEventBuilder;
 import com.prmgpregistrationsmi.utils.UUIDService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class RegistrationStartedEventIntegrationTest {
+class EhrGeneratedEventIntegrationTest {
     @LocalServerPort
     private int port;
 
@@ -31,23 +31,23 @@ class RegistrationStartedEventIntegrationTest {
     AmazonS3Client mockAmazonS3Client;
 
     @Test
-    void shouldUploadRegistrationStartedEventToS3() {
-        RegistrationStartedEvent registrationStartedEventRequest = RegistrationStartedEventBuilder
+    void shouldUploadEhrGeneratedEventToS3() {
+        EhrGeneratedEvent ehrGeneratedEventRequest = EhrGeneratedEventBuilder
                 .withDefaultEventValues()
                 .build();
 
-        EventDAO expectedS3UploadEvent = EventDAOBuilder.withEvent(registrationStartedEventRequest)
+        EventDAO expectedS3UploadEvent = EventDAOBuilder.withEvent(ehrGeneratedEventRequest)
                 .eventId(UUIDService.buildUUIDStringFromSeed(
-                        registrationStartedEventRequest.getConversationId() +
-                                EventType.REGISTRATION_STARTED +
-                                registrationStartedEventRequest.getEventGeneratedDateTime().toString())
+                        ehrGeneratedEventRequest.getConversationId() +
+                                EventType.EHR_GENERATED +
+                                ehrGeneratedEventRequest.getEventGeneratedDateTime().toString())
                 )
-                .eventType(EventType.REGISTRATION_STARTED)
-                .transferProtocol(TransferProtocol.PRE_TRANSFER)
+                .eventType(EventType.EHR_GENERATED)
+                .transferProtocol(TransferProtocol.GP2GP)
                 .build();
 
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
-                "/registrationStarted", registrationStartedEventRequest, EventResponse.class);
+                "/ehrGenerated", ehrGeneratedEventRequest, EventResponse.class);
 
         assertEquals(expectedS3UploadEvent.getEventId(), actualResponseEvent.getEventId());
 

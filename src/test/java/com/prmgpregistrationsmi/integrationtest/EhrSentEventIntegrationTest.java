@@ -1,13 +1,13 @@
-package com.prmgpregistrationsmi.integrationtest.gpcDeprecated;
+package com.prmgpregistrationsmi.integrationtest;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.prmgpregistrationsmi.model.deprecated.Event.EventDAO;
 import com.prmgpregistrationsmi.model.deprecated.Event.EventResponse;
 import com.prmgpregistrationsmi.model.deprecated.Event.EventType;
 import com.prmgpregistrationsmi.model.deprecated.Event.TransferProtocol;
-import com.prmgpregistrationsmi.model.deprecated.gpc.MigrateDocumentRequest.MigrateDocumentRequestEvent;
+import com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrSent.EhrSentEvent;
 import com.prmgpregistrationsmi.testhelpers.EventDAOBuilder;
-import com.prmgpregistrationsmi.testhelpers.gpc.MigrateDocumentRequestEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrSentEventBuilder;
 import com.prmgpregistrationsmi.utils.UUIDService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class MigrateDocumentRequestEventIntegrationTest {
+class EhrSentEventIntegrationTest {
     @LocalServerPort
     private int port;
 
@@ -31,24 +31,23 @@ class MigrateDocumentRequestEventIntegrationTest {
     AmazonS3Client mockAmazonS3Client;
 
     @Test
-    void shouldUploadMigrateDocumentRequestEventToS3() {
-        MigrateDocumentRequestEvent migrateDocumentRequestEventRequest = MigrateDocumentRequestEventBuilder
+    void shouldUploadEhrSentEventToS3() {
+        EhrSentEvent ehrSentEventRequest = EhrSentEventBuilder
                 .withDefaultEventValues()
                 .build();
 
-        EventDAO expectedS3UploadEvent = EventDAOBuilder.withEvent(migrateDocumentRequestEventRequest)
+        EventDAO expectedS3UploadEvent = EventDAOBuilder.withEvent(ehrSentEventRequest)
                 .eventId(UUIDService.buildUUIDStringFromSeed(
-                        migrateDocumentRequestEventRequest.getConversationId() +
-                                EventType.MIGRATE_DOCUMENT_REQUEST +
-                                migrateDocumentRequestEventRequest.getEventGeneratedDateTime().toString())
+                        ehrSentEventRequest.getConversationId() +
+                                EventType.EHR_SENT +
+                                ehrSentEventRequest.getEventGeneratedDateTime().toString())
                 )
-                .eventType(EventType.MIGRATE_DOCUMENT_REQUEST)
-                .transferProtocol(TransferProtocol.GP_CONNECT)
+                .eventType(EventType.EHR_SENT)
+                .transferProtocol(TransferProtocol.GP2GP)
                 .build();
 
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
-                "/migrateDocumentRequest",
-                migrateDocumentRequestEventRequest, EventResponse.class);
+                "/ehrSent", ehrSentEventRequest, EventResponse.class);
 
         assertEquals(expectedS3UploadEvent.getEventId(), actualResponseEvent.getEventId());
 

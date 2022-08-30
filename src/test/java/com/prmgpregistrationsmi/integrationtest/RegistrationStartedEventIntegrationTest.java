@@ -1,13 +1,13 @@
-package com.prmgpregistrationsmi.integrationtest.gpcDeprecated;
+package com.prmgpregistrationsmi.integrationtest;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.prmgpregistrationsmi.model.deprecated.Event.EventDAO;
 import com.prmgpregistrationsmi.model.deprecated.Event.EventResponse;
 import com.prmgpregistrationsmi.model.deprecated.Event.EventType;
 import com.prmgpregistrationsmi.model.deprecated.Event.TransferProtocol;
-import com.prmgpregistrationsmi.model.deprecated.gpc.MigrateStructuredRecordResponse.MigrateStructuredRecordResponseEvent;
+import com.prmgpregistrationsmi.model.deprecated.preTransfer.RegistrationStarted.RegistrationStartedEvent;
 import com.prmgpregistrationsmi.testhelpers.EventDAOBuilder;
-import com.prmgpregistrationsmi.testhelpers.gpc.MigrateStructuredRecordResponseEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.preTransfer.RegistrationStartedEventBuilder;
 import com.prmgpregistrationsmi.utils.UUIDService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class MigrateStructuredRecordResponseEventIntegrationTest {
+class RegistrationStartedEventIntegrationTest {
     @LocalServerPort
     private int port;
 
@@ -31,23 +31,23 @@ class MigrateStructuredRecordResponseEventIntegrationTest {
     AmazonS3Client mockAmazonS3Client;
 
     @Test
-    void shouldUploadMigrateStructuredRecordResponseEventToS3() {
-        MigrateStructuredRecordResponseEvent migrateStructuredRecordResponseEventResponse = MigrateStructuredRecordResponseEventBuilder
+    void shouldUploadRegistrationStartedEventToS3() {
+        RegistrationStartedEvent registrationStartedEventRequest = RegistrationStartedEventBuilder
                 .withDefaultEventValues()
                 .build();
 
-        EventDAO expectedS3UploadEvent = EventDAOBuilder.withEvent(migrateStructuredRecordResponseEventResponse)
+        EventDAO expectedS3UploadEvent = EventDAOBuilder.withEvent(registrationStartedEventRequest)
                 .eventId(UUIDService.buildUUIDStringFromSeed(
-                        migrateStructuredRecordResponseEventResponse.getConversationId() +
-                                EventType.MIGRATE_STRUCTURED_RECORD_RESPONSE +
-                                migrateStructuredRecordResponseEventResponse.getEventGeneratedDateTime().toString())
+                        registrationStartedEventRequest.getConversationId() +
+                                EventType.REGISTRATION_STARTED +
+                                registrationStartedEventRequest.getEventGeneratedDateTime().toString())
                 )
-                .eventType(EventType.MIGRATE_STRUCTURED_RECORD_RESPONSE)
-                .transferProtocol(TransferProtocol.GP_CONNECT)
+                .eventType(EventType.REGISTRATION_STARTED)
+                .transferProtocol(TransferProtocol.PRE_TRANSFER)
                 .build();
 
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
-                "/migrateStructuredRecordResponse", migrateStructuredRecordResponseEventResponse, EventResponse.class);
+                "/registrationStarted", registrationStartedEventRequest, EventResponse.class);
 
         assertEquals(expectedS3UploadEvent.getEventId(), actualResponseEvent.getEventId());
 

@@ -1,13 +1,13 @@
-package com.prmgpregistrationsmi.integrationtest.gp2gpDeprecated;
+package com.prmgpregistrationsmi.integrationtest;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.prmgpregistrationsmi.model.deprecated.Event.EventDAO;
 import com.prmgpregistrationsmi.model.deprecated.Event.EventResponse;
 import com.prmgpregistrationsmi.model.deprecated.Event.EventType;
 import com.prmgpregistrationsmi.model.deprecated.Event.TransferProtocol;
-import com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrSent.EhrSentEvent;
+import com.prmgpregistrationsmi.model.deprecated.preTransfer.SdsLookup.SdsLookupEvent;
 import com.prmgpregistrationsmi.testhelpers.EventDAOBuilder;
-import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrSentEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.preTransfer.SdsLookupEventBuilder;
 import com.prmgpregistrationsmi.utils.UUIDService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class EhrSentEventIntegrationTest {
+class SdsLookupEventIntegrationTest {
     @LocalServerPort
     private int port;
 
@@ -31,23 +31,24 @@ class EhrSentEventIntegrationTest {
     AmazonS3Client mockAmazonS3Client;
 
     @Test
-    void shouldUploadEhrSentEventToS3() {
-        EhrSentEvent ehrSentEventRequest = EhrSentEventBuilder
+    void shouldUploadSdsLookupEventToS3() {
+        SdsLookupEvent sdsLookupEventRequest = SdsLookupEventBuilder
                 .withDefaultEventValues()
                 .build();
 
-        EventDAO expectedS3UploadEvent = EventDAOBuilder.withEvent(ehrSentEventRequest)
+        EventDAO expectedS3UploadEvent = EventDAOBuilder.withEvent(sdsLookupEventRequest)
                 .eventId(UUIDService.buildUUIDStringFromSeed(
-                        ehrSentEventRequest.getConversationId() +
-                                EventType.EHR_SENT +
-                                ehrSentEventRequest.getEventGeneratedDateTime().toString())
+                        sdsLookupEventRequest.getConversationId() +
+                                EventType.SDS_LOOKUP +
+                                sdsLookupEventRequest.getEventGeneratedDateTime().toString())
                 )
-                .eventType(EventType.EHR_SENT)
-                .transferProtocol(TransferProtocol.GP2GP)
+                .eventType(EventType.SDS_LOOKUP)
+                .transferProtocol(TransferProtocol.PRE_TRANSFER)
                 .build();
 
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
-                "/ehrSent", ehrSentEventRequest, EventResponse.class);
+                "/sdsLookup",
+                sdsLookupEventRequest, EventResponse.class);
 
         assertEquals(expectedS3UploadEvent.getEventId(), actualResponseEvent.getEventId());
 

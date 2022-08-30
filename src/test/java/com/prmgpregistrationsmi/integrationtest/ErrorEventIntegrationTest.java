@@ -1,13 +1,13 @@
-package com.prmgpregistrationsmi.integrationtest.gp2gpDeprecated;
+package com.prmgpregistrationsmi.integrationtest;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.prmgpregistrationsmi.model.deprecated.Event.EventDAO;
 import com.prmgpregistrationsmi.model.deprecated.Event.EventResponse;
 import com.prmgpregistrationsmi.model.deprecated.Event.EventType;
 import com.prmgpregistrationsmi.model.deprecated.Event.TransferProtocol;
-import com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrIntegrated.EhrIntegratedEvent;
+import com.prmgpregistrationsmi.model.deprecated.gp2gp.Error.ErrorEvent;
 import com.prmgpregistrationsmi.testhelpers.EventDAOBuilder;
-import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrIntegratedEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.gp2gp.ErrorEventBuilder;
 import com.prmgpregistrationsmi.utils.UUIDService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class EhrIntegratedEventIntegrationTest {
+class ErrorEventIntegrationTest {
     @LocalServerPort
     private int port;
 
@@ -31,24 +31,24 @@ class EhrIntegratedEventIntegrationTest {
     AmazonS3Client mockAmazonS3Client;
 
     @Test
-    void shouldUploadEhrIntegratedEventToS3() {
-        EhrIntegratedEvent ehrIntegratedEventRequest = EhrIntegratedEventBuilder
+    void shouldUploadErrorEventToS3() {
+        ErrorEvent errorEventRequest = ErrorEventBuilder
                 .withDefaultEventValues()
                 .build();
 
-        EventDAO expectedS3UploadEvent = EventDAOBuilder.withEvent(ehrIntegratedEventRequest)
+        EventDAO expectedS3UploadEvent = EventDAOBuilder.withEvent(errorEventRequest)
                 .eventId(UUIDService.buildUUIDStringFromSeed(
-                        ehrIntegratedEventRequest.getConversationId() +
-                                EventType.EHR_INTEGRATED +
-                                ehrIntegratedEventRequest.getEventGeneratedDateTime().toString())
+                        errorEventRequest.getConversationId() +
+                                EventType.ERROR +
+                                errorEventRequest.getEventGeneratedDateTime().toString())
                 )
-                .eventType(EventType.EHR_INTEGRATED)
+                .eventType(EventType.ERROR)
                 .transferProtocol(TransferProtocol.GP2GP)
                 .build();
 
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
-                        "/ehrIntegrated",
-                ehrIntegratedEventRequest, EventResponse.class);
+                "/error",
+                errorEventRequest, EventResponse.class);
 
         assertEquals(expectedS3UploadEvent.getEventId(), actualResponseEvent.getEventId());
 

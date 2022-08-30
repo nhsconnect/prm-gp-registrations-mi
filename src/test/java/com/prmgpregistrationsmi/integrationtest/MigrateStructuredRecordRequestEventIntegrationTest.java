@@ -1,13 +1,13 @@
-package com.prmgpregistrationsmi.integrationtest.preTransferDeprecated;
+package com.prmgpregistrationsmi.integrationtest;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.prmgpregistrationsmi.model.deprecated.Event.EventDAO;
 import com.prmgpregistrationsmi.model.deprecated.Event.EventResponse;
 import com.prmgpregistrationsmi.model.deprecated.Event.EventType;
 import com.prmgpregistrationsmi.model.deprecated.Event.TransferProtocol;
-import com.prmgpregistrationsmi.model.deprecated.preTransfer.PdsTrace.PdsTraceEvent;
+import com.prmgpregistrationsmi.model.deprecated.gpc.MigrateStructuredRecordRequest.MigrateStructuredRecordRequestEvent;
 import com.prmgpregistrationsmi.testhelpers.EventDAOBuilder;
-import com.prmgpregistrationsmi.testhelpers.preTransfer.PdsTraceEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.gpc.MigrateStructuredRecordRequestEventBuilder;
 import com.prmgpregistrationsmi.utils.UUIDService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class PdsTraceEventIntegrationTest {
+class MigrateStructuredRecordRequestEventIntegrationTest {
     @LocalServerPort
     private int port;
 
@@ -31,24 +31,23 @@ class PdsTraceEventIntegrationTest {
     AmazonS3Client mockAmazonS3Client;
 
     @Test
-    void shouldUploadPdsTraceEventToS3() {
-        PdsTraceEvent pdsTraceEventRequest = PdsTraceEventBuilder
+    void shouldUploadMigrateStructuredRecordRequestEventToS3() {
+        MigrateStructuredRecordRequestEvent migrateStructuredRecordRequestEventRequest = MigrateStructuredRecordRequestEventBuilder
                 .withDefaultEventValues()
                 .build();
 
-        EventDAO expectedS3UploadEvent = EventDAOBuilder.withEvent(pdsTraceEventRequest)
+        EventDAO expectedS3UploadEvent = EventDAOBuilder.withEvent(migrateStructuredRecordRequestEventRequest)
                 .eventId(UUIDService.buildUUIDStringFromSeed(
-                        pdsTraceEventRequest.getConversationId() +
-                                EventType.PDS_TRACE +
-                                pdsTraceEventRequest.getEventGeneratedDateTime().toString())
+                        migrateStructuredRecordRequestEventRequest.getConversationId() +
+                                EventType.MIGRATE_STRUCTURED_RECORD_REQUEST +
+                                migrateStructuredRecordRequestEventRequest.getEventGeneratedDateTime().toString())
                 )
-                .eventType(EventType.PDS_TRACE)
-                .transferProtocol(TransferProtocol.PRE_TRANSFER)
+                .eventType(EventType.MIGRATE_STRUCTURED_RECORD_REQUEST)
+                .transferProtocol(TransferProtocol.GP_CONNECT)
                 .build();
 
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
-                "/pdsTrace",
-                pdsTraceEventRequest, EventResponse.class);
+                "/migrateStructuredRecordRequest", migrateStructuredRecordRequestEventRequest, EventResponse.class);
 
         assertEquals(expectedS3UploadEvent.getEventId(), actualResponseEvent.getEventId());
 

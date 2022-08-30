@@ -1,13 +1,13 @@
-package com.prmgpregistrationsmi.integrationtest.preTransferDeprecated;
+package com.prmgpregistrationsmi.integrationtest;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.prmgpregistrationsmi.model.deprecated.Event.EventDAO;
 import com.prmgpregistrationsmi.model.deprecated.Event.EventResponse;
 import com.prmgpregistrationsmi.model.deprecated.Event.EventType;
 import com.prmgpregistrationsmi.model.deprecated.Event.TransferProtocol;
-import com.prmgpregistrationsmi.model.deprecated.preTransfer.PdsGeneralUpdate.PdsGeneralUpdateEvent;
+import com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrRequested.EhrRequestedEvent;
 import com.prmgpregistrationsmi.testhelpers.EventDAOBuilder;
-import com.prmgpregistrationsmi.testhelpers.preTransfer.PdsGeneralUpdateEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrRequestedEventBuilder;
 import com.prmgpregistrationsmi.utils.UUIDService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class PdsGeneralUpdateEventIntegrationTest {
+class EhrRequestedEventIntegrationTest {
     @LocalServerPort
     private int port;
 
@@ -31,24 +31,23 @@ class PdsGeneralUpdateEventIntegrationTest {
     AmazonS3Client mockAmazonS3Client;
 
     @Test
-    void shouldUploadPdsGeneralUpdateEventToS3() {
-        PdsGeneralUpdateEvent pdsGeneralUpdateEventRequest = PdsGeneralUpdateEventBuilder
+    void shouldUploadEhrRequestedEventToS3() {
+        EhrRequestedEvent ehrRequestedEventRequest = EhrRequestedEventBuilder
                 .withDefaultEventValues()
                 .build();
 
-        EventDAO expectedS3UploadEvent = EventDAOBuilder.withEvent(pdsGeneralUpdateEventRequest)
+        EventDAO expectedS3UploadEvent = EventDAOBuilder.withEvent(ehrRequestedEventRequest)
                 .eventId(UUIDService.buildUUIDStringFromSeed(
-                        pdsGeneralUpdateEventRequest.getConversationId() +
-                                EventType.PDS_GENERAL_UPDATE +
-                                pdsGeneralUpdateEventRequest.getEventGeneratedDateTime().toString())
+                        ehrRequestedEventRequest.getConversationId() +
+                                EventType.EHR_REQUESTED +
+                                ehrRequestedEventRequest.getEventGeneratedDateTime().toString())
                 )
-                .eventType(EventType.PDS_GENERAL_UPDATE)
-                .transferProtocol(TransferProtocol.PRE_TRANSFER)
+                .eventType(EventType.EHR_REQUESTED)
+                .transferProtocol(TransferProtocol.GP2GP)
                 .build();
 
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
-                "/pdsGeneralUpdate",
-                pdsGeneralUpdateEventRequest, EventResponse.class);
+                "/ehrRequested", ehrRequestedEventRequest, EventResponse.class);
 
         assertEquals(expectedS3UploadEvent.getEventId(), actualResponseEvent.getEventId());
 
