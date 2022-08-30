@@ -40,7 +40,7 @@ class InternalTransferEventDeprecatedIntegrationTest {
                 .eventId(UUIDService.buildUUIDStringFromSeed(
                         internalTransferEventRequest.getConversationId() +
                                 EventType.INTERNAL_TRANSFER +
-                                internalTransferEventRequest.getEventGeneratedDateTime().toString())
+                                internalTransferEventRequest.getRegistrationEventDateTime())
                 )
                 .eventType(EventType.INTERNAL_TRANSFER)
                 .transferProtocol(TransferProtocol.INTERNAL_TRANSFER)
@@ -54,7 +54,7 @@ class InternalTransferEventDeprecatedIntegrationTest {
 
         verify(mockAmazonS3Client).putObject(
                 "test_bucket",
-                String.format("v1/1970/01/01/03/%s.json", expectedS3UploadEvent.getEventId()),
+                String.format("v1/2020/01/01/22/%s.json", expectedS3UploadEvent.getEventId()),
                 expectedS3UploadEvent.toString()
         );
     }

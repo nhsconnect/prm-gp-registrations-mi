@@ -2,13 +2,10 @@ package com.prmgpregistrationsmi.model.deprecated.Event;
 
 import com.prmgpregistrationsmi.utils.JsonHelper;
 import com.prmgpregistrationsmi.utils.UUIDService;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
+
 
 @Getter
 @NoArgsConstructor
@@ -26,11 +23,12 @@ public class EventDAO {
     private LocalDateTime registrationEventDateTime;
     private Payload payload;
 
-    public static EventDAO fromEvent(Event event, EventType eventType, TransferProtocol transferProtocol) {
-        String eventIdSeed = event.getConversationId() + eventType.toString() + event.getEventGeneratedDateTime().toString();
+    public static EventDAO fromEvent(Event event, EventType eventType, TransferProtocol transferProtocol, LocalDateTime timeNow) {
+        String eventIdSeed = event.getConversationId() + eventType.toString() + event.getRegistrationEventDateTime();
+
         return new EventDAO(
                 UUIDService.buildUUIDStringFromSeed(eventIdSeed),
-                event.getEventGeneratedDateTime(),
+                timeNow,
                 eventType,
                 transferProtocol,
                 event.getReportingSystemSupplier(),

@@ -9,7 +9,6 @@ import com.prmgpregistrationsmi.testhelpers.StatusDetailsBuilder;
 public class MigrateStructuredRecordResponseEventBuilder {
     public static MigrateStructuredRecordResponseEvent.MigrateStructuredRecordResponseEventBuilder<?, ?> withDefaultEventValues() {
         return MigrateStructuredRecordResponseEvent.builder()
-                .eventGeneratedDateTime(DefaultEventValues.EVENT_GENERATED_DATE_TIME)
                 .reportingSystemSupplier(DefaultEventValues.REPORTING_SYSTEM_SUPPLIER)
                 .reportingPracticeOdsCode(DefaultEventValues.REPORTING_PRACTICE_ODS_CODE)
                 .conversationId(DefaultEventValues.CONVERSATION_ID)

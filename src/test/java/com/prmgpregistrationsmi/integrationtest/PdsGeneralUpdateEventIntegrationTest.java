@@ -40,7 +40,7 @@ class PdsGeneralUpdateEventIntegrationTest {
                 .eventId(UUIDService.buildUUIDStringFromSeed(
                         pdsGeneralUpdateEventRequest.getConversationId() +
                                 EventType.PDS_GENERAL_UPDATE +
-                                pdsGeneralUpdateEventRequest.getEventGeneratedDateTime().toString())
+                                pdsGeneralUpdateEventRequest.getRegistrationEventDateTime())
                 )
                 .eventType(EventType.PDS_GENERAL_UPDATE)
                 .transferProtocol(TransferProtocol.PRE_TRANSFER)
@@ -54,7 +54,7 @@ class PdsGeneralUpdateEventIntegrationTest {
 
         verify(mockAmazonS3Client).putObject(
                 "test_bucket",
-                String.format("v1/1970/01/01/03/%s.json", expectedS3UploadEvent.getEventId()),
+                String.format("v1/2020/01/01/22/%s.json", expectedS3UploadEvent.getEventId()),
                 expectedS3UploadEvent.toString()
         );
     }

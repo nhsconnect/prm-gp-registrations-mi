@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
@@ -22,7 +23,7 @@ public class RegistrationService {
     private final S3FileUploader eventS3Client;
 
     public EventDAO saveEvent(Event event, EventType eventType, TransferProtocol transferProtocol) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = EventDAO.fromEvent(event, eventType, transferProtocol);
+        EventDAO eventDAO = EventDAO.fromEvent(event, eventType, transferProtocol, LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES));
         String s3Key = getS3Key(eventDAO);
         eventS3Client.uploadJsonObject(eventDAO, s3Key);
         return eventDAO;
@@ -41,7 +42,7 @@ public class RegistrationService {
     }
 
     private String getS3Key(EventDAO eventDao) {
-        LocalDateTime eventGeneratedDateTime = eventDao.getEventGeneratedDateTime();
+        LocalDateTime eventGeneratedDateTime = eventDao.getRegistrationEventDateTime();
         String s3DatePrefix = getS3DatePrefix(eventGeneratedDateTime);
 
         String eventId = eventDao.getEventId();

@@ -8,7 +8,6 @@ import com.prmgpregistrationsmi.testhelpers.RegistrationStartedBuilder;
 public class RegistrationStartedEventBuilder {
     public static RegistrationStartedEvent.RegistrationStartedEventBuilder<?, ?> withDefaultEventValues() {
         return RegistrationStartedEvent.builder()
-                .eventGeneratedDateTime(DefaultEventValues.EVENT_GENERATED_DATE_TIME)
                 .reportingSystemSupplier(DefaultEventValues.REPORTING_SYSTEM_SUPPLIER)
                 .reportingPracticeOdsCode(DefaultEventValues.REPORTING_PRACTICE_ODS_CODE)
                 .conversationId(DefaultEventValues.CONVERSATION_ID)

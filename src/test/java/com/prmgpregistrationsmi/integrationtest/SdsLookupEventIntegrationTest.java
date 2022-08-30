@@ -40,7 +40,7 @@ class SdsLookupEventIntegrationTest {
                 .eventId(UUIDService.buildUUIDStringFromSeed(
                         sdsLookupEventRequest.getConversationId() +
                                 EventType.SDS_LOOKUP +
-                                sdsLookupEventRequest.getEventGeneratedDateTime().toString())
+                                sdsLookupEventRequest.getRegistrationEventDateTime())
                 )
                 .eventType(EventType.SDS_LOOKUP)
                 .transferProtocol(TransferProtocol.PRE_TRANSFER)
@@ -54,7 +54,7 @@ class SdsLookupEventIntegrationTest {
 
         verify(mockAmazonS3Client).putObject(
                 "test_bucket",
-                String.format("v1/1970/01/01/03/%s.json", expectedS3UploadEvent.getEventId()),
+                String.format("v1/2020/01/01/22/%s.json", expectedS3UploadEvent.getEventId()),
                 expectedS3UploadEvent.toString()
         );
     }

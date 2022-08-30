@@ -9,14 +9,10 @@ import com.prmgpregistrationsmi.testhelpers.preTransfer.RegistrationStartedEvent
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.anyString;
-import static org.mockito.Mockito.eq;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.*;
 
 class RegistrationServiceTest {
     S3FileUploader eventS3ClientMock = mock(S3FileUploader.class);
@@ -31,7 +27,7 @@ class RegistrationServiceTest {
         EventType gp2gpRegistrationStartedEventType = EventType.REGISTRATION_STARTED;
         TransferProtocol transferProtocol = TransferProtocol.GP2GP;
 
-        EventDAO expectedEventDAO = EventDAO.fromEvent(testEvent, gp2gpRegistrationStartedEventType, transferProtocol);
+        EventDAO expectedEventDAO = EventDAO.fromEvent(testEvent, gp2gpRegistrationStartedEventType, transferProtocol, LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES));
 
         EventDAO eventDAO = registrationService.saveEvent(testEvent, gp2gpRegistrationStartedEventType, transferProtocol);
 
@@ -43,7 +39,6 @@ class RegistrationServiceTest {
     void shouldUploadEventDAOToCorrectS3Key() throws UnableToUploadToS3Exception {
         RegistrationStartedEvent testEvent = RegistrationStartedEventBuilder
                 .withDefaultEventValues()
-                .eventGeneratedDateTime(LocalDateTime.of(2021, 1, 2, 3, 30))
                 .build();
         EventType gp2gpRegistrationStartedEventType = EventType.REGISTRATION_STARTED;
         TransferProtocol transferProtocol = TransferProtocol.GP2GP;
@@ -51,6 +46,6 @@ class RegistrationServiceTest {
         EventDAO testEventDAO = registrationService.saveEvent(testEvent, gp2gpRegistrationStartedEventType, transferProtocol);
 
         verify(eventS3ClientMock, times(1)).uploadJsonObject(any(),
-                eq("v1/2021/01/02/03/" + testEventDAO.getEventId() + ".json"));
+                eq("v1/2020/01/01/22/" + testEventDAO.getEventId() + ".json"));
     }
 }

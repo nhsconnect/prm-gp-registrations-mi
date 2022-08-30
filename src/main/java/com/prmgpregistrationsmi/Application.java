@@ -3,6 +3,9 @@ package com.prmgpregistrationsmi;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.context.annotation.Bean;
+
+import java.time.Clock;
 
 import static com.prmgpregistrationsmi.logging.StructuredLogger.logger;
 
@@ -14,4 +17,8 @@ public class Application {
 		logger.info("Application running..." );
 	}
 
+    @Bean
+    public Clock clock() {
+        return Clock.systemDefaultZone();
+    }
 }

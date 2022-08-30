@@ -9,7 +9,6 @@ import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
 public class ErrorEventBuilder {
     public static ErrorEvent.ErrorEventBuilder<?, ?> withDefaultEventValues() {
         return ErrorEvent.builder()
-                .eventGeneratedDateTime(DefaultEventValues.EVENT_GENERATED_DATE_TIME)
                 .reportingSystemSupplier(DefaultEventValues.REPORTING_SYSTEM_SUPPLIER)
                 .reportingPracticeOdsCode(DefaultEventValues.REPORTING_PRACTICE_ODS_CODE)
                 .conversationId(DefaultEventValues.CONVERSATION_ID)

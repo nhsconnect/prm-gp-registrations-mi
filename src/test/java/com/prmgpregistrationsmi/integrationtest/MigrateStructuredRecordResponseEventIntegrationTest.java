@@ -40,7 +40,7 @@ class MigrateStructuredRecordResponseEventIntegrationTest {
                 .eventId(UUIDService.buildUUIDStringFromSeed(
                         migrateStructuredRecordResponseEventResponse.getConversationId() +
                                 EventType.MIGRATE_STRUCTURED_RECORD_RESPONSE +
-                                migrateStructuredRecordResponseEventResponse.getEventGeneratedDateTime().toString())
+                                migrateStructuredRecordResponseEventResponse.getRegistrationEventDateTime())
                 )
                 .eventType(EventType.MIGRATE_STRUCTURED_RECORD_RESPONSE)
                 .transferProtocol(TransferProtocol.GP_CONNECT)
@@ -53,7 +53,7 @@ class MigrateStructuredRecordResponseEventIntegrationTest {
 
         verify(mockAmazonS3Client).putObject(
                 "test_bucket",
-                String.format("v1/1970/01/01/03/%s.json", expectedS3UploadEvent.getEventId()),
+                String.format("v1/2020/01/01/22/%s.json", expectedS3UploadEvent.getEventId()),
                 expectedS3UploadEvent.toString()
         );
     }

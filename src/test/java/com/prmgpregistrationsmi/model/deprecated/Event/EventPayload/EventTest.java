@@ -27,22 +27,6 @@ public class EventTest {
         assertEquals(0, violations.size());
     }
 
-    @Test
-    void shouldThrowConstraintViolationWhenEventGeneratedDateTimeIsNull() {
-        RegistrationStartedEvent event = RegistrationStartedEventBuilder
-                .withDefaultEventValues()
-                .eventGeneratedDateTime(null)
-                .build();
-
-        Set<ConstraintViolation<RegistrationStartedEvent>> violations = validator.validate(event);
-
-        assertEquals(1, violations.size());
-
-        ConstraintViolation<RegistrationStartedEvent> violation = violations.iterator().next();
-        assertEquals("must not be null", violation.getMessage());
-        assertEquals("eventGeneratedDateTime", violation.getPropertyPath().toString());
-    }
-
     @ParameterizedTest
     @NullAndEmptySource
     void shouldThrowConstraintViolationWhenReportingSystemSupplierIsNullOrEmpty(String reportingSystemSupplier) {

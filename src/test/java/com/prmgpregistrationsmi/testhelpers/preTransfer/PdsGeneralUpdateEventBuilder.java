@@ -9,7 +9,6 @@ import com.prmgpregistrationsmi.testhelpers.StatusDetailsBuilder;
 public class PdsGeneralUpdateEventBuilder {
     public static PdsGeneralUpdateEvent.PdsGeneralUpdateEventBuilder<?, ?> withDefaultEventValues() {
         return PdsGeneralUpdateEvent.builder()
-                .eventGeneratedDateTime(DefaultEventValues.EVENT_GENERATED_DATE_TIME)
                 .reportingSystemSupplier(DefaultEventValues.REPORTING_SYSTEM_SUPPLIER)
                 .reportingPracticeOdsCode(DefaultEventValues.REPORTING_PRACTICE_ODS_CODE)
                 .conversationId(DefaultEventValues.CONVERSATION_ID)

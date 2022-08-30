@@ -40,7 +40,7 @@ class MigrateDocumentRequestEventIntegrationTest {
                 .eventId(UUIDService.buildUUIDStringFromSeed(
                         migrateDocumentRequestEventRequest.getConversationId() +
                                 EventType.MIGRATE_DOCUMENT_REQUEST +
-                                migrateDocumentRequestEventRequest.getEventGeneratedDateTime().toString())
+                                migrateDocumentRequestEventRequest.getRegistrationEventDateTime())
                 )
                 .eventType(EventType.MIGRATE_DOCUMENT_REQUEST)
                 .transferProtocol(TransferProtocol.GP_CONNECT)
@@ -54,7 +54,7 @@ class MigrateDocumentRequestEventIntegrationTest {
 
         verify(mockAmazonS3Client).putObject(
                 "test_bucket",
-                String.format("v1/1970/01/01/03/%s.json", expectedS3UploadEvent.getEventId()),
+                String.format("v1/2020/01/01/22/%s.json", expectedS3UploadEvent.getEventId()),
                 expectedS3UploadEvent.toString()
         );
     }

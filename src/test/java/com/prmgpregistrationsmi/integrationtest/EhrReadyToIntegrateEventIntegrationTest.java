@@ -40,7 +40,7 @@ class EhrReadyToIntegrateEventIntegrationTest {
                 .eventId(UUIDService.buildUUIDStringFromSeed(
                         ehrReadyToIntegrateEventRequest.getConversationId() +
                                 EventType.EHR_READY_TO_INTEGRATE +
-                                ehrReadyToIntegrateEventRequest.getEventGeneratedDateTime().toString())
+                                ehrReadyToIntegrateEventRequest.getRegistrationEventDateTime())
                 )
                 .eventType(EventType.EHR_READY_TO_INTEGRATE)
                 .transferProtocol(TransferProtocol.GP_CONNECT)
@@ -54,7 +54,7 @@ class EhrReadyToIntegrateEventIntegrationTest {
 
         verify(mockAmazonS3Client).putObject(
                 "test_bucket",
-                String.format("v1/1970/01/01/03/%s.json", expectedS3UploadEvent.getEventId()),
+                String.format("v1/2020/01/01/22/%s.json", expectedS3UploadEvent.getEventId()),
                 expectedS3UploadEvent.toString()
         );
     }

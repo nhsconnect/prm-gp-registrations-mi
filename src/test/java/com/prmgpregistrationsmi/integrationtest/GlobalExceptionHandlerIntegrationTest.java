@@ -2,7 +2,6 @@ package com.prmgpregistrationsmi.integrationtest;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import com.prmgpregistrationsmi.controller.ApiError;
 import com.prmgpregistrationsmi.model.deprecated.preTransfer.RegistrationStarted.RegistrationStartedEvent;
 import org.junit.jupiter.api.Test;
@@ -38,7 +37,6 @@ class GlobalExceptionHandlerIntegrationTest {
                 HttpStatus.BAD_REQUEST,
                 "Failed to validate fields", List.of(
                 "reportingPracticeOdsCode: must not be empty",
-                "eventGeneratedDateTime: must not be null",
                 "payload: must not be null",
                 "reportingSystemSupplier: must not be empty",
                 "conversationId: must not be empty",
@@ -48,22 +46,6 @@ class GlobalExceptionHandlerIntegrationTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof MethodArgumentNotValidException))
-                .andExpect(content().json(asJsonString(expectedResponse)));
-    }
-
-    @Test
-    void shouldReturnA400IfEventGeneratedDateTimeIsNotValid() throws Exception {
-        var requestBody = "{\"eventGeneratedDateTime\":" + false + "}";
-
-        ApiError expectedResponse = new ApiError(
-                HttpStatus.BAD_REQUEST,
-                "Invalid request field",
-                new ArrayList<>(Collections.singleton("eventGeneratedDateTime: Expected array or string.")));
-
-        mockMvc.perform(post("/registration-started").content(requestBody)
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isBadRequest())
-                .andExpect(result -> assertTrue(result.getResolvedException().getCause() instanceof MismatchedInputException))
                 .andExpect(content().json(asJsonString(expectedResponse)));
     }
 
@@ -85,12 +67,12 @@ class GlobalExceptionHandlerIntegrationTest {
 
     @Test
     void shouldReturnA400IfJsonIsUnableMapRequestIntoObject() throws Exception {
-        var requestBody = "{\"eventGeneratedDateTime\": \"}";
+        var requestBody = "{\"registrationEventDateTime\": \"}";
 
         ApiError expectedResponse = new ApiError(
                 HttpStatus.BAD_REQUEST,
                 "Invalid JSON",
-                new ArrayList<>(Collections.singleton("eventGeneratedDateTime: Unexpected end-of-input in VALUE_STRING")));
+                new ArrayList<>(Collections.singleton("registrationEventDateTime: Unexpected end-of-input in VALUE_STRING")));
 
         mockMvc.perform(post("/registration-started").content(requestBody)
                         .contentType(MediaType.APPLICATION_JSON))
