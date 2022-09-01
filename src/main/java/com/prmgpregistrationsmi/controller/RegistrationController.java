@@ -5,13 +5,13 @@ import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.model.Event.TransferProtocol;
-import com.prmgpregistrationsmi.model.Event.stage.InternalTransfer.InternalTransferEvent;
+import com.prmgpregistrationsmi.model.Event.stage.DocumentResponse.DocumentResponseEvent;
 import com.prmgpregistrationsmi.model.Event.stage.EhrIntegrated.EhrIntegratedEvent;
 import com.prmgpregistrationsmi.model.Event.stage.EhrRequest.EhrRequestEvent;
 import com.prmgpregistrationsmi.model.Event.stage.EhrResponse.EhrResponseEvent;
 import com.prmgpregistrationsmi.model.Event.stage.EhrTransferComplete.EhrTransferCompleteEvent;
 import com.prmgpregistrationsmi.model.Event.stage.Error.ErrorEvent;
-import com.prmgpregistrationsmi.model.Event.stage.DocumentResponse.DocumentResponseEvent;
+import com.prmgpregistrationsmi.model.Event.stage.InternalTransfer.InternalTransferEvent;
 import com.prmgpregistrationsmi.model.Event.stage.PdsTrace.PdsTraceEvent;
 import com.prmgpregistrationsmi.model.Event.stage.PdsUpdate.PdsUpdateEvent;
 import com.prmgpregistrationsmi.model.Event.stage.RegistrationStarted.RegistrationStartedEvent;
@@ -98,16 +98,15 @@ public class RegistrationController {
         EventDAO eventDAO = registrationService.saveEvent(event, EventType.EHR_RESPONSE, TransferProtocol.GP2GP);
         return new EventResponse(eventDAO.getEventId());
     }
-    ////////////////////////////////////////////
 
     @PostMapping(
-            value = "/ehr-integrated",
+            value = "/migrate-document-response",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public EventResponse ehrIntegratedEvent(
-            @Valid @RequestBody EhrIntegratedEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.EHR_INTEGRATED, TransferProtocol.GP2GP);
+    public EventResponse documentResponseEvent(
+            @Valid @RequestBody DocumentResponseEvent event) throws UnableToUploadToS3Exception {
+        EventDAO eventDAO = registrationService.saveEvent(event, EventType.DOCUMENT_RESPONSE, TransferProtocol.GP_CONNECT);
         return new EventResponse(eventDAO.getEventId());
     }
 
@@ -123,24 +122,13 @@ public class RegistrationController {
     }
 
     @PostMapping(
-            value = "/migrate-document-response",
+            value = "/ehr-integrated",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public EventResponse documentResponseEvent(
-            @Valid @RequestBody DocumentResponseEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.DOCUMENT_RESPONSE, TransferProtocol.GP_CONNECT);
-        return new EventResponse(eventDAO.getEventId());
-    }
-
-    @PostMapping(
-            value = "/internal-transfer",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
-    public EventResponse internalTransferEvent(
-            @Valid @RequestBody InternalTransferEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.INTERNAL_TRANSFER, TransferProtocol.INTERNAL_TRANSFER);
+    public EventResponse ehrIntegratedEvent(
+            @Valid @RequestBody EhrIntegratedEvent event) throws UnableToUploadToS3Exception {
+        EventDAO eventDAO = registrationService.saveEvent(event, EventType.EHR_INTEGRATED, TransferProtocol.GP2GP);
         return new EventResponse(eventDAO.getEventId());
     }
 
@@ -152,6 +140,17 @@ public class RegistrationController {
     public EventResponse errorEvent(
             @Valid @RequestBody ErrorEvent event) throws UnableToUploadToS3Exception {
         EventDAO eventDAO = registrationService.saveEvent(event, EventType.ERROR, TransferProtocol.GP2GP);
+        return new EventResponse(eventDAO.getEventId());
+    }
+
+    @PostMapping(
+            value = "/internal-transfer",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public EventResponse internalTransferEvent(
+            @Valid @RequestBody InternalTransferEvent event) throws UnableToUploadToS3Exception {
+        EventDAO eventDAO = registrationService.saveEvent(event, EventType.INTERNAL_TRANSFER, TransferProtocol.INTERNAL_TRANSFER);
         return new EventResponse(eventDAO.getEventId());
     }
 }
