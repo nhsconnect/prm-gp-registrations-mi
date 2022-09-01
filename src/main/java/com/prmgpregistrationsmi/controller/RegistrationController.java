@@ -6,13 +6,12 @@ import com.prmgpregistrationsmi.model.deprecated.Event.EventResponse;
 import com.prmgpregistrationsmi.model.deprecated.Event.EventType;
 import com.prmgpregistrationsmi.model.deprecated.Event.TransferProtocol;
 import com.prmgpregistrationsmi.model.deprecated.InternalTransfer.InternalTransferEvent;
-import com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrResponse.EhrResponseEvent;
 import com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrIntegrated.EhrIntegratedEvent;
 import com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrRequest.EhrRequestEvent;
+import com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrResponse.EhrResponseEvent;
 import com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrValidated.EhrValidatedEvent;
 import com.prmgpregistrationsmi.model.deprecated.gpc.EhrReadyToIntegrate.EhrReadyToIntegrateEvent;
 import com.prmgpregistrationsmi.model.deprecated.gpc.MigrateDocumentResponse.MigrateDocumentResponseEvent;
-import com.prmgpregistrationsmi.model.deprecated.gpc.MigrateStructuredRecordRequest.MigrateStructuredRecordRequestEvent;
 import com.prmgpregistrationsmi.model.deprecated.preTransfer.PdsTrace.PdsTraceEvent;
 import com.prmgpregistrationsmi.model.deprecated.preTransfer.PdsUpdate.PdsUpdateEvent;
 import com.prmgpregistrationsmi.model.deprecated.preTransfer.RegistrationStarted.RegistrationStartedEvent;
@@ -120,17 +119,6 @@ public class RegistrationController {
     public EventResponse ehrValidatedEvent(
             @Valid @RequestBody EhrValidatedEvent event) throws UnableToUploadToS3Exception {
         EventDAO eventDAO = registrationService.saveEvent(event, EventType.EHR_VALIDATED, TransferProtocol.GP2GP);
-        return new EventResponse(eventDAO.getEventId());
-    }
-
-    @PostMapping(
-            value = "/migrate-structured-record-request",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
-    public EventResponse migrateStructuredRecordRequestEvent(
-            @Valid @RequestBody MigrateStructuredRecordRequestEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.MIGRATE_STRUCTURED_RECORD_REQUEST, TransferProtocol.GP_CONNECT);
         return new EventResponse(eventDAO.getEventId());
     }
 
