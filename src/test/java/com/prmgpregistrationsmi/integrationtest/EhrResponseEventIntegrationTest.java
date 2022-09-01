@@ -31,7 +31,7 @@ class EhrResponseEventIntegrationTest {
     AmazonS3Client mockAmazonS3Client;
 
     @Test
-    void shouldUploadEhrGeneratedEventToS3() {
+    void shouldUploadEhrResponseEventToS3() {
         EhrResponseEvent ehrResponseEventRequest = EhrResponseEventBuilder
                 .withDefaultEventValues()
                 .build();

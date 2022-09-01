@@ -68,7 +68,7 @@ class RegistrationControllerTest {
     }
 
     @Test
-    void ehrGeneratedEventReturnsEventResponse() throws UnableToUploadToS3Exception {
+    void ehrResponseEventReturnsEventResponse() throws UnableToUploadToS3Exception {
         EhrResponseEvent testEvent = EhrResponseEventBuilder
                 .withDefaultEventValues()
                 .build();
@@ -78,7 +78,7 @@ class RegistrationControllerTest {
 
         when(registrationService.saveEvent(testEvent, EventType.EHR_RESPONSE, transferProtocol)).thenReturn(eventDAO);
 
-        EventResponse actualResponse = registrationController.ehrGeneratedEvent(testEvent);
+        EventResponse actualResponse = registrationController.ehrResponseEvent(testEvent);
 
         verify(registrationService).saveEvent(testEvent, EventType.EHR_RESPONSE, transferProtocol);
 

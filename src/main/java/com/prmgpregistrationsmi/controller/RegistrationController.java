@@ -93,7 +93,7 @@ public class RegistrationController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public EventResponse ehrGeneratedEvent(
+    public EventResponse ehrResponseEvent(
             @Valid @RequestBody EhrResponseEvent event) throws UnableToUploadToS3Exception {
         EventDAO eventDAO = registrationService.saveEvent(event, EventType.EHR_RESPONSE, TransferProtocol.GP2GP);
         return new EventResponse(eventDAO.getEventId());
