@@ -5,9 +5,9 @@ import com.prmgpregistrationsmi.model.deprecated.Event.EventDAO;
 import com.prmgpregistrationsmi.model.deprecated.Event.EventResponse;
 import com.prmgpregistrationsmi.model.deprecated.Event.EventType;
 import com.prmgpregistrationsmi.model.deprecated.Event.TransferProtocol;
-import com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrValidated.EhrValidatedEvent;
+import com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrTransferComplete.EhrTransferCompleteEvent;
 import com.prmgpregistrationsmi.testhelpers.EventDAOBuilder;
-import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrValidatedEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrTransferCompleteEventBuilder;
 import com.prmgpregistrationsmi.utils.UUIDService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class EhrValidatedEventIntegrationTest {
+class EhrTransferCompleteEventIntegrationTest {
     @LocalServerPort
     private int port;
 
@@ -31,23 +31,23 @@ class EhrValidatedEventIntegrationTest {
     AmazonS3Client mockAmazonS3Client;
 
     @Test
-    void shouldUploadEhrValidatedEventToS3() {
-        EhrValidatedEvent ehrValidatedEventRequest = EhrValidatedEventBuilder
+    void shouldUploadTransferCompleteEventToS3() {
+        EhrTransferCompleteEvent ehrTransferCompleteEventRequest = EhrTransferCompleteEventBuilder
                 .withDefaultEventValues()
                 .build();
 
-        EventDAO expectedS3UploadEvent = EventDAOBuilder.withEvent(ehrValidatedEventRequest)
+        EventDAO expectedS3UploadEvent = EventDAOBuilder.withEvent(ehrTransferCompleteEventRequest)
                 .eventId(UUIDService.buildUUIDStringFromSeed(
-                        ehrValidatedEventRequest.getConversationId() +
-                                EventType.EHR_VALIDATED +
-                                ehrValidatedEventRequest.getRegistrationEventDateTime())
+                        ehrTransferCompleteEventRequest.getConversationId() +
+                                EventType.EHR_TRANSFER_COMPLETE +
+                                ehrTransferCompleteEventRequest.getRegistrationEventDateTime())
                 )
-                .eventType(EventType.EHR_VALIDATED)
+                .eventType(EventType.EHR_TRANSFER_COMPLETE)
                 .transferProtocol(TransferProtocol.GP2GP)
                 .build();
 
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
-                "/ehr-validated", ehrValidatedEventRequest, EventResponse.class);
+                "/ehr-transfer-complete", ehrTransferCompleteEventRequest, EventResponse.class);
 
         assertEquals(expectedS3UploadEvent.getEventId(), actualResponseEvent.getEventId());
 

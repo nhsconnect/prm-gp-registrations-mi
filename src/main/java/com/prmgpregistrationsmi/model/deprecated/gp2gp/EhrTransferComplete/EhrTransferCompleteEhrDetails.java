@@ -1,4 +1,4 @@
-package com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrValidated;
+package com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrTransferComplete;
 
 import com.prmgpregistrationsmi.model.deprecated.Event.EventPayload.Attachment;
 import com.prmgpregistrationsmi.model.deprecated.Event.EventPayload.Degrade;
@@ -17,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Builder
-public class EhrValidatedEhrDetails {
+public class EhrTransferCompleteEhrDetails {
     @NotNull
     @PositiveOrZero
     private Long ehrTotalSizeBytes;

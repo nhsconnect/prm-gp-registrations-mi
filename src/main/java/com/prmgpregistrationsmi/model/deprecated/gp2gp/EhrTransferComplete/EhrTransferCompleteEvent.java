@@ -1,4 +1,4 @@
-package com.prmgpregistrationsmi.model.deprecated.gpc.EhrReadyToIntegrate;
+package com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrTransferComplete;
 
 import com.prmgpregistrationsmi.model.deprecated.Event.Event;
 import com.prmgpregistrationsmi.model.deprecated.Event.Payload;
@@ -9,13 +9,13 @@ import lombok.experimental.SuperBuilder;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-@SuperBuilder
-@NoArgsConstructor
 @AllArgsConstructor
-public class EhrReadyToIntegrateEvent extends Event {
+@NoArgsConstructor
+@SuperBuilder
+public class EhrTransferCompleteEvent extends Event {
     @Valid
     @NotNull
-    private EhrReadyToIntegratePayload payload;
+    private EhrTransferCompletePayload payload;
 
     @Override
     public Payload getPayload() {

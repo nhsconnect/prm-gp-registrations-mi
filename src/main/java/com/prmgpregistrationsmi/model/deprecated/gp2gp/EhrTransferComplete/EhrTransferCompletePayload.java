@@ -1,4 +1,4 @@
-package com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrValidated;
+package com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrTransferComplete;
 
 import com.prmgpregistrationsmi.model.deprecated.Event.EventPayload.Registration;
 import com.prmgpregistrationsmi.model.deprecated.Event.Payload;
@@ -14,11 +14,11 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class EhrValidatedPayload implements Payload {
+public class EhrTransferCompletePayload implements Payload {
     @Valid
     @NotNull
     private Registration registration;
     @Valid
     @NotNull
-    private EhrValidatedEhrDetails ehr;
+    private EhrTransferCompleteEhrDetails ehr;
 }

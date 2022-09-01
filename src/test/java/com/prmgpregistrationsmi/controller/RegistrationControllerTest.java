@@ -9,8 +9,7 @@ import com.prmgpregistrationsmi.model.deprecated.InternalTransfer.InternalTransf
 import com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrResponse.EhrResponseEvent;
 import com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrIntegrated.EhrIntegratedEvent;
 import com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrRequest.EhrRequestEvent;
-import com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrValidated.EhrValidatedEvent;
-import com.prmgpregistrationsmi.model.deprecated.gpc.EhrReadyToIntegrate.EhrReadyToIntegrateEvent;
+import com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrTransferComplete.EhrTransferCompleteEvent;
 import com.prmgpregistrationsmi.model.deprecated.gpc.MigrateDocumentResponse.MigrateDocumentResponseEvent;
 import com.prmgpregistrationsmi.model.deprecated.preTransfer.PdsTrace.PdsTraceEvent;
 import com.prmgpregistrationsmi.model.deprecated.preTransfer.PdsUpdate.PdsUpdateEvent;
@@ -21,8 +20,7 @@ import com.prmgpregistrationsmi.testhelpers.InternalTransferEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrResponseEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrIntegratedEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrRequestEventBuilder;
-import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrValidatedEventBuilder;
-import com.prmgpregistrationsmi.testhelpers.gpc.EhrReadyToIntegrateEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrTransferCompleteEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.gpc.MigrateDocumentResponseEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.preTransfer.PdsTraceEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.preTransfer.PdsUpdateEventBuilder;
@@ -68,7 +66,7 @@ class RegistrationControllerTest {
     }
 
     @Test
-    void ehrResponseEventReturnsEventResponse() throws UnableToUploadToS3Exception {
+    void ehrGeneratedEventReturnsEventResponse() throws UnableToUploadToS3Exception {
         EhrResponseEvent testEvent = EhrResponseEventBuilder
                 .withDefaultEventValues()
                 .build();
@@ -105,8 +103,8 @@ class RegistrationControllerTest {
     }
 
     @Test
-    void shouldReturnEventIdWhenReceivingEhrValidatedEvent() throws UnableToUploadToS3Exception {
-        EhrValidatedEvent testEvent = EhrValidatedEventBuilder
+    void shouldReturnEventIdWhenReceivingTransferCompleteEvent() throws UnableToUploadToS3Exception {
+        EhrTransferCompleteEvent testEvent = EhrTransferCompleteEventBuilder
                 .withDefaultEventValues()
                 .build();
 
@@ -114,11 +112,11 @@ class RegistrationControllerTest {
 
         TransferProtocol transferProtocol = TransferProtocol.GP2GP;
 
-        when(registrationService.saveEvent(testEvent, EventType.EHR_VALIDATED, transferProtocol)).thenReturn(eventDAO);
+        when(registrationService.saveEvent(testEvent, EventType.EHR_TRANSFER_COMPLETE, transferProtocol)).thenReturn(eventDAO);
 
-        EventResponse actualResponse = registrationController.ehrValidatedEvent(testEvent);
+        EventResponse actualResponse = registrationController.ehrTransferCompleteEvent(testEvent);
 
-        verify(registrationService).saveEvent(testEvent, EventType.EHR_VALIDATED, transferProtocol);
+        verify(registrationService).saveEvent(testEvent, EventType.EHR_TRANSFER_COMPLETE, transferProtocol);
 
         assertEquals(eventDAO.getEventId(), actualResponse.getEventId());
     }
@@ -214,25 +212,6 @@ class RegistrationControllerTest {
         EventResponse actualResponse = registrationController.migrateDocumentResponseEvent(testEvent);
 
         verify(registrationService).saveEvent(testEvent, EventType.MIGRATE_DOCUMENT_RESPONSE, transferProtocol);
-
-        assertEquals(eventDAO.getEventId(), actualResponse.getEventId());
-    }
-
-    @Test
-    void shouldReturnEventIdWhenReceivingEhrReadyToIntegrateEvent() throws UnableToUploadToS3Exception {
-        EhrReadyToIntegrateEvent testEvent = EhrReadyToIntegrateEventBuilder
-                .withDefaultEventValues()
-                .build();
-
-        EventDAO eventDAO = EventDAO.builder().build();
-
-        TransferProtocol transferProtocol = TransferProtocol.GP_CONNECT;
-
-        when(registrationService.saveEvent(testEvent, EventType.EHR_READY_TO_INTEGRATE, transferProtocol)).thenReturn(eventDAO);
-
-        EventResponse actualResponse = registrationController.ehrReadyToIntegrateEvent(testEvent);
-
-        verify(registrationService).saveEvent(testEvent, EventType.EHR_READY_TO_INTEGRATE, transferProtocol);
 
         assertEquals(eventDAO.getEventId(), actualResponse.getEventId());
     }
