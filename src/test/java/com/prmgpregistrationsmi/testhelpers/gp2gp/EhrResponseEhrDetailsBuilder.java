@@ -1,8 +1,8 @@
 package com.prmgpregistrationsmi.testhelpers.gp2gp;
 
-import com.prmgpregistrationsmi.model.deprecated.Event.EventPayload.Attachment;
-import com.prmgpregistrationsmi.model.deprecated.Event.EventPayload.Placeholder;
-import com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrResponse.EhrResponseEhrDetails;
+import com.prmgpregistrationsmi.model.Event.EventPayload.Attachment;
+import com.prmgpregistrationsmi.model.Event.EventPayload.Placeholder;
+import com.prmgpregistrationsmi.model.Event.stage.EhrResponse.EhrResponseEhrDetails;
 import com.prmgpregistrationsmi.testhelpers.AttachmentBuilder;
 import com.prmgpregistrationsmi.testhelpers.PlaceholderBuilder;
 

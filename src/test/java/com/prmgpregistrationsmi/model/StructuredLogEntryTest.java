@@ -1,6 +1,6 @@
 package com.prmgpregistrationsmi.model;
 
-import com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrResponse.EhrResponseEhrDetails;
+import com.prmgpregistrationsmi.model.Event.stage.EhrResponse.EhrResponseEhrDetails;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.core.impl.Log4jLogEvent;
 import org.apache.logging.log4j.message.ObjectMessage;

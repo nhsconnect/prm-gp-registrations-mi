@@ -1,8 +1,8 @@
 package com.prmgpregistrationsmi.testhelpers;
 
-import com.prmgpregistrationsmi.model.deprecated.Event.EventPayload.Degrade;
-import com.prmgpregistrationsmi.model.deprecated.Event.EventPayload.DegradeCode;
-import com.prmgpregistrationsmi.model.deprecated.Event.EventPayload.SystemCoding;
+import com.prmgpregistrationsmi.model.Event.EventPayload.Degrade;
+import com.prmgpregistrationsmi.model.Event.EventPayload.DegradeCode;
+import com.prmgpregistrationsmi.model.Event.EventPayload.SystemCoding;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package com.prmgpregistrationsmi.logging;
 
-import com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrRequest.EhrRequestEvent;
+import com.prmgpregistrationsmi.model.Event.stage.EhrRequest.EhrRequestEvent;
 import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrRequestEventBuilder;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;

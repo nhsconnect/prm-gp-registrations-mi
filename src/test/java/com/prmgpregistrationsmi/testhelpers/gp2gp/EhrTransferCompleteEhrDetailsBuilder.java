@@ -1,9 +1,9 @@
 package com.prmgpregistrationsmi.testhelpers.gp2gp;
 
-import com.prmgpregistrationsmi.model.deprecated.Event.EventPayload.Attachment;
-import com.prmgpregistrationsmi.model.deprecated.Event.EventPayload.Degrade;
-import com.prmgpregistrationsmi.model.deprecated.Event.EventPayload.Placeholder;
-import com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrTransferComplete.EhrTransferCompleteEhrDetails;
+import com.prmgpregistrationsmi.model.Event.EventPayload.Attachment;
+import com.prmgpregistrationsmi.model.Event.EventPayload.Degrade;
+import com.prmgpregistrationsmi.model.Event.EventPayload.Placeholder;
+import com.prmgpregistrationsmi.model.Event.stage.EhrTransferComplete.EhrTransferCompleteEhrDetails;
 import com.prmgpregistrationsmi.testhelpers.AttachmentBuilder;
 import com.prmgpregistrationsmi.testhelpers.DegradeBuilder;
 import com.prmgpregistrationsmi.testhelpers.PlaceholderBuilder;

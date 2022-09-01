@@ -1,6 +1,6 @@
 package com.prmgpregistrationsmi.testhelpers;
 
-import com.prmgpregistrationsmi.model.deprecated.Event.EventPayload.RegistrationStarted;
+import com.prmgpregistrationsmi.model.Event.EventPayload.RegistrationStarted;
 
 public class RegistrationStartedBuilder {
     public static RegistrationStarted.RegistrationStartedBuilder withDefaultValues() {

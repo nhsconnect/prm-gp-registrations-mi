@@ -1,7 +1,7 @@
 package com.prmgpregistrationsmi.testhelpers.gpc;
 
-import com.prmgpregistrationsmi.model.deprecated.gpc.DocumentResponse.DocumentResponseEvent;
-import com.prmgpregistrationsmi.model.deprecated.gpc.DocumentResponse.DocumentResponsePayload;
+import com.prmgpregistrationsmi.model.Event.stage.DocumentResponse.DocumentResponseEvent;
+import com.prmgpregistrationsmi.model.Event.stage.DocumentResponse.DocumentResponsePayload;
 import com.prmgpregistrationsmi.testhelpers.AttachmentBuilder;
 import com.prmgpregistrationsmi.testhelpers.DefaultEventValues;
 import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;

@@ -1,7 +1,7 @@
 package com.prmgpregistrationsmi.testhelpers.preTransfer;
 
-import com.prmgpregistrationsmi.model.deprecated.preTransfer.PdsUpdate.PdsUpdateEvent;
-import com.prmgpregistrationsmi.model.deprecated.preTransfer.PdsUpdate.PdsUpdatePayload;
+import com.prmgpregistrationsmi.model.Event.stage.PdsUpdate.PdsUpdateEvent;
+import com.prmgpregistrationsmi.model.Event.stage.PdsUpdate.PdsUpdatePayload;
 import com.prmgpregistrationsmi.testhelpers.DefaultEventValues;
 import com.prmgpregistrationsmi.testhelpers.GPLinksBuilder;
 import com.prmgpregistrationsmi.testhelpers.StatusDetailsBuilder;

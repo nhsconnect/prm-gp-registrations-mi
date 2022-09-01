@@ -1,6 +1,6 @@
 package com.prmgpregistrationsmi.testhelpers;
 
-import com.prmgpregistrationsmi.model.deprecated.Event.EventPayload.Attachment;
+import com.prmgpregistrationsmi.model.Event.EventPayload.Attachment;
 
 public class AttachmentBuilder {
     public static Attachment.AttachmentBuilder withDefaultPDFFile() {

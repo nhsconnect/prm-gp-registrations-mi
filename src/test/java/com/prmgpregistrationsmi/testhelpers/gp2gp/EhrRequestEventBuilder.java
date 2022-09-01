@@ -1,7 +1,7 @@
 package com.prmgpregistrationsmi.testhelpers.gp2gp;
 
-import com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrRequest.EhrRequestEvent;
-import com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrRequest.EhrRequestPayload;
+import com.prmgpregistrationsmi.model.Event.stage.EhrRequest.EhrRequestEvent;
+import com.prmgpregistrationsmi.model.Event.stage.EhrRequest.EhrRequestPayload;
 import com.prmgpregistrationsmi.testhelpers.DefaultEventValues;
 import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
 

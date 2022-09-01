@@ -1,11 +1,11 @@
 package com.prmgpregistrationsmi.integrationtest;
 
 import com.amazonaws.services.s3.AmazonS3Client;
-import com.prmgpregistrationsmi.model.deprecated.Event.EventDAO;
-import com.prmgpregistrationsmi.model.deprecated.Event.EventResponse;
-import com.prmgpregistrationsmi.model.deprecated.Event.EventType;
-import com.prmgpregistrationsmi.model.deprecated.Event.TransferProtocol;
-import com.prmgpregistrationsmi.model.deprecated.gpc.DocumentResponse.DocumentResponseEvent;
+import com.prmgpregistrationsmi.model.Event.EventDAO;
+import com.prmgpregistrationsmi.model.Event.EventResponse;
+import com.prmgpregistrationsmi.model.Event.EventType;
+import com.prmgpregistrationsmi.model.Event.TransferProtocol;
+import com.prmgpregistrationsmi.model.Event.stage.DocumentResponse.DocumentResponseEvent;
 import com.prmgpregistrationsmi.testhelpers.EventDAOBuilder;
 import com.prmgpregistrationsmi.testhelpers.gpc.DocumentResponseEventBuilder;
 import com.prmgpregistrationsmi.utils.UUIDService;

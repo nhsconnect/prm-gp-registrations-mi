@@ -1,7 +1,7 @@
 package com.prmgpregistrationsmi.testhelpers;
 
-import com.prmgpregistrationsmi.model.deprecated.Event.EventPayload.GPLinkType;
-import com.prmgpregistrationsmi.model.deprecated.Event.EventPayload.GPLinks;
+import com.prmgpregistrationsmi.model.Event.EventPayload.GPLinkType;
+import com.prmgpregistrationsmi.model.Event.EventPayload.GPLinks;
 
 public class GPLinksBuilder {
 

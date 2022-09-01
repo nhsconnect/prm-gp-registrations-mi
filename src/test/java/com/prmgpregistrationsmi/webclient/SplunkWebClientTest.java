@@ -1,6 +1,6 @@
 package com.prmgpregistrationsmi.webclient;
 
-import com.prmgpregistrationsmi.model.deprecated.Event.EventDAO;
+import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.utils.JsonHelper;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
