@@ -10,7 +10,6 @@ import com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrIntegrated.EhrIntegrat
 import com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrRequest.EhrRequestEvent;
 import com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrResponse.EhrResponseEvent;
 import com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrTransferComplete.EhrTransferCompleteEvent;
-import com.prmgpregistrationsmi.model.deprecated.gpc.MigrateDocumentResponse.MigrateDocumentResponseEvent;
 import com.prmgpregistrationsmi.model.deprecated.preTransfer.PdsTrace.PdsTraceEvent;
 import com.prmgpregistrationsmi.model.deprecated.preTransfer.PdsUpdate.PdsUpdateEvent;
 import com.prmgpregistrationsmi.model.deprecated.preTransfer.RegistrationStarted.RegistrationStartedEvent;
@@ -118,17 +117,6 @@ public class RegistrationController {
     public EventResponse ehrTransferCompleteEvent(
             @Valid @RequestBody EhrTransferCompleteEvent event) throws UnableToUploadToS3Exception {
         EventDAO eventDAO = registrationService.saveEvent(event, EventType.EHR_TRANSFER_COMPLETE, TransferProtocol.GP2GP);
-        return new EventResponse(eventDAO.getEventId());
-    }
-
-    @PostMapping(
-            value = "/migrate-document-response",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
-    public EventResponse migrateDocumentResponseEvent(
-            @Valid @RequestBody MigrateDocumentResponseEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.MIGRATE_DOCUMENT_RESPONSE, TransferProtocol.GP_CONNECT);
         return new EventResponse(eventDAO.getEventId());
     }
 
