@@ -1,4 +1,4 @@
-package com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrRequested;
+package com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrRequest;
 
 import com.prmgpregistrationsmi.model.deprecated.Event.EventPayload.Registration;
 import com.prmgpregistrationsmi.model.deprecated.Event.Payload;
@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @Builder
 @EqualsAndHashCode
-public class EhrRequestedPayload implements Payload {
+public class EhrRequestPayload implements Payload {
     @Valid
     @NotNull
     private Registration registration;

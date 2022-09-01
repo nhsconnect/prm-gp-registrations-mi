@@ -8,7 +8,7 @@ import com.prmgpregistrationsmi.model.deprecated.Event.TransferProtocol;
 import com.prmgpregistrationsmi.model.deprecated.InternalTransfer.InternalTransferEvent;
 import com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrResponse.EhrResponseEvent;
 import com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrIntegrated.EhrIntegratedEvent;
-import com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrRequested.EhrRequestedEvent;
+import com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrRequest.EhrRequestEvent;
 import com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrValidated.EhrValidatedEvent;
 import com.prmgpregistrationsmi.model.deprecated.gpc.EhrReadyToIntegrate.EhrReadyToIntegrateEvent;
 import com.prmgpregistrationsmi.model.deprecated.gpc.MigrateDocumentResponse.MigrateDocumentResponseEvent;
@@ -21,7 +21,7 @@ import com.prmgpregistrationsmi.service.RegistrationService;
 import com.prmgpregistrationsmi.testhelpers.InternalTransferEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrResponseEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrIntegratedEventBuilder;
-import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrRequestedEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrRequestEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrValidatedEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.gpc.EhrReadyToIntegrateEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.gpc.MigrateDocumentResponseEventBuilder;
@@ -52,8 +52,8 @@ class RegistrationControllerTest {
     }
 
     @Test
-    void ehrRequestedEventReturnsEventResponse() throws UnableToUploadToS3Exception {
-        EhrRequestedEvent testEvent = EhrRequestedEventBuilder
+    void ehrRequestEventReturnsEventResponse() throws UnableToUploadToS3Exception {
+        EhrRequestEvent testEvent = EhrRequestEventBuilder
                 .withDefaultEventValues()
                 .build();
 
@@ -62,7 +62,7 @@ class RegistrationControllerTest {
 
         when(registrationService.saveEvent(testEvent, EventType.EHR_REQUEST, transferProtocol)).thenReturn(eventDAO);
 
-        EventResponse actualResponse = registrationController.ehrRequestedEvent(testEvent);
+        EventResponse actualResponse = registrationController.ehrRequestEvent(testEvent);
 
         verify(registrationService).saveEvent(testEvent, EventType.EHR_REQUEST, transferProtocol);
 

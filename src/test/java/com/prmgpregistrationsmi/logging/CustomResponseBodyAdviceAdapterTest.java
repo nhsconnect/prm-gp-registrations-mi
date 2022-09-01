@@ -1,7 +1,7 @@
 package com.prmgpregistrationsmi.logging;
 
-import com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrRequested.EhrRequestedEvent;
-import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrRequestedEventBuilder;
+import com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrRequest.EhrRequestEvent;
+import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrRequestEventBuilder;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.core.MethodParameter;
@@ -31,7 +31,7 @@ class CustomResponseBodyAdviceAdapterTest {
         CustomResponseBodyAdviceAdapter customResponseBodyAdviceAdapter =
                 new CustomResponseBodyAdviceAdapter();
 
-        EhrRequestedEvent testEvent = EhrRequestedEventBuilder
+        EhrRequestEvent testEvent = EhrRequestEventBuilder
                 .withDefaultEventValues()
                 .build();
 
