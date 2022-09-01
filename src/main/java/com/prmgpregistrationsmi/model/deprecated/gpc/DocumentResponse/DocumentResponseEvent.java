@@ -1,4 +1,4 @@
-package com.prmgpregistrationsmi.model.deprecated.gpc.MigrateDocumentResponse;
+package com.prmgpregistrationsmi.model.deprecated.gpc.DocumentResponse;
 
 import com.prmgpregistrationsmi.model.deprecated.Event.Event;
 import com.prmgpregistrationsmi.model.deprecated.Event.Payload;
@@ -12,10 +12,10 @@ import javax.validation.constraints.NotNull;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MigrateDocumentResponseEvent extends Event {
+public class DocumentResponseEvent extends Event {
     @NotNull
     @Valid
-    private MigrateDocumentResponsePayload payload;
+    private DocumentResponsePayload payload;
 
     @Override
     public Payload getPayload() {

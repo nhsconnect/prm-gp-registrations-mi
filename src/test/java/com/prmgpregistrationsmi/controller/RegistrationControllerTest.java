@@ -10,7 +10,7 @@ import com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrResponse.EhrResponseEv
 import com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrIntegrated.EhrIntegratedEvent;
 import com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrRequest.EhrRequestEvent;
 import com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrTransferComplete.EhrTransferCompleteEvent;
-import com.prmgpregistrationsmi.model.deprecated.gpc.MigrateDocumentResponse.MigrateDocumentResponseEvent;
+import com.prmgpregistrationsmi.model.deprecated.gpc.DocumentResponse.DocumentResponseEvent;
 import com.prmgpregistrationsmi.model.deprecated.preTransfer.PdsTrace.PdsTraceEvent;
 import com.prmgpregistrationsmi.model.deprecated.preTransfer.PdsUpdate.PdsUpdateEvent;
 import com.prmgpregistrationsmi.model.deprecated.preTransfer.RegistrationStarted.RegistrationStartedEvent;
@@ -21,7 +21,7 @@ import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrResponseEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrIntegratedEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrRequestEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrTransferCompleteEventBuilder;
-import com.prmgpregistrationsmi.testhelpers.gpc.MigrateDocumentResponseEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.gpc.DocumentResponseEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.preTransfer.PdsTraceEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.preTransfer.PdsUpdateEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.preTransfer.RegistrationStartedEventBuilder;
@@ -198,8 +198,8 @@ class RegistrationControllerTest {
     }
 
     @Test
-    void shouldReturnEventIdWhenReceivingMigrateDocumentResponseEvent() throws UnableToUploadToS3Exception {
-        MigrateDocumentResponseEvent testEvent = MigrateDocumentResponseEventBuilder
+    void shouldReturnEventIdWhenReceivingDocumentResponseEvent() throws UnableToUploadToS3Exception {
+        DocumentResponseEvent testEvent = DocumentResponseEventBuilder
                 .withDefaultEventValues()
                 .build();
 
@@ -207,11 +207,11 @@ class RegistrationControllerTest {
 
         TransferProtocol transferProtocol = TransferProtocol.GP_CONNECT;
 
-        when(registrationService.saveEvent(testEvent, EventType.MIGRATE_DOCUMENT_RESPONSE, transferProtocol)).thenReturn(eventDAO);
+        when(registrationService.saveEvent(testEvent, EventType.DOCUMENT_RESPONSE, transferProtocol)).thenReturn(eventDAO);
 
-        EventResponse actualResponse = registrationController.migrateDocumentResponseEvent(testEvent);
+        EventResponse actualResponse = registrationController.documentResponseEvent(testEvent);
 
-        verify(registrationService).saveEvent(testEvent, EventType.MIGRATE_DOCUMENT_RESPONSE, transferProtocol);
+        verify(registrationService).saveEvent(testEvent, EventType.DOCUMENT_RESPONSE, transferProtocol);
 
         assertEquals(eventDAO.getEventId(), actualResponse.getEventId());
     }

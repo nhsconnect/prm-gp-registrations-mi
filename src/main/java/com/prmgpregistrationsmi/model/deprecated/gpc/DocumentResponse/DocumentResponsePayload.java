@@ -1,4 +1,4 @@
-package com.prmgpregistrationsmi.model.deprecated.gpc.MigrateDocumentResponse;
+package com.prmgpregistrationsmi.model.deprecated.gpc.DocumentResponse;
 
 import com.prmgpregistrationsmi.model.deprecated.Event.EventPayload.Attachment;
 import com.prmgpregistrationsmi.model.deprecated.Event.EventPayload.Registration;
@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 
 @Getter
 @Builder
-public class MigrateDocumentResponsePayload implements Payload {
+public class DocumentResponsePayload implements Payload {
     @Valid
     @NotNull
     private Registration registration;

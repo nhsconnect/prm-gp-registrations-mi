@@ -5,9 +5,9 @@ import com.prmgpregistrationsmi.model.deprecated.Event.EventDAO;
 import com.prmgpregistrationsmi.model.deprecated.Event.EventResponse;
 import com.prmgpregistrationsmi.model.deprecated.Event.EventType;
 import com.prmgpregistrationsmi.model.deprecated.Event.TransferProtocol;
-import com.prmgpregistrationsmi.model.deprecated.gpc.MigrateDocumentResponse.MigrateDocumentResponseEvent;
+import com.prmgpregistrationsmi.model.deprecated.gpc.DocumentResponse.DocumentResponseEvent;
 import com.prmgpregistrationsmi.testhelpers.EventDAOBuilder;
-import com.prmgpregistrationsmi.testhelpers.gpc.MigrateDocumentResponseEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.gpc.DocumentResponseEventBuilder;
 import com.prmgpregistrationsmi.utils.UUIDService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class MigrateDocumentResponseEventIntegrationTest {
+class DocumentResponseEventIntegrationTest {
     @LocalServerPort
     private int port;
 
@@ -31,24 +31,24 @@ class MigrateDocumentResponseEventIntegrationTest {
     AmazonS3Client mockAmazonS3Client;
 
     @Test
-    void shouldUploadMigrateDocumentResponseEventToS3() {
-        MigrateDocumentResponseEvent migrateDocumentResponseEventRequest = MigrateDocumentResponseEventBuilder
+    void shouldUploadDocumentResponseEventToS3() {
+        DocumentResponseEvent documentResponseEventRequest = DocumentResponseEventBuilder
                 .withDefaultEventValues()
                 .build();
 
-        EventDAO expectedS3UploadEvent = EventDAOBuilder.withEvent(migrateDocumentResponseEventRequest)
+        EventDAO expectedS3UploadEvent = EventDAOBuilder.withEvent(documentResponseEventRequest)
                 .eventId(UUIDService.buildUUIDStringFromSeed(
-                        migrateDocumentResponseEventRequest.getConversationId() +
-                                EventType.MIGRATE_DOCUMENT_RESPONSE +
-                                migrateDocumentResponseEventRequest.getRegistrationEventDateTime())
+                        documentResponseEventRequest.getConversationId() +
+                                EventType.DOCUMENT_RESPONSE +
+                                documentResponseEventRequest.getRegistrationEventDateTime())
                 )
-                .eventType(EventType.MIGRATE_DOCUMENT_RESPONSE)
+                .eventType(EventType.DOCUMENT_RESPONSE)
                 .transferProtocol(TransferProtocol.GP_CONNECT)
                 .build();
 
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
                 "/migrate-document-response",
-                migrateDocumentResponseEventRequest, EventResponse.class);
+                documentResponseEventRequest, EventResponse.class);
 
         assertEquals(expectedS3UploadEvent.getEventId(), actualResponseEvent.getEventId());
 
