@@ -1,4 +1,4 @@
-package com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrGenerated;
+package com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrResponse;
 
 import com.prmgpregistrationsmi.model.deprecated.Event.EventPayload.Attachment;
 import com.prmgpregistrationsmi.model.deprecated.Event.EventPayload.Placeholder;
@@ -18,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @EqualsAndHashCode
-public class EhrGeneratedEhrDetails {
+public class EhrResponseEhrDetails {
     @NotNull
     @PositiveOrZero
     private Long ehrTotalSizeBytes;

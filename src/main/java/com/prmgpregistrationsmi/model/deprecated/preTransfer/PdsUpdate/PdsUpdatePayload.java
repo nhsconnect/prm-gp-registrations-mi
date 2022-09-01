@@ -1,4 +1,4 @@
-package com.prmgpregistrationsmi.model.deprecated.preTransfer.PdsGeneralUpdate;
+package com.prmgpregistrationsmi.model.deprecated.preTransfer.PdsUpdate;
 
 import com.prmgpregistrationsmi.model.deprecated.Event.EventPayload.GPLinks;
 import com.prmgpregistrationsmi.model.deprecated.Event.EventPayload.StatusDetails;
@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PdsGeneralUpdatePayload implements Payload {
+public class PdsUpdatePayload implements Payload {
     @Valid
     @NotNull
     private StatusDetails demographicTraceStatus;

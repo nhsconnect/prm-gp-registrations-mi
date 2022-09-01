@@ -1,4 +1,4 @@
-package com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrGenerated;
+package com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrResponse;
 
 import com.prmgpregistrationsmi.model.deprecated.Event.EventPayload.Registration;
 import com.prmgpregistrationsmi.model.deprecated.Event.EventPayload.UnsupportedDataItem;
@@ -18,13 +18,13 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @EqualsAndHashCode
-public class EhrGeneratedPayload implements Payload {
+public class EhrResponsePayload implements Payload {
     @Valid
     @NotNull
     private Registration registration;
 
     @Valid
     @NotNull
-    private EhrGeneratedEhrDetails ehr;
+    private EhrResponseEhrDetails ehr;
     private List<@Valid UnsupportedDataItem> unsupportedDataItem;
 }

@@ -1,11 +1,10 @@
-package com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrGenerated;
+package com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrResponse;
 
 import com.prmgpregistrationsmi.model.deprecated.Event.EventPayload.Attachment;
 import com.prmgpregistrationsmi.model.deprecated.Event.EventPayload.Placeholder;
-import com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrGenerated.EhrGeneratedEhrDetails;
 import com.prmgpregistrationsmi.testhelpers.AttachmentBuilder;
 import com.prmgpregistrationsmi.testhelpers.PlaceholderBuilder;
-import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrGeneratedEhrDetailsBuilder;
+import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrResponseEhrDetailsBuilder;
 import org.junit.jupiter.api.Test;
 
 import javax.validation.ConstraintViolation;
@@ -16,69 +15,69 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class EhrGeneratedEhrDetailsTest {
+class EhrResponseEhrDetailsTest {
     private final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
     @Test
     void shouldThrowConstraintViolationWhenEhrTotalSizeBytesIsNull() {
-        EhrGeneratedEhrDetails ehrPayload = EhrGeneratedEhrDetailsBuilder
+        EhrResponseEhrDetails ehrPayload = EhrResponseEhrDetailsBuilder
                 .withDefaultValues()
                 .ehrTotalSizeBytes(null)
                 .build();
 
-        Set<ConstraintViolation<EhrGeneratedEhrDetails>> violations = validator.validate(ehrPayload);
+        Set<ConstraintViolation<EhrResponseEhrDetails>> violations = validator.validate(ehrPayload);
 
         assertEquals(1, violations.size());
 
-        ConstraintViolation<EhrGeneratedEhrDetails> violation = violations.iterator().next();
+        ConstraintViolation<EhrResponseEhrDetails> violation = violations.iterator().next();
         assertEquals("must not be null", violation.getMessage());
         assertEquals("ehrTotalSizeBytes", violation.getPropertyPath().toString());
     }
 
     @Test
     void shouldThrowConstraintViolationWhenEhrTotalSizeBytesIsNegative() {
-        EhrGeneratedEhrDetails ehrPayload = EhrGeneratedEhrDetailsBuilder
+        EhrResponseEhrDetails ehrPayload = EhrResponseEhrDetailsBuilder
                 .withDefaultValues()
                 .ehrTotalSizeBytes(-1L)
                 .build();
 
-        Set<ConstraintViolation<EhrGeneratedEhrDetails>> violations = validator.validate(ehrPayload);
+        Set<ConstraintViolation<EhrResponseEhrDetails>> violations = validator.validate(ehrPayload);
 
         assertEquals(1, violations.size());
 
-        ConstraintViolation<EhrGeneratedEhrDetails> violation = violations.iterator().next();
+        ConstraintViolation<EhrResponseEhrDetails> violation = violations.iterator().next();
         assertEquals("must be greater than or equal to 0", violation.getMessage());
         assertEquals("ehrTotalSizeBytes", violation.getPropertyPath().toString());
     }
 
     @Test
     void shouldThrowConstraintViolationWhenEhrStructuredSizeBytesIsNull() {
-        EhrGeneratedEhrDetails ehrPayload = EhrGeneratedEhrDetailsBuilder
+        EhrResponseEhrDetails ehrPayload = EhrResponseEhrDetailsBuilder
                 .withDefaultValues()
                 .ehrStructuredSizeBytes(null)
                 .build();
 
-        Set<ConstraintViolation<EhrGeneratedEhrDetails>> violations = validator.validate(ehrPayload);
+        Set<ConstraintViolation<EhrResponseEhrDetails>> violations = validator.validate(ehrPayload);
 
         assertEquals(1, violations.size());
 
-        ConstraintViolation<EhrGeneratedEhrDetails> violation = violations.iterator().next();
+        ConstraintViolation<EhrResponseEhrDetails> violation = violations.iterator().next();
         assertEquals("must not be null", violation.getMessage());
         assertEquals("ehrStructuredSizeBytes", violation.getPropertyPath().toString());
     }
 
     @Test
     void shouldThrowConstraintViolationWhenEhrStructuredSizeBytesIsNegative() {
-        EhrGeneratedEhrDetails ehrPayload = EhrGeneratedEhrDetailsBuilder
+        EhrResponseEhrDetails ehrPayload = EhrResponseEhrDetailsBuilder
                 .withDefaultValues()
                 .ehrStructuredSizeBytes(-1L)
                 .build();
 
-        Set<ConstraintViolation<EhrGeneratedEhrDetails>> violations = validator.validate(ehrPayload);
+        Set<ConstraintViolation<EhrResponseEhrDetails>> violations = validator.validate(ehrPayload);
 
         assertEquals(1, violations.size());
 
-        ConstraintViolation<EhrGeneratedEhrDetails> violation = violations.iterator().next();
+        ConstraintViolation<EhrResponseEhrDetails> violation = violations.iterator().next();
         assertEquals("must be greater than or equal to 0", violation.getMessage());
         assertEquals("ehrStructuredSizeBytes", violation.getPropertyPath().toString());
     }
@@ -86,12 +85,12 @@ class EhrGeneratedEhrDetailsTest {
     @Test
     void shouldAllowAnEmptyListOfAttachments() {
         List<Attachment> emptyList = List.of();
-        EhrGeneratedEhrDetails ehrPayload = EhrGeneratedEhrDetailsBuilder
+        EhrResponseEhrDetails ehrPayload = EhrResponseEhrDetailsBuilder
                 .withDefaultValues()
                 .attachment(emptyList)
                 .build();
 
-        Set<ConstraintViolation<EhrGeneratedEhrDetails>> violations = validator.validate(ehrPayload);
+        Set<ConstraintViolation<EhrResponseEhrDetails>> violations = validator.validate(ehrPayload);
 
         assertEquals(0, violations.size());
     }
@@ -103,16 +102,16 @@ class EhrGeneratedEhrDetailsTest {
                 .attachmentId(null)
                 .build();
 
-        EhrGeneratedEhrDetails ehrPayload = EhrGeneratedEhrDetailsBuilder
+        EhrResponseEhrDetails ehrPayload = EhrResponseEhrDetailsBuilder
                 .withDefaultValues()
                 .attachment(List.of(attachmentDetailsWithInvalidField))
                 .build();
 
-        Set<ConstraintViolation<EhrGeneratedEhrDetails>> violations = validator.validate(ehrPayload);
+        Set<ConstraintViolation<EhrResponseEhrDetails>> violations = validator.validate(ehrPayload);
 
         assertEquals(1, violations.size());
 
-        ConstraintViolation<EhrGeneratedEhrDetails> violation = violations.iterator().next();
+        ConstraintViolation<EhrResponseEhrDetails> violation = violations.iterator().next();
         assertEquals("must not be empty", violation.getMessage());
         assertEquals("attachment[0].attachmentId", violation.getPropertyPath().toString());
     }
@@ -120,12 +119,12 @@ class EhrGeneratedEhrDetailsTest {
     @Test
     void shouldAllowAnEmptyListOfPlaceholders() {
         List<Placeholder> emptyList = List.of();
-        EhrGeneratedEhrDetails ehrPayload = EhrGeneratedEhrDetailsBuilder
+        EhrResponseEhrDetails ehrPayload = EhrResponseEhrDetailsBuilder
                 .withDefaultValues()
                 .placeholder(emptyList)
                 .build();
 
-        Set<ConstraintViolation<EhrGeneratedEhrDetails>> violations = validator.validate(ehrPayload);
+        Set<ConstraintViolation<EhrResponseEhrDetails>> violations = validator.validate(ehrPayload);
 
         assertEquals(0, violations.size());
     }
@@ -137,16 +136,16 @@ class EhrGeneratedEhrDetailsTest {
                 .placeholderId(null)
                 .build();
 
-        EhrGeneratedEhrDetails ehrPayload = EhrGeneratedEhrDetailsBuilder
+        EhrResponseEhrDetails ehrPayload = EhrResponseEhrDetailsBuilder
                 .withDefaultValues()
                 .placeholder(List.of(placeholderDetails))
                 .build();
 
-        Set<ConstraintViolation<EhrGeneratedEhrDetails>> violations = validator.validate(ehrPayload);
+        Set<ConstraintViolation<EhrResponseEhrDetails>> violations = validator.validate(ehrPayload);
 
         assertEquals(1, violations.size());
 
-        ConstraintViolation<EhrGeneratedEhrDetails> violation = violations.iterator().next();
+        ConstraintViolation<EhrResponseEhrDetails> violation = violations.iterator().next();
         assertEquals("must not be empty", violation.getMessage());
         assertEquals("placeholder[0].placeholderId", violation.getPropertyPath().toString());
     }

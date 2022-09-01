@@ -2,14 +2,14 @@ package com.prmgpregistrationsmi.testhelpers.gp2gp;
 
 import com.prmgpregistrationsmi.model.deprecated.Event.EventPayload.Attachment;
 import com.prmgpregistrationsmi.model.deprecated.Event.EventPayload.Placeholder;
-import com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrGenerated.EhrGeneratedEhrDetails;
+import com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrResponse.EhrResponseEhrDetails;
 import com.prmgpregistrationsmi.testhelpers.AttachmentBuilder;
 import com.prmgpregistrationsmi.testhelpers.PlaceholderBuilder;
 
 import java.util.List;
 
-public class EhrGeneratedEhrDetailsBuilder {
-    public static EhrGeneratedEhrDetails.EhrGeneratedEhrDetailsBuilder  withDefaultValues() {
+public class EhrResponseEhrDetailsBuilder {
+    public static EhrResponseEhrDetails.EhrResponseEhrDetailsBuilder  withDefaultValues() {
         Attachment attachmentDetailsWithClinicalType = AttachmentBuilder
                 .withDefaultPDFFile()
                 .build();
@@ -20,7 +20,7 @@ public class EhrGeneratedEhrDetailsBuilder {
 
         Placeholder placeholderDetails = PlaceholderBuilder.withDefaultValues().build();
 
-        return EhrGeneratedEhrDetails.builder()
+        return EhrResponseEhrDetails.builder()
                 .ehrTotalSizeBytes(5699433L)
                 .ehrStructuredSizeBytes(4096L)
                 .attachment(List.of(attachmentDetailsWithClinicalType, attachmentDetailsWithoutClinicalType))

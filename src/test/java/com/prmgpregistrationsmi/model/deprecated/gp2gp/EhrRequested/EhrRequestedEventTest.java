@@ -1,8 +1,6 @@
 package com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrRequested;
 
 import com.prmgpregistrationsmi.model.deprecated.Event.EventPayload.Registration;
-import com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrRequested.EhrRequestedEvent;
-import com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrRequested.EhrRequestedPayload;
 import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
 import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrRequestedEventBuilder;
 import org.junit.jupiter.api.Test;

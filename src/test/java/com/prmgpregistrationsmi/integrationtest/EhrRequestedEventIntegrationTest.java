@@ -39,15 +39,15 @@ class EhrRequestedEventIntegrationTest {
         EventDAO expectedS3UploadEvent = EventDAOBuilder.withEvent(ehrRequestedEventRequest)
                 .eventId(UUIDService.buildUUIDStringFromSeed(
                         ehrRequestedEventRequest.getConversationId() +
-                                EventType.EHR_REQUESTED +
+                                EventType.EHR_REQUEST +
                                 ehrRequestedEventRequest.getRegistrationEventDateTime())
                 )
-                .eventType(EventType.EHR_REQUESTED)
+                .eventType(EventType.EHR_REQUEST)
                 .transferProtocol(TransferProtocol.GP2GP)
                 .build();
 
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
-                "/ehr-requested", ehrRequestedEventRequest, EventResponse.class);
+                "/ehr-request", ehrRequestedEventRequest, EventResponse.class);
 
         assertEquals(expectedS3UploadEvent.getEventId(), actualResponseEvent.getEventId());
 

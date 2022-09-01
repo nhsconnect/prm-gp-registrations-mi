@@ -1,10 +1,8 @@
-package com.prmgpregistrationsmi.model.deprecated.preTransfer.PdsGeneralUpdate;
+package com.prmgpregistrationsmi.model.deprecated.preTransfer.PdsUpdate;
 
 import com.prmgpregistrationsmi.model.deprecated.Event.EventPayload.GPLinks;
 import com.prmgpregistrationsmi.model.deprecated.Event.EventPayload.StatusDetails;
-import com.prmgpregistrationsmi.model.deprecated.preTransfer.PdsGeneralUpdate.PdsGeneralUpdateEvent;
-import com.prmgpregistrationsmi.model.deprecated.preTransfer.PdsGeneralUpdate.PdsGeneralUpdatePayload;
-import com.prmgpregistrationsmi.testhelpers.preTransfer.PdsGeneralUpdateEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.preTransfer.PdsUpdateEventBuilder;
 import org.junit.jupiter.api.Test;
 
 import javax.validation.ConstraintViolation;
@@ -16,55 +14,55 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class PdsGeneralUpdateEventTest {
+class PdsUpdateEventTest {
     private final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
     @Test
     void shouldNotThrowConstraintViolationWhenEventFieldsAreValid() {
-        PdsGeneralUpdatePayload payload = PdsGeneralUpdateEventBuilder.withDefaultPdsGeneralUpdatePayload().build();
+        PdsUpdatePayload payload = PdsUpdateEventBuilder.withDefaultPdsUpdatePayload().build();
 
-        PdsGeneralUpdateEvent event = PdsGeneralUpdateEventBuilder
+        PdsUpdateEvent event = PdsUpdateEventBuilder
                 .withDefaultEventValues()
                 .payload(payload)
                 .build();
 
-        Set<ConstraintViolation<PdsGeneralUpdateEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<PdsUpdateEvent>> violations = validator.validate(event);
 
         assertEquals(0, violations.size());
     }
 
     @Test
     void shouldThrowConstraintViolationWhenPayloadIsNull() {
-        PdsGeneralUpdateEvent event = PdsGeneralUpdateEventBuilder
+        PdsUpdateEvent event = PdsUpdateEventBuilder
                 .withDefaultEventValues()
                 .payload(null)
                 .build();
 
-        Set<ConstraintViolation<PdsGeneralUpdateEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<PdsUpdateEvent>> violations = validator.validate(event);
 
         assertEquals(1, violations.size());
 
-        ConstraintViolation<PdsGeneralUpdateEvent> violation = violations.iterator().next();
+        ConstraintViolation<PdsUpdateEvent> violation = violations.iterator().next();
         assertEquals("must not be null", violation.getMessage());
         assertEquals("payload", violation.getPropertyPath().toString());
     }
 
     @Test
     void shouldThrowConstraintViolationWhenDemographicTraceStatusIsNull() {
-        PdsGeneralUpdatePayload payload = PdsGeneralUpdateEventBuilder
-                .withDefaultPdsGeneralUpdatePayload()
+        PdsUpdatePayload payload = PdsUpdateEventBuilder
+                .withDefaultPdsUpdatePayload()
                 .demographicTraceStatus(null)
                 .build();
-        PdsGeneralUpdateEvent event = PdsGeneralUpdateEventBuilder
+        PdsUpdateEvent event = PdsUpdateEventBuilder
                 .withDefaultEventValues()
                 .payload(payload)
                 .build();
 
-        Set<ConstraintViolation<PdsGeneralUpdateEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<PdsUpdateEvent>> violations = validator.validate(event);
 
         assertEquals(1, violations.size());
 
-        ConstraintViolation<PdsGeneralUpdateEvent> violation = violations.iterator().next();
+        ConstraintViolation<PdsUpdateEvent> violation = violations.iterator().next();
         assertEquals("must not be null", violation.getMessage());
         assertEquals("payload.demographicTraceStatus", violation.getPropertyPath().toString());
     }
@@ -74,20 +72,20 @@ class PdsGeneralUpdateEventTest {
         StatusDetails demographicTraceStatus = StatusDetails.builder()
                 .status(null)
                 .build();
-        PdsGeneralUpdatePayload payload = PdsGeneralUpdateEventBuilder
-                .withDefaultPdsGeneralUpdatePayload()
+        PdsUpdatePayload payload = PdsUpdateEventBuilder
+                .withDefaultPdsUpdatePayload()
                 .demographicTraceStatus(demographicTraceStatus)
                 .build();
-        PdsGeneralUpdateEvent event = PdsGeneralUpdateEventBuilder
+        PdsUpdateEvent event = PdsUpdateEventBuilder
                 .withDefaultEventValues()
                 .payload(payload)
                 .build();
 
-        Set<ConstraintViolation<PdsGeneralUpdateEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<PdsUpdateEvent>> violations = validator.validate(event);
 
         assertEquals(1, violations.size());
 
-        ConstraintViolation<PdsGeneralUpdateEvent> violation = violations.iterator().next();
+        ConstraintViolation<PdsUpdateEvent> violation = violations.iterator().next();
         assertEquals("must be either SUCCESS or FAILURE", violation.getMessage());
         assertEquals("payload.demographicTraceStatus.status", violation.getPropertyPath().toString());
     }
@@ -100,16 +98,16 @@ class PdsGeneralUpdateEventTest {
                 .hasNHSNumber(null)
                 .build();
 
-        PdsGeneralUpdatePayload payload = PdsGeneralUpdateEventBuilder
-                .withDefaultPdsGeneralUpdatePayload()
+        PdsUpdatePayload payload = PdsUpdateEventBuilder
+                .withDefaultPdsUpdatePayload()
                 .gpLinks(gpLinks)
                 .build();
-        PdsGeneralUpdateEvent event = PdsGeneralUpdateEventBuilder
+        PdsUpdateEvent event = PdsUpdateEventBuilder
                 .withDefaultEventValues()
                 .payload(payload)
                 .build();
 
-        Set<ConstraintViolation<PdsGeneralUpdateEvent>> constraintViolations = validator.validate(event);
+        Set<ConstraintViolation<PdsUpdateEvent>> constraintViolations = validator.validate(event);
 
         Map<String, String> violations = new HashMap<>();
 
@@ -126,20 +124,20 @@ class PdsGeneralUpdateEventTest {
 
     @Test
     void shouldThrowConstraintViolationWhenGPLinksIsNull() {
-        PdsGeneralUpdatePayload payload = PdsGeneralUpdateEventBuilder
-                .withDefaultPdsGeneralUpdatePayload()
+        PdsUpdatePayload payload = PdsUpdateEventBuilder
+                .withDefaultPdsUpdatePayload()
                 .gpLinks(null)
                 .build();
-        PdsGeneralUpdateEvent event = PdsGeneralUpdateEventBuilder
+        PdsUpdateEvent event = PdsUpdateEventBuilder
                 .withDefaultEventValues()
                 .payload(payload)
                 .build();
 
-        Set<ConstraintViolation<PdsGeneralUpdateEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<PdsUpdateEvent>> violations = validator.validate(event);
 
         assertEquals(1, violations.size());
 
-        ConstraintViolation<PdsGeneralUpdateEvent> violation = violations.iterator().next();
+        ConstraintViolation<PdsUpdateEvent> violation = violations.iterator().next();
         assertEquals("must not be null", violation.getMessage());
         assertEquals("payload.gpLinks", violation.getPropertyPath().toString());
     }

@@ -1,4 +1,4 @@
-package com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrGenerated;
+package com.prmgpregistrationsmi.model.deprecated.preTransfer.PdsUpdate;
 
 import com.prmgpregistrationsmi.model.deprecated.Event.Event;
 import com.prmgpregistrationsmi.model.deprecated.Event.Payload;
@@ -9,13 +9,13 @@ import lombok.experimental.SuperBuilder;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @SuperBuilder
-public class EhrGeneratedEvent extends Event {
-    @NotNull
+public class PdsUpdateEvent extends Event {
     @Valid
-    private EhrGeneratedPayload payload;
+    @NotNull
+    private PdsUpdatePayload payload;
 
     @Override
     public Payload getPayload() {
