@@ -10,6 +10,7 @@ import com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrIntegrated.EhrIntegrat
 import com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrRequest.EhrRequestEvent;
 import com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrResponse.EhrResponseEvent;
 import com.prmgpregistrationsmi.model.deprecated.gp2gp.EhrTransferComplete.EhrTransferCompleteEvent;
+import com.prmgpregistrationsmi.model.deprecated.gp2gp.Error.ErrorEvent;
 import com.prmgpregistrationsmi.model.deprecated.preTransfer.PdsTrace.PdsTraceEvent;
 import com.prmgpregistrationsmi.model.deprecated.preTransfer.PdsUpdate.PdsUpdateEvent;
 import com.prmgpregistrationsmi.model.deprecated.preTransfer.RegistrationStarted.RegistrationStartedEvent;
@@ -137,7 +138,7 @@ public class RegistrationController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public EventResponse errorEvent(
-            @Valid @RequestBody com.prmgpregistrationsmi.model.deprecated.gpc.Error.ErrorEvent event) throws UnableToUploadToS3Exception {
+            @Valid @RequestBody ErrorEvent event) throws UnableToUploadToS3Exception {
         EventDAO eventDAO = registrationService.saveEvent(event, EventType.ERROR, TransferProtocol.GP2GP);
         return new EventResponse(eventDAO.getEventId());
     }

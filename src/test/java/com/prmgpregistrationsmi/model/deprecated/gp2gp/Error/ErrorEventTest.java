@@ -1,8 +1,6 @@
 package com.prmgpregistrationsmi.model.deprecated.gp2gp.Error;
 
 import com.prmgpregistrationsmi.model.deprecated.Event.EventPayload.ErrorDetails;
-import com.prmgpregistrationsmi.model.deprecated.gp2gp.Error.ErrorEvent;
-import com.prmgpregistrationsmi.model.deprecated.gp2gp.Error.ErrorPayload;
 import com.prmgpregistrationsmi.testhelpers.ErrorDetailsBuilder;
 import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
 import com.prmgpregistrationsmi.testhelpers.gp2gp.ErrorEventBuilder;
