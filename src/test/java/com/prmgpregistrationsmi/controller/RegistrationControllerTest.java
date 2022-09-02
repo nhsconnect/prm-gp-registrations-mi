@@ -4,7 +4,6 @@ import com.prmgpregistrationsmi.exception.UnableToUploadToS3Exception;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
-import com.prmgpregistrationsmi.model.Event.TransferProtocol;
 import com.prmgpregistrationsmi.model.Event.stage.InternalTransfer.InternalTransferEvent;
 import com.prmgpregistrationsmi.model.Event.stage.EhrResponse.EhrResponseEvent;
 import com.prmgpregistrationsmi.model.Event.stage.EhrIntegrated.EhrIntegratedEvent;
@@ -54,13 +53,12 @@ class RegistrationControllerTest {
                 .build();
 
         EventDAO eventDAO = EventDAO.builder().build();
-        TransferProtocol transferProtocol = TransferProtocol.GP2GP;
 
-        when(registrationService.saveEvent(testEvent, EventType.EHR_REQUEST, transferProtocol)).thenReturn(eventDAO);
+        when(registrationService.saveEvent(testEvent, EventType.EHR_REQUEST)).thenReturn(eventDAO);
 
         EventResponse actualResponse = registrationController.ehrRequestEvent(testEvent);
 
-        verify(registrationService).saveEvent(testEvent, EventType.EHR_REQUEST, transferProtocol);
+        verify(registrationService).saveEvent(testEvent, EventType.EHR_REQUEST);
 
         assertEquals(eventDAO.getEventId(), actualResponse.getEventId());
     }
@@ -72,13 +70,12 @@ class RegistrationControllerTest {
                 .build();
 
         EventDAO eventDAO = EventDAO.builder().build();
-        TransferProtocol transferProtocol = TransferProtocol.GP2GP;
 
-        when(registrationService.saveEvent(testEvent, EventType.EHR_RESPONSE, transferProtocol)).thenReturn(eventDAO);
+        when(registrationService.saveEvent(testEvent, EventType.EHR_RESPONSE)).thenReturn(eventDAO);
 
         EventResponse actualResponse = registrationController.ehrResponseEvent(testEvent);
 
-        verify(registrationService).saveEvent(testEvent, EventType.EHR_RESPONSE, transferProtocol);
+        verify(registrationService).saveEvent(testEvent, EventType.EHR_RESPONSE);
 
         assertEquals(eventDAO.getEventId(), actualResponse.getEventId());
     }
@@ -91,13 +88,11 @@ class RegistrationControllerTest {
 
         EventDAO eventDAO = EventDAO.builder().build();
 
-        TransferProtocol transferProtocol = TransferProtocol.GP2GP;
-
-        when(registrationService.saveEvent(testEvent, EventType.EHR_INTEGRATED, transferProtocol)).thenReturn(eventDAO);
+        when(registrationService.saveEvent(testEvent, EventType.EHR_INTEGRATED)).thenReturn(eventDAO);
 
         EventResponse actualResponse = registrationController.ehrIntegratedEvent(testEvent);
 
-        verify(registrationService).saveEvent(testEvent, EventType.EHR_INTEGRATED, transferProtocol);
+        verify(registrationService).saveEvent(testEvent, EventType.EHR_INTEGRATED);
 
         assertEquals(eventDAO.getEventId(), actualResponse.getEventId());
     }
@@ -110,13 +105,11 @@ class RegistrationControllerTest {
 
         EventDAO eventDAO = EventDAO.builder().build();
 
-        TransferProtocol transferProtocol = TransferProtocol.GP2GP;
-
-        when(registrationService.saveEvent(testEvent, EventType.EHR_TRANSFER_COMPLETE, transferProtocol)).thenReturn(eventDAO);
+        when(registrationService.saveEvent(testEvent, EventType.EHR_TRANSFER_COMPLETE)).thenReturn(eventDAO);
 
         EventResponse actualResponse = registrationController.ehrTransferCompleteEvent(testEvent);
 
-        verify(registrationService).saveEvent(testEvent, EventType.EHR_TRANSFER_COMPLETE, transferProtocol);
+        verify(registrationService).saveEvent(testEvent, EventType.EHR_TRANSFER_COMPLETE);
 
         assertEquals(eventDAO.getEventId(), actualResponse.getEventId());
     }
@@ -129,13 +122,11 @@ class RegistrationControllerTest {
 
         EventDAO eventDAO = EventDAO.builder().build();
 
-        TransferProtocol transferProtocol = TransferProtocol.PRE_TRANSFER;
-
-        when(registrationService.saveEvent(testEvent, EventType.REGISTRATION_STARTED, transferProtocol)).thenReturn(eventDAO);
+        when(registrationService.saveEvent(testEvent, EventType.REGISTRATION_STARTED)).thenReturn(eventDAO);
 
         EventResponse actualResponse = registrationController.registrationStartedEvent(testEvent);
 
-        verify(registrationService).saveEvent(testEvent, EventType.REGISTRATION_STARTED, transferProtocol);
+        verify(registrationService).saveEvent(testEvent, EventType.REGISTRATION_STARTED);
 
         assertEquals(eventDAO.getEventId(), actualResponse.getEventId());
     }
@@ -148,13 +139,11 @@ class RegistrationControllerTest {
 
         EventDAO eventDAO = EventDAO.builder().build();
 
-        TransferProtocol transferProtocol = TransferProtocol.PRE_TRANSFER;
-
-        when(registrationService.saveEvent(testEvent, EventType.PDS_TRACE, transferProtocol)).thenReturn(eventDAO);
+        when(registrationService.saveEvent(testEvent, EventType.PDS_TRACE)).thenReturn(eventDAO);
 
         EventResponse actualResponse = registrationController.pdsTraceEvent(testEvent);
 
-        verify(registrationService).saveEvent(testEvent, EventType.PDS_TRACE, transferProtocol);
+        verify(registrationService).saveEvent(testEvent, EventType.PDS_TRACE);
 
         assertEquals(eventDAO.getEventId(), actualResponse.getEventId());
     }
@@ -167,13 +156,11 @@ class RegistrationControllerTest {
 
         EventDAO eventDAO = EventDAO.builder().build();
 
-        TransferProtocol transferProtocol = TransferProtocol.PRE_TRANSFER;
-
-        when(registrationService.saveEvent(testEvent, EventType.PDS_UPDATE, transferProtocol)).thenReturn(eventDAO);
+        when(registrationService.saveEvent(testEvent, EventType.PDS_UPDATE)).thenReturn(eventDAO);
 
         EventResponse actualResponse = registrationController.pdsUpdateEvent(testEvent);
 
-        verify(registrationService).saveEvent(testEvent, EventType.PDS_UPDATE, transferProtocol);
+        verify(registrationService).saveEvent(testEvent, EventType.PDS_UPDATE);
 
         assertEquals(eventDAO.getEventId(), actualResponse.getEventId());
     }
@@ -186,13 +173,11 @@ class RegistrationControllerTest {
 
         EventDAO eventDAO = EventDAO.builder().build();
 
-        TransferProtocol transferProtocol = TransferProtocol.PRE_TRANSFER;
-
-        when(registrationService.saveEvent(testEvent, EventType.SDS_LOOKUP, transferProtocol)).thenReturn(eventDAO);
+        when(registrationService.saveEvent(testEvent, EventType.SDS_LOOKUP)).thenReturn(eventDAO);
 
         EventResponse actualResponse = registrationController.sdsLookupEvent(testEvent);
 
-        verify(registrationService).saveEvent(testEvent, EventType.SDS_LOOKUP, transferProtocol);
+        verify(registrationService).saveEvent(testEvent, EventType.SDS_LOOKUP);
 
         assertEquals(eventDAO.getEventId(), actualResponse.getEventId());
     }
@@ -205,13 +190,11 @@ class RegistrationControllerTest {
 
         EventDAO eventDAO = EventDAO.builder().build();
 
-        TransferProtocol transferProtocol = TransferProtocol.GP_CONNECT;
-
-        when(registrationService.saveEvent(testEvent, EventType.DOCUMENT_RESPONSE, transferProtocol)).thenReturn(eventDAO);
+        when(registrationService.saveEvent(testEvent, EventType.DOCUMENT_RESPONSE)).thenReturn(eventDAO);
 
         EventResponse actualResponse = registrationController.documentResponseEvent(testEvent);
 
-        verify(registrationService).saveEvent(testEvent, EventType.DOCUMENT_RESPONSE, transferProtocol);
+        verify(registrationService).saveEvent(testEvent, EventType.DOCUMENT_RESPONSE);
 
         assertEquals(eventDAO.getEventId(), actualResponse.getEventId());
     }
@@ -224,13 +207,11 @@ class RegistrationControllerTest {
 
         EventDAO eventDAO = EventDAO.builder().build();
 
-        TransferProtocol transferProtocol = TransferProtocol.INTERNAL_TRANSFER;
-
-        when(registrationService.saveEvent(testEvent, EventType.INTERNAL_TRANSFER, transferProtocol)).thenReturn(eventDAO);
+        when(registrationService.saveEvent(testEvent, EventType.INTERNAL_TRANSFER)).thenReturn(eventDAO);
 
         EventResponse actualResponse = registrationController.internalTransferEvent(testEvent);
 
-        verify(registrationService).saveEvent(testEvent, EventType.INTERNAL_TRANSFER, transferProtocol);
+        verify(registrationService).saveEvent(testEvent, EventType.INTERNAL_TRANSFER);
 
         assertEquals(eventDAO.getEventId(), actualResponse.getEventId());
     }

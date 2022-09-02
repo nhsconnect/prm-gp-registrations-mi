@@ -4,7 +4,6 @@ import com.prmgpregistrationsmi.exception.UnableToUploadToS3Exception;
 import com.prmgpregistrationsmi.model.Event.Event;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventType;
-import com.prmgpregistrationsmi.model.Event.TransferProtocol;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,8 +21,8 @@ public class RegistrationService {
     private static final String OUTPUT_VERSION = "v1";
     private final S3FileUploader eventS3Client;
 
-    public EventDAO saveEvent(Event event, EventType eventType, TransferProtocol transferProtocol) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = EventDAO.fromEvent(event, eventType, transferProtocol, LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES));
+    public EventDAO saveEvent(Event event, EventType eventType) throws UnableToUploadToS3Exception {
+        EventDAO eventDAO = EventDAO.fromEvent(event, eventType, LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES));
         String s3Key = getS3Key(eventDAO);
         eventS3Client.uploadJsonObject(eventDAO, s3Key);
         return eventDAO;

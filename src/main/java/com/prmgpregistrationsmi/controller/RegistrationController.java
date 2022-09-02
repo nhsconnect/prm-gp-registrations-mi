@@ -4,7 +4,6 @@ import com.prmgpregistrationsmi.exception.UnableToUploadToS3Exception;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
-import com.prmgpregistrationsmi.model.Event.TransferProtocol;
 import com.prmgpregistrationsmi.model.Event.stage.DocumentResponse.DocumentResponseEvent;
 import com.prmgpregistrationsmi.model.Event.stage.EhrIntegrated.EhrIntegratedEvent;
 import com.prmgpregistrationsmi.model.Event.stage.EhrRequest.EhrRequestEvent;
@@ -40,7 +39,7 @@ public class RegistrationController {
     )
     public EventResponse registrationStartedEvent(
             @Valid @RequestBody RegistrationStartedEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.REGISTRATION_STARTED, TransferProtocol.PRE_TRANSFER);
+        EventDAO eventDAO = registrationService.saveEvent(event, EventType.REGISTRATION_STARTED);
         return new EventResponse(eventDAO.getEventId());
     }
 
@@ -51,7 +50,7 @@ public class RegistrationController {
     )
     public EventResponse pdsTraceEvent(
             @Valid @RequestBody PdsTraceEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.PDS_TRACE, TransferProtocol.PRE_TRANSFER);
+        EventDAO eventDAO = registrationService.saveEvent(event, EventType.PDS_TRACE);
         return new EventResponse(eventDAO.getEventId());
     }
 
@@ -62,7 +61,7 @@ public class RegistrationController {
     )
     public EventResponse sdsLookupEvent(
             @Valid @RequestBody SdsLookupEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.SDS_LOOKUP, TransferProtocol.PRE_TRANSFER);
+        EventDAO eventDAO = registrationService.saveEvent(event, EventType.SDS_LOOKUP);
         return new EventResponse(eventDAO.getEventId());
     }
 
@@ -73,7 +72,7 @@ public class RegistrationController {
     )
     public EventResponse pdsUpdateEvent(
             @Valid @RequestBody PdsUpdateEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.PDS_UPDATE, TransferProtocol.PRE_TRANSFER);
+        EventDAO eventDAO = registrationService.saveEvent(event, EventType.PDS_UPDATE);
         return new EventResponse(eventDAO.getEventId());
     }
 
@@ -84,7 +83,7 @@ public class RegistrationController {
     )
     public EventResponse ehrRequestEvent(
             @Valid @RequestBody EhrRequestEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.EHR_REQUEST, TransferProtocol.GP2GP);
+        EventDAO eventDAO = registrationService.saveEvent(event, EventType.EHR_REQUEST);
         return new EventResponse(eventDAO.getEventId());
     }
 
@@ -95,7 +94,7 @@ public class RegistrationController {
     )
     public EventResponse ehrResponseEvent(
             @Valid @RequestBody EhrResponseEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.EHR_RESPONSE, TransferProtocol.GP2GP);
+        EventDAO eventDAO = registrationService.saveEvent(event, EventType.EHR_RESPONSE);
         return new EventResponse(eventDAO.getEventId());
     }
 
@@ -106,7 +105,7 @@ public class RegistrationController {
     )
     public EventResponse documentResponseEvent(
             @Valid @RequestBody DocumentResponseEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.DOCUMENT_RESPONSE, TransferProtocol.GP_CONNECT);
+        EventDAO eventDAO = registrationService.saveEvent(event, EventType.DOCUMENT_RESPONSE);
         return new EventResponse(eventDAO.getEventId());
     }
 
@@ -117,7 +116,7 @@ public class RegistrationController {
     )
     public EventResponse ehrTransferCompleteEvent(
             @Valid @RequestBody EhrTransferCompleteEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.EHR_TRANSFER_COMPLETE, TransferProtocol.GP2GP);
+        EventDAO eventDAO = registrationService.saveEvent(event, EventType.EHR_TRANSFER_COMPLETE);
         return new EventResponse(eventDAO.getEventId());
     }
 
@@ -128,7 +127,7 @@ public class RegistrationController {
     )
     public EventResponse ehrIntegratedEvent(
             @Valid @RequestBody EhrIntegratedEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.EHR_INTEGRATED, TransferProtocol.GP2GP);
+        EventDAO eventDAO = registrationService.saveEvent(event, EventType.EHR_INTEGRATED);
         return new EventResponse(eventDAO.getEventId());
     }
 
@@ -139,7 +138,7 @@ public class RegistrationController {
     )
     public EventResponse errorEvent(
             @Valid @RequestBody ErrorEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.ERROR, TransferProtocol.GP2GP);
+        EventDAO eventDAO = registrationService.saveEvent(event, EventType.ERROR);
         return new EventResponse(eventDAO.getEventId());
     }
 
@@ -150,7 +149,7 @@ public class RegistrationController {
     )
     public EventResponse internalTransferEvent(
             @Valid @RequestBody InternalTransferEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.INTERNAL_TRANSFER, TransferProtocol.INTERNAL_TRANSFER);
+        EventDAO eventDAO = registrationService.saveEvent(event, EventType.INTERNAL_TRANSFER);
         return new EventResponse(eventDAO.getEventId());
     }
 }

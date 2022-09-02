@@ -4,7 +4,6 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
-import com.prmgpregistrationsmi.model.Event.TransferProtocol;
 import com.prmgpregistrationsmi.model.Event.stage.RegistrationStarted.RegistrationStartedEvent;
 import com.prmgpregistrationsmi.testhelpers.EventDAOBuilder;
 import com.prmgpregistrationsmi.testhelpers.preTransfer.RegistrationStartedEventBuilder;
@@ -43,7 +42,6 @@ class RegistrationStartedEventIntegrationTest {
                                 registrationStartedEventRequest.getRegistrationEventDateTime())
                 )
                 .eventType(EventType.REGISTRATION_STARTED)
-                .transferProtocol(TransferProtocol.PRE_TRANSFER)
                 .build();
 
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +

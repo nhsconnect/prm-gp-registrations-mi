@@ -4,7 +4,6 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
-import com.prmgpregistrationsmi.model.Event.TransferProtocol;
 import com.prmgpregistrationsmi.model.Event.stage.EhrRequest.EhrRequestEvent;
 import com.prmgpregistrationsmi.testhelpers.EventDAOBuilder;
 import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrRequestEventBuilder;
@@ -43,7 +42,7 @@ class EhrRequestEventIntegrationTest {
                                 ehrRequestEventRequest.getRegistrationEventDateTime())
                 )
                 .eventType(EventType.EHR_REQUEST)
-                .transferProtocol(TransferProtocol.GP2GP)
+
                 .build();
 
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
