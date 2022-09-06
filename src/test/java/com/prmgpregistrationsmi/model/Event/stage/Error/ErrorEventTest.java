@@ -161,4 +161,31 @@ public class ErrorEventTest {
         assertEquals("must not be empty", violation.getMessage());
         assertEquals("payload.error.errorDescription", violation.getPropertyPath().toString());
     }
+
+    @Test
+    void shouldThrowConstraintViolationWhenFailurePointIsNull() {
+        ErrorDetails invalidErrorDetails = ErrorDetailsBuilder
+                .withDefaultValues()
+                .failurePoint(null)
+                .build();
+
+        ErrorPayload payload = ErrorEventBuilder
+                .withDefaultErrorPayload()
+                .error(invalidErrorDetails)
+                .build();
+
+        ErrorEvent event = ErrorEventBuilder
+                .withDefaultEventValues()
+                .payload(payload)
+                .build();
+
+        Set<ConstraintViolation<ErrorEvent>> violations = validator.validate(event);
+
+        assertEquals(1, violations.size());
+
+        ConstraintViolation<ErrorEvent> violation = violations.iterator().next();
+        assertEquals("Must be one of the following: PATIENT_TRACE, ENDPOINT_LOOKUP, PATIENT_GENERAL_UPDATE, " +
+                "EHR_REQUESTED, EHR_RESPONSE, EHR_READY_TO_INTEGRATE, EHR_INTEGRATION, OTHER", violation.getMessage());
+        assertEquals("payload.error.failurePoint", violation.getPropertyPath().toString());
+    }
 }
