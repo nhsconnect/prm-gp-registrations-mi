@@ -26,4 +26,5 @@ public class ErrorDetails {
             "EHR_INTEGRATION, " +
             "OTHER")
     private FailurePoint failurePoint;
+    private String otherFailurePoint;
 }

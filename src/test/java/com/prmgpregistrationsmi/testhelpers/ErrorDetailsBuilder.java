@@ -8,6 +8,7 @@ public class ErrorDetailsBuilder {
         return ErrorDetails.builder()
                 .errorCode("404")
                 .errorDescription("stacktrace? detailed error message?")
-                .failurePoint(FailurePoint.OTHER);
+                .failurePoint(FailurePoint.OTHER)
+                .otherFailurePoint("other failure");
     }
 }
