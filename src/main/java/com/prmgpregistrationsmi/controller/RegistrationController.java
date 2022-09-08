@@ -14,7 +14,7 @@ import com.prmgpregistrationsmi.model.Event.stage.InternalTransfer.InternalTrans
 import com.prmgpregistrationsmi.model.Event.stage.PdsTrace.PdsTraceEvent;
 import com.prmgpregistrationsmi.model.Event.stage.PdsUpdate.PdsUpdateEvent;
 import com.prmgpregistrationsmi.model.Event.stage.RegistrationStarted.RegistrationStartedEvent;
-import com.prmgpregistrationsmi.model.Event.stage.SdsLookup.SdsLookupEvent;
+import com.prmgpregistrationsmi.model.Event.stage.TransferCapability.TransferCapabilityEvent;
 import com.prmgpregistrationsmi.service.RegistrationService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
@@ -55,17 +55,6 @@ public class RegistrationController {
     }
 
     @PostMapping(
-            value = "/sds-lookup",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
-    public EventResponse sdsLookupEvent(
-            @Valid @RequestBody SdsLookupEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.SDS_LOOKUP);
-        return new EventResponse(eventDAO.getEventId());
-    }
-
-    @PostMapping(
             value = "/pds-update",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
@@ -97,6 +86,20 @@ public class RegistrationController {
         EventDAO eventDAO = registrationService.saveEvent(event, EventType.EHR_RESPONSE);
         return new EventResponse(eventDAO.getEventId());
     }
+    /////////////////////////////////
+
+    @PostMapping(
+            value = "/transfer-capability",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public EventResponse transferCapabilityEvent(
+            @Valid @RequestBody TransferCapabilityEvent event) throws UnableToUploadToS3Exception {
+        EventDAO eventDAO = registrationService.saveEvent(event, EventType.SDS_LOOKUP);
+        return new EventResponse(eventDAO.getEventId());
+    }
+
+    /////////////////////////////////
 
     @PostMapping(
             value = "/document-response",

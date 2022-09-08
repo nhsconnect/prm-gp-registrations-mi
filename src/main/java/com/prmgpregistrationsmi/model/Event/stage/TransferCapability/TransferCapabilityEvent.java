@@ -1,4 +1,4 @@
-package com.prmgpregistrationsmi.model.Event.stage.SdsLookup;
+package com.prmgpregistrationsmi.model.Event.stage.TransferCapability;
 
 import com.prmgpregistrationsmi.model.Event.Event;
 import com.prmgpregistrationsmi.model.Event.Payload;
@@ -12,10 +12,10 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class SdsLookupEvent extends Event {
+public class TransferCapabilityEvent extends Event {
     @Valid
     @NotNull
-    private SdsLookupPayload payload;
+    private TransferCapabilityPayload payload;
 
     @Override
     public Payload getPayload() { return payload; }

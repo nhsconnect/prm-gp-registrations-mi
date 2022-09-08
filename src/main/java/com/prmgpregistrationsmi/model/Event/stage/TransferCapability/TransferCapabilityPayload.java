@@ -1,4 +1,4 @@
-package com.prmgpregistrationsmi.model.Event.stage.SdsLookup;
+package com.prmgpregistrationsmi.model.Event.stage.TransferCapability;
 
 import com.prmgpregistrationsmi.model.Event.EventPayload.StatusDetails;
 import com.prmgpregistrationsmi.model.Event.Payload;
@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class SdsLookupPayload implements Payload {
+public class TransferCapabilityPayload implements Payload {
     @Valid
     @NotNull
     private StatusDetails transferCompatibilityStatus;

@@ -1,9 +1,9 @@
-package com.prmgpregistrationsmi.model.Event.stage.SdsLookup;
+package com.prmgpregistrationsmi.model.Event.stage.TransferCapability;
 
 import com.prmgpregistrationsmi.model.Event.EventPayload.Status;
 import com.prmgpregistrationsmi.model.Event.EventPayload.StatusDetails;
 import com.prmgpregistrationsmi.testhelpers.StatusDetailsBuilder;
-import com.prmgpregistrationsmi.testhelpers.preTransfer.SdsLookupEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.preTransfer.TransferCapabilityEventBuilder;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
@@ -15,7 +15,7 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class SdsLookupEventTest {
+class TransferCapabilityEventTest {
     private final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
     @ParameterizedTest
@@ -25,52 +25,52 @@ class SdsLookupEventTest {
                 .withSuccessfulStatus()
                 .status(status)
                 .build();
-        SdsLookupPayload payload = SdsLookupEventBuilder
-                .withDefaultSdsLookupPayload()
+        TransferCapabilityPayload payload = TransferCapabilityEventBuilder
+                .withDefaultTransferCapabilityPayload()
                 .transferCompatibilityStatus(transferCompatibilityStatus)
                 .build();
-        SdsLookupEvent event = SdsLookupEventBuilder
+        TransferCapabilityEvent event = TransferCapabilityEventBuilder
                 .withDefaultEventValues()
                 .payload(payload)
                 .build();
 
-        Set<ConstraintViolation<SdsLookupEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<TransferCapabilityEvent>> violations = validator.validate(event);
 
         assertEquals(0, violations.size());
     }
 
     @Test
     void shouldThrowConstraintViolationWhenPayloadIsNull() {
-        SdsLookupEvent event = SdsLookupEventBuilder
+        TransferCapabilityEvent event = TransferCapabilityEventBuilder
                 .withDefaultEventValues()
                 .payload(null)
                 .build();
 
-        Set<ConstraintViolation<SdsLookupEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<TransferCapabilityEvent>> violations = validator.validate(event);
 
         assertEquals(1, violations.size());
 
-        ConstraintViolation<SdsLookupEvent> violation = violations.iterator().next();
+        ConstraintViolation<TransferCapabilityEvent> violation = violations.iterator().next();
         assertEquals("must not be null", violation.getMessage());
         assertEquals("payload", violation.getPropertyPath().toString());
     }
 
     @Test
     void shouldThrowConstraintViolationWhenTransferCompatibilityStatusIsNull() {
-        SdsLookupPayload payload = SdsLookupEventBuilder
-                .withDefaultSdsLookupPayload()
+        TransferCapabilityPayload payload = TransferCapabilityEventBuilder
+                .withDefaultTransferCapabilityPayload()
                 .transferCompatibilityStatus(null)
                 .build();
-        SdsLookupEvent event = SdsLookupEventBuilder
+        TransferCapabilityEvent event = TransferCapabilityEventBuilder
                 .withDefaultEventValues()
                 .payload(payload)
                 .build();
 
-        Set<ConstraintViolation<SdsLookupEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<TransferCapabilityEvent>> violations = validator.validate(event);
 
         assertEquals(1, violations.size());
 
-        ConstraintViolation<SdsLookupEvent> violation = violations.iterator().next();
+        ConstraintViolation<TransferCapabilityEvent> violation = violations.iterator().next();
         assertEquals("must not be null", violation.getMessage());
         assertEquals("payload.transferCompatibilityStatus", violation.getPropertyPath().toString());
     }
@@ -81,20 +81,20 @@ class SdsLookupEventTest {
                 .withSuccessfulStatus()
                 .status(null)
                 .build();
-        SdsLookupPayload payload = SdsLookupEventBuilder
-                .withDefaultSdsLookupPayload()
+        TransferCapabilityPayload payload = TransferCapabilityEventBuilder
+                .withDefaultTransferCapabilityPayload()
                 .transferCompatibilityStatus(transferCompatibilityStatus)
                 .build();
-        SdsLookupEvent event = SdsLookupEventBuilder
+        TransferCapabilityEvent event = TransferCapabilityEventBuilder
                 .withDefaultEventValues()
                 .payload(payload)
                 .build();
 
-        Set<ConstraintViolation<SdsLookupEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<TransferCapabilityEvent>> violations = validator.validate(event);
 
         assertEquals(1, violations.size());
 
-        ConstraintViolation<SdsLookupEvent> violation = violations.iterator().next();
+        ConstraintViolation<TransferCapabilityEvent> violation = violations.iterator().next();
         assertEquals("must be either SUCCESS or FAILURE", violation.getMessage());
         assertEquals("payload.transferCompatibilityStatus.status", violation.getPropertyPath().toString());
     }

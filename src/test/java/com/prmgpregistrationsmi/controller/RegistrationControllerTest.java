@@ -13,7 +13,7 @@ import com.prmgpregistrationsmi.model.Event.stage.DocumentResponse.DocumentRespo
 import com.prmgpregistrationsmi.model.Event.stage.PdsTrace.PdsTraceEvent;
 import com.prmgpregistrationsmi.model.Event.stage.PdsUpdate.PdsUpdateEvent;
 import com.prmgpregistrationsmi.model.Event.stage.RegistrationStarted.RegistrationStartedEvent;
-import com.prmgpregistrationsmi.model.Event.stage.SdsLookup.SdsLookupEvent;
+import com.prmgpregistrationsmi.model.Event.stage.TransferCapability.TransferCapabilityEvent;
 import com.prmgpregistrationsmi.service.RegistrationService;
 import com.prmgpregistrationsmi.testhelpers.InternalTransferEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrResponseEventBuilder;
@@ -24,7 +24,7 @@ import com.prmgpregistrationsmi.testhelpers.gpc.DocumentResponseEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.preTransfer.PdsTraceEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.preTransfer.PdsUpdateEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.preTransfer.RegistrationStartedEventBuilder;
-import com.prmgpregistrationsmi.testhelpers.preTransfer.SdsLookupEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.preTransfer.TransferCapabilityEventBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -166,8 +166,8 @@ class RegistrationControllerTest {
     }
 
     @Test
-    void shouldReturnEventIdWhenReceivingSdsLookupEvent() throws UnableToUploadToS3Exception {
-        SdsLookupEvent testEvent = SdsLookupEventBuilder
+    void shouldReturnEventIdWhenReceivingTransferCapabilityEvent() throws UnableToUploadToS3Exception {
+        TransferCapabilityEvent testEvent = TransferCapabilityEventBuilder
                 .withDefaultEventValues()
                 .build();
 
@@ -175,7 +175,7 @@ class RegistrationControllerTest {
 
         when(registrationService.saveEvent(testEvent, EventType.SDS_LOOKUP)).thenReturn(eventDAO);
 
-        EventResponse actualResponse = registrationController.sdsLookupEvent(testEvent);
+        EventResponse actualResponse = registrationController.transferCapabilityEvent(testEvent);
 
         verify(registrationService).saveEvent(testEvent, EventType.SDS_LOOKUP);
 
