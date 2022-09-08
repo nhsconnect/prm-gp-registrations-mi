@@ -3,7 +3,7 @@ package com.prmgpregistrationsmi.model.Event.stage.TransferCapability;
 import com.prmgpregistrationsmi.model.Event.EventPayload.Status;
 import com.prmgpregistrationsmi.model.Event.EventPayload.StatusDetails;
 import com.prmgpregistrationsmi.testhelpers.StatusDetailsBuilder;
-import com.prmgpregistrationsmi.testhelpers.preTransfer.TransferCapabilityEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.stage.TransferCapabilityEventBuilder;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;

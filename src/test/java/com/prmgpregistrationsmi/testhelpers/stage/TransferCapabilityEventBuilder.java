@@ -1,4 +1,4 @@
-package com.prmgpregistrationsmi.testhelpers.preTransfer;
+package com.prmgpregistrationsmi.testhelpers.stage;
 
 import com.prmgpregistrationsmi.model.Event.stage.TransferCapability.TransferCapabilityEvent;
 import com.prmgpregistrationsmi.model.Event.stage.TransferCapability.TransferCapabilityPayload;

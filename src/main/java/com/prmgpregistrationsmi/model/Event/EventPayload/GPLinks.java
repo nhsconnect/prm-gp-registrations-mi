@@ -14,20 +14,6 @@ import javax.validation.constraints.NotNull;
 @Builder
 @EqualsAndHashCode
 public class GPLinks {
-
-    @NotNull(message = "Must be one of the following: PREVIOUS_NHS_REGISTRATION, " +
-            "NO_PREVIOUS_NHS_REGISTRATION, " +
-            "MEDICAL_CARD, " +
-            "EX_SERVICE_FORM, " +
-            "BABY_CARD, " +
-            "OTHER")
-    private GPLinkType type;
-
     @NotNull
-    private Boolean hasGMS1Form;
-
-    @NotNull
-    private Boolean hasNHSNumber;
-
-    private String otherType;
+    private Boolean gpLinksComplete;
 }

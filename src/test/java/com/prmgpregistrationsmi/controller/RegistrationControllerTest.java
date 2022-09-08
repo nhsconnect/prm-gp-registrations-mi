@@ -4,27 +4,21 @@ import com.prmgpregistrationsmi.exception.UnableToUploadToS3Exception;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
-import com.prmgpregistrationsmi.model.Event.stage.InternalTransfer.InternalTransferEvent;
-import com.prmgpregistrationsmi.model.Event.stage.EhrResponse.EhrResponseEvent;
+import com.prmgpregistrationsmi.model.Event.stage.DocumentResponse.DocumentResponseEvent;
 import com.prmgpregistrationsmi.model.Event.stage.EhrIntegrated.EhrIntegratedEvent;
 import com.prmgpregistrationsmi.model.Event.stage.EhrRequest.EhrRequestEvent;
+import com.prmgpregistrationsmi.model.Event.stage.EhrResponse.EhrResponseEvent;
 import com.prmgpregistrationsmi.model.Event.stage.EhrTransferComplete.EhrTransferCompleteEvent;
-import com.prmgpregistrationsmi.model.Event.stage.DocumentResponse.DocumentResponseEvent;
-import com.prmgpregistrationsmi.model.Event.stage.PdsTrace.PdsTraceEvent;
-import com.prmgpregistrationsmi.model.Event.stage.PdsUpdate.PdsUpdateEvent;
-import com.prmgpregistrationsmi.model.Event.stage.Registration.RegistrationEvent;
-import com.prmgpregistrationsmi.model.Event.stage.TransferCapability.TransferCapabilityEvent;
+import com.prmgpregistrationsmi.model.Event.stage.InternalTransfer.InternalTransferEvent;
+import com.prmgpregistrationsmi.model.Event.stage.Registrations.RegistrationsEvent;
 import com.prmgpregistrationsmi.service.RegistrationService;
 import com.prmgpregistrationsmi.testhelpers.InternalTransferEventBuilder;
-import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrResponseEventBuilder;
-import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrIntegratedEventBuilder;
-import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrRequestEventBuilder;
-import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrTransferCompleteEventBuilder;
-import com.prmgpregistrationsmi.testhelpers.gpc.DocumentResponseEventBuilder;
-import com.prmgpregistrationsmi.testhelpers.preTransfer.PdsTraceEventBuilder;
-import com.prmgpregistrationsmi.testhelpers.preTransfer.PdsUpdateEventBuilder;
-import com.prmgpregistrationsmi.testhelpers.preTransfer.RegistrationEventBuilder;
-import com.prmgpregistrationsmi.testhelpers.preTransfer.TransferCapabilityEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.stage.EhrIntegratedEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.stage.EhrRequestEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.stage.EhrResponseEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.stage.EhrTransferCompleteEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.stage.DocumentResponseEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.stage.RegistrationsEventBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -116,68 +110,17 @@ class RegistrationControllerTest {
 
     @Test
     void shouldReturnEventIdWhenReceivingRegistrationEvent() throws UnableToUploadToS3Exception {
-        RegistrationEvent testEvent = RegistrationEventBuilder
+        RegistrationsEvent testEvent = RegistrationsEventBuilder
                 .withDefaultEventValues()
                 .build();
 
         EventDAO eventDAO = EventDAO.builder().build();
 
-        when(registrationService.saveEvent(testEvent, EventType.REGISTRATION_STARTED)).thenReturn(eventDAO);
+        when(registrationService.saveEvent(testEvent, EventType.REGISTRATIONS)).thenReturn(eventDAO);
 
-        EventResponse actualResponse = registrationController.registrationEvent(testEvent);
+        EventResponse actualResponse = registrationController.registrationsEvent(testEvent);
 
-        verify(registrationService).saveEvent(testEvent, EventType.REGISTRATION_STARTED);
-
-        assertEquals(eventDAO.getEventId(), actualResponse.getEventId());
-    }
-
-    @Test
-    void shouldReturnEventIdWhenReceivingPdsTraceEvent() throws UnableToUploadToS3Exception {
-        PdsTraceEvent testEvent = PdsTraceEventBuilder
-                .withDefaultEventValues()
-                .build();
-
-        EventDAO eventDAO = EventDAO.builder().build();
-
-        when(registrationService.saveEvent(testEvent, EventType.PDS_TRACE)).thenReturn(eventDAO);
-
-        EventResponse actualResponse = registrationController.pdsTraceEvent(testEvent);
-
-        verify(registrationService).saveEvent(testEvent, EventType.PDS_TRACE);
-
-        assertEquals(eventDAO.getEventId(), actualResponse.getEventId());
-    }
-
-    @Test
-    void shouldReturnEventIdWhenReceivingPdsUpdateEvent() throws UnableToUploadToS3Exception {
-        PdsUpdateEvent testEvent = PdsUpdateEventBuilder
-                .withDefaultEventValues()
-                .build();
-
-        EventDAO eventDAO = EventDAO.builder().build();
-
-        when(registrationService.saveEvent(testEvent, EventType.PDS_UPDATE)).thenReturn(eventDAO);
-
-        EventResponse actualResponse = registrationController.pdsUpdateEvent(testEvent);
-
-        verify(registrationService).saveEvent(testEvent, EventType.PDS_UPDATE);
-
-        assertEquals(eventDAO.getEventId(), actualResponse.getEventId());
-    }
-
-    @Test
-    void shouldReturnEventIdWhenReceivingTransferCapabilityEvent() throws UnableToUploadToS3Exception {
-        TransferCapabilityEvent testEvent = TransferCapabilityEventBuilder
-                .withDefaultEventValues()
-                .build();
-
-        EventDAO eventDAO = EventDAO.builder().build();
-
-        when(registrationService.saveEvent(testEvent, EventType.SDS_LOOKUP)).thenReturn(eventDAO);
-
-        EventResponse actualResponse = registrationController.transferCapabilityEvent(testEvent);
-
-        verify(registrationService).saveEvent(testEvent, EventType.SDS_LOOKUP);
+        verify(registrationService).saveEvent(testEvent, EventType.REGISTRATIONS);
 
         assertEquals(eventDAO.getEventId(), actualResponse.getEventId());
     }

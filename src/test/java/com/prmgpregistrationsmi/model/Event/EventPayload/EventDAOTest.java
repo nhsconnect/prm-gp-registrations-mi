@@ -2,8 +2,8 @@ package com.prmgpregistrationsmi.model.Event.EventPayload;
 
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventType;
-import com.prmgpregistrationsmi.model.Event.stage.Registration.RegistrationEvent;
-import com.prmgpregistrationsmi.testhelpers.preTransfer.RegistrationEventBuilder;
+import com.prmgpregistrationsmi.model.Event.stage.Registrations.RegistrationsEvent;
+import com.prmgpregistrationsmi.testhelpers.stage.RegistrationsEventBuilder;
 import com.prmgpregistrationsmi.utils.UUIDService;
 import org.junit.jupiter.api.Test;
 
@@ -18,8 +18,8 @@ class EventDAOTest {
         LocalDateTime timeNow = LocalDateTime.of(2020, 1, 1, 22, 22, 22);
         String fixedLocalDateTime = "2020-01-01T22:22:22";
 
-        RegistrationEvent testEvent = RegistrationEventBuilder.withDefaultEventValues().build();
-        EventType gp2gpRegistrationEventType = EventType.REGISTRATION;
+        RegistrationsEvent testEvent = RegistrationsEventBuilder.withDefaultEventValues().build();
+        EventType gp2gpRegistrationEventType = EventType.REGISTRATIONS;
         EventDAO actualEventDAO = EventDAO.fromEvent(testEvent, gp2gpRegistrationEventType, timeNow);
         String eventIdSeed = testEvent.getConversationId() + gp2gpRegistrationEventType + fixedLocalDateTime;
 

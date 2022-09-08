@@ -3,7 +3,7 @@ package com.prmgpregistrationsmi.integrationtest;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.prmgpregistrationsmi.controller.ApiError;
-import com.prmgpregistrationsmi.model.Event.stage.Registration.RegistrationEvent;
+import com.prmgpregistrationsmi.model.Event.stage.Registrations.RegistrationsEvent;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -31,7 +31,7 @@ class GlobalExceptionHandlerIntegrationTest {
 
     @Test
     void shouldReturn400RequestBodyIsEmpty() throws Exception {
-        RegistrationEvent emptyRequestBody = new RegistrationEvent();
+        RegistrationsEvent emptyRequestBody = new RegistrationsEvent();
 
         ApiError expectedResponse = new ApiError(
                 HttpStatus.BAD_REQUEST,
@@ -42,7 +42,7 @@ class GlobalExceptionHandlerIntegrationTest {
                 "conversationId: must not be empty",
                 "registrationEventDateTime: must not be null"));
 
-        mockMvc.perform(post("/registration").content(asJsonString(emptyRequestBody))
+        mockMvc.perform(post("/registrations").content(asJsonString(emptyRequestBody))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof MethodArgumentNotValidException))
@@ -58,7 +58,7 @@ class GlobalExceptionHandlerIntegrationTest {
                 "Invalid JSON",
                 new ArrayList<>(Collections.singleton("Unable to parse JSON")));
 
-        mockMvc.perform(post("/registration").content(requestBody)
+        mockMvc.perform(post("/registrations").content(requestBody)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException().getCause() instanceof JsonParseException))
@@ -74,7 +74,7 @@ class GlobalExceptionHandlerIntegrationTest {
                 "Invalid JSON",
                 new ArrayList<>(Collections.singleton("registrationEventDateTime: Unexpected end-of-input in VALUE_STRING")));
 
-        mockMvc.perform(post("/registration").content(requestBody)
+        mockMvc.perform(post("/registrations").content(requestBody)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException().getCause() instanceof JsonMappingException))

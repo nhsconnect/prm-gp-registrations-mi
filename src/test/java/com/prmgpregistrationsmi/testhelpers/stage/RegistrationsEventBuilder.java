@@ -1,13 +1,13 @@
-package com.prmgpregistrationsmi.testhelpers.preTransfer;
+package com.prmgpregistrationsmi.testhelpers.stage;
 
-import com.prmgpregistrationsmi.model.Event.stage.Registration.RegistrationEvent;
-import com.prmgpregistrationsmi.model.Event.stage.Registration.RegistrationPayload;
+import com.prmgpregistrationsmi.model.Event.stage.Registrations.RegistrationsEvent;
+import com.prmgpregistrationsmi.model.Event.stage.Registrations.RegistrationsPayload;
 import com.prmgpregistrationsmi.testhelpers.DefaultEventValues;
 import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
 
-public class RegistrationEventBuilder {
-    public static RegistrationEvent.RegistrationEventBuilder<?, ?> withDefaultEventValues() {
-        return RegistrationEvent.builder()
+public class RegistrationsEventBuilder {
+    public static RegistrationsEvent.RegistrationsEventBuilder<?, ?> withDefaultEventValues() {
+        return RegistrationsEvent.builder()
                 .reportingSystemSupplier(DefaultEventValues.REPORTING_SYSTEM_SUPPLIER)
                 .reportingPracticeOdsCode(DefaultEventValues.REPORTING_PRACTICE_ODS_CODE)
                 .conversationId(DefaultEventValues.CONVERSATION_ID)
@@ -15,8 +15,8 @@ public class RegistrationEventBuilder {
                 .payload(withDefaultRegistrationPayload().build());
     }
 
-    public static RegistrationPayload.RegistrationPayloadBuilder withDefaultRegistrationPayload() {
-        return RegistrationPayload.builder()
+    public static RegistrationsPayload.RegistrationsPayloadBuilder withDefaultRegistrationPayload() {
+        return RegistrationsPayload.builder()
                 .registration(RegistrationBuilder.withDefaultRegistration().build());
     }
 }

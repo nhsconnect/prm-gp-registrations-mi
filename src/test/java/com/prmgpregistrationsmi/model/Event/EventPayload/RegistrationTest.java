@@ -17,30 +17,30 @@ class RegistrationTest {
 
     @ParameterizedTest
     @NullAndEmptySource
-    void shouldThrowConstraintViolationWhenRegistrationTypeIsNullOrEmpty(String registrationType) {
-        Registration registrationStarted = RegistrationBuilder
+    void shouldThrowConstraintViolationWhenRegistrationSendingPracticeOdsCodeIsNullOrEmpty(String sendingPracticeOdsCode) {
+        Registration registration = RegistrationBuilder
                 .withDefaultRegistration()
-                .registrationType(registrationType)
+                .sendingPracticeOdsCode(sendingPracticeOdsCode)
                 .build();
 
-        Set<ConstraintViolation<Registration>> violations = validator.validate(registrationStarted);
+        Set<ConstraintViolation<Registration>> violations = validator.validate(registration);
 
         assertEquals(1, violations.size());
 
         ConstraintViolation<Registration> violation = violations.iterator().next();
         assertEquals("must not be empty", violation.getMessage());
-        assertEquals("registrationType", violation.getPropertyPath().toString());
+        assertEquals("sendingPracticeOdsCode", violation.getPropertyPath().toString());
     }
 
     @ParameterizedTest
     @NullAndEmptySource
     void shouldThrowConstraintViolationWhenRequestingPracticeOdsCodeIsNullOrEmpty(String requestingPracticeOdsCode) {
-        Registration registrationStarted = RegistrationBuilder
+        Registration registration = RegistrationBuilder
                 .withDefaultRegistration()
                 .requestingPracticeOdsCode(requestingPracticeOdsCode)
                 .build();
 
-        Set<ConstraintViolation<Registration>> violations = validator.validate(registrationStarted);
+        Set<ConstraintViolation<Registration>> violations = validator.validate(registration);
 
         assertEquals(1, violations.size());
 

@@ -2,8 +2,8 @@ package com.prmgpregistrationsmi.model.Event.stage.EhrTransferComplete;
 
 import com.prmgpregistrationsmi.model.Event.EventPayload.Registration;
 import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
-import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrTransferCompleteEhrDetailsBuilder;
-import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrTransferCompleteEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.stage.EhrTransferCompleteEhrDetailsBuilder;
+import com.prmgpregistrationsmi.testhelpers.stage.EhrTransferCompleteEventBuilder;
 import org.junit.jupiter.api.Test;
 
 import javax.validation.ConstraintViolation;

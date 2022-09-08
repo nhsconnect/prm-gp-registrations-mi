@@ -3,7 +3,7 @@ package com.prmgpregistrationsmi.model.Event.stage.DocumentResponse;
 import com.prmgpregistrationsmi.testhelpers.AttachmentBuilder;
 import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
 import com.prmgpregistrationsmi.testhelpers.StatusDetailsBuilder;
-import com.prmgpregistrationsmi.testhelpers.gpc.DocumentResponseEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.stage.DocumentResponseEventBuilder;
 import org.junit.jupiter.api.Test;
 
 import javax.validation.ConstraintViolation;

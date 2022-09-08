@@ -1,4 +1,4 @@
-package com.prmgpregistrationsmi.testhelpers.gpc;
+package com.prmgpregistrationsmi.testhelpers.stage;
 
 import com.prmgpregistrationsmi.model.Event.stage.DocumentResponse.DocumentResponseEvent;
 import com.prmgpregistrationsmi.model.Event.stage.DocumentResponse.DocumentResponsePayload;

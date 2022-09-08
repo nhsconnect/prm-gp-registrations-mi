@@ -1,7 +1,7 @@
 package com.prmgpregistrationsmi.logging;
 
 import com.prmgpregistrationsmi.model.Event.stage.EhrRequest.EhrRequestEvent;
-import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrRequestEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.stage.EhrRequestEventBuilder;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.core.MethodParameter;

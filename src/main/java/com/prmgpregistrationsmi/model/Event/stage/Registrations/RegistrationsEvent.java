@@ -1,4 +1,4 @@
-package com.prmgpregistrationsmi.model.Event.stage.PdsUpdate;
+package com.prmgpregistrationsmi.model.Event.stage.Registrations;
 
 import com.prmgpregistrationsmi.model.Event.Event;
 import com.prmgpregistrationsmi.model.Event.Payload;
@@ -9,13 +9,13 @@ import lombok.experimental.SuperBuilder;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @SuperBuilder
-public class PdsUpdateEvent extends Event {
-    @Valid
+public class RegistrationsEvent extends Event {
     @NotNull
-    private PdsUpdatePayload payload;
+    @Valid
+    private RegistrationsPayload payload;
 
     @Override
     public Payload getPayload() {

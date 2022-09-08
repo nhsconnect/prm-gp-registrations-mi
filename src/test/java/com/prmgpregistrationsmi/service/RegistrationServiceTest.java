@@ -3,8 +3,8 @@ package com.prmgpregistrationsmi.service;
 import com.prmgpregistrationsmi.exception.UnableToUploadToS3Exception;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventType;
-import com.prmgpregistrationsmi.model.Event.stage.Registration.RegistrationEvent;
-import com.prmgpregistrationsmi.testhelpers.preTransfer.RegistrationEventBuilder;
+import com.prmgpregistrationsmi.model.Event.stage.Registrations.RegistrationsEvent;
+import com.prmgpregistrationsmi.testhelpers.stage.RegistrationsEventBuilder;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -20,10 +20,10 @@ class RegistrationServiceTest {
 
     @Test
     void shouldCallUploadToS3WithEventDAO() throws UnableToUploadToS3Exception {
-        RegistrationEvent testEvent = RegistrationEventBuilder
+        RegistrationsEvent testEvent = RegistrationsEventBuilder
                 .withDefaultEventValues()
                 .build();
-        EventType gp2gpRegistrationEventType = EventType.REGISTRATION_STARTED;
+        EventType gp2gpRegistrationEventType = EventType.REGISTRATIONS;
 
         EventDAO expectedEventDAO = EventDAO.fromEvent(testEvent, gp2gpRegistrationEventType, LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES));
 
@@ -35,10 +35,10 @@ class RegistrationServiceTest {
 
     @Test
     void shouldUploadEventDAOToCorrectS3Key() throws UnableToUploadToS3Exception {
-        RegistrationEvent testEvent = RegistrationEventBuilder
+        RegistrationsEvent testEvent = RegistrationsEventBuilder
                 .withDefaultEventValues()
                 .build();
-        EventType gp2gpRegistrationEventType = EventType.REGISTRATION_STARTED;
+        EventType gp2gpRegistrationEventType = EventType.REGISTRATIONS;
 
         EventDAO testEventDAO = registrationService.saveEvent(testEvent, gp2gpRegistrationEventType);
 

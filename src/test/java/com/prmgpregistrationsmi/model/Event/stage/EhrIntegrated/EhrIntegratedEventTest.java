@@ -3,7 +3,7 @@ package com.prmgpregistrationsmi.model.Event.stage.EhrIntegrated;
 import com.prmgpregistrationsmi.model.Event.EventPayload.IntegrationOutcome;
 import com.prmgpregistrationsmi.testhelpers.IntegrationOutcomeBuilder;
 import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
-import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrIntegratedEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.stage.EhrIntegratedEventBuilder;
 import org.junit.jupiter.api.Test;
 
 import javax.validation.ConstraintViolation;

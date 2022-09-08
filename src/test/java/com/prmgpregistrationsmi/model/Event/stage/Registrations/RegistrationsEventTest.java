@@ -1,8 +1,8 @@
-package com.prmgpregistrationsmi.model.Event.stage.Registration;
+package com.prmgpregistrationsmi.model.Event.stage.Registrations;
 
 import com.prmgpregistrationsmi.model.Event.EventPayload.Registration;
 import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
-import com.prmgpregistrationsmi.testhelpers.preTransfer.RegistrationEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.stage.RegistrationsEventBuilder;
 import org.junit.jupiter.api.Test;
 
 import javax.validation.ConstraintViolation;
@@ -12,52 +12,52 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class RegistrationEventTest {
+class RegistrationsEventTest {
     private final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
     @Test
     void shouldNotThrowConstraintViolationWhenEventFieldsAreValid() {
-        RegistrationEvent event = RegistrationEventBuilder
+        RegistrationsEvent event = RegistrationsEventBuilder
                 .withDefaultEventValues()
                 .build();
 
-        Set<ConstraintViolation<RegistrationEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<RegistrationsEvent>> violations = validator.validate(event);
 
         assertEquals(0, violations.size());
     }
 
     @Test
     void shouldThrowConstraintViolationWhenPayloadIsNull() {
-        RegistrationEvent event = RegistrationEventBuilder
+        RegistrationsEvent event = RegistrationsEventBuilder
                 .withDefaultEventValues()
                 .payload(null)
                 .build();
 
-        Set<ConstraintViolation<RegistrationEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<RegistrationsEvent>> violations = validator.validate(event);
 
         assertEquals(1, violations.size());
 
-        ConstraintViolation<RegistrationEvent> violation = violations.iterator().next();
+        ConstraintViolation<RegistrationsEvent> violation = violations.iterator().next();
         assertEquals("must not be null", violation.getMessage());
         assertEquals("payload", violation.getPropertyPath().toString());
     }
 
     @Test
     void shouldThrowConstraintViolationWhenRegistrationIsNull() {
-        RegistrationPayload payload = RegistrationEventBuilder
+        RegistrationsPayload payload = RegistrationsEventBuilder
                 .withDefaultRegistrationPayload()
                 .registration(null)
                 .build();
-        RegistrationEvent event = RegistrationEventBuilder
+        RegistrationsEvent event = RegistrationsEventBuilder
                 .withDefaultEventValues()
                 .payload(payload)
                 .build();
 
-        Set<ConstraintViolation<RegistrationEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<RegistrationsEvent>> violations = validator.validate(event);
 
         assertEquals(1, violations.size());
 
-        ConstraintViolation<RegistrationEvent> violation = violations.iterator().next();
+        ConstraintViolation<RegistrationsEvent> violation = violations.iterator().next();
         assertEquals("must not be null", violation.getMessage());
         assertEquals("payload.registration", violation.getPropertyPath().toString());
     }
@@ -66,23 +66,23 @@ class RegistrationEventTest {
     void shouldThrowConstraintViolationWhenRegistrationFieldsAreInvalid() {
         Registration payloadRegistration = RegistrationBuilder
                 .withDefaultRegistration()
-                .registrationType(null)
+                .sendingPracticeOdsCode(null)
                 .build();
-        RegistrationPayload payload = RegistrationEventBuilder
+        RegistrationsPayload payload = RegistrationsEventBuilder
                 .withDefaultRegistrationPayload()
                 .registration(payloadRegistration)
                 .build();
-        RegistrationEvent event = RegistrationEventBuilder
+        RegistrationsEvent event = RegistrationsEventBuilder
                 .withDefaultEventValues()
                 .payload(payload)
                 .build();
 
-        Set<ConstraintViolation<RegistrationEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<RegistrationsEvent>> violations = validator.validate(event);
 
         assertEquals(1, violations.size());
 
-        ConstraintViolation<RegistrationEvent> violation = violations.iterator().next();
+        ConstraintViolation<RegistrationsEvent> violation = violations.iterator().next();
         assertEquals("must not be empty", violation.getMessage());
-        assertEquals("payload.registration.registrationType", violation.getPropertyPath().toString());
+        assertEquals("payload.registration.sendingPracticeOdsCode", violation.getPropertyPath().toString());
     }
 }

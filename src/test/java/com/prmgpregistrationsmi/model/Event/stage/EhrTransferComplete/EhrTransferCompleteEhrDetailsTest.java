@@ -6,7 +6,7 @@ import com.prmgpregistrationsmi.model.Event.EventPayload.Placeholder;
 import com.prmgpregistrationsmi.testhelpers.AttachmentBuilder;
 import com.prmgpregistrationsmi.testhelpers.DegradeBuilder;
 import com.prmgpregistrationsmi.testhelpers.PlaceholderBuilder;
-import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrTransferCompleteEhrDetailsBuilder;
+import com.prmgpregistrationsmi.testhelpers.stage.EhrTransferCompleteEhrDetailsBuilder;
 import org.junit.jupiter.api.Test;
 
 import javax.validation.ConstraintViolation;

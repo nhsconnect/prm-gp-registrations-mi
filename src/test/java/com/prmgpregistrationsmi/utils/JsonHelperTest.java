@@ -38,7 +38,7 @@ class JsonHelperTest {
                 .build();
 
         assertEquals("{\"requestingPracticeOdsCode\":\"ABC1234\"," +
-                        "\"registrationType\":\"newRegistrant\"}",
+                        "\"sendingPracticeOdsCode\":\"BCD1234\"}",
                 JsonHelper.asJsonString(testObject));
     }
 }

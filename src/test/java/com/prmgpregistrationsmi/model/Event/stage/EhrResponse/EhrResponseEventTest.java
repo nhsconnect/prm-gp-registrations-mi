@@ -3,8 +3,8 @@ package com.prmgpregistrationsmi.model.Event.stage.EhrResponse;
 import com.prmgpregistrationsmi.model.Event.EventPayload.Registration;
 import com.prmgpregistrationsmi.model.Event.EventPayload.UnsupportedDataItem;
 import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
-import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrResponseEhrDetailsBuilder;
-import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrResponseEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.stage.EhrResponseEhrDetailsBuilder;
+import com.prmgpregistrationsmi.testhelpers.stage.EhrResponseEventBuilder;
 import org.junit.jupiter.api.Test;
 
 import javax.validation.ConstraintViolation;

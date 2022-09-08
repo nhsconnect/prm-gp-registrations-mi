@@ -3,7 +3,7 @@ package com.prmgpregistrationsmi.model.Event.stage.Error;
 import com.prmgpregistrationsmi.model.Event.EventPayload.ErrorDetails;
 import com.prmgpregistrationsmi.testhelpers.ErrorDetailsBuilder;
 import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
-import com.prmgpregistrationsmi.testhelpers.gp2gp.ErrorEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.stage.ErrorEventBuilder;
 import org.junit.jupiter.api.Test;
 
 import javax.validation.ConstraintViolation;

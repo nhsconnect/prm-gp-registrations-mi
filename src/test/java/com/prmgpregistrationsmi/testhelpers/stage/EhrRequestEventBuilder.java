@@ -1,4 +1,4 @@
-package com.prmgpregistrationsmi.testhelpers.gp2gp;
+package com.prmgpregistrationsmi.testhelpers.stage;
 
 import com.prmgpregistrationsmi.model.Event.stage.EhrRequest.EhrRequestEvent;
 import com.prmgpregistrationsmi.model.Event.stage.EhrRequest.EhrRequestPayload;

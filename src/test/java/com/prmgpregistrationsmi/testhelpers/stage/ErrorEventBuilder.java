@@ -1,4 +1,4 @@
-package com.prmgpregistrationsmi.testhelpers.gp2gp;
+package com.prmgpregistrationsmi.testhelpers.stage;
 
 import com.prmgpregistrationsmi.model.Event.stage.Error.ErrorEvent;
 import com.prmgpregistrationsmi.model.Event.stage.Error.ErrorPayload;

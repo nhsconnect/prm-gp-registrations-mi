@@ -1,12 +1,8 @@
-package com.prmgpregistrationsmi.model.Event.stage.Registration;
+package com.prmgpregistrationsmi.model.Event.stage.Registrations;
 
 import com.prmgpregistrationsmi.model.Event.EventPayload.Registration;
 import com.prmgpregistrationsmi.model.Event.Payload;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -16,8 +12,16 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @Builder
 @EqualsAndHashCode
-public class RegistrationPayload implements Payload {
+public class RegistrationsPayload implements Payload {
     @Valid
     @NotNull
     private Registration registration;
+//
+//    @Valid
+//    @NotNull
+//    private StatusDetails demographicTraceStatus;
+//
+//    @Valid
+//    @NotNull
+//    private GPLinks gpLinks;
 }
