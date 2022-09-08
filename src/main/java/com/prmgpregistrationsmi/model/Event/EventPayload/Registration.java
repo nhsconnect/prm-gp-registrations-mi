@@ -17,5 +17,5 @@ public class Registration {
     @NotEmpty
     private String requestingPracticeOdsCode;
     @NotEmpty
-    private String sendingPracticeOdsCode;
+    private String registrationType;
 }

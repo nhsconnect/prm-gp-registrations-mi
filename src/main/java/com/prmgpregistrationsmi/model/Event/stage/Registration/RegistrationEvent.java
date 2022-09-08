@@ -1,4 +1,4 @@
-package com.prmgpregistrationsmi.model.Event.stage.RegistrationStarted;
+package com.prmgpregistrationsmi.model.Event.stage.Registration;
 
 import com.prmgpregistrationsmi.model.Event.Event;
 import com.prmgpregistrationsmi.model.Event.Payload;
@@ -12,10 +12,10 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-public class RegistrationStartedEvent extends Event {
+public class RegistrationEvent extends Event {
     @NotNull
     @Valid
-    private RegistrationStartedPayload payload;
+    private RegistrationPayload payload;
 
     @Override
     public Payload getPayload() {

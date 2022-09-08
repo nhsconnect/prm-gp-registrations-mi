@@ -3,8 +3,8 @@ package com.prmgpregistrationsmi.service;
 import com.prmgpregistrationsmi.exception.UnableToUploadToS3Exception;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventType;
-import com.prmgpregistrationsmi.model.Event.stage.RegistrationStarted.RegistrationStartedEvent;
-import com.prmgpregistrationsmi.testhelpers.preTransfer.RegistrationStartedEventBuilder;
+import com.prmgpregistrationsmi.model.Event.stage.Registration.RegistrationEvent;
+import com.prmgpregistrationsmi.testhelpers.preTransfer.RegistrationEventBuilder;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -20,14 +20,14 @@ class RegistrationServiceTest {
 
     @Test
     void shouldCallUploadToS3WithEventDAO() throws UnableToUploadToS3Exception {
-        RegistrationStartedEvent testEvent = RegistrationStartedEventBuilder
+        RegistrationEvent testEvent = RegistrationEventBuilder
                 .withDefaultEventValues()
                 .build();
-        EventType gp2gpRegistrationStartedEventType = EventType.REGISTRATION_STARTED;
+        EventType gp2gpRegistrationEventType = EventType.REGISTRATION_STARTED;
 
-        EventDAO expectedEventDAO = EventDAO.fromEvent(testEvent, gp2gpRegistrationStartedEventType, LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES));
+        EventDAO expectedEventDAO = EventDAO.fromEvent(testEvent, gp2gpRegistrationEventType, LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES));
 
-        EventDAO eventDAO = registrationService.saveEvent(testEvent, gp2gpRegistrationStartedEventType);
+        EventDAO eventDAO = registrationService.saveEvent(testEvent, gp2gpRegistrationEventType);
 
         verify(eventS3ClientMock, times(1)).uploadJsonObject(eq(expectedEventDAO), anyString());
         assertEquals(eventDAO, expectedEventDAO);
@@ -35,12 +35,12 @@ class RegistrationServiceTest {
 
     @Test
     void shouldUploadEventDAOToCorrectS3Key() throws UnableToUploadToS3Exception {
-        RegistrationStartedEvent testEvent = RegistrationStartedEventBuilder
+        RegistrationEvent testEvent = RegistrationEventBuilder
                 .withDefaultEventValues()
                 .build();
-        EventType gp2gpRegistrationStartedEventType = EventType.REGISTRATION_STARTED;
+        EventType gp2gpRegistrationEventType = EventType.REGISTRATION_STARTED;
 
-        EventDAO testEventDAO = registrationService.saveEvent(testEvent, gp2gpRegistrationStartedEventType);
+        EventDAO testEventDAO = registrationService.saveEvent(testEvent, gp2gpRegistrationEventType);
 
         verify(eventS3ClientMock, times(1)).uploadJsonObject(any(),
                 eq("v1/2020/01/01/22/" + testEventDAO.getEventId() + ".json"));

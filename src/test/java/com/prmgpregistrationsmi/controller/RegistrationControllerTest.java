@@ -12,7 +12,7 @@ import com.prmgpregistrationsmi.model.Event.stage.EhrTransferComplete.EhrTransfe
 import com.prmgpregistrationsmi.model.Event.stage.DocumentResponse.DocumentResponseEvent;
 import com.prmgpregistrationsmi.model.Event.stage.PdsTrace.PdsTraceEvent;
 import com.prmgpregistrationsmi.model.Event.stage.PdsUpdate.PdsUpdateEvent;
-import com.prmgpregistrationsmi.model.Event.stage.RegistrationStarted.RegistrationStartedEvent;
+import com.prmgpregistrationsmi.model.Event.stage.Registration.RegistrationEvent;
 import com.prmgpregistrationsmi.model.Event.stage.TransferCapability.TransferCapabilityEvent;
 import com.prmgpregistrationsmi.service.RegistrationService;
 import com.prmgpregistrationsmi.testhelpers.InternalTransferEventBuilder;
@@ -23,7 +23,7 @@ import com.prmgpregistrationsmi.testhelpers.gp2gp.EhrTransferCompleteEventBuilde
 import com.prmgpregistrationsmi.testhelpers.gpc.DocumentResponseEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.preTransfer.PdsTraceEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.preTransfer.PdsUpdateEventBuilder;
-import com.prmgpregistrationsmi.testhelpers.preTransfer.RegistrationStartedEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.preTransfer.RegistrationEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.preTransfer.TransferCapabilityEventBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -115,8 +115,8 @@ class RegistrationControllerTest {
     }
 
     @Test
-    void shouldReturnEventIdWhenReceivingRegistrationStartedEvent() throws UnableToUploadToS3Exception {
-        RegistrationStartedEvent testEvent = RegistrationStartedEventBuilder
+    void shouldReturnEventIdWhenReceivingRegistrationEvent() throws UnableToUploadToS3Exception {
+        RegistrationEvent testEvent = RegistrationEventBuilder
                 .withDefaultEventValues()
                 .build();
 
@@ -124,7 +124,7 @@ class RegistrationControllerTest {
 
         when(registrationService.saveEvent(testEvent, EventType.REGISTRATION_STARTED)).thenReturn(eventDAO);
 
-        EventResponse actualResponse = registrationController.registrationStartedEvent(testEvent);
+        EventResponse actualResponse = registrationController.registrationEvent(testEvent);
 
         verify(registrationService).saveEvent(testEvent, EventType.REGISTRATION_STARTED);
 

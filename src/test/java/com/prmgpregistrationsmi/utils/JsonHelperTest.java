@@ -1,6 +1,6 @@
 package com.prmgpregistrationsmi.utils;
 
-import com.prmgpregistrationsmi.testhelpers.RegistrationStartedBuilder;
+import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
 import org.json.simple.JSONObject;
 import org.junit.jupiter.api.Test;
 
@@ -33,8 +33,8 @@ class JsonHelperTest {
 
     @Test
     void shouldConvertObjectWithDateTimeToJsonWithDateTimeString() {
-        Object testObject =  RegistrationStartedBuilder
-                .withDefaultValues()
+        Object testObject =  RegistrationBuilder
+                .withDefaultRegistration()
                 .build();
 
         assertEquals("{\"requestingPracticeOdsCode\":\"ABC1234\"," +

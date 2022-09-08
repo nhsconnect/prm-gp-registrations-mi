@@ -13,7 +13,7 @@ import com.prmgpregistrationsmi.model.Event.stage.Error.ErrorEvent;
 import com.prmgpregistrationsmi.model.Event.stage.InternalTransfer.InternalTransferEvent;
 import com.prmgpregistrationsmi.model.Event.stage.PdsTrace.PdsTraceEvent;
 import com.prmgpregistrationsmi.model.Event.stage.PdsUpdate.PdsUpdateEvent;
-import com.prmgpregistrationsmi.model.Event.stage.RegistrationStarted.RegistrationStartedEvent;
+import com.prmgpregistrationsmi.model.Event.stage.Registration.RegistrationEvent;
 import com.prmgpregistrationsmi.model.Event.stage.TransferCapability.TransferCapabilityEvent;
 import com.prmgpregistrationsmi.service.RegistrationService;
 import lombok.AllArgsConstructor;
@@ -33,12 +33,12 @@ public class RegistrationController {
     private final RegistrationService registrationService;
 
     @PostMapping(
-            value = "/registration-started",
+            value = "/registration",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public EventResponse registrationStartedEvent(
-            @Valid @RequestBody RegistrationStartedEvent event) throws UnableToUploadToS3Exception {
+    public EventResponse registrationEvent(
+            @Valid @RequestBody RegistrationEvent event) throws UnableToUploadToS3Exception {
         EventDAO eventDAO = registrationService.saveEvent(event, EventType.REGISTRATION_STARTED);
         return new EventResponse(eventDAO.getEventId());
     }

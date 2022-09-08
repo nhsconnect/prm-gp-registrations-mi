@@ -2,8 +2,8 @@ package com.prmgpregistrationsmi.model.Event.EventPayload;
 
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventType;
-import com.prmgpregistrationsmi.model.Event.stage.RegistrationStarted.RegistrationStartedEvent;
-import com.prmgpregistrationsmi.testhelpers.preTransfer.RegistrationStartedEventBuilder;
+import com.prmgpregistrationsmi.model.Event.stage.Registration.RegistrationEvent;
+import com.prmgpregistrationsmi.testhelpers.preTransfer.RegistrationEventBuilder;
 import com.prmgpregistrationsmi.utils.UUIDService;
 import org.junit.jupiter.api.Test;
 
@@ -18,14 +18,14 @@ class EventDAOTest {
         LocalDateTime timeNow = LocalDateTime.of(2020, 1, 1, 22, 22, 22);
         String fixedLocalDateTime = "2020-01-01T22:22:22";
 
-        RegistrationStartedEvent testEvent = RegistrationStartedEventBuilder.withDefaultEventValues().build();
-        EventType gp2gpRegistrationStartedEventType = EventType.REGISTRATION_STARTED;
-        EventDAO actualEventDAO = EventDAO.fromEvent(testEvent, gp2gpRegistrationStartedEventType, timeNow);
-        String eventIdSeed = testEvent.getConversationId() + gp2gpRegistrationStartedEventType + fixedLocalDateTime;
+        RegistrationEvent testEvent = RegistrationEventBuilder.withDefaultEventValues().build();
+        EventType gp2gpRegistrationEventType = EventType.REGISTRATION_STARTED;
+        EventDAO actualEventDAO = EventDAO.fromEvent(testEvent, gp2gpRegistrationEventType, timeNow);
+        String eventIdSeed = testEvent.getConversationId() + gp2gpRegistrationEventType + fixedLocalDateTime;
 
         assertEquals(actualEventDAO.getEventId(), UUIDService.buildUUIDStringFromSeed(eventIdSeed));
         assertEquals(actualEventDAO.getEventGeneratedDateTime(), timeNow);
-        assertEquals(actualEventDAO.getEventType(), gp2gpRegistrationStartedEventType);
+        assertEquals(actualEventDAO.getEventType(), gp2gpRegistrationEventType);
         assertEquals(actualEventDAO.getReportingSystemSupplier(), testEvent.getReportingSystemSupplier());
         assertEquals(actualEventDAO.getReportingPracticeOdsCode(), testEvent.getReportingPracticeOdsCode());
         assertEquals(actualEventDAO.getConversationId(), testEvent.getConversationId());

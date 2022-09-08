@@ -1,6 +1,6 @@
-package com.prmgpregistrationsmi.model.Event.stage.RegistrationStarted;
+package com.prmgpregistrationsmi.model.Event.stage.Registration;
 
-import com.prmgpregistrationsmi.model.Event.EventPayload.RegistrationStarted;
+import com.prmgpregistrationsmi.model.Event.EventPayload.Registration;
 import com.prmgpregistrationsmi.model.Event.Payload;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,8 +16,8 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @Builder
 @EqualsAndHashCode
-public class RegistrationStartedPayload implements Payload {
+public class RegistrationPayload implements Payload {
     @Valid
     @NotNull
-    private RegistrationStarted registration;
+    private Registration registration;
 }
