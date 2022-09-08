@@ -19,7 +19,7 @@ class EventDAOTest {
         String fixedLocalDateTime = "2020-01-01T22:22:22";
 
         RegistrationEvent testEvent = RegistrationEventBuilder.withDefaultEventValues().build();
-        EventType gp2gpRegistrationEventType = EventType.REGISTRATION_STARTED;
+        EventType gp2gpRegistrationEventType = EventType.REGISTRATION;
         EventDAO actualEventDAO = EventDAO.fromEvent(testEvent, gp2gpRegistrationEventType, timeNow);
         String eventIdSeed = testEvent.getConversationId() + gp2gpRegistrationEventType + fixedLocalDateTime;
 

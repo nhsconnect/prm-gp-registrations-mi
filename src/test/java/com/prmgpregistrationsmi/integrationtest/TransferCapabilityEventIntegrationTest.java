@@ -38,10 +38,10 @@ class TransferCapabilityEventIntegrationTest {
         EventDAO expectedS3UploadEvent = EventDAOBuilder.withEvent(transferCapabilityEventRequest)
                 .eventId(UUIDService.buildUUIDStringFromSeed(
                         transferCapabilityEventRequest.getConversationId() +
-                                EventType.SDS_LOOKUP +
+                                EventType.TRANSFER_COMPATIBILITY +
                                 transferCapabilityEventRequest.getRegistrationEventDateTime())
                 )
-                .eventType(EventType.SDS_LOOKUP)
+                .eventType(EventType.TRANSFER_COMPATIBILITY)
                 .build();
 
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +

@@ -1,9 +1,9 @@
 package com.prmgpregistrationsmi.model.Event;
 
 public enum EventType {
-    REGISTRATION_STARTED,
+    REGISTRATION,
+    TRANSFER_COMPATIBILITY,
     PDS_TRACE,
-    SDS_LOOKUP,
     PDS_UPDATE,
     EHR_REQUEST,
     EHR_RESPONSE,
