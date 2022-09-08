@@ -45,7 +45,7 @@ class DocumentResponseEventIntegrationTest {
                 .build();
 
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
-                "/migrate-document-response",
+                "/document-response",
                 documentResponseEventRequest, EventResponse.class);
 
         assertEquals(expectedS3UploadEvent.getEventId(), actualResponseEvent.getEventId());

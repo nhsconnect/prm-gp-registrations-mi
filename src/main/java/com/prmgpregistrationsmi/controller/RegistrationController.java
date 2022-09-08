@@ -99,7 +99,7 @@ public class RegistrationController {
     }
 
     @PostMapping(
-            value = "/migrate-document-response",
+            value = "/document-response",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
