@@ -19,3 +19,7 @@ cloud:
   aws:
     stack:
       auto: false
+
+jolokia:
+  username: ${MI_BASIC_AUTH_USERNAME:test_username}
+  password: ${MI_BASIC_AUTH_PASSWORD:test_password}
