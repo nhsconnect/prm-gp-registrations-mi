@@ -10,8 +10,11 @@ import org.junit.jupiter.api.Test;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
+import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -132,14 +135,18 @@ class RegistrationsEventTest {
 
         assertEquals(2, violations.size());
 
-        Iterator<ConstraintViolation<RegistrationsEvent>> violationsItr = violations.iterator();
+        List<String> expectedPaths = Arrays.asList(
+                "payload.demographicTraceStatus.status",
+                "payload.demographicTraceStatus.multifactorAuthenticationPresent");
+        List<String> expectedMessages = Arrays.asList(
+                "must be either SUCCESS or FAILURE",
+                "must not be null");
+        List<ConstraintViolation<RegistrationsEvent>> constrainViolations = violations.stream()
+                .filter(v ->
+                        expectedPaths.contains(v.getPropertyPath().toString())
+                        && expectedMessages.contains(v.getMessage()))
+                .collect(Collectors.toList());
 
-        ConstraintViolation<RegistrationsEvent> statusViolation = violationsItr.next();
-        assertEquals("payload.demographicTraceStatus.status", statusViolation.getPropertyPath().toString());
-        assertEquals("must be either SUCCESS or FAILURE", statusViolation.getMessage());
-
-        ConstraintViolation<RegistrationsEvent> multifactorAuthenticationPresent = violationsItr.next();
-        assertEquals("payload.demographicTraceStatus.multifactorAuthenticationPresent", multifactorAuthenticationPresent.getPropertyPath().toString());
-        assertEquals("must not be null", multifactorAuthenticationPresent.getMessage());
+        assertEquals(constrainViolations.size(), 2);
     }
 }
