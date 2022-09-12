@@ -1,7 +1,6 @@
 package com.prmgpregistrationsmi.model.Event.stage.TransferCompatibilityStatuses;
 
 import com.prmgpregistrationsmi.model.Event.EventPayload.Status;
-import com.prmgpregistrationsmi.model.Event.EventPayload.TransferCompatibilityStatus;
 import com.prmgpregistrationsmi.testhelpers.TransferCompatibilityStatusBuilder;
 import com.prmgpregistrationsmi.testhelpers.stage.TransferCompatibilityStatusesEventBuilder;
 import org.junit.jupiter.api.Test;
@@ -97,5 +96,29 @@ class TransferCompatibilityStatusesEventTest {
         ConstraintViolation<TransferCompatibilityStatusesEvent> violation = violations.iterator().next();
         assertEquals("must be either SUCCESS or FAILURE", violation.getMessage());
         assertEquals("payload.transferCompatibilityStatus.status", violation.getPropertyPath().toString());
+    }
+
+    @Test
+    void shouldThrowConstraintViolationWhenTypeIsMissing() {
+        TransferCompatibilityStatus transferCompatibilityStatus = TransferCompatibilityStatusBuilder
+                .withSuccessfulStatus()
+                .type(null)
+                .build();
+        TransferCompatibilityStatusesPayload payload = TransferCompatibilityStatusesEventBuilder
+                .withDefaultTransferCompatibilityStatusesPayload()
+                .transferCompatibilityStatus(transferCompatibilityStatus)
+                .build();
+        TransferCompatibilityStatusesEvent event = TransferCompatibilityStatusesEventBuilder
+                .withDefaultEventValues()
+                .payload(payload)
+                .build();
+
+        Set<ConstraintViolation<TransferCompatibilityStatusesEvent>> violations = validator.validate(event);
+
+        assertEquals(1, violations.size());
+
+        ConstraintViolation<TransferCompatibilityStatusesEvent> violation = violations.iterator().next();
+        assertEquals("must be either INTERNAL or TRANSFER", violation.getMessage());
+        assertEquals("payload.transferCompatibilityStatus.type", violation.getPropertyPath().toString());
     }
 }

@@ -1,6 +1,5 @@
 package com.prmgpregistrationsmi.model.Event.stage.TransferCompatibilityStatuses;
 
-import com.prmgpregistrationsmi.model.Event.EventPayload.TransferCompatibilityStatus;
 import com.prmgpregistrationsmi.model.Event.Payload;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
