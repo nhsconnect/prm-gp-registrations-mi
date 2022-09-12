@@ -1,6 +1,5 @@
 package com.prmgpregistrationsmi.model.Event.stage.EhrTransferComplete;
 
-import com.prmgpregistrationsmi.model.Event.EventPayload.Attachment;
 import com.prmgpregistrationsmi.model.Event.EventPayload.Degrade;
 import com.prmgpregistrationsmi.model.Event.EventPayload.Placeholder;
 import lombok.AllArgsConstructor;
@@ -25,6 +24,5 @@ public class EhrTransferCompleteEhrDetails {
     @PositiveOrZero
     private Long ehrStructuredSizeBytes;
     private List<@Valid Degrade> degrade;
-    private List<@Valid Attachment> attachment;
     private List<@Valid Placeholder> placeholder;
 }

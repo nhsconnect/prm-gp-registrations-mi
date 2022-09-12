@@ -1,6 +1,5 @@
 package com.prmgpregistrationsmi.model.Event.stage.EhrResponse;
 
-import com.prmgpregistrationsmi.model.Event.EventPayload.Attachment;
 import com.prmgpregistrationsmi.model.Event.EventPayload.Placeholder;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,6 +24,5 @@ public class EhrResponseEhrDetails {
     @NotNull
     @PositiveOrZero
     private Long ehrStructuredSizeBytes;
-    private List<@Valid Attachment> attachment;
     private List<@Valid Placeholder> placeholder;
 }

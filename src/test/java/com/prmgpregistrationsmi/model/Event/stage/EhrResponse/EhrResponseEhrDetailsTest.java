@@ -1,8 +1,6 @@
 package com.prmgpregistrationsmi.model.Event.stage.EhrResponse;
 
-import com.prmgpregistrationsmi.model.Event.EventPayload.Attachment;
 import com.prmgpregistrationsmi.model.Event.EventPayload.Placeholder;
-import com.prmgpregistrationsmi.testhelpers.AttachmentBuilder;
 import com.prmgpregistrationsmi.testhelpers.PlaceholderBuilder;
 import com.prmgpregistrationsmi.testhelpers.stage.EhrResponseEhrDetailsBuilder;
 import org.junit.jupiter.api.Test;
@@ -80,40 +78,6 @@ class EhrResponseEhrDetailsTest {
         ConstraintViolation<EhrResponseEhrDetails> violation = violations.iterator().next();
         assertEquals("must be greater than or equal to 0", violation.getMessage());
         assertEquals("ehrStructuredSizeBytes", violation.getPropertyPath().toString());
-    }
-
-    @Test
-    void shouldAllowAnEmptyListOfAttachments() {
-        List<Attachment> emptyList = List.of();
-        EhrResponseEhrDetails ehrPayload = EhrResponseEhrDetailsBuilder
-                .withDefaultValues()
-                .attachment(emptyList)
-                .build();
-
-        Set<ConstraintViolation<EhrResponseEhrDetails>> violations = validator.validate(ehrPayload);
-
-        assertEquals(0, violations.size());
-    }
-
-    @Test
-    void shouldThrowConstraintViolationWhenAttachmentsInTheListAreInvalid() {
-        Attachment attachmentDetailsWithInvalidField = AttachmentBuilder
-                .withDefaultPDFFile()
-                .attachmentId(null)
-                .build();
-
-        EhrResponseEhrDetails ehrPayload = EhrResponseEhrDetailsBuilder
-                .withDefaultValues()
-                .attachment(List.of(attachmentDetailsWithInvalidField))
-                .build();
-
-        Set<ConstraintViolation<EhrResponseEhrDetails>> violations = validator.validate(ehrPayload);
-
-        assertEquals(1, violations.size());
-
-        ConstraintViolation<EhrResponseEhrDetails> violation = violations.iterator().next();
-        assertEquals("must not be empty", violation.getMessage());
-        assertEquals("attachment[0].attachmentId", violation.getPropertyPath().toString());
     }
 
     @Test

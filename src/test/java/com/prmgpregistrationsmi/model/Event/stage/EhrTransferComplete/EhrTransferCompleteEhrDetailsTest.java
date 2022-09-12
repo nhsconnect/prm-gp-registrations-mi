@@ -1,9 +1,7 @@
 package com.prmgpregistrationsmi.model.Event.stage.EhrTransferComplete;
 
-import com.prmgpregistrationsmi.model.Event.EventPayload.Attachment;
 import com.prmgpregistrationsmi.model.Event.EventPayload.Degrade;
 import com.prmgpregistrationsmi.model.Event.EventPayload.Placeholder;
-import com.prmgpregistrationsmi.testhelpers.AttachmentBuilder;
 import com.prmgpregistrationsmi.testhelpers.DegradeBuilder;
 import com.prmgpregistrationsmi.testhelpers.PlaceholderBuilder;
 import com.prmgpregistrationsmi.testhelpers.stage.EhrTransferCompleteEhrDetailsBuilder;
@@ -116,40 +114,6 @@ class EhrTransferCompleteEhrDetailsTest {
         ConstraintViolation<EhrTransferCompleteEhrDetails> violation = violations.iterator().next();
         assertEquals("must not be null", violation.getMessage());
         assertEquals("degrade[0].code", violation.getPropertyPath().toString());
-    }
-
-    @Test
-    void shouldAllowAnEmptyListOfAttachments() {
-        List<Attachment> emptyList = List.of();
-        EhrTransferCompleteEhrDetails ehrPayload = EhrTransferCompleteEhrDetailsBuilder
-                .withDefaultValues()
-                .attachment(emptyList)
-                .build();
-
-        Set<ConstraintViolation<EhrTransferCompleteEhrDetails>> violations = validator.validate(ehrPayload);
-
-        assertEquals(0, violations.size());
-    }
-
-    @Test
-    void shouldThrowConstraintViolationWhenAttachmentsInTheListAreInvalid() {
-        Attachment attachmentDetailsWithInvalidField = AttachmentBuilder
-                .withDefaultPDFFile()
-                .attachmentId(null)
-                .build();
-
-        EhrTransferCompleteEhrDetails ehrPayload = EhrTransferCompleteEhrDetailsBuilder
-                .withDefaultValues()
-                .attachment(List.of(attachmentDetailsWithInvalidField))
-                .build();
-
-        Set<ConstraintViolation<EhrTransferCompleteEhrDetails>> violations = validator.validate(ehrPayload);
-
-        assertEquals(1, violations.size());
-
-        ConstraintViolation<EhrTransferCompleteEhrDetails> violation = violations.iterator().next();
-        assertEquals("must not be empty", violation.getMessage());
-        assertEquals("attachment[0].attachmentId", violation.getPropertyPath().toString());
     }
 
     @Test
