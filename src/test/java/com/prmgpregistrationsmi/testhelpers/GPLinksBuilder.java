@@ -4,7 +4,7 @@ import com.prmgpregistrationsmi.model.Event.EventPayload.GPLinks;
 
 public class GPLinksBuilder {
 
-    public static GPLinks.GPLinksBuilder withPreviousNHSRegistration() {
+    public static GPLinks.GPLinksBuilder withDefaultValues() {
         return GPLinks.builder()
                 .gpLinksComplete(true);
     }

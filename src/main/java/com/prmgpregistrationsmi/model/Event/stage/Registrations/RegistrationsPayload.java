@@ -1,5 +1,7 @@
 package com.prmgpregistrationsmi.model.Event.stage.Registrations;
 
+import com.prmgpregistrationsmi.model.Event.EventPayload.DemographicTraceStatus;
+import com.prmgpregistrationsmi.model.Event.EventPayload.GPLinks;
 import com.prmgpregistrationsmi.model.Event.EventPayload.Registration;
 import com.prmgpregistrationsmi.model.Event.Payload;
 import lombok.*;
@@ -16,12 +18,12 @@ public class RegistrationsPayload implements Payload {
     @Valid
     @NotNull
     private Registration registration;
-//
-//    @Valid
-//    @NotNull
-//    private StatusDetails demographicTraceStatus;
-//
-//    @Valid
-//    @NotNull
-//    private GPLinks gpLinks;
+
+    @Valid
+    @NotNull
+    private DemographicTraceStatus demographicTraceStatus;
+
+    @Valid
+    @NotNull
+    private GPLinks gpLinks;
 }

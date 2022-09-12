@@ -9,7 +9,10 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @Builder
 @EqualsAndHashCode
-public class GPLinks {
+public class DemographicTraceStatus {
+    @NotNull(message="must be either SUCCESS or FAILURE")
+    private Status status;
+    private String reason;
     @NotNull
-    private Boolean gpLinksComplete;
+    private Boolean multifactorAuthenticationPresent;
 }

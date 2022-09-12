@@ -3,6 +3,8 @@ package com.prmgpregistrationsmi.testhelpers.stage;
 import com.prmgpregistrationsmi.model.Event.stage.Registrations.RegistrationsEvent;
 import com.prmgpregistrationsmi.model.Event.stage.Registrations.RegistrationsPayload;
 import com.prmgpregistrationsmi.testhelpers.DefaultEventValues;
+import com.prmgpregistrationsmi.testhelpers.DemographicTraceStatusBuilder;
+import com.prmgpregistrationsmi.testhelpers.GPLinksBuilder;
 import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
 
 public class RegistrationsEventBuilder {
@@ -17,6 +19,9 @@ public class RegistrationsEventBuilder {
 
     public static RegistrationsPayload.RegistrationsPayloadBuilder withDefaultRegistrationPayload() {
         return RegistrationsPayload.builder()
-                .registration(RegistrationBuilder.withDefaultRegistration().build());
+                .registration(RegistrationBuilder.withDefaultRegistration().build())
+                .gpLinks(GPLinksBuilder.withDefaultValues().build())
+                .demographicTraceStatus(DemographicTraceStatusBuilder.withDefaultValues().build()
+                );
     }
 }
