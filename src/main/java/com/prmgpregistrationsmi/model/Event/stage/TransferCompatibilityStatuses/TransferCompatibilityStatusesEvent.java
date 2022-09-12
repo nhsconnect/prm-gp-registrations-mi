@@ -1,4 +1,4 @@
-package com.prmgpregistrationsmi.model.Event.stage.TransferCapability;
+package com.prmgpregistrationsmi.model.Event.stage.TransferCompatibilityStatuses;
 
 import com.prmgpregistrationsmi.model.Event.Event;
 import com.prmgpregistrationsmi.model.Event.Payload;
@@ -12,10 +12,10 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class TransferCapabilityEvent extends Event {
+public class TransferCompatibilityStatusesEvent extends Event {
     @Valid
     @NotNull
-    private TransferCapabilityPayload payload;
+    private TransferCompatibilityStatusesPayload payload;
 
     @Override
     public Payload getPayload() { return payload; }

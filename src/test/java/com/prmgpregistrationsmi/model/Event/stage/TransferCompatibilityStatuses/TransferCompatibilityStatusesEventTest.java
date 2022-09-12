@@ -1,9 +1,9 @@
-package com.prmgpregistrationsmi.model.Event.stage.TransferCapability;
+package com.prmgpregistrationsmi.model.Event.stage.TransferCompatibilityStatuses;
 
 import com.prmgpregistrationsmi.model.Event.EventPayload.Status;
 import com.prmgpregistrationsmi.model.Event.EventPayload.StatusDetails;
 import com.prmgpregistrationsmi.testhelpers.StatusDetailsBuilder;
-import com.prmgpregistrationsmi.testhelpers.stage.TransferCapabilityEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.stage.TransferCompatibilityStatusesEventBuilder;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
@@ -15,7 +15,7 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class TransferCapabilityEventTest {
+class TransferCompatibilityStatusesEventTest {
     private final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
     @ParameterizedTest
@@ -25,52 +25,52 @@ class TransferCapabilityEventTest {
                 .withSuccessfulStatus()
                 .status(status)
                 .build();
-        TransferCapabilityPayload payload = TransferCapabilityEventBuilder
-                .withDefaultTransferCapabilityPayload()
+        TransferCompatibilityStatusesPayload payload = TransferCompatibilityStatusesEventBuilder
+                .withDefaultTransferCompatibilityStatusesPayload()
                 .transferCompatibilityStatus(transferCompatibilityStatus)
                 .build();
-        TransferCapabilityEvent event = TransferCapabilityEventBuilder
+        TransferCompatibilityStatusesEvent event = TransferCompatibilityStatusesEventBuilder
                 .withDefaultEventValues()
                 .payload(payload)
                 .build();
 
-        Set<ConstraintViolation<TransferCapabilityEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<TransferCompatibilityStatusesEvent>> violations = validator.validate(event);
 
         assertEquals(0, violations.size());
     }
 
     @Test
     void shouldThrowConstraintViolationWhenPayloadIsNull() {
-        TransferCapabilityEvent event = TransferCapabilityEventBuilder
+        TransferCompatibilityStatusesEvent event = TransferCompatibilityStatusesEventBuilder
                 .withDefaultEventValues()
                 .payload(null)
                 .build();
 
-        Set<ConstraintViolation<TransferCapabilityEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<TransferCompatibilityStatusesEvent>> violations = validator.validate(event);
 
         assertEquals(1, violations.size());
 
-        ConstraintViolation<TransferCapabilityEvent> violation = violations.iterator().next();
+        ConstraintViolation<TransferCompatibilityStatusesEvent> violation = violations.iterator().next();
         assertEquals("must not be null", violation.getMessage());
         assertEquals("payload", violation.getPropertyPath().toString());
     }
 
     @Test
     void shouldThrowConstraintViolationWhenTransferCompatibilityStatusIsNull() {
-        TransferCapabilityPayload payload = TransferCapabilityEventBuilder
-                .withDefaultTransferCapabilityPayload()
+        TransferCompatibilityStatusesPayload payload = TransferCompatibilityStatusesEventBuilder
+                .withDefaultTransferCompatibilityStatusesPayload()
                 .transferCompatibilityStatus(null)
                 .build();
-        TransferCapabilityEvent event = TransferCapabilityEventBuilder
+        TransferCompatibilityStatusesEvent event = TransferCompatibilityStatusesEventBuilder
                 .withDefaultEventValues()
                 .payload(payload)
                 .build();
 
-        Set<ConstraintViolation<TransferCapabilityEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<TransferCompatibilityStatusesEvent>> violations = validator.validate(event);
 
         assertEquals(1, violations.size());
 
-        ConstraintViolation<TransferCapabilityEvent> violation = violations.iterator().next();
+        ConstraintViolation<TransferCompatibilityStatusesEvent> violation = violations.iterator().next();
         assertEquals("must not be null", violation.getMessage());
         assertEquals("payload.transferCompatibilityStatus", violation.getPropertyPath().toString());
     }
@@ -81,20 +81,20 @@ class TransferCapabilityEventTest {
                 .withSuccessfulStatus()
                 .status(null)
                 .build();
-        TransferCapabilityPayload payload = TransferCapabilityEventBuilder
-                .withDefaultTransferCapabilityPayload()
+        TransferCompatibilityStatusesPayload payload = TransferCompatibilityStatusesEventBuilder
+                .withDefaultTransferCompatibilityStatusesPayload()
                 .transferCompatibilityStatus(transferCompatibilityStatus)
                 .build();
-        TransferCapabilityEvent event = TransferCapabilityEventBuilder
+        TransferCompatibilityStatusesEvent event = TransferCompatibilityStatusesEventBuilder
                 .withDefaultEventValues()
                 .payload(payload)
                 .build();
 
-        Set<ConstraintViolation<TransferCapabilityEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<TransferCompatibilityStatusesEvent>> violations = validator.validate(event);
 
         assertEquals(1, violations.size());
 
-        ConstraintViolation<TransferCapabilityEvent> violation = violations.iterator().next();
+        ConstraintViolation<TransferCompatibilityStatusesEvent> violation = violations.iterator().next();
         assertEquals("must be either SUCCESS or FAILURE", violation.getMessage());
         assertEquals("payload.transferCompatibilityStatus.status", violation.getPropertyPath().toString());
     }

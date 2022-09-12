@@ -12,7 +12,7 @@ import com.prmgpregistrationsmi.model.Event.stage.EhrTransferComplete.EhrTransfe
 import com.prmgpregistrationsmi.model.Event.stage.Error.ErrorEvent;
 import com.prmgpregistrationsmi.model.Event.stage.InternalTransfer.InternalTransferEvent;
 import com.prmgpregistrationsmi.model.Event.stage.Registrations.RegistrationsEvent;
-import com.prmgpregistrationsmi.model.Event.stage.TransferCapability.TransferCapabilityEvent;
+import com.prmgpregistrationsmi.model.Event.stage.TransferCompatibilityStatuses.TransferCompatibilityStatusesEvent;
 import com.prmgpregistrationsmi.service.RegistrationService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
@@ -42,6 +42,17 @@ public class RegistrationController {
     }
 
     @PostMapping(
+            value = "/transfer-compatability-statuses",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public EventResponse transferCompatibilityStatusesEvent(
+            @Valid @RequestBody TransferCompatibilityStatusesEvent event) throws UnableToUploadToS3Exception {
+        EventDAO eventDAO = registrationService.saveEvent(event, EventType.TRANSFER_COMPATIBILITY_STATUSES);
+        return new EventResponse(eventDAO.getEventId());
+    }
+
+    @PostMapping(
             value = "/ehr-request",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
@@ -60,17 +71,6 @@ public class RegistrationController {
     public EventResponse ehrResponseEvent(
             @Valid @RequestBody EhrResponseEvent event) throws UnableToUploadToS3Exception {
         EventDAO eventDAO = registrationService.saveEvent(event, EventType.EHR_RESPONSE);
-        return new EventResponse(eventDAO.getEventId());
-    }
-
-    @PostMapping(
-            value = "/transfer-capability",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
-    public EventResponse transferCapabilityEvent(
-            @Valid @RequestBody TransferCapabilityEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.TRANSFER_COMPATIBILITY);
         return new EventResponse(eventDAO.getEventId());
     }
 
