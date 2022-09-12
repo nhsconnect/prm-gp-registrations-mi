@@ -1,6 +1,6 @@
 package com.prmgpregistrationsmi.model.Event.stage.TransferCompatibilityStatuses;
 
-import com.prmgpregistrationsmi.model.Event.EventPayload.StatusDetails;
+import com.prmgpregistrationsmi.model.Event.EventPayload.TransferCompatibilityStatus;
 import com.prmgpregistrationsmi.model.Event.Payload;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,5 +17,5 @@ import javax.validation.constraints.NotNull;
 public class TransferCompatibilityStatusesPayload implements Payload {
     @Valid
     @NotNull
-    private StatusDetails transferCompatibilityStatus;
+    private TransferCompatibilityStatus transferCompatibilityStatus;
 }

@@ -1,8 +1,8 @@
 package com.prmgpregistrationsmi.model.Event.stage.TransferCompatibilityStatuses;
 
 import com.prmgpregistrationsmi.model.Event.EventPayload.Status;
-import com.prmgpregistrationsmi.model.Event.EventPayload.StatusDetails;
-import com.prmgpregistrationsmi.testhelpers.StatusDetailsBuilder;
+import com.prmgpregistrationsmi.model.Event.EventPayload.TransferCompatibilityStatus;
+import com.prmgpregistrationsmi.testhelpers.TransferCompatibilityStatusBuilder;
 import com.prmgpregistrationsmi.testhelpers.stage.TransferCompatibilityStatusesEventBuilder;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -21,7 +21,7 @@ class TransferCompatibilityStatusesEventTest {
     @ParameterizedTest
     @EnumSource(Status.class)
     void shouldNotThrowConstraintViolationWhenEventFieldsAreValid(Status status) {
-        StatusDetails transferCompatibilityStatus = StatusDetailsBuilder
+        TransferCompatibilityStatus transferCompatibilityStatus = TransferCompatibilityStatusBuilder
                 .withSuccessfulStatus()
                 .status(status)
                 .build();
@@ -77,7 +77,7 @@ class TransferCompatibilityStatusesEventTest {
 
     @Test
     void shouldThrowConstraintViolationWhenStatusDetailsFieldsAreInvalid() {
-        StatusDetails transferCompatibilityStatus = StatusDetailsBuilder
+        TransferCompatibilityStatus transferCompatibilityStatus = TransferCompatibilityStatusBuilder
                 .withSuccessfulStatus()
                 .status(null)
                 .build();

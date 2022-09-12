@@ -3,7 +3,7 @@ package com.prmgpregistrationsmi.testhelpers.stage;
 import com.prmgpregistrationsmi.model.Event.stage.TransferCompatibilityStatuses.TransferCompatibilityStatusesEvent;
 import com.prmgpregistrationsmi.model.Event.stage.TransferCompatibilityStatuses.TransferCompatibilityStatusesPayload;
 import com.prmgpregistrationsmi.testhelpers.DefaultEventValues;
-import com.prmgpregistrationsmi.testhelpers.StatusDetailsBuilder;
+import com.prmgpregistrationsmi.testhelpers.TransferCompatibilityStatusBuilder;
 
 public class TransferCompatibilityStatusesEventBuilder {
     public static TransferCompatibilityStatusesEvent.TransferCompatibilityStatusesEventBuilder<?, ?> withDefaultEventValues() {
@@ -17,6 +17,6 @@ public class TransferCompatibilityStatusesEventBuilder {
 
     public static TransferCompatibilityStatusesPayload.TransferCompatibilityStatusesPayloadBuilder withDefaultTransferCompatibilityStatusesPayload() {
         return TransferCompatibilityStatusesPayload.builder()
-                .transferCompatibilityStatus(StatusDetailsBuilder.withSuccessfulStatus().build());
+                .transferCompatibilityStatus(TransferCompatibilityStatusBuilder.withSuccessfulStatus().build());
     }
 }
