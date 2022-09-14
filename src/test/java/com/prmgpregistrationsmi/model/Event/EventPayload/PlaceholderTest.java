@@ -19,7 +19,7 @@ class PlaceholderTest {
     @NullAndEmptySource
     void shouldThrowConstraintViolationWhenGeneratedByIsNullOrEmpty(String generatedBy) {
         Placeholder placeholder = PlaceholderBuilder.withDefaultValues()
-                .generatedBy(generatedBy)
+                .generatedBy(null)
                 .build();
 
         Set<ConstraintViolation<Placeholder>> violations = validator.validate(placeholder);
@@ -27,7 +27,7 @@ class PlaceholderTest {
         assertEquals(1, violations.size());
 
         ConstraintViolation<Placeholder> violation = violations.iterator().next();
-        assertEquals("must not be empty", violation.getMessage());
+        assertEquals("must be either SENDER or PRE_EXISTING", violation.getMessage());
         assertEquals("generatedBy", violation.getPropertyPath().toString());
     }
 

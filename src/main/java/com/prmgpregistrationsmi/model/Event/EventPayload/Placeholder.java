@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 @Getter
@@ -15,8 +16,8 @@ import javax.validation.constraints.Positive;
 @Builder
 @EqualsAndHashCode
 public class Placeholder {
-    @NotEmpty
-    private String generatedBy;
+    @NotNull(message="must be either SENDER or PRE_EXISTING")
+    private GeneratedBy generatedBy;
     @Positive
     private Integer reason;
     @NotEmpty
