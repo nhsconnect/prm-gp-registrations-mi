@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
-import org.junit.jupiter.params.provider.ValueSource;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -42,22 +41,6 @@ class PlaceholderTest {
         ConstraintViolation<Placeholder> violation = violations.iterator().next();
         assertEquals("must be either SENDER or PRE_EXISTING", violation.getMessage());
         assertEquals("generatedBy", violation.getPropertyPath().toString());
-    }
-
-    @ParameterizedTest
-    @ValueSource(ints = {-1, 0})
-    void shouldThrowConstraintViolationWhenReasonIsNotPositive(Integer reason) {
-        Placeholder placeholder = PlaceholderBuilder.withDefaultValues()
-                .reason(reason)
-                .build();
-
-        Set<ConstraintViolation<Placeholder>> violations = validator.validate(placeholder);
-
-        assertEquals(1, violations.size());
-
-        ConstraintViolation<Placeholder> violation = violations.iterator().next();
-        assertEquals("must be greater than 0", violation.getMessage());
-        assertEquals("reason", violation.getPropertyPath().toString());
     }
 
     @ParameterizedTest
@@ -99,7 +82,34 @@ class PlaceholderTest {
         assertEquals(1, violations.size());
 
         ConstraintViolation<Placeholder> violation = violations.iterator().next();
-        assertEquals("Must be one of the following: SCANNED_DOCUMENT, ORIGINAL_TEXT_DOCUMENT,OCR_TEXT_DOCUMENT,IMAGE,AUDIO_DICTATION,OTHER_AUDIO,OTHER_DIGITAL_SIGNAL,EDI_MESSAGE,OTHER,NOT_AVAILABLE", violation.getMessage());
+        assertEquals("Must be one of the following: SCANNED_DOCUMENT, ORIGINAL_TEXT_DOCUMENT, OCR_TEXT_DOCUMENT, IMAGE, AUDIO_DICTATION, OTHER_AUDIO, OTHER_DIGITAL_SIGNAL, EDI_MESSAGE, OTHER, NOT_AVAILABLE", violation.getMessage());
         assertEquals("clinicalType", violation.getPropertyPath().toString());
+    }
+
+    @ParameterizedTest
+    @EnumSource(Reason.class)
+    void shouldOnlyAllowReasonTypes(Reason reason) {
+        Placeholder placeholder = PlaceholderBuilder.withDefaultValues()
+                .reason(reason)
+                .build();
+
+        Set<ConstraintViolation<Placeholder>> violations = validator.validate(placeholder);
+
+        assertEquals(0, violations.size());
+    }
+
+    @Test
+    void shouldThrowConstraintViolationWhenReasonIsNull() {
+        Placeholder placeholder = PlaceholderBuilder.withDefaultValues()
+                .reason(null)
+                .build();
+
+        Set<ConstraintViolation<Placeholder>> violations = validator.validate(placeholder);
+
+        assertEquals(1, violations.size());
+
+        ConstraintViolation<Placeholder> violation = violations.iterator().next();
+        assertEquals("Must be one of the following: FILE_TYPE_UNSUPPORTED, FILE_DELETED, FILE_NOT_FOUND, FILE_LOCKED, UNABLE_TO_DETERMINE_PROBLEM", violation.getMessage());
+        assertEquals("reason", violation.getPropertyPath().toString());
     }
 }

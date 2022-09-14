@@ -9,6 +9,6 @@ public enum ClinicalType {
     OTHER_AUDIO,
     OTHER_DIGITAL_SIGNAL,
     EDI_MESSAGE,
-    OTHER,
     NOT_AVAILABLE,
+    OTHER,
 }

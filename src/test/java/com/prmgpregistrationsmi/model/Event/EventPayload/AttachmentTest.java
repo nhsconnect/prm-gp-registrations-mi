@@ -71,6 +71,10 @@ class AttachmentTest {
         Set<ConstraintViolation<Attachment>> violations = validator.validate(attachment);
 
         assertEquals(1, violations.size());
+
+        ConstraintViolation<Attachment> violation = violations.iterator().next();
+        assertEquals("Must be one of the following: SCANNED_DOCUMENT, ORIGINAL_TEXT_DOCUMENT, OCR_TEXT_DOCUMENT, IMAGE, AUDIO_DICTATION, OTHER_AUDIO, OTHER_DIGITAL_SIGNAL, EDI_MESSAGE, OTHER, NOT_AVAILABLE", violation.getMessage());
+        assertEquals("clinicalType", violation.getPropertyPath().toString());
     }
 
     @ParameterizedTest
