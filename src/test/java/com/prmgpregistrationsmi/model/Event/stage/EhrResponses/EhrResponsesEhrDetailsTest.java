@@ -65,7 +65,7 @@ class EhrResponsesEhrDetailsTest {
     void shouldThrowConstraintViolationWhenPlaceholdersInTheListAreInvalid() {
         Placeholder placeholderDetails = PlaceholderBuilder
                 .withDefaultValues()
-                .placeholderId(null)
+                .originalMimeType(null)
                 .build();
 
         EhrResponsesEhrDetails ehrPayload = EhrResponsesEhrDetailsBuilder
@@ -79,6 +79,6 @@ class EhrResponsesEhrDetailsTest {
 
         ConstraintViolation<EhrResponsesEhrDetails> violation = violations.iterator().next();
         assertEquals("must not be empty", violation.getMessage());
-        assertEquals("placeholder[0].placeholderId", violation.getPropertyPath().toString());
+        assertEquals("placeholder[0].originalMimeType", violation.getPropertyPath().toString());
     }
 }

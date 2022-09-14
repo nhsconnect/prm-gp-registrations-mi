@@ -16,8 +16,6 @@ import javax.validation.constraints.PositiveOrZero;
 @Builder
 @EqualsAndHashCode
 public class Attachment {
-    @NotEmpty
-    private String attachmentId;
     private String clinicalType;
     @NotEmpty
     private String mimeType;

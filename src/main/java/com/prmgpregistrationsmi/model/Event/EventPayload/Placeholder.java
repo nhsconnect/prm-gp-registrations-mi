@@ -16,10 +16,6 @@ import javax.validation.constraints.Positive;
 @EqualsAndHashCode
 public class Placeholder {
     @NotEmpty
-    private String placeholderId;
-    @NotEmpty
-    private String attachmentId;
-    @NotEmpty
     private String generatedBy;
     @Positive
     private Integer reason;

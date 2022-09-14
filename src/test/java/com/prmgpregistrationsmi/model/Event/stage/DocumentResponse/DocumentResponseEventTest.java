@@ -115,7 +115,7 @@ class DocumentResponseEventTest {
                 .withDefaultDocumentResponsePayload()
                 .attachment(AttachmentBuilder
                         .withDefaultPDFFile()
-                        .attachmentId(null)
+                        .mimeType(null)
                         .build())
                 .build();
 
@@ -130,7 +130,7 @@ class DocumentResponseEventTest {
 
         ConstraintViolation<DocumentResponseEvent> violation = violations.iterator().next();
         assertEquals("must not be empty", violation.getMessage());
-        assertEquals("payload.attachment.attachmentId", violation.getPropertyPath().toString());
+        assertEquals("payload.attachment.mimeType", violation.getPropertyPath().toString());
     }
 
     @Test

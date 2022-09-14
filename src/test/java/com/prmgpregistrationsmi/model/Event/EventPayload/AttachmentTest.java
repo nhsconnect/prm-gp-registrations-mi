@@ -17,21 +17,6 @@ class AttachmentTest {
 
     @ParameterizedTest
     @NullAndEmptySource
-    void shouldThrowConstraintViolationWhenAttachmentIdIsNullOrEmpty(String attachmentId) {
-        Attachment attachment = AttachmentBuilder.withDefaultAudioFile()
-                .attachmentId(attachmentId)
-                .build();
-        Set<ConstraintViolation<Attachment>> violations = validator.validate(attachment);
-
-        assertEquals(1, violations.size());
-
-        ConstraintViolation<Attachment> violation = violations.iterator().next();
-        assertEquals("must not be empty", violation.getMessage());
-        assertEquals("attachmentId", violation.getPropertyPath().toString());
-    }
-
-    @ParameterizedTest
-    @NullAndEmptySource
     void shouldThrowConstraintViolationWhenAttachmentMimeTypeIsNullOrEmpty(String mimeType) {
         Attachment attachment = AttachmentBuilder.withDefaultAudioFile()
                 .mimeType(mimeType)

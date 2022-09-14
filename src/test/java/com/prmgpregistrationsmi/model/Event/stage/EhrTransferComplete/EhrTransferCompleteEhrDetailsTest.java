@@ -101,7 +101,7 @@ class EhrTransferCompleteEhrDetailsTest {
     void shouldThrowConstraintViolationWhenPlaceholdersInTheListAreInvalid() {
         Placeholder placeholderDetails = PlaceholderBuilder
                 .withDefaultValues()
-                .placeholderId(null)
+                .generatedBy(null)
                 .build();
 
         EhrTransferCompleteEhrDetails ehrPayload = EhrTransferCompleteEhrDetailsBuilder
@@ -115,6 +115,6 @@ class EhrTransferCompleteEhrDetailsTest {
 
         ConstraintViolation<EhrTransferCompleteEhrDetails> violation = violations.iterator().next();
         assertEquals("must not be empty", violation.getMessage());
-        assertEquals("placeholder[0].placeholderId", violation.getPropertyPath().toString());
+        assertEquals("placeholder[0].generatedBy", violation.getPropertyPath().toString());
     }
 }

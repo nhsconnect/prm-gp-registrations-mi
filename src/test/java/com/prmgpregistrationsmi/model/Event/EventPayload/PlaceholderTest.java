@@ -17,37 +17,6 @@ class PlaceholderTest {
 
     @ParameterizedTest
     @NullAndEmptySource
-    void shouldThrowConstraintViolationWhenPlaceholderIdIsNullOrEmpty(String placeholderId) {
-        Placeholder placeholder = PlaceholderBuilder.withDefaultValues()
-                .placeholderId(placeholderId)
-                .build();
-        Set<ConstraintViolation<Placeholder>> violations = validator.validate(placeholder);
-
-        assertEquals(1, violations.size());
-
-        ConstraintViolation<Placeholder> violation = violations.iterator().next();
-        assertEquals("must not be empty", violation.getMessage());
-        assertEquals("placeholderId", violation.getPropertyPath().toString());
-    }
-
-    @ParameterizedTest
-    @NullAndEmptySource
-    void shouldThrowConstraintViolationWhenAttachmentIdIsNullOrEmpty(String attachmentId) {
-        Placeholder placeholder = PlaceholderBuilder.withDefaultValues()
-                .attachmentId(attachmentId)
-                .build();
-
-        Set<ConstraintViolation<Placeholder>> violations = validator.validate(placeholder);
-
-        assertEquals(1, violations.size());
-
-        ConstraintViolation<Placeholder> violation = violations.iterator().next();
-        assertEquals("must not be empty", violation.getMessage());
-        assertEquals("attachmentId", violation.getPropertyPath().toString());
-    }
-
-    @ParameterizedTest
-    @NullAndEmptySource
     void shouldThrowConstraintViolationWhenGeneratedByIsNullOrEmpty(String generatedBy) {
         Placeholder placeholder = PlaceholderBuilder.withDefaultValues()
                 .generatedBy(generatedBy)
