@@ -1,4 +1,4 @@
-package com.prmgpregistrationsmi.model.Event.stage.EhrResponse;
+package com.prmgpregistrationsmi.model.Event.stage.EhrResponses;
 
 import com.prmgpregistrationsmi.model.Event.Event;
 import com.prmgpregistrationsmi.model.Event.Payload;
@@ -12,10 +12,10 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-public class EhrResponseEvent extends Event {
+public class EhrResponsesEvent extends Event {
     @NotNull
     @Valid
-    private EhrResponsePayload payload;
+    private EhrResponsesPayload payload;
 
     @Override
     public Payload getPayload() {

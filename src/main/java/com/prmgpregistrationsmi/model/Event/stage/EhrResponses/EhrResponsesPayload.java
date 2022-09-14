@@ -1,4 +1,4 @@
-package com.prmgpregistrationsmi.model.Event.stage.EhrResponse;
+package com.prmgpregistrationsmi.model.Event.stage.EhrResponses;
 
 import com.prmgpregistrationsmi.model.Event.EventPayload.UnsupportedDataItem;
 import com.prmgpregistrationsmi.model.Event.Payload;
@@ -18,13 +18,13 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @EqualsAndHashCode
-public class EhrResponsePayload implements Payload {
+public class EhrResponsesPayload implements Payload {
     @Valid
     @NotNull
     private Registration registration;
 
     @Valid
     @NotNull
-    private EhrResponseEhrDetails ehr;
+    private EhrResponsesEhrDetails ehr;
     private List<@Valid UnsupportedDataItem> unsupportedDataItem;
 }

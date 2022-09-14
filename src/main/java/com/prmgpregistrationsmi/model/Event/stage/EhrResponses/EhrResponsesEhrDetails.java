@@ -1,4 +1,4 @@
-package com.prmgpregistrationsmi.model.Event.stage.EhrResponse;
+package com.prmgpregistrationsmi.model.Event.stage.EhrResponses;
 
 import com.prmgpregistrationsmi.model.Event.EventPayload.Placeholder;
 import lombok.AllArgsConstructor;
@@ -17,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @EqualsAndHashCode
-public class EhrResponseEhrDetails {
+public class EhrResponsesEhrDetails {
     @NotNull
     @PositiveOrZero
     private Long ehrTotalSizeBytes;

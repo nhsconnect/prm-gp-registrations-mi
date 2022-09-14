@@ -1,10 +1,10 @@
-package com.prmgpregistrationsmi.model.Event.stage.EhrResponse;
+package com.prmgpregistrationsmi.model.Event.stage.EhrResponses;
 
 import com.prmgpregistrationsmi.model.Event.EventPayload.Registration;
 import com.prmgpregistrationsmi.model.Event.EventPayload.UnsupportedDataItem;
 import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
-import com.prmgpregistrationsmi.testhelpers.stage.EhrResponseEhrDetailsBuilder;
-import com.prmgpregistrationsmi.testhelpers.stage.EhrResponseEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.stage.EhrResponsesEhrDetailsBuilder;
+import com.prmgpregistrationsmi.testhelpers.stage.EhrResponsesEventBuilder;
 import org.junit.jupiter.api.Test;
 
 import javax.validation.ConstraintViolation;
@@ -15,32 +15,32 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class EhrResponseEventTest {
+class EhrResponsesEventTest {
     private final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
     @Test
     void shouldNotThrowConstraintViolationWhenEventFieldsAreValid() {
-        EhrResponseEvent event = EhrResponseEventBuilder
+        EhrResponsesEvent event = EhrResponsesEventBuilder
                 .withDefaultEventValues()
                 .build();
 
-        Set<ConstraintViolation<EhrResponseEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<EhrResponsesEvent>> violations = validator.validate(event);
 
         assertEquals(0, violations.size());
     }
 
     @Test
     void shouldThrowConstraintViolationWhenPayloadIsNull() {
-        EhrResponseEvent event = EhrResponseEventBuilder
+        EhrResponsesEvent event = EhrResponsesEventBuilder
                 .withDefaultEventValues()
                 .payload(null)
                 .build();
 
-        Set<ConstraintViolation<EhrResponseEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<EhrResponsesEvent>> violations = validator.validate(event);
 
         assertEquals(1, violations.size());
 
-        ConstraintViolation<EhrResponseEvent> violation = violations.iterator().next();
+        ConstraintViolation<EhrResponsesEvent> violation = violations.iterator().next();
         assertEquals("must not be null", violation.getMessage());
         assertEquals("payload", violation.getPropertyPath().toString());
     }
@@ -48,21 +48,21 @@ class EhrResponseEventTest {
 
     @Test
     void shouldThrowConstraintViolationWhenRegistrationIsNull() {
-        EhrResponsePayload payload = EhrResponseEventBuilder
-                .withDefaultEhrResponsePayload()
+        EhrResponsesPayload payload = EhrResponsesEventBuilder
+                .withDefaultEhrResponsesPayload()
                 .registration(null)
                 .build();
 
-        EhrResponseEvent event = EhrResponseEventBuilder
+        EhrResponsesEvent event = EhrResponsesEventBuilder
                 .withDefaultEventValues()
                 .payload(payload)
                 .build();
 
-        Set<ConstraintViolation<EhrResponseEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<EhrResponsesEvent>> violations = validator.validate(event);
 
         assertEquals(1, violations.size());
 
-        ConstraintViolation<EhrResponseEvent> violation = violations.iterator().next();
+        ConstraintViolation<EhrResponsesEvent> violation = violations.iterator().next();
         assertEquals("must not be null", violation.getMessage());
         assertEquals("payload.registration", violation.getPropertyPath().toString());
     }
@@ -74,68 +74,68 @@ class EhrResponseEventTest {
                 .requestingPracticeOdsCode(null)
                 .build();
 
-        EhrResponsePayload payload = EhrResponseEventBuilder
-                .withDefaultEhrResponsePayload()
+        EhrResponsesPayload payload = EhrResponsesEventBuilder
+                .withDefaultEhrResponsesPayload()
                 .registration(registrationPayload)
                 .build();
 
-        EhrResponseEvent event = EhrResponseEventBuilder
+        EhrResponsesEvent event = EhrResponsesEventBuilder
                 .withDefaultEventValues()
                 .payload(payload)
                 .build();
 
-        Set<ConstraintViolation<EhrResponseEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<EhrResponsesEvent>> violations = validator.validate(event);
 
         assertEquals(1, violations.size());
 
-        ConstraintViolation<EhrResponseEvent> violation = violations.iterator().next();
+        ConstraintViolation<EhrResponsesEvent> violation = violations.iterator().next();
         assertEquals("must not be empty", violation.getMessage());
         assertEquals("payload.registration.requestingPracticeOdsCode", violation.getPropertyPath().toString());
     }
 
     @Test
     void shouldThrowConstraintViolationWhenEhrResponseEhrDetailsInPayloadIsNull() {
-        EhrResponsePayload payload = EhrResponseEventBuilder
-                .withDefaultEhrResponsePayload()
+        EhrResponsesPayload payload = EhrResponsesEventBuilder
+                .withDefaultEhrResponsesPayload()
                 .ehr(null)
                 .build();
 
-        EhrResponseEvent event = EhrResponseEventBuilder
+        EhrResponsesEvent event = EhrResponsesEventBuilder
                 .withDefaultEventValues()
                 .payload(payload)
                 .build();
 
-        Set<ConstraintViolation<EhrResponseEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<EhrResponsesEvent>> violations = validator.validate(event);
 
         assertEquals(1, violations.size());
 
-        ConstraintViolation<EhrResponseEvent> violation = violations.iterator().next();
+        ConstraintViolation<EhrResponsesEvent> violation = violations.iterator().next();
         assertEquals("must not be null", violation.getMessage());
         assertEquals("payload.ehr", violation.getPropertyPath().toString());
     }
 
     @Test
     void shouldThrowConstraintViolationWhenEhrResponseEhrDetailsFieldsAreInvalid() {
-        EhrResponseEhrDetails ehrPayload = EhrResponseEhrDetailsBuilder
+        EhrResponsesEhrDetails ehrPayload = EhrResponsesEhrDetailsBuilder
                 .withDefaultValues()
                 .ehrTotalSizeBytes(null)
                 .build();
 
-        EhrResponsePayload payload = EhrResponseEventBuilder
-                .withDefaultEhrResponsePayload()
+        EhrResponsesPayload payload = EhrResponsesEventBuilder
+                .withDefaultEhrResponsesPayload()
                 .ehr(ehrPayload)
                 .build();
 
-        EhrResponseEvent event = EhrResponseEventBuilder
+        EhrResponsesEvent event = EhrResponsesEventBuilder
                 .withDefaultEventValues()
                 .payload(payload)
                 .build();
 
-        Set<ConstraintViolation<EhrResponseEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<EhrResponsesEvent>> violations = validator.validate(event);
 
         assertEquals(1, violations.size());
 
-        ConstraintViolation<EhrResponseEvent> violation = violations.iterator().next();
+        ConstraintViolation<EhrResponsesEvent> violation = violations.iterator().next();
         assertEquals("must not be null", violation.getMessage());
         assertEquals("payload.ehr.ehrTotalSizeBytes", violation.getPropertyPath().toString());
     }
@@ -143,17 +143,17 @@ class EhrResponseEventTest {
     @Test
     void shouldAllowAnEmptyListOfUnsupportedDataItems() {
         List<UnsupportedDataItem> emptyList = List.of();
-        EhrResponsePayload payload = EhrResponseEventBuilder
-                .withDefaultEhrResponsePayload()
+        EhrResponsesPayload payload = EhrResponsesEventBuilder
+                .withDefaultEhrResponsesPayload()
                 .unsupportedDataItem(emptyList)
                 .build();
 
-        EhrResponseEvent event = EhrResponseEventBuilder
+        EhrResponsesEvent event = EhrResponsesEventBuilder
                 .withDefaultEventValues()
                 .payload(payload)
                 .build();
 
-        Set<ConstraintViolation<EhrResponseEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<EhrResponsesEvent>> violations = validator.validate(event);
 
         assertEquals(0, violations.size());
     }
@@ -166,21 +166,21 @@ class EhrResponseEventTest {
                 .reason("reason for being unsupported / why is it unsupported in gp2gp / what would have to change in gp2gp to express this")
                 .build();
 
-        EhrResponsePayload payload = EhrResponseEventBuilder
-                .withDefaultEhrResponsePayload()
+        EhrResponsesPayload payload = EhrResponsesEventBuilder
+                .withDefaultEhrResponsesPayload()
                 .unsupportedDataItem(List.of(unsupportedDataItem))
                 .build();
 
-        EhrResponseEvent event = EhrResponseEventBuilder
+        EhrResponsesEvent event = EhrResponsesEventBuilder
                 .withDefaultEventValues()
                 .payload(payload)
                 .build();
 
-        Set<ConstraintViolation<EhrResponseEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<EhrResponsesEvent>> violations = validator.validate(event);
 
         assertEquals(1, violations.size());
 
-        ConstraintViolation<EhrResponseEvent> violation = violations.iterator().next();
+        ConstraintViolation<EhrResponsesEvent> violation = violations.iterator().next();
         assertEquals("must not be empty", violation.getMessage());
         assertEquals("payload.unsupportedDataItem[0].uniqueIdentifier", violation.getPropertyPath().toString());
     }

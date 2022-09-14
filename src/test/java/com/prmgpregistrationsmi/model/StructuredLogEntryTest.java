@@ -1,6 +1,6 @@
 package com.prmgpregistrationsmi.model;
 
-import com.prmgpregistrationsmi.model.Event.stage.EhrResponse.EhrResponseEhrDetails;
+import com.prmgpregistrationsmi.model.Event.stage.EhrResponses.EhrResponsesEhrDetails;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.core.impl.Log4jLogEvent;
 import org.apache.logging.log4j.message.ObjectMessage;
@@ -39,7 +39,7 @@ class StructuredLogEntryTest {
 
     @Test
     void shouldCreateStructuredLogEntryFromALogEventWithObject() {
-        EhrResponseEhrDetails testEvent = EhrResponseEhrDetails
+        EhrResponsesEhrDetails testEvent = EhrResponsesEhrDetails
                 .builder()
                 .ehrStructuredSizeBytes(1L)
                 .build();
