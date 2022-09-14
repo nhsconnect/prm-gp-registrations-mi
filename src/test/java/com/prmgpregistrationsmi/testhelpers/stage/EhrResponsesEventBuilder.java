@@ -1,13 +1,9 @@
 package com.prmgpregistrationsmi.testhelpers.stage;
 
-import com.prmgpregistrationsmi.model.Event.EventPayload.UnsupportedDataItem;
 import com.prmgpregistrationsmi.model.Event.stage.EhrResponses.EhrResponsesEvent;
 import com.prmgpregistrationsmi.model.Event.stage.EhrResponses.EhrResponsesPayload;
 import com.prmgpregistrationsmi.testhelpers.DefaultEventValues;
 import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
-import com.prmgpregistrationsmi.testhelpers.UnsupportedDataItemBuilder;
-
-import java.util.List;
 
 public class EhrResponsesEventBuilder {
     public static EhrResponsesEvent.EhrResponsesEventBuilder<?, ?> withDefaultEventValues() {
@@ -22,11 +18,8 @@ public class EhrResponsesEventBuilder {
 
 
     public static EhrResponsesPayload.EhrResponsesPayloadBuilder withDefaultEhrResponsesPayload() {
-        UnsupportedDataItem unsupportedDataItem = UnsupportedDataItemBuilder.withDefaultValues().build();
-
         return EhrResponsesPayload.builder()
                 .registration(RegistrationBuilder.withDefaultRegistration().build())
-                .ehr(EhrResponsesEhrDetailsBuilder.withDefaultValues().build())
-                .unsupportedDataItem(List.of(unsupportedDataItem));
+                .ehr(EhrResponsesEhrDetailsBuilder.withDefaultValues().build());
     }
 }
