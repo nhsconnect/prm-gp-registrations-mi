@@ -2,6 +2,7 @@ package com.prmgpregistrationsmi.model.Event.EventPayload;
 
 import com.prmgpregistrationsmi.testhelpers.PlaceholderBuilder;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -14,6 +15,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class PlaceholderTest {
     private final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+
+    @ParameterizedTest
+    @EnumSource(GeneratedBy.class)
+    void shouldOnlyAllowValidGeneratedByTypes(GeneratedBy generatedBy) {
+        Placeholder placeholder = PlaceholderBuilder.withDefaultValues()
+                .generatedBy(generatedBy)
+                .build();
+
+        Set<ConstraintViolation<Placeholder>> violations = validator.validate(placeholder);
+
+        assertEquals(0, violations.size());
+    }
 
     @ParameterizedTest
     @NullAndEmptySource

@@ -3,6 +3,7 @@ package com.prmgpregistrationsmi.model.Event.EventPayload;
 import com.prmgpregistrationsmi.testhelpers.AttachmentBuilder;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 
 import javax.validation.ConstraintViolation;
@@ -61,9 +62,20 @@ class AttachmentTest {
         assertEquals("sizeBytes", violation.getPropertyPath().toString());
     }
 
+    @Test
+    void shouldThrowConstaintViliolationWhenClinicalTypeIsNull() {
+        Attachment attachment = AttachmentBuilder.withDefaultAudioFile()
+                .clinicalType(null)
+                .build();
+
+        Set<ConstraintViolation<Attachment>> violations = validator.validate(attachment);
+
+        assertEquals(1, violations.size());
+    }
+
     @ParameterizedTest
-    @NullAndEmptySource
-    void shouldAllowClinicalTypeToBeNullOrEmpty(String clinicalType) {
+    @EnumSource(ClinicianType.class)
+    void shouldOnlyAllowValidClinicalTypes(ClinicianType clinicalType) {
         Attachment attachment = AttachmentBuilder.withDefaultAudioFile()
                 .clinicalType(clinicalType)
                 .build();

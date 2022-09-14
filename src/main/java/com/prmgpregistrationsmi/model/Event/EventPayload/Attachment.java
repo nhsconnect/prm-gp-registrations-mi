@@ -16,7 +16,17 @@ import javax.validation.constraints.PositiveOrZero;
 @Builder
 @EqualsAndHashCode
 public class Attachment {
-    private String clinicalType;
+    @NotNull(message = "Must be one of the following: SCANNED_DOCUMENT, " +
+            "ORIGINAL_TEXT_DOCUMENT," +
+            "OCR_TEXT_DOCUMENT," +
+            "IMAGE," +
+            "AUDIO_DICTATION," +
+            "OTHER_AUDIO," +
+            "OTHER_DIGITAL_SIGNAL," +
+            "EDI_MESSAGE," +
+            "NOT_AVAILABLE," +
+            "OTHER")
+    private ClinicianType clinicalType;
     @NotEmpty
     private String mimeType;
     @NotNull

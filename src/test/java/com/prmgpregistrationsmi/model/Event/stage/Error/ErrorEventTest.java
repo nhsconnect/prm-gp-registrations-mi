@@ -1,10 +1,13 @@
 package com.prmgpregistrationsmi.model.Event.stage.Error;
 
 import com.prmgpregistrationsmi.model.Event.EventPayload.ErrorDetails;
+import com.prmgpregistrationsmi.model.Event.EventPayload.FailurePoint;
 import com.prmgpregistrationsmi.testhelpers.ErrorDetailsBuilder;
 import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
 import com.prmgpregistrationsmi.testhelpers.stage.ErrorEventBuilder;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -187,5 +190,28 @@ public class ErrorEventTest {
         assertEquals("Must be one of the following: PATIENT_TRACE, ENDPOINT_LOOKUP, PATIENT_GENERAL_UPDATE, " +
                 "EHR_REQUESTED, EHR_RESPONSE, EHR_READY_TO_INTEGRATE, EHR_INTEGRATION, OTHER", violation.getMessage());
         assertEquals("payload.error.failurePoint", violation.getPropertyPath().toString());
+    }
+
+    @ParameterizedTest
+    @EnumSource(FailurePoint.class)
+    void shouldOnlyAllowValidFailurePoints(FailurePoint failurePoint) {
+        ErrorDetails errorDetails = ErrorDetailsBuilder
+                .withDefaultValues()
+                .failurePoint(failurePoint)
+                .build();
+
+        ErrorPayload payload = ErrorEventBuilder
+                .withDefaultErrorPayload()
+                .error(errorDetails)
+                .build();
+
+        ErrorEvent event = ErrorEventBuilder
+                .withDefaultEventValues()
+                .payload(payload)
+                .build();
+
+        Set<ConstraintViolation<ErrorEvent>> violations = validator.validate(event);
+
+        assertEquals(0, violations.size());
     }
 }
