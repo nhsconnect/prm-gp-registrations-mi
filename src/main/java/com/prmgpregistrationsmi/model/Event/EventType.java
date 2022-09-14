@@ -3,7 +3,7 @@ package com.prmgpregistrationsmi.model.Event;
 public enum EventType {
     REGISTRATIONS,
     TRANSFER_COMPATIBILITY_STATUSES,
-    EHR_REQUEST,
+    EHR_REQUESTS,
     EHR_RESPONSE,
     DOCUMENT_RESPONSE,
     EHR_TRANSFER_COMPLETE,

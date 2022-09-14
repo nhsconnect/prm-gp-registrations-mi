@@ -1,7 +1,7 @@
 package com.prmgpregistrationsmi.logging;
 
-import com.prmgpregistrationsmi.model.Event.stage.EhrRequest.EhrRequestEvent;
-import com.prmgpregistrationsmi.testhelpers.stage.EhrRequestEventBuilder;
+import com.prmgpregistrationsmi.model.Event.stage.EhrRequests.EhrRequestsEvent;
+import com.prmgpregistrationsmi.testhelpers.stage.EhrRequestsEventBuilder;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.core.MethodParameter;
@@ -29,7 +29,7 @@ class CustomRequestBodyAdviceAdapterTest {
                 new CustomRequestBodyAdviceAdapter(httpServletRequest);
 
 
-        EhrRequestEvent testEvent = EhrRequestEventBuilder
+        EhrRequestsEvent testEvent = EhrRequestsEventBuilder
                 .withDefaultEventValues()
                 .build();
 

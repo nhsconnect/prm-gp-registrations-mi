@@ -1,8 +1,8 @@
-package com.prmgpregistrationsmi.model.Event.stage.EhrRequest;
+package com.prmgpregistrationsmi.model.Event.stage.EhrRequests;
 
 import com.prmgpregistrationsmi.model.Event.EventPayload.Registration;
 import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
-import com.prmgpregistrationsmi.testhelpers.stage.EhrRequestEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.stage.EhrRequestsEventBuilder;
 import org.junit.jupiter.api.Test;
 
 import javax.validation.ConstraintViolation;
@@ -12,51 +12,51 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class EhrRequestEventTest {
+class EhrRequestsEventTest {
     private final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
     @Test
     void shouldNotThrowConstraintViolationWhenEventFieldsAreValid() {
-        EhrRequestEvent event = EhrRequestEventBuilder
+        EhrRequestsEvent event = EhrRequestsEventBuilder
                 .withDefaultEventValues()
                 .build();
 
-        Set<ConstraintViolation<EhrRequestEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<EhrRequestsEvent>> violations = validator.validate(event);
 
         assertEquals(0, violations.size());
     }
 
     @Test
     void shouldThrowConstraintViolationWhenPayloadIsNull() {
-        EhrRequestEvent event = EhrRequestEventBuilder
+        EhrRequestsEvent event = EhrRequestsEventBuilder
                 .withDefaultEventValues().payload(null).build();
 
-        Set<ConstraintViolation<EhrRequestEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<EhrRequestsEvent>> violations = validator.validate(event);
 
         assertEquals(1, violations.size());
 
-        ConstraintViolation<EhrRequestEvent> violation = violations.iterator().next();
+        ConstraintViolation<EhrRequestsEvent> violation = violations.iterator().next();
         assertEquals("must not be null", violation.getMessage());
         assertEquals("payload", violation.getPropertyPath().toString());
     }
 
     @Test
     void shouldThrowConstraintViolationWhenRegistrationIsNull() {
-        EhrRequestPayload payload = EhrRequestEventBuilder
+        EhrRequestsPayload payload = EhrRequestsEventBuilder
                 .withDefaultEhrRequestPayload()
                 .registration(null)
                 .build();
 
-        EhrRequestEvent event = EhrRequestEventBuilder
+        EhrRequestsEvent event = EhrRequestsEventBuilder
                 .withDefaultEventValues()
                 .payload(payload)
                 .build();
 
-        Set<ConstraintViolation<EhrRequestEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<EhrRequestsEvent>> violations = validator.validate(event);
 
         assertEquals(1, violations.size());
 
-        ConstraintViolation<EhrRequestEvent> violation = violations.iterator().next();
+        ConstraintViolation<EhrRequestsEvent> violation = violations.iterator().next();
         assertEquals("must not be null", violation.getMessage());
         assertEquals("payload.registration", violation.getPropertyPath().toString());
     }
@@ -68,21 +68,21 @@ class EhrRequestEventTest {
                 .requestingPracticeOdsCode(null)
                 .build();
 
-        EhrRequestPayload payload = EhrRequestEventBuilder
+        EhrRequestsPayload payload = EhrRequestsEventBuilder
                 .withDefaultEhrRequestPayload()
                 .registration(registrationPayload)
                 .build();
 
-        EhrRequestEvent event = EhrRequestEventBuilder
+        EhrRequestsEvent event = EhrRequestsEventBuilder
                 .withDefaultEventValues()
                 .payload(payload)
                 .build();
 
-        Set<ConstraintViolation<EhrRequestEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<EhrRequestsEvent>> violations = validator.validate(event);
 
         assertEquals(1, violations.size());
 
-        ConstraintViolation<EhrRequestEvent> violation = violations.iterator().next();
+        ConstraintViolation<EhrRequestsEvent> violation = violations.iterator().next();
         assertEquals("must not be empty", violation.getMessage());
         assertEquals("payload.registration.requestingPracticeOdsCode", violation.getPropertyPath().toString());
     }

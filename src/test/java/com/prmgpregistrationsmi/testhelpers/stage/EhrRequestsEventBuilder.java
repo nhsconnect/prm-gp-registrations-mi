@@ -1,13 +1,13 @@
 package com.prmgpregistrationsmi.testhelpers.stage;
 
-import com.prmgpregistrationsmi.model.Event.stage.EhrRequest.EhrRequestEvent;
-import com.prmgpregistrationsmi.model.Event.stage.EhrRequest.EhrRequestPayload;
+import com.prmgpregistrationsmi.model.Event.stage.EhrRequests.EhrRequestsEvent;
+import com.prmgpregistrationsmi.model.Event.stage.EhrRequests.EhrRequestsPayload;
 import com.prmgpregistrationsmi.testhelpers.DefaultEventValues;
 import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
 
-public class EhrRequestEventBuilder {
-    public static EhrRequestEvent.EhrRequestEventBuilder<?, ?> withDefaultEventValues() {
-        return EhrRequestEvent.builder()
+public class EhrRequestsEventBuilder {
+    public static EhrRequestsEvent.EhrRequestsEventBuilder<?, ?> withDefaultEventValues() {
+        return EhrRequestsEvent.builder()
                 .reportingSystemSupplier(DefaultEventValues.REPORTING_SYSTEM_SUPPLIER)
                 .reportingPracticeOdsCode(DefaultEventValues.REPORTING_PRACTICE_ODS_CODE)
                 .conversationId(DefaultEventValues.CONVERSATION_ID)
@@ -15,8 +15,8 @@ public class EhrRequestEventBuilder {
                 .payload(withDefaultEhrRequestPayload().build());
     }
 
-    public static EhrRequestPayload.EhrRequestPayloadBuilder withDefaultEhrRequestPayload() {
-        return EhrRequestPayload.builder()
+    public static EhrRequestsPayload.EhrRequestsPayloadBuilder withDefaultEhrRequestPayload() {
+        return EhrRequestsPayload.builder()
                 .registration(RegistrationBuilder.withDefaultRegistration().build());
     }
 }

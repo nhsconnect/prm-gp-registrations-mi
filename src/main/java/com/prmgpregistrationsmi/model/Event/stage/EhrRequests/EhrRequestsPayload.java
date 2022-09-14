@@ -1,4 +1,4 @@
-package com.prmgpregistrationsmi.model.Event.stage.EhrRequest;
+package com.prmgpregistrationsmi.model.Event.stage.EhrRequests;
 
 import com.prmgpregistrationsmi.model.Event.Payload;
 import com.prmgpregistrationsmi.model.Event.EventPayload.Registration;
@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @Builder
 @EqualsAndHashCode
-public class EhrRequestPayload implements Payload {
+public class EhrRequestsPayload implements Payload {
     @Valid
     @NotNull
     private Registration registration;
