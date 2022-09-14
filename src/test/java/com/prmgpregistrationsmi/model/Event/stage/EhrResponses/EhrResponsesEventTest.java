@@ -116,7 +116,7 @@ class EhrResponsesEventTest {
     void shouldThrowConstraintViolationWhenEhrResponseEhrDetailsFieldsAreInvalid() {
         EhrResponsesEhrDetails ehrPayload = EhrResponsesEhrDetailsBuilder
                 .withDefaultValues()
-                .ehrTotalSizeBytes(null)
+                .ehrStructuredSizeBytes(null)
                 .build();
 
         EhrResponsesPayload payload = EhrResponsesEventBuilder
@@ -135,6 +135,6 @@ class EhrResponsesEventTest {
 
         ConstraintViolation<EhrResponsesEvent> violation = violations.iterator().next();
         assertEquals("must not be null", violation.getMessage());
-        assertEquals("payload.ehr.ehrTotalSizeBytes", violation.getPropertyPath().toString());
+        assertEquals("payload.ehr.ehrStructuredSizeBytes", violation.getPropertyPath().toString());
     }
 }

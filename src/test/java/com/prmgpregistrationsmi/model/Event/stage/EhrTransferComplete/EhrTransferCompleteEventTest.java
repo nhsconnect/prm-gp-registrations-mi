@@ -113,7 +113,7 @@ public class EhrTransferCompleteEventTest {
     void shouldThrowConstraintViolationWhenEhrDetailsFieldsAreInvalid() {
         EhrTransferCompleteEhrDetails ehrDetails = EhrTransferCompleteEhrDetailsBuilder
                 .withDefaultValues()
-                .ehrTotalSizeBytes(null)
+                .ehrStructuredSizeBytes(null)
                 .build();
 
         EhrTransferCompletePayload payload = EhrTransferCompleteEventBuilder
@@ -132,6 +132,6 @@ public class EhrTransferCompleteEventTest {
 
         ConstraintViolation<EhrTransferCompleteEvent> violation = violations.iterator().next();
         assertEquals("must not be null", violation.getMessage());
-        assertEquals("payload.ehr.ehrTotalSizeBytes", violation.getPropertyPath().toString());
+        assertEquals("payload.ehr.ehrStructuredSizeBytes", violation.getPropertyPath().toString());
     }
 }

@@ -19,9 +19,6 @@ import java.util.List;
 public class EhrTransferCompleteEhrDetails {
     @NotNull
     @PositiveOrZero
-    private Long ehrTotalSizeBytes;
-    @NotNull
-    @PositiveOrZero
     private Long ehrStructuredSizeBytes;
     private List<@Valid Degrade> degrade;
     private List<@Valid Placeholder> placeholder;

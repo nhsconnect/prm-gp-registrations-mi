@@ -19,38 +19,6 @@ class EhrTransferCompleteEhrDetailsTest {
     private final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
     @Test
-    void shouldThrowConstraintViolationWhenEhrTotalSizeBytesIsNull() {
-        EhrTransferCompleteEhrDetails ehrPayload = EhrTransferCompleteEhrDetailsBuilder
-                .withDefaultValues()
-                .ehrTotalSizeBytes(null)
-                .build();
-
-        Set<ConstraintViolation<EhrTransferCompleteEhrDetails>> violations = validator.validate(ehrPayload);
-
-        assertEquals(1, violations.size());
-
-        ConstraintViolation<EhrTransferCompleteEhrDetails> violation = violations.iterator().next();
-        assertEquals("must not be null", violation.getMessage());
-        assertEquals("ehrTotalSizeBytes", violation.getPropertyPath().toString());
-    }
-
-    @Test
-    void shouldThrowConstraintViolationWhenEhrTotalSizeBytesIsNegative() {
-        EhrTransferCompleteEhrDetails ehrPayload = EhrTransferCompleteEhrDetailsBuilder
-                .withDefaultValues()
-                .ehrTotalSizeBytes(-1L)
-                .build();
-
-        Set<ConstraintViolation<EhrTransferCompleteEhrDetails>> violations = validator.validate(ehrPayload);
-
-        assertEquals(1, violations.size());
-
-        ConstraintViolation<EhrTransferCompleteEhrDetails> violation = violations.iterator().next();
-        assertEquals("must be greater than or equal to 0", violation.getMessage());
-        assertEquals("ehrTotalSizeBytes", violation.getPropertyPath().toString());
-    }
-
-    @Test
     void shouldThrowConstraintViolationWhenEhrStructuredSizeBytesIsNull() {
         EhrTransferCompleteEhrDetails ehrPayload = EhrTransferCompleteEhrDetailsBuilder
                 .withDefaultValues()

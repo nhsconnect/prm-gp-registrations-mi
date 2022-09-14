@@ -15,7 +15,6 @@ public class EhrTransferCompleteEhrDetailsBuilder {
         Placeholder placeholderDetails = PlaceholderBuilder.withDefaultValues().build();
 
         return EhrTransferCompleteEhrDetails.builder()
-                .ehrTotalSizeBytes(5699433L)
                 .ehrStructuredSizeBytes(4096L)
                 .degrade(List.of(degrade))
                 .placeholder(List.of(placeholderDetails));

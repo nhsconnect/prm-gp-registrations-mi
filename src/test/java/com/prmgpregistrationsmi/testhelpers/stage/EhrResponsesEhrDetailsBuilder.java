@@ -11,7 +11,6 @@ public class EhrResponsesEhrDetailsBuilder {
         Placeholder placeholderDetails = PlaceholderBuilder.withDefaultValues().build();
 
         return EhrResponsesEhrDetails.builder()
-                .ehrTotalSizeBytes(5699433L)
                 .ehrStructuredSizeBytes(4096L)
                 .placeholder(List.of(placeholderDetails));
     }
