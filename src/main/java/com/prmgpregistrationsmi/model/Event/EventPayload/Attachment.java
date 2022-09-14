@@ -26,7 +26,7 @@ public class Attachment {
             "EDI_MESSAGE," +
             "NOT_AVAILABLE," +
             "OTHER")
-    private ClinicianType clinicalType;
+    private ClinicalType clinicalType;
     @NotEmpty
     private String mimeType;
     @NotNull

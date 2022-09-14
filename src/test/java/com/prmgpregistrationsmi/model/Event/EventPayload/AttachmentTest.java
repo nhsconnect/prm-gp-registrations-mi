@@ -63,7 +63,7 @@ class AttachmentTest {
     }
 
     @Test
-    void shouldThrowConstaintViliolationWhenClinicalTypeIsNull() {
+    void shouldThrowConstraintViolationWhenClinicalTypeIsNull() {
         Attachment attachment = AttachmentBuilder.withDefaultAudioFile()
                 .clinicalType(null)
                 .build();
@@ -74,8 +74,8 @@ class AttachmentTest {
     }
 
     @ParameterizedTest
-    @EnumSource(ClinicianType.class)
-    void shouldOnlyAllowValidClinicalTypes(ClinicianType clinicalType) {
+    @EnumSource(ClinicalType.class)
+    void shouldOnlyAllowValidClinicalTypes(ClinicalType clinicalType) {
         Attachment attachment = AttachmentBuilder.withDefaultAudioFile()
                 .clinicalType(clinicalType)
                 .build();

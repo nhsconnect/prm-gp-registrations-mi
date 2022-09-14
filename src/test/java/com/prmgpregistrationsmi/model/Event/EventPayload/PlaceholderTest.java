@@ -1,6 +1,7 @@
 package com.prmgpregistrationsmi.model.Event.EventPayload;
 
 import com.prmgpregistrationsmi.testhelpers.PlaceholderBuilder;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
@@ -28,9 +29,8 @@ class PlaceholderTest {
         assertEquals(0, violations.size());
     }
 
-    @ParameterizedTest
-    @NullAndEmptySource
-    void shouldThrowConstraintViolationWhenGeneratedByIsNullOrEmpty(String generatedBy) {
+    @Test
+    void shouldThrowConstraintViolationWhenGeneratedByIsNull() {
         Placeholder placeholder = PlaceholderBuilder.withDefaultValues()
                 .generatedBy(null)
                 .build();
@@ -74,5 +74,32 @@ class PlaceholderTest {
         ConstraintViolation<Placeholder> violation = violations.iterator().next();
         assertEquals("must not be empty", violation.getMessage());
         assertEquals("originalMimeType", violation.getPropertyPath().toString());
+    }
+
+    @ParameterizedTest
+    @EnumSource(ClinicalType.class)
+    void shouldOnlyAllowValidClinicianTypeTypes(ClinicalType clinicalType) {
+        Placeholder placeholder = PlaceholderBuilder.withDefaultValues()
+                .clinicalType(clinicalType)
+                .build();
+
+        Set<ConstraintViolation<Placeholder>> violations = validator.validate(placeholder);
+
+        assertEquals(0, violations.size());
+    }
+
+    @Test
+    void shouldThrowConstraintViolationWhenClinicalTypeIsNull() {
+        Placeholder placeholder = PlaceholderBuilder.withDefaultValues()
+                .clinicalType(null)
+                .build();
+
+        Set<ConstraintViolation<Placeholder>> violations = validator.validate(placeholder);
+
+        assertEquals(1, violations.size());
+
+        ConstraintViolation<Placeholder> violation = violations.iterator().next();
+        assertEquals("Must be one of the following: SCANNED_DOCUMENT, ORIGINAL_TEXT_DOCUMENT,OCR_TEXT_DOCUMENT,IMAGE,AUDIO_DICTATION,OTHER_AUDIO,OTHER_DIGITAL_SIGNAL,EDI_MESSAGE,OTHER,NOT_AVAILABLE", violation.getMessage());
+        assertEquals("clinicalType", violation.getPropertyPath().toString());
     }
 }
