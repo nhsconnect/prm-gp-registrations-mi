@@ -4,7 +4,7 @@ import com.prmgpregistrationsmi.exception.UnableToUploadToS3Exception;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
-import com.prmgpregistrationsmi.model.Event.stage.DocumentResponse.DocumentResponseEvent;
+import com.prmgpregistrationsmi.model.Event.stage.DocumentResponses.DocumentResponsesEvent;
 import com.prmgpregistrationsmi.model.Event.stage.EhrIntegrated.EhrIntegratedEvent;
 import com.prmgpregistrationsmi.model.Event.stage.EhrRequests.EhrRequestsEvent;
 import com.prmgpregistrationsmi.model.Event.stage.EhrResponses.EhrResponsesEvent;
@@ -17,7 +17,7 @@ import com.prmgpregistrationsmi.testhelpers.stage.EhrIntegratedEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.stage.EhrRequestsEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.stage.EhrResponsesEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.stage.EhrTransferCompleteEventBuilder;
-import com.prmgpregistrationsmi.testhelpers.stage.DocumentResponseEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.stage.DocumentResponsesEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.stage.RegistrationsEventBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -126,8 +126,8 @@ class RegistrationControllerTest {
     }
 
     @Test
-    void shouldReturnEventIdWhenReceivingDocumentResponseEvent() throws UnableToUploadToS3Exception {
-        DocumentResponseEvent testEvent = DocumentResponseEventBuilder
+    void shouldReturnEventIdWhenReceivingDocumentResponsesEvent() throws UnableToUploadToS3Exception {
+        DocumentResponsesEvent testEvent = DocumentResponsesEventBuilder
                 .withDefaultEventValues()
                 .build();
 
@@ -135,7 +135,7 @@ class RegistrationControllerTest {
 
         when(registrationService.saveEvent(testEvent, EventType.DOCUMENT_RESPONSE)).thenReturn(eventDAO);
 
-        EventResponse actualResponse = registrationController.documentResponseEvent(testEvent);
+        EventResponse actualResponse = registrationController.documentResponsesEvent(testEvent);
 
         verify(registrationService).saveEvent(testEvent, EventType.DOCUMENT_RESPONSE);
 

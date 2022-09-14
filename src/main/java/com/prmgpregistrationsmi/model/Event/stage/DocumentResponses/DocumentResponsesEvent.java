@@ -1,4 +1,4 @@
-package com.prmgpregistrationsmi.model.Event.stage.DocumentResponse;
+package com.prmgpregistrationsmi.model.Event.stage.DocumentResponses;
 
 import com.prmgpregistrationsmi.model.Event.Event;
 import com.prmgpregistrationsmi.model.Event.Payload;
@@ -12,10 +12,10 @@ import javax.validation.constraints.NotNull;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class DocumentResponseEvent extends Event {
+public class DocumentResponsesEvent extends Event {
     @NotNull
     @Valid
-    private DocumentResponsePayload payload;
+    private DocumentResponsesPayload payload;
 
     @Override
     public Payload getPayload() {

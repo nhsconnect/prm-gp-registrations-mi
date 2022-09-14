@@ -4,7 +4,7 @@ import com.prmgpregistrationsmi.exception.UnableToUploadToS3Exception;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
-import com.prmgpregistrationsmi.model.Event.stage.DocumentResponse.DocumentResponseEvent;
+import com.prmgpregistrationsmi.model.Event.stage.DocumentResponses.DocumentResponsesEvent;
 import com.prmgpregistrationsmi.model.Event.stage.EhrIntegrated.EhrIntegratedEvent;
 import com.prmgpregistrationsmi.model.Event.stage.EhrRequests.EhrRequestsEvent;
 import com.prmgpregistrationsmi.model.Event.stage.EhrResponses.EhrResponsesEvent;
@@ -75,12 +75,12 @@ public class RegistrationController {
     }
 
     @PostMapping(
-            value = "/document-response",
+            value = "/document-responses",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public EventResponse documentResponseEvent(
-            @Valid @RequestBody DocumentResponseEvent event) throws UnableToUploadToS3Exception {
+    public EventResponse documentResponsesEvent(
+            @Valid @RequestBody DocumentResponsesEvent event) throws UnableToUploadToS3Exception {
         EventDAO eventDAO = registrationService.saveEvent(event, EventType.DOCUMENT_RESPONSE);
         return new EventResponse(eventDAO.getEventId());
     }

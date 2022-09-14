@@ -1,4 +1,4 @@
-package com.prmgpregistrationsmi.model.Event.stage.DocumentResponse;
+package com.prmgpregistrationsmi.model.Event.stage.DocumentResponses;
 
 import com.prmgpregistrationsmi.model.Event.EventPayload.StatusDetails;
 import com.prmgpregistrationsmi.model.Event.Payload;
@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 
 @Getter
 @Builder
-public class DocumentResponsePayload implements Payload {
+public class DocumentResponsesPayload implements Payload {
     @Valid
     @NotNull
     private Registration registration;

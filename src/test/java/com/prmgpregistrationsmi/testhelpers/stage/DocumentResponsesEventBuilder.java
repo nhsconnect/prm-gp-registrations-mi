@@ -1,15 +1,15 @@
 package com.prmgpregistrationsmi.testhelpers.stage;
 
-import com.prmgpregistrationsmi.model.Event.stage.DocumentResponse.DocumentResponseEvent;
-import com.prmgpregistrationsmi.model.Event.stage.DocumentResponse.DocumentResponsePayload;
+import com.prmgpregistrationsmi.model.Event.stage.DocumentResponses.DocumentResponsesEvent;
+import com.prmgpregistrationsmi.model.Event.stage.DocumentResponses.DocumentResponsesPayload;
 import com.prmgpregistrationsmi.testhelpers.AttachmentBuilder;
 import com.prmgpregistrationsmi.testhelpers.DefaultEventValues;
 import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
 import com.prmgpregistrationsmi.testhelpers.StatusDetailsBuilder;
 
-public class DocumentResponseEventBuilder {
-    public static DocumentResponseEvent.DocumentResponseEventBuilder<?, ?> withDefaultEventValues() {
-        return DocumentResponseEvent.builder()
+public class DocumentResponsesEventBuilder {
+    public static DocumentResponsesEvent.DocumentResponsesEventBuilder<?, ?> withDefaultEventValues() {
+        return DocumentResponsesEvent.builder()
                 .reportingSystemSupplier(DefaultEventValues.REPORTING_SYSTEM_SUPPLIER)
                 .reportingPracticeOdsCode(DefaultEventValues.REPORTING_PRACTICE_ODS_CODE)
                 .conversationId(DefaultEventValues.CONVERSATION_ID)
@@ -17,8 +17,8 @@ public class DocumentResponseEventBuilder {
                 .payload(withDefaultDocumentResponsePayload().build());
     }
 
-    public static DocumentResponsePayload.DocumentResponsePayloadBuilder withDefaultDocumentResponsePayload() {
-        return DocumentResponsePayload.builder()
+    public static DocumentResponsesPayload.DocumentResponsesPayloadBuilder withDefaultDocumentResponsePayload() {
+        return DocumentResponsesPayload.builder()
                 .registration(RegistrationBuilder.withDefaultRegistration().build())
                 .attachment(AttachmentBuilder.withDefaultPDFFile().build())
                 .documentMigration(StatusDetailsBuilder.withSuccessfulStatus().build());
