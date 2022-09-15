@@ -10,8 +10,8 @@ import javax.validation.constraints.NotNull;
 @Builder
 @EqualsAndHashCode
 public class DemographicTraceStatus {
-    @NotNull(message = "must be either SUCCESS or FAILURE")
-    private Status status;
+    @NotNull
+    private Boolean matched;
     private String reason;
     @NotNull
     private Boolean multifactorAuthenticationPresent;
