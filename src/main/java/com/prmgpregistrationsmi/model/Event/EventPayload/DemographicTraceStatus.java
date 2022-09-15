@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 @Builder
 @EqualsAndHashCode
 public class DemographicTraceStatus {
-    @NotNull(message="must be either SUCCESS or FAILURE")
+    @NotNull(message = "must be either SUCCESS or FAILURE")
     private Status status;
     private String reason;
     @NotNull

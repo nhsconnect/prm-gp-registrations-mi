@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @Builder
 @EqualsAndHashCode
 public class Placeholder {
-    @NotNull(message="must be either SENDER or PRE_EXISTING")
+    @NotNull(message = "must be either SENDER or PRE_EXISTING")
     private GeneratedBy generatedBy;
     @NotNull(message = "Must be one of the following: SCANNED_DOCUMENT, " +
             "ORIGINAL_TEXT_DOCUMENT, " +

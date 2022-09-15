@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Builder
 public class IntegrationOutcome {
-    @NotNull(message="must be either SUCCESS or FAILURE")
+    @NotNull(message = "must be either SUCCESS or FAILURE")
     private Status status;
     private IntegrationType integrationType;
 }

@@ -10,9 +10,9 @@ import javax.validation.constraints.NotNull;
 @Builder
 @EqualsAndHashCode
 public class TransferCompatibilityStatus {
-    @NotNull(message="must be either SUCCESS or FAILURE")
+    @NotNull(message = "must be either SUCCESS or FAILURE")
     private Status status;
     private String reason;
-    @NotNull(message="must be either INTERNAL or TRANSFER")
+    @NotNull(message = "must be either INTERNAL or TRANSFER")
     private TransferType type;
 }
