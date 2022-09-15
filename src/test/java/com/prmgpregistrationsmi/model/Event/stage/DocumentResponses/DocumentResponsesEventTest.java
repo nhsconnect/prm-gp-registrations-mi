@@ -46,7 +46,7 @@ class DocumentResponsesEventTest {
     @Test
     void shouldThrowConstraintViolationWhenRegistrationIsNull() {
         DocumentResponsesPayload payload = DocumentResponsesEventBuilder
-                .withDefaultDocumentResponsePayload()
+                .withDefaultDocumentResponsesPayload()
                 .registration(null)
                 .build();
 
@@ -67,7 +67,7 @@ class DocumentResponsesEventTest {
     @Test
     void shouldThrowConstraintViolationWhenRegistrationFieldsAreInvalid() {
         DocumentResponsesPayload payload = DocumentResponsesEventBuilder
-                .withDefaultDocumentResponsePayload()
+                .withDefaultDocumentResponsesPayload()
                 .registration(RegistrationBuilder
                         .withDefaultRegistration()
                         .requestingPracticeOdsCode(null)
@@ -91,7 +91,7 @@ class DocumentResponsesEventTest {
     @Test
     void shouldThrowConstraintViolationWhenAttachmentIsNull() {
         DocumentResponsesPayload payload = DocumentResponsesEventBuilder
-                .withDefaultDocumentResponsePayload()
+                .withDefaultDocumentResponsesPayload()
                 .attachment(null)
                 .build();
 
@@ -112,7 +112,7 @@ class DocumentResponsesEventTest {
     @Test
     void shouldThrowConstraintViolationWhenAttachmentFieldsAreInvalid() {
         DocumentResponsesPayload payload = DocumentResponsesEventBuilder
-                .withDefaultDocumentResponsePayload()
+                .withDefaultDocumentResponsesPayload()
                 .attachment(AttachmentBuilder
                         .withDefaultPDFFile()
                         .mimeType(null)
@@ -136,7 +136,7 @@ class DocumentResponsesEventTest {
     @Test
     void shouldThrowConstraintViolationWhenDocumentMigrationIsNull() {
         DocumentResponsesPayload payload = DocumentResponsesEventBuilder
-                .withDefaultDocumentResponsePayload()
+                .withDefaultDocumentResponsesPayload()
                 .documentMigration(null)
                 .build();
 
@@ -157,7 +157,7 @@ class DocumentResponsesEventTest {
     @Test
     void shouldThrowConstraintViolationWhenDocumentMigrationFieldsAreInvalid() {
         DocumentResponsesPayload payload = DocumentResponsesEventBuilder
-                .withDefaultDocumentResponsePayload()
+                .withDefaultDocumentResponsesPayload()
                 .documentMigration(StatusDetailsBuilder
                         .withSuccessfulStatus()
                         .status(null)

@@ -108,11 +108,11 @@ class RegistrationControllerTest {
 
         EventDAO eventDAO = EventDAO.builder().build();
 
-        when(registrationService.saveEvent(testEvent, EventType.DOCUMENT_RESPONSE)).thenReturn(eventDAO);
+        when(registrationService.saveEvent(testEvent, EventType.DOCUMENT_RESPONSES)).thenReturn(eventDAO);
 
         EventResponse actualResponse = registrationController.documentResponsesEvent(testEvent);
 
-        verify(registrationService).saveEvent(testEvent, EventType.DOCUMENT_RESPONSE);
+        verify(registrationService).saveEvent(testEvent, EventType.DOCUMENT_RESPONSES);
 
         assertEquals(eventDAO.getEventId(), actualResponse.getEventId());
     }

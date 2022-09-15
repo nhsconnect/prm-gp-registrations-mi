@@ -38,10 +38,10 @@ class DocumentResponsesEventIntegrationTest {
         EventDAO expectedS3UploadEvent = EventDAOBuilder.withEvent(documentResponsesEventRequest)
                 .eventId(UUIDService.buildUUIDStringFromSeed(
                         documentResponsesEventRequest.getConversationId() +
-                                EventType.DOCUMENT_RESPONSE +
+                                EventType.DOCUMENT_RESPONSES +
                                 documentResponsesEventRequest.getRegistrationEventDateTime())
                 )
-                .eventType(EventType.DOCUMENT_RESPONSE)
+                .eventType(EventType.DOCUMENT_RESPONSES)
                 .build();
 
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +

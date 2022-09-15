@@ -14,10 +14,10 @@ public class DocumentResponsesEventBuilder {
                 .reportingPracticeOdsCode(DefaultEventValues.REPORTING_PRACTICE_ODS_CODE)
                 .conversationId(DefaultEventValues.CONVERSATION_ID)
                 .registrationEventDateTime(DefaultEventValues.TRANSFER_EVENT_DATE_TIME)
-                .payload(withDefaultDocumentResponsePayload().build());
+                .payload(withDefaultDocumentResponsesPayload().build());
     }
 
-    public static DocumentResponsesPayload.DocumentResponsesPayloadBuilder withDefaultDocumentResponsePayload() {
+    public static DocumentResponsesPayload.DocumentResponsesPayloadBuilder withDefaultDocumentResponsesPayload() {
         return DocumentResponsesPayload.builder()
                 .registration(RegistrationBuilder.withDefaultRegistration().build())
                 .attachment(AttachmentBuilder.withDefaultPDFFile().build())

@@ -79,7 +79,7 @@ public class RegistrationController {
     )
     public EventResponse documentResponsesEvent(
             @Valid @RequestBody DocumentResponsesEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.DOCUMENT_RESPONSE);
+        EventDAO eventDAO = registrationService.saveEvent(event, EventType.DOCUMENT_RESPONSES);
         return new EventResponse(eventDAO.getEventId());
     }
 
