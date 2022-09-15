@@ -9,16 +9,9 @@ import com.prmgpregistrationsmi.model.Event.stage.EhrIntegrations.EhrIntegration
 import com.prmgpregistrationsmi.model.Event.stage.EhrRequests.EhrRequestsEvent;
 import com.prmgpregistrationsmi.model.Event.stage.EhrResponses.EhrResponsesEvent;
 import com.prmgpregistrationsmi.model.Event.stage.EhrTransferComplete.EhrTransferCompleteEvent;
-import com.prmgpregistrationsmi.model.Event.stage.InternalTransfer.InternalTransferEvent;
 import com.prmgpregistrationsmi.model.Event.stage.Registrations.RegistrationsEvent;
 import com.prmgpregistrationsmi.service.RegistrationService;
-import com.prmgpregistrationsmi.testhelpers.InternalTransferEventBuilder;
-import com.prmgpregistrationsmi.testhelpers.stage.EhrIntegrationsEventBuilder;
-import com.prmgpregistrationsmi.testhelpers.stage.EhrRequestsEventBuilder;
-import com.prmgpregistrationsmi.testhelpers.stage.EhrResponsesEventBuilder;
-import com.prmgpregistrationsmi.testhelpers.stage.EhrTransferCompleteEventBuilder;
-import com.prmgpregistrationsmi.testhelpers.stage.DocumentResponsesEventBuilder;
-import com.prmgpregistrationsmi.testhelpers.stage.RegistrationsEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.stage.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -138,23 +131,6 @@ class RegistrationControllerTest {
         EventResponse actualResponse = registrationController.documentResponsesEvent(testEvent);
 
         verify(registrationService).saveEvent(testEvent, EventType.DOCUMENT_RESPONSE);
-
-        assertEquals(eventDAO.getEventId(), actualResponse.getEventId());
-    }
-
-    @Test
-    void shouldReturnEventIdWhenReceivingInternalTransferEvent() throws UnableToUploadToS3Exception {
-        InternalTransferEvent testEvent = InternalTransferEventBuilder
-                .withDefaultEventValues()
-                .build();
-
-        EventDAO eventDAO = EventDAO.builder().build();
-
-        when(registrationService.saveEvent(testEvent, EventType.INTERNAL_TRANSFER)).thenReturn(eventDAO);
-
-        EventResponse actualResponse = registrationController.internalTransferEvent(testEvent);
-
-        verify(registrationService).saveEvent(testEvent, EventType.INTERNAL_TRANSFER);
 
         assertEquals(eventDAO.getEventId(), actualResponse.getEventId());
     }

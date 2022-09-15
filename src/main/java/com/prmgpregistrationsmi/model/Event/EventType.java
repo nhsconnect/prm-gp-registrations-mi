@@ -9,5 +9,4 @@ public enum EventType {
     EHR_TRANSFER_COMPLETE,
     EHR_INTEGRATIONS,
     ERROR,
-    INTERNAL_TRANSFER,
 }

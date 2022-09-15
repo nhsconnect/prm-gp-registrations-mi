@@ -27,7 +27,7 @@ class ApplicationIntegrationTest {
 
     @Test
     void respondsWithSecurityHeaders() {
-        HttpHeaders responseHeaders = restTemplate.headForHeaders("http://localhost:" + port + "/internalTransfer",
+        HttpHeaders responseHeaders = restTemplate.headForHeaders("http://localhost:" + port + "/registrations",
                 HttpHeaders.class);
         assertThat(responseHeaders.getCacheControl()).isEqualTo("no-cache, no-store, max-age=0, must-revalidate");
         assertThat(responseHeaders.getContentType()).isEqualTo(new MediaType(MediaType.APPLICATION_JSON));

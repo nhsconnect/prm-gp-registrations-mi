@@ -6,5 +6,4 @@ public enum IntegrationType {
     SUPPRESS_AND_REACTIVATE,
     FILE_AS_ATTACHMENT,
     REJECT,
-    INTERNAL_TRANSFER
 }

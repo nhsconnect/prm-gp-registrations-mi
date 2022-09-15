@@ -10,7 +10,6 @@ import com.prmgpregistrationsmi.model.Event.stage.EhrRequests.EhrRequestsEvent;
 import com.prmgpregistrationsmi.model.Event.stage.EhrResponses.EhrResponsesEvent;
 import com.prmgpregistrationsmi.model.Event.stage.EhrTransferComplete.EhrTransferCompleteEvent;
 import com.prmgpregistrationsmi.model.Event.stage.Error.ErrorEvent;
-import com.prmgpregistrationsmi.model.Event.stage.InternalTransfer.InternalTransferEvent;
 import com.prmgpregistrationsmi.model.Event.stage.Registrations.RegistrationsEvent;
 import com.prmgpregistrationsmi.model.Event.stage.TransferCompatibilityStatuses.TransferCompatibilityStatusesEvent;
 import com.prmgpregistrationsmi.service.RegistrationService;
@@ -119,17 +118,4 @@ public class RegistrationController {
         EventDAO eventDAO = registrationService.saveEvent(event, EventType.ERROR);
         return new EventResponse(eventDAO.getEventId());
     }
-
-    // TODO: Remove endpoint
-    @PostMapping(
-            value = "/internal-transfer",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
-    public EventResponse internalTransferEvent(
-            @Valid @RequestBody InternalTransferEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.INTERNAL_TRANSFER);
-        return new EventResponse(eventDAO.getEventId());
-    }
-    //////////////////////////////
 }
