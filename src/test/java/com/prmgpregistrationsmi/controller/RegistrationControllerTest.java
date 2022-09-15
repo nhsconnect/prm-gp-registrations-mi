@@ -5,7 +5,7 @@ import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.model.Event.stage.DocumentResponses.DocumentResponsesEvent;
-import com.prmgpregistrationsmi.model.Event.stage.EhrIntegrated.EhrIntegratedEvent;
+import com.prmgpregistrationsmi.model.Event.stage.EhrIntegrations.EhrIntegrationsEvent;
 import com.prmgpregistrationsmi.model.Event.stage.EhrRequests.EhrRequestsEvent;
 import com.prmgpregistrationsmi.model.Event.stage.EhrResponses.EhrResponsesEvent;
 import com.prmgpregistrationsmi.model.Event.stage.EhrTransferComplete.EhrTransferCompleteEvent;
@@ -13,7 +13,7 @@ import com.prmgpregistrationsmi.model.Event.stage.InternalTransfer.InternalTrans
 import com.prmgpregistrationsmi.model.Event.stage.Registrations.RegistrationsEvent;
 import com.prmgpregistrationsmi.service.RegistrationService;
 import com.prmgpregistrationsmi.testhelpers.InternalTransferEventBuilder;
-import com.prmgpregistrationsmi.testhelpers.stage.EhrIntegratedEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.stage.EhrIntegrationsEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.stage.EhrRequestsEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.stage.EhrResponsesEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.stage.EhrTransferCompleteEventBuilder;
@@ -76,17 +76,17 @@ class RegistrationControllerTest {
 
     @Test
     void shouldReturnEventIdWhenReceivingEhrIntegratedEvent() throws UnableToUploadToS3Exception {
-        EhrIntegratedEvent testEvent = EhrIntegratedEventBuilder
+        EhrIntegrationsEvent testEvent = EhrIntegrationsEventBuilder
                 .withDefaultEventValues()
                 .build();
 
         EventDAO eventDAO = EventDAO.builder().build();
 
-        when(registrationService.saveEvent(testEvent, EventType.EHR_INTEGRATED)).thenReturn(eventDAO);
+        when(registrationService.saveEvent(testEvent, EventType.EHR_INTEGRATIONS)).thenReturn(eventDAO);
 
-        EventResponse actualResponse = registrationController.ehrIntegratedEvent(testEvent);
+        EventResponse actualResponse = registrationController.ehrIntegrationsEvent(testEvent);
 
-        verify(registrationService).saveEvent(testEvent, EventType.EHR_INTEGRATED);
+        verify(registrationService).saveEvent(testEvent, EventType.EHR_INTEGRATIONS);
 
         assertEquals(eventDAO.getEventId(), actualResponse.getEventId());
     }

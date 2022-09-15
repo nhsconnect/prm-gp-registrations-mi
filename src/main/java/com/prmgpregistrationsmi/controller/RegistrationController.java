@@ -5,7 +5,7 @@ import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.model.Event.stage.DocumentResponses.DocumentResponsesEvent;
-import com.prmgpregistrationsmi.model.Event.stage.EhrIntegrated.EhrIntegratedEvent;
+import com.prmgpregistrationsmi.model.Event.stage.EhrIntegrations.EhrIntegrationsEvent;
 import com.prmgpregistrationsmi.model.Event.stage.EhrRequests.EhrRequestsEvent;
 import com.prmgpregistrationsmi.model.Event.stage.EhrResponses.EhrResponsesEvent;
 import com.prmgpregistrationsmi.model.Event.stage.EhrTransferComplete.EhrTransferCompleteEvent;
@@ -85,6 +85,7 @@ public class RegistrationController {
         return new EventResponse(eventDAO.getEventId());
     }
 
+    // TODO: Remove endpoint
     @PostMapping(
             value = "/ehr-transfer-complete",
             consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -95,15 +96,16 @@ public class RegistrationController {
         EventDAO eventDAO = registrationService.saveEvent(event, EventType.EHR_TRANSFER_COMPLETE);
         return new EventResponse(eventDAO.getEventId());
     }
+    //////////////////////////////
 
     @PostMapping(
-            value = "/ehr-integrated",
+            value = "/ehr-integrations",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public EventResponse ehrIntegratedEvent(
-            @Valid @RequestBody EhrIntegratedEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.EHR_INTEGRATED);
+    public EventResponse ehrIntegrationsEvent(
+            @Valid @RequestBody EhrIntegrationsEvent event) throws UnableToUploadToS3Exception {
+        EventDAO eventDAO = registrationService.saveEvent(event, EventType.EHR_INTEGRATIONS);
         return new EventResponse(eventDAO.getEventId());
     }
 
@@ -118,6 +120,7 @@ public class RegistrationController {
         return new EventResponse(eventDAO.getEventId());
     }
 
+    // TODO: Remove endpoint
     @PostMapping(
             value = "/internal-transfer",
             consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -128,4 +131,5 @@ public class RegistrationController {
         EventDAO eventDAO = registrationService.saveEvent(event, EventType.INTERNAL_TRANSFER);
         return new EventResponse(eventDAO.getEventId());
     }
+    //////////////////////////////
 }

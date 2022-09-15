@@ -7,6 +7,6 @@ public enum FailurePoint {
     EHR_REQUESTED,
     EHR_RESPONSE,
     EHR_READY_TO_INTEGRATE,
-    EHR_INTEGRATION,
+    EHR_INTEGRATIONS,
     OTHER
 }
