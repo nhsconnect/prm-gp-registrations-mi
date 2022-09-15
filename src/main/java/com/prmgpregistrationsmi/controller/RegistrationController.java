@@ -8,7 +8,6 @@ import com.prmgpregistrationsmi.model.Event.stage.DocumentResponses.DocumentResp
 import com.prmgpregistrationsmi.model.Event.stage.EhrIntegrations.EhrIntegrationsEvent;
 import com.prmgpregistrationsmi.model.Event.stage.EhrRequests.EhrRequestsEvent;
 import com.prmgpregistrationsmi.model.Event.stage.EhrResponses.EhrResponsesEvent;
-import com.prmgpregistrationsmi.model.Event.stage.EhrTransferComplete.EhrTransferCompleteEvent;
 import com.prmgpregistrationsmi.model.Event.stage.Error.ErrorEvent;
 import com.prmgpregistrationsmi.model.Event.stage.Registrations.RegistrationsEvent;
 import com.prmgpregistrationsmi.model.Event.stage.TransferCompatibilityStatuses.TransferCompatibilityStatusesEvent;
@@ -83,19 +82,6 @@ public class RegistrationController {
         EventDAO eventDAO = registrationService.saveEvent(event, EventType.DOCUMENT_RESPONSE);
         return new EventResponse(eventDAO.getEventId());
     }
-
-    // TODO: Remove endpoint
-    @PostMapping(
-            value = "/ehr-transfer-complete",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
-    public EventResponse ehrTransferCompleteEvent(
-            @Valid @RequestBody EhrTransferCompleteEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.EHR_TRANSFER_COMPLETE);
-        return new EventResponse(eventDAO.getEventId());
-    }
-    //////////////////////////////
 
     @PostMapping(
             value = "/ehr-integrations",

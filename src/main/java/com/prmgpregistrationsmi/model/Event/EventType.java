@@ -6,7 +6,6 @@ public enum EventType {
     EHR_REQUESTS,
     EHR_RESPONSES,
     DOCUMENT_RESPONSE,
-    EHR_TRANSFER_COMPLETE,
     EHR_INTEGRATIONS,
     ERROR,
 }

@@ -8,7 +8,6 @@ import com.prmgpregistrationsmi.model.Event.stage.DocumentResponses.DocumentResp
 import com.prmgpregistrationsmi.model.Event.stage.EhrIntegrations.EhrIntegrationsEvent;
 import com.prmgpregistrationsmi.model.Event.stage.EhrRequests.EhrRequestsEvent;
 import com.prmgpregistrationsmi.model.Event.stage.EhrResponses.EhrResponsesEvent;
-import com.prmgpregistrationsmi.model.Event.stage.EhrTransferComplete.EhrTransferCompleteEvent;
 import com.prmgpregistrationsmi.model.Event.stage.Registrations.RegistrationsEvent;
 import com.prmgpregistrationsmi.service.RegistrationService;
 import com.prmgpregistrationsmi.testhelpers.stage.*;
@@ -80,23 +79,6 @@ class RegistrationControllerTest {
         EventResponse actualResponse = registrationController.ehrIntegrationsEvent(testEvent);
 
         verify(registrationService).saveEvent(testEvent, EventType.EHR_INTEGRATIONS);
-
-        assertEquals(eventDAO.getEventId(), actualResponse.getEventId());
-    }
-
-    @Test
-    void shouldReturnEventIdWhenReceivingTransferCompleteEvent() throws UnableToUploadToS3Exception {
-        EhrTransferCompleteEvent testEvent = EhrTransferCompleteEventBuilder
-                .withDefaultEventValues()
-                .build();
-
-        EventDAO eventDAO = EventDAO.builder().build();
-
-        when(registrationService.saveEvent(testEvent, EventType.EHR_TRANSFER_COMPLETE)).thenReturn(eventDAO);
-
-        EventResponse actualResponse = registrationController.ehrTransferCompleteEvent(testEvent);
-
-        verify(registrationService).saveEvent(testEvent, EventType.EHR_TRANSFER_COMPLETE);
 
         assertEquals(eventDAO.getEventId(), actualResponse.getEventId());
     }
