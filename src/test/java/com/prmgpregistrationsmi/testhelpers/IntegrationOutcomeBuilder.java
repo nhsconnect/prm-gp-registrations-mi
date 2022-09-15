@@ -8,6 +8,6 @@ public class IntegrationOutcomeBuilder {
     public static IntegrationOutcome.IntegrationOutcomeBuilder withDefaultValues() {
         return IntegrationOutcome.builder()
                 .status(Status.SUCCESS)
-                .integrationType(IntegrationType.INTEGRATE);
+                .type(IntegrationType.INTEGRATE);
     }
 }

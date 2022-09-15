@@ -43,7 +43,7 @@ class IntegrationOutcomeTest {
     @Test
     void shouldAllowEmptyOrNullIntegrationType() {
         IntegrationOutcome integrationOutcome = IntegrationOutcomeBuilder.withDefaultValues()
-                .integrationType(null)
+                .type(null)
                 .build();
         Set<ConstraintViolation<IntegrationOutcome>> violations = validator.validate(integrationOutcome);
 
@@ -52,9 +52,9 @@ class IntegrationOutcomeTest {
 
     @ParameterizedTest
     @EnumSource(IntegrationType.class)
-    void shouldOnlyAllowValidIntegrationTypes(IntegrationType integrationType) {
+    void shouldOnlyAllowValidIntegrationTypes(IntegrationType type) {
         IntegrationOutcome integrationOutcome = IntegrationOutcomeBuilder.withDefaultValues()
-                .integrationType(integrationType)
+                .type(type)
                 .build();
         Set<ConstraintViolation<IntegrationOutcome>> violations = validator.validate(integrationOutcome);
 

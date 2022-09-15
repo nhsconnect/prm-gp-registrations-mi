@@ -14,5 +14,5 @@ import javax.validation.constraints.NotNull;
 public class IntegrationOutcome {
     @NotNull(message = "must be either SUCCESS or FAILURE")
     private Status status;
-    private IntegrationType integrationType;
+    private IntegrationType type;
 }
