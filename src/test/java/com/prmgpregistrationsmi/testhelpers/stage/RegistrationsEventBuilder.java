@@ -5,7 +5,7 @@ import com.prmgpregistrationsmi.model.Event.stage.Registrations.RegistrationsPay
 import com.prmgpregistrationsmi.testhelpers.DefaultEventValues;
 import com.prmgpregistrationsmi.testhelpers.DemographicTraceStatusBuilder;
 import com.prmgpregistrationsmi.testhelpers.GPLinksBuilder;
-import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
+import com.prmgpregistrationsmi.testhelpers.RegistrationWithAdditionalDetailsBuilder;
 
 public class RegistrationsEventBuilder {
     public static RegistrationsEvent.RegistrationsEventBuilder<?, ?> withDefaultEventValues() {
@@ -14,12 +14,12 @@ public class RegistrationsEventBuilder {
                 .reportingPracticeOdsCode(DefaultEventValues.REPORTING_PRACTICE_ODS_CODE)
                 .conversationId(DefaultEventValues.CONVERSATION_ID)
                 .registrationEventDateTime(DefaultEventValues.TRANSFER_EVENT_DATE_TIME)
-                .payload(withDefaultRegistrationPayload().build());
+                .payload(withDefaultRegistrationWithAdditionalDetailsPayload().build());
     }
 
-    public static RegistrationsPayload.RegistrationsPayloadBuilder withDefaultRegistrationPayload() {
+    public static RegistrationsPayload.RegistrationsPayloadBuilder withDefaultRegistrationWithAdditionalDetailsPayload() {
         return RegistrationsPayload.builder()
-                .registration(RegistrationBuilder.withDefaultRegistration().build())
+                .registration(RegistrationWithAdditionalDetailsBuilder.withDefaultRegistrationWithAdditionalDetails().build())
                 .gpLinks(GPLinksBuilder.withDefaultValues().build())
                 .demographicTraceStatus(DemographicTraceStatusBuilder.withDefaultValues().build()
                 );

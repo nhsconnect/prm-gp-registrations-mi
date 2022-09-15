@@ -2,7 +2,7 @@ package com.prmgpregistrationsmi.model.Event.stage.Registrations;
 
 import com.prmgpregistrationsmi.model.Event.EventPayload.DemographicTraceStatus;
 import com.prmgpregistrationsmi.model.Event.EventPayload.GPLinks;
-import com.prmgpregistrationsmi.model.Event.EventPayload.Registration;
+import com.prmgpregistrationsmi.model.Event.EventPayload.RegistrationWithAdditionalDetails;
 import com.prmgpregistrationsmi.model.Event.Payload;
 import lombok.*;
 
@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
 public class RegistrationsPayload implements Payload {
     @Valid
     @NotNull
-    private Registration registration;
+    private RegistrationWithAdditionalDetails registration;
 
     @Valid
     @NotNull

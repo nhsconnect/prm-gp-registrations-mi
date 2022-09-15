@@ -2,8 +2,8 @@ package com.prmgpregistrationsmi.model.Event.stage.Registrations;
 
 import com.prmgpregistrationsmi.model.Event.EventPayload.DemographicTraceStatus;
 import com.prmgpregistrationsmi.model.Event.EventPayload.GPLinks;
-import com.prmgpregistrationsmi.model.Event.EventPayload.Registration;
-import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
+import com.prmgpregistrationsmi.model.Event.EventPayload.RegistrationWithAdditionalDetails;
+import com.prmgpregistrationsmi.testhelpers.RegistrationWithAdditionalDetailsBuilder;
 import com.prmgpregistrationsmi.testhelpers.stage.RegistrationsEventBuilder;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +11,6 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -51,7 +50,7 @@ class RegistrationsEventTest {
     @Test
     void shouldThrowConstraintViolationWhenRegistrationIsNull() {
         RegistrationsPayload payload = RegistrationsEventBuilder
-                .withDefaultRegistrationPayload()
+                .withDefaultRegistrationWithAdditionalDetailsPayload()
                 .registration(null)
                 .build();
         RegistrationsEvent event = RegistrationsEventBuilder
@@ -69,13 +68,33 @@ class RegistrationsEventTest {
     }
 
     @Test
-    void shouldThrowConstraintViolationWhenRegistrationFieldsAreInvalid() {
-        Registration payloadRegistration = RegistrationBuilder
-                .withDefaultRegistration()
+    void shouldNotThrowConstraintViolationWhenSendingPracticeOdsCodeIsNull() {
+        RegistrationWithAdditionalDetails payloadRegistration = RegistrationWithAdditionalDetailsBuilder
+                .withDefaultRegistrationWithAdditionalDetails()
                 .sendingPracticeOdsCode(null)
                 .build();
         RegistrationsPayload payload = RegistrationsEventBuilder
-                .withDefaultRegistrationPayload()
+                .withDefaultRegistrationWithAdditionalDetailsPayload()
+                .registration(payloadRegistration)
+                .build();
+        RegistrationsEvent event = RegistrationsEventBuilder
+                .withDefaultEventValues()
+                .payload(payload)
+                .build();
+
+        Set<ConstraintViolation<RegistrationsEvent>> violations = validator.validate(event);
+
+        assertEquals(0, violations.size());
+    }
+
+    @Test
+    void shouldThrowConstraintViolationWhenRequestingPracticeOdsCodeIsNull() {
+        RegistrationWithAdditionalDetails payloadRegistration = RegistrationWithAdditionalDetailsBuilder
+                .withDefaultRegistrationWithAdditionalDetails()
+                .requestingPracticeOdsCode(null)
+                .build();
+        RegistrationsPayload payload = RegistrationsEventBuilder
+                .withDefaultRegistrationWithAdditionalDetailsPayload()
                 .registration(payloadRegistration)
                 .build();
         RegistrationsEvent event = RegistrationsEventBuilder
@@ -89,16 +108,65 @@ class RegistrationsEventTest {
 
         ConstraintViolation<RegistrationsEvent> violation = violations.iterator().next();
         assertEquals("must not be empty", violation.getMessage());
-        assertEquals("payload.registration.sendingPracticeOdsCode", violation.getPropertyPath().toString());
+        assertEquals("payload.registration.requestingPracticeOdsCode", violation.getPropertyPath().toString());
+    }
+
+    @Test
+    void shouldThrowConstraintViolationWhenMultifactorAuthenticationPresentIsNull() {
+        RegistrationWithAdditionalDetails payloadRegistration = RegistrationWithAdditionalDetailsBuilder
+                .withDefaultRegistrationWithAdditionalDetails()
+                .multifactorAuthenticationPresent(null)
+                .build();
+        RegistrationsPayload payload = RegistrationsEventBuilder
+                .withDefaultRegistrationWithAdditionalDetailsPayload()
+                .registration(payloadRegistration)
+                .build();
+        RegistrationsEvent event = RegistrationsEventBuilder
+                .withDefaultEventValues()
+                .payload(payload)
+                .build();
+
+        Set<ConstraintViolation<RegistrationsEvent>> violations = validator.validate(event);
+
+        assertEquals(1, violations.size());
+
+        ConstraintViolation<RegistrationsEvent> violation = violations.iterator().next();
+        assertEquals("must not be null", violation.getMessage());
+        assertEquals("payload.registration.multifactorAuthenticationPresent", violation.getPropertyPath().toString());
+    }
+
+
+    @Test
+    void shouldThrowConstraintViolationWhenReturningPatientIsNull() {
+        RegistrationWithAdditionalDetails payloadRegistration = RegistrationWithAdditionalDetailsBuilder
+                .withDefaultRegistrationWithAdditionalDetails()
+                .returningPatient(null)
+                .build();
+        RegistrationsPayload payload = RegistrationsEventBuilder
+                .withDefaultRegistrationWithAdditionalDetailsPayload()
+                .registration(payloadRegistration)
+                .build();
+        RegistrationsEvent event = RegistrationsEventBuilder
+                .withDefaultEventValues()
+                .payload(payload)
+                .build();
+
+        Set<ConstraintViolation<RegistrationsEvent>> violations = validator.validate(event);
+
+        assertEquals(1, violations.size());
+
+        ConstraintViolation<RegistrationsEvent> violation = violations.iterator().next();
+        assertEquals("must not be null", violation.getMessage());
+        assertEquals("payload.registration.returningPatient", violation.getPropertyPath().toString());
     }
 
     @Test
     void shouldThrowConstraintViolationWhenGpLinksFieldIsMissing() {
-        Registration payloadRegistration = RegistrationBuilder
-                .withDefaultRegistration()
+        RegistrationWithAdditionalDetails payloadRegistration = RegistrationWithAdditionalDetailsBuilder
+                .withDefaultRegistrationWithAdditionalDetails()
                 .build();
         RegistrationsPayload payload = RegistrationsEventBuilder
-                .withDefaultRegistrationPayload()
+                .withDefaultRegistrationWithAdditionalDetailsPayload()
                 .registration(payloadRegistration)
                 .gpLinks(GPLinks.builder().gpLinksComplete(null).build())
                 .build();
@@ -118,11 +186,11 @@ class RegistrationsEventTest {
 
     @Test
     void shouldThrowConstraintViolationWhenDemographicTraceStatusFieldsAreMissing() {
-        Registration payloadRegistration = RegistrationBuilder
-                .withDefaultRegistration()
+        RegistrationWithAdditionalDetails payloadRegistration = RegistrationWithAdditionalDetailsBuilder
+                .withDefaultRegistrationWithAdditionalDetails()
                 .build();
         RegistrationsPayload payload = RegistrationsEventBuilder
-                .withDefaultRegistrationPayload()
+                .withDefaultRegistrationWithAdditionalDetailsPayload()
                 .registration(payloadRegistration)
                 .demographicTraceStatus(DemographicTraceStatus.builder().build())
                 .build();
