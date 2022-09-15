@@ -3,7 +3,7 @@ package com.prmgpregistrationsmi.model.Event.stage.Error;
 import com.prmgpregistrationsmi.model.Event.EventPayload.ErrorDetails;
 import com.prmgpregistrationsmi.model.Event.EventPayload.FailurePoint;
 import com.prmgpregistrationsmi.testhelpers.ErrorDetailsBuilder;
-import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
+import com.prmgpregistrationsmi.testhelpers.RegistrationWithOptionalSendingPracticeOdsCodeBuilder;
 import com.prmgpregistrationsmi.testhelpers.stage.ErrorsEventBuilder;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -72,7 +72,7 @@ public class ErrorsEventTest {
     void shouldThrowConstraintViolationWhenRegistrationFieldsAreInvalid() {
         ErrorsPayload payload = ErrorsEventBuilder
                 .withDefaultErrorsPayload()
-                .registration(RegistrationBuilder
+                .registration(RegistrationWithOptionalSendingPracticeOdsCodeBuilder
                         .withDefaultRegistration()
                         .requestingPracticeOdsCode(null)
                         .build())
