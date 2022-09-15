@@ -6,625 +6,260 @@
 	},
 	"item": [
 		{
-			"name": "Pre-Transfer",
-			"item": [
-				{
-					"name": "1. registrationStarted",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "apikey",
-								"value": "{{apikey}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"eventGeneratedDateTime\": {{a_datetime}},\n  \"conversationId\": {{conversation_id}},\n  \"registrationEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SUPPLIER_SYSTEM\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"registration\": {\n\n      \"registrationType\": \"newRegistrant\",\n      \"requestingPracticeOdsCode\": \"ABC1234\"\n    }\n  }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{mi_api_url}}/preTransfer/registration-started",
-							"host": [
-								"{{mi_api_url}}"
-							],
-							"path": [
-								"preTransfer",
-								"registrationStarted"
-							]
+			"name": "1. registrations",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "apikey",
+						"value": "{{apikey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"conversationId\": {{conversation_id}},\n  \"registrationEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SYSTEM_SUPPLIER\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"registration\": {\n      \"requestingPracticeOdsCode\": \"ABC1234\",\n      \"sendingPracticeOdsCode\": \"ABC1234\",\n      \"type\": \"newGPRegistration\",\n      \"returningPatient\": false,\n      \"multifactorAuthenticationPresent\": true\n    },\n    \"demographicTraceStatus\": {\n      \"matched\": true,\n      \"reason\": \"no PDS trace results returned\",\n      \"multifactorAuthenticationPresent\": true\n    },\n    \"gpLinks\": {\n      \"gpLinksComplete\": true\n    }\n  }\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
 						}
-					},
-					"response": []
+					}
 				},
-				{
-					"name": "2. pdsTrace",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "apikey",
-								"value": "{{apikey}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"eventGeneratedDateTime\": {{a_datetime}},\n  \"conversationId\": {{conversation_id}},\n  \"registrationEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SUPPLIER_SYSTEM\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"smartcardPresent\": true,\n    \"demographicTraceStatus\": {\n      \"status\": \"FAILURE\",\n      \"reason\": \"patient not found\"\n    }\n  }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{mi_api_url}}/preTransfer/pds-trace",
-							"host": [
-								"{{mi_api_url}}"
-							],
-							"path": [
-								"preTransfer",
-								"pdsTrace"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "3. sdsLookup",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "apikey",
-								"value": "{{apikey}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"eventGeneratedDateTime\": {{a_datetime}},\n  \"conversationId\": {{conversation_id}},\n  \"registrationEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SUPPLIER_SYSTEM\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"transferCompatibilityStatus\": {\n      \"status\": \"SUCCESS\"\n    }\n  }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{mi_api_url}}/preTransfer/sds-lookup",
-							"host": [
-								"{{mi_api_url}}"
-							],
-							"path": [
-								"preTransfer",
-								"sdsLookup"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "4. pdsGeneralUpdate",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "apikey",
-								"value": "{{apikey}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"eventGeneratedDateTime\": {{a_datetime}},\n  \"conversationId\": {{conversation_id}},\n  \"registrationEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SUPPLIER_SYSTEM\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"demographicTraceStatus\": {\n      \"status\": \"SUCCESS\"\n    },\n   \"gpLinks\": {\n      \"type\": \"NO_PREVIOUS_NHS_REGISTRATION\",\n      \"hasGMS1Form\": false,\n      \"hasNHSNumber\": true,\n      \"otherType\": \"\"\n    }\n  }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{mi_api_url}}/preTransfer/pds-general-update",
-							"host": [
-								"{{mi_api_url}}"
-							],
-							"path": [
-								"preTransfer",
-								"pdsGeneralUpdate"
-							]
-						}
-					},
-					"response": []
+				"url": {
+					"raw": "{{mi_api_url}}/registrations",
+					"host": [
+						"{{mi_api_url}}"
+					],
+					"path": [
+						"registrations"
+					]
 				}
-			]
+			},
+			"response": []
 		},
 		{
-			"name": "GP2GP",
-			"item": [
-				{
-					"name": "1. ehrRequested",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "apikey",
-								"value": "{{apikey}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"eventGeneratedDateTime\": {{a_datetime}},\n  \"conversationId\": {{conversation_id}},\n  \"registrationEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SUPPLIER_SYSTEM\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"registration\": {\n      \"requestingPracticeOdsCode\": \"ABC1234\",\n      \"sendingPracticeOdsCode\": \"XYZ4567\"\n    }\n  }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{mi_api_url}}/gp2gp/ehr-requested",
-							"host": [
-								"{{mi_api_url}}"
-							],
-							"path": [
-								"gp2gp",
-								"ehrRequested"
-							]
+			"name": "2. transfer-compatibility-statuses",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "apikey",
+						"value": "{{apikey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"conversationId\": {{conversation_id}},\n  \"registrationEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SYSTEM_SUPPLIER\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"registration\":{\n      \"requestingPracticeOdsCode\": \"ABC1234\",\n      \"sendingPracticeOdsCode\": \"ABC1234\"\n    },\n    \"transferCompatibilityStatus\": {\n      \"internalTransfer\": false,\n      \"transferCompatible\": false,\n      \"reason\": \"Previous practice not eligible for transfer\"\n    }\n  }\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
 						}
-					},
-					"response": []
+					}
 				},
-				{
-					"name": "2. ehrGenerated",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "apikey",
-								"value": "{{apikey}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"eventGeneratedDateTime\": {{a_datetime}},\n  \"conversationId\": {{conversation_id}},\n  \"registrationEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SUPPLIER_SYSTEM\",\n  \"reportingPracticeOdsCode\": \"XYZ4567\",\n  \"payload\": {\n    \"registration\": {\n      \"requestingPracticeOdsCode\": \"ABC1234\",\n      \"sendingPracticeOdsCode\": \"XYZ4567\"\n    },\n    \"ehr\": {\n      \"ehrTotalSizeBytes\": 5699433,\n      \"ehrStructuredSizeBytes\": 4096,\n      \"attachment\": [\n        {\n          \"attachmentId\": \"3424-342456-3424-342456\",\n          \"clinicalType\": \"Scanned document\",\n          \"mimeType\": \"application/pdf\",\n          \"sizeBytes\": 3084322\n        },\n        {\n          \"attachmentId\": \"1323-132345-1323-132345\",\n          \"mimeType\": \"audio/mpeg\",\n          \"sizeBytes\": 24352346\n        }\n      ],\n      \"placeholder\": [\n        {\n          \"placeholderId\": \"9876-987654-9876-987654\",\n          \"attachmentId\": \"1323-132345-1323-132345\",\n          \"generatedBy\": \"XYZ4567\",\n          \"reason\": 1,\n          \"originalMimeType\": \"audio/mpeg\"\n        }\n      ]\n    },\n    \"unsupportedDataItem\": [\n      {\n        \"type\": \"allergy/flag\",\n        \"uniqueIdentifier\": \"1323-132345-1323-132345\",\n        \"reason\": \"reason for being unsupported / why is it unsupported in gp2gp / what would have to change in gp2gp to express this\"\n      }\n    ]\n  }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{mi_api_url}}/gp2gp/ehr-generated",
-							"host": [
-								"{{mi_api_url}}"
-							],
-							"path": [
-								"gp2gp",
-								"ehrGenerated"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "3. ehrSent",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "apikey",
-								"value": "{{apikey}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"eventGeneratedDateTime\": {{a_datetime}},\n  \"conversationId\": {{conversation_id}},\n  \"registrationEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SUPPLIER_SYSTEM\",\n  \"reportingPracticeOdsCode\": \"XYZ4567\",\n  \"payload\": {\n    \"registration\": {\n      \"requestingPracticeOdsCode\": \"ABC1234\",\n      \"sendingPracticeOdsCode\": \"XYZ4567\"\n    }\n  }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{mi_api_url}}/gp2gp/ehr-sent",
-							"host": [
-								"{{mi_api_url}}"
-							],
-							"path": [
-								"gp2gp",
-								"ehrSent"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "4. ehrValidated",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "apikey",
-								"value": "{{apikey}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"eventGeneratedDateTime\": \"2022-06-06T09:00:00Z\",\n  \"conversationId\": {{conversation_id}},\n  \"registrationEventDateTime\": \"2022-06-06T09:00:00Z\",\n  \"reportingSystemSupplier\": \"SUPPLIER_SYSTEM\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"registration\": {\n      \"requestingPracticeOdsCode\": \"ABC1234\",\n      \"sendingPracticeOdsCode\": \"XYZ4567\"\n    },\n    \"ehr\": {\n      \"ehrTotalSizeBytes\": 5699433,\n      \"ehrStructuredSizeBytes\": 4096,\n      \"degrade\": [\n        {\n          \"type\": \"core_ehr / attachment\",\n          \"metadata\": \"other degrades metadata\",\n          \"code\": {\n            \"coding\": [\n              {\n                \"code\": \"886721000000107\",\n                \"system\": \"http://snomed.info/sct\"\n              }\n            ]\n          }\n        }\n      ],\n      \"attachment\": [\n        {\n          \"attachmentId\": \"3424-342456-3424-342456\",\n          \"clinicalType\": \"Scanned document\",\n          \"mimeType\": \"application/pdf\",\n          \"sizeBytes\": 3084322\n        }\n      ],\n      \"placeholder\": [\n        {\n          \"placeholderId\": \"9876-987654-9876-987654\",\n          \"attachmentId\": \"1323-132345-1323-132345\",\n          \"generatedBy\": \"XYZ4567\",\n          \"reason\": 1,\n          \"originalMimeType\": \"audio/mpeg\"\n        },\n        {\n          \"placeholderId\": \"4354-435467-4354-435467\",\n          \"attachmentId\": \"3424-342456-3424-342456\",\n          \"generatedBy\": \"ABC1234\",\n          \"reason\": 2,\n          \"originalMimeType\": \"audio/mpeg\"\n        }\n      ]\n    }\n  }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{mi_api_url}}/gp2gp/ehr-validated",
-							"host": [
-								"{{mi_api_url}}"
-							],
-							"path": [
-								"gp2gp",
-								"ehrValidated"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "5. ehrIntegrated",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "apikey",
-								"value": "{{apikey}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"eventGeneratedDateTime\": \"2022-06-06T12:00:00Z\",\n  \"conversationId\": {{conversation_id}},\n  \"registrationEventDateTime\": \"2022-06-06T12:00:00Z\",\n  \"reportingSystemSupplier\": \"SUPPLIER_SYSTEM\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"registration\": {\n      \"requestingPracticeOdsCode\": \"ABC1234\",\n      \"sendingPracticeOdsCode\": \"XYZ4567\"\n    },\n    \"integration\": {\n      \"integrationStatus\": \"merged\",\n      \"reason\": \"some reason\"\n    }\n  }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{mi_api_url}}/gp2gp/ehr-integrated",
-							"host": [
-								"{{mi_api_url}}"
-							],
-							"path": [
-								"gp2gp",
-								"ehrIntegrated"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "6. error",
-					"protocolProfileBehavior": {
-						"disabledSystemHeaders": {
-							"user-agent": true
-						}
-					},
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "POST",
-						"header": [
-							{
-								"key": "apikey",
-								"value": "{{apikey}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"eventGeneratedDateTime\": {{a_datetime}},\n  \"conversationId\": {{conversation_id}},\n  \"registrationEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SUPPLIER_SYSTEM\",\n  \"reportingPracticeOdsCode\": \"XYZ4567\",\n  \"payload\": {\n    \"registration\": {\n      \"requestingPracticeOdsCode\": \"ABC1234\",\n      \"sendingPracticeOdsCode\": \"XYZ4567\"\n    },\n    \"error\": {\n      \"errorCode\": \"15\",\n      \"errorDescription\": \"Duplicate\"\n    }\n  }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{mi_api_url}}/gp2gp/error",
-							"host": [
-								"{{mi_api_url}}"
-							],
-							"path": [
-								"gp2gp",
-								"error"
-							]
-						}
-					},
-					"response": []
+				"url": {
+					"raw": "{{mi_api_url}}/transfer-compatibility-statuses",
+					"host": [
+						"{{mi_api_url}}"
+					],
+					"path": [
+						"transfer-compatibility-statuses"
+					]
 				}
-			]
+			},
+			"response": []
 		},
 		{
-			"name": "GPConnect",
-			"item": [
-				{
-					"name": "1. migrateStructuredRecordRequest",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "apikey",
-								"value": "{{apikey}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"eventGeneratedDateTime\": {{a_datetime}},\n  \"conversationId\": {{conversation_id}},\n  \"registrationEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SUPPLIER_SYSTEM\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"registration\": {\n      \"requestingPracticeOdsCode\": \"ABC1234\",\n      \"sendingPracticeOdsCode\": \"XYZ4567\"\n    }\n  }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{mi_api_url}}/gpconnect/migrate-structured-record-request",
-							"host": [
-								"{{mi_api_url}}"
-							],
-							"path": [
-								"gpconnect",
-								"migrateStructuredRecordRequest"
-							]
+			"name": "3. ehr-requests",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "apikey",
+						"value": "{{apikey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"conversationId\": {{conversation_id}},\n  \"registrationEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SYSTEM_SUPPLIER\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"registration\": {\n      \"requestingPracticeOdsCode\": \"ABC1234\",\n      \"sendingPracticeOdsCode\": \"XYZ4567\"\n    }\n  }\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
 						}
-					},
-					"response": []
+					}
 				},
-				{
-					"name": "2. migrateStructuredRecordResponse",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "apikey",
-								"value": "{{apikey}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"eventGeneratedDateTime\": {{a_datetime}},\n  \"conversationId\": {{conversation_id}},\n  \"registrationEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SUPPLIER_SYSTEM\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"registration\": {\n      \"requestingPracticeOdsCode\": \"ABC1234\",\n      \"sendingPracticeOdsCode\": \"XYZ4567\"\n    },\n    \"structuredRecordMigration\": {\n      \"status\": \"SUCCESS\",\n      \"reason\": \"\"\n    }\n  }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{mi_api_url}}/gpconnect/migrate-structured-record-response",
-							"host": [
-								"{{mi_api_url}}"
-							],
-							"path": [
-								"gpconnect",
-								"migrateStructuredRecordResponse"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "3. migrateDocumentRequest",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "apikey",
-								"value": "{{apikey}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"eventGeneratedDateTime\": {{a_datetime}},\n  \"conversationId\": {{conversation_id}},\n  \"registrationEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SUPPLIER_SYSTEM\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"registration\": {\n      \"requestingPracticeOdsCode\": \"ABC1234\",\n      \"sendingPracticeOdsCode\": \"XYZ4567\"\n  },\n    \"attachment\": {\n      \"attachmentId\": \"3424-342456-3424-342456\",\n      \"clinicalType\": \"Scanned document\",\n      \"mimeType\": \"application/pdf\",\n      \"sizeBytes\": 3084322\n    }\n  }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{mi_api_url}}/gpconnect/migrate-document-request",
-							"host": [
-								"{{mi_api_url}}"
-							],
-							"path": [
-								"gpconnect",
-								"migrateDocumentRequest"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "4. migrateDocumentResponse",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "apikey",
-								"value": "{{apikey}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"eventGeneratedDateTime\": {{a_datetime}},\n  \"conversationId\": {{conversation_id}},\n  \"registrationEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SUPPLIER_SYSTEM\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"registration\": {\n      \"requestingPracticeOdsCode\": \"ABC1234\",\n      \"sendingPracticeOdsCode\": \"XYZ4567\"\n    },\n    \"attachment\": {\n      \"attachmentId\": \"3424-342456-3424-342456\",\n      \"clinicalType\": \"Scanned document\",\n      \"mimeType\": \"application/pdf\",\n      \"sizeBytes\": 3084322\n    },\n    \"documentMigration\": {\n      \"status\": \"FAILURE\",\n      \"reason\": \"Large file size\"\n    }\n  }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{mi_api_url}}/gpconnect/migrate-document-response",
-							"host": [
-								"{{mi_api_url}}"
-							],
-							"path": [
-								"gpconnect",
-								"migrateDocumentResponse"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "5. ehrReadyToIntegrate",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "apikey",
-								"value": "{{apikey}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"eventGeneratedDateTime\": \"2022-06-06T09:00:00Z\",\n  \"conversationId\": {{conversation_id}},\n  \"registrationEventDateTime\": \"2022-06-06T09:00:00Z\",\n  \"reportingSystemSupplier\": \"SUPPLIER_SYSTEM\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"registration\": {\n      \"requestingPracticeOdsCode\": \"ABC1234\",\n      \"sendingPracticeOdsCode\": \"XYZ4567\"\n    },\n    \"ehr\": {\n      \"degrade\": [\n        {\n          \"type\": \"core_ehr / attachment\",\n          \"metadata\": \"other degrades metadata\",\n          \"code\": {\n            \"coding\": [\n              {\n                \"code\": \"886721000000107\",\n                \"system\": \"http://snomed.info/sct\"\n              }\n            ]\n          }\n        }\n      ]\n    }\n  }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{mi_api_url}}/gpconnect/ehr-ready-to-integrate",
-							"host": [
-								"{{mi_api_url}}"
-							],
-							"path": [
-								"gpconnect",
-								"ehrReadyToIntegrate"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "6. ehrIntegrated",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "apikey",
-								"value": "{{apikey}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"eventGeneratedDateTime\": \"2022-06-06T12:00:00Z\",\n  \"conversationId\": {{conversation_id}},\n  \"registrationEventDateTime\": \"2022-06-06T12:00:00Z\",\n  \"reportingSystemSupplier\": \"SUPPLIER_SYSTEM\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"registration\": {\n      \"requestingPracticeOdsCode\": \"ABC1234\",\n      \"sendingPracticeOdsCode\": \"XYZ4567\"\n    },\n    \"integration\": {\n      \"integrationStatus\": \"filed as attachment/ suppressed/ merged/ rejected\",\n      \"reason\": \"Reason for integration status\"\n    }\n  }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{mi_api_url}}/gpconnect/ehr-integrated",
-							"host": [
-								"{{mi_api_url}}"
-							],
-							"path": [
-								"gpconnect",
-								"ehrIntegrated"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "7. error",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "apikey",
-								"value": "{{apikey}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"eventGeneratedDateTime\": {{a_datetime}},\n  \"conversationId\": {{conversation_id}},\n  \"registrationEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SUPPLIER_SYSTEM\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"registration\": {\n      \"requestingPracticeOdsCode\": \"ABC1234\",\n      \"sendingPracticeOdsCode\": \"XYZ4567\"\n    },\n    \"error\": {\n      \"errorCode\": \"15\",\n      \"errorDescription\": \"stacktrace? detailed error message?\"\n    }\n  }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{mi_api_url}}/gpconnect/error",
-							"host": [
-								"{{mi_api_url}}"
-							],
-							"path": [
-								"gpconnect",
-								"error"
-							]
-						}
-					},
-					"response": []
+				"url": {
+					"raw": "{{mi_api_url}}/ehr-requests",
+					"host": [
+						"{{mi_api_url}}"
+					],
+					"path": [
+						"ehr-requests"
+					]
 				}
-			]
+			},
+			"response": []
 		},
 		{
-			"name": "InternalTransfer",
-			"item": [
-				{
-					"name": "1. internalTransfer",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "apikey",
-								"value": "{{apikey}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"eventGeneratedDateTime\": {{a_datetime}},\n  \"conversationId\": {{conversation_id}},\n  \"registrationEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SUPPLIER_SYSTEM\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"registration\": {\n      \"requestingPracticeOdsCode\": \"ABC1234\",\n      \"sendingPracticeOdsCode\": \"XYZ4567\"\n    },\n    \"integration\": {\n      \"integrationStatus\": \"filed as attachment/ suppressed/ merged/ rejected\",\n      \"reason\": \"Reason for integration status\"\n    }\n  }\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{mi_api_url}}/internal-transfer",
-							"host": [
-								"{{mi_api_url}}"
-							],
-							"path": [
-								"internalTransfer"
-							]
+			"name": "4. ehr-responses",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "apikey",
+						"value": "{{apikey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"conversationId\": {{conversation_id}},\n  \"registrationEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SYSTEM_SUPPLIER\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"registration\": {\n      \"requestingPracticeOdsCode\": \"ABC1234\",\n      \"sendingPracticeOdsCode\": \"XYZ4567\"\n    },\n    \"ehr\": {\n     \"ehrStructuredSizeBytes\": 4096,\n     \"placeholder\": [\n        {\n          \"generatedBy\": \"PRE_EXISTING\",\n          \"clinicalType\": \"SCANNED_DOCUMENT\",\n          \"reason\": \"FILE_NOT_FOUND\",\n          \"originalMimeType\": \"application/pdf\"\n        },\n        {\n          \"generatedBy\": \"SENDER\",\n          \"clinicalType\": \"AUDIO_DICTATION\",\n          \"reason\": \"FILE_DELETED\",\n          \"originalMimeType\": \"audio/mpeg\"\n        }\n      ]\n    }\n  }\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
 						}
-					},
-					"response": []
+					}
+				},
+				"url": {
+					"raw": "{{mi_api_url}}/ehr-responses",
+					"host": [
+						"{{mi_api_url}}"
+					],
+					"path": [
+						"ehr-responses"
+					]
 				}
-			]
+			},
+			"response": []
+		},
+		{
+			"name": "5. document-responses",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "apikey",
+						"value": "{{apikey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"conversationId\": {{conversation_id}},\n  \"registrationEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SYSTEM_SUPPLIER\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"registration\": {\n      \"requestingPracticeOdsCode\": \"ABC1234\",\n      \"sendingPracticeOdsCode\": \"XYZ4567\"\n    },\n    \"attachment\": {\n      \"clinicalType\": \"SCANNED_DOCUMENT\",\n      \"mimeType\": \"application/pdf\",\n      \"sizeBytes\": 3084322\n    },\n    \"documentMigration\": {\n      \"status\": \"FAILURE\",\n      \"reason\": \"Large file size\"\n    }\n  }\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{mi_api_url}}/document-responses",
+					"host": [
+						"{{mi_api_url}}"
+					],
+					"path": [
+						"document-responses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "6. ready-to-integrate-statuses",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "apikey",
+						"value": "{{apikey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"conversationId\": {{conversation_id}},\n  \"registrationEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SYSTEM_SUPPLIER\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"registration\": {\n      \"requestingPracticeOdsCode\": \"ABC1234\",\n      \"sendingPracticeOdsCode\": \"XYZ4567\"\n    }\n  }\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{mi_api_url}}/ready-to-integrate-statuses",
+					"host": [
+						"{{mi_api_url}}"
+					],
+					"path": [
+						"ready-to-integrate-statuses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "8. ehr-integrations",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "apikey",
+						"value": "{{apikey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"conversationId\": {{conversation_id}},\n  \"registrationEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SYSTEM_SUPPLIER\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"registration\": {\n      \"requestingPracticeOdsCode\": \"ABC1234\",\n      \"sendingPracticeOdsCode\": \"XYZ4567\"\n    },\n    \"integration\": {  \n      \"outcome\": \"INTEGRATED\"\n    }\n  }\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{mi_api_url}}/ehr-integrations",
+					"host": [
+						"{{mi_api_url}}"
+					],
+					"path": [
+						"ehr-integrations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "9. errors",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "apikey",
+						"value": "{{apikey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"conversationId\": {{conversation_id}},\n  \"registrationEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SYSTEM_SUPPLIER\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"registration\": {\n      \"requestingPracticeOdsCode\": \"ABC1234\",\n      \"sendingPracticeOdsCode\": \"XYZ4567\"\n    },\n    \"error\": {\n      \"errorCode\": \"99\",\n      \"errorDescription\": \"unexpected error\",\n      \"failurePoint\": \"EHR_RESPONSE\"\n    }\n  }\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{mi_api_url}}/errors",
+					"host": [
+						"{{mi_api_url}}"
+					],
+					"path": [
+						"errors"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
