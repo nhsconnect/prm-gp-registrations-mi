@@ -1,8 +1,9 @@
 package com.prmgpregistrationsmi.model.Event.EventPayload;
 
 import com.prmgpregistrationsmi.testhelpers.IntegrationOutcomeBuilder;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.NullAndEmptySource;
+import org.junit.jupiter.params.provider.EnumSource;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -14,26 +15,46 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class IntegrationOutcomeTest {
     private final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
-    @ParameterizedTest
-    @NullAndEmptySource
-    void shouldThrowConstraintViolationWhenIntegrationStatusIdIsNullOrEmpty(String integrationStatus) {
+    @Test
+    void shouldThrowConstraintViolationWhenIntegrationStatusIdIsNullOrEmpty() {
         IntegrationOutcome integrationOutcome = IntegrationOutcomeBuilder.withDefaultValues()
-                .integrationStatus(integrationStatus)
+                .status(null)
                 .build();
         Set<ConstraintViolation<IntegrationOutcome>> violations = validator.validate(integrationOutcome);
 
         assertEquals(1, violations.size());
 
         ConstraintViolation<IntegrationOutcome> violation = violations.iterator().next();
-        assertEquals("must not be empty", violation.getMessage());
-        assertEquals("integrationStatus", violation.getPropertyPath().toString());
+        assertEquals("must be either SUCCESS or FAILURE", violation.getMessage());
+        assertEquals("status", violation.getPropertyPath().toString());
     }
 
     @ParameterizedTest
-    @NullAndEmptySource
-    void shouldAllowEmptyOrNullIntegrationReason(String reason) {
+    @EnumSource(Status.class)
+    void shouldOnlyAllowValidStatusTypes(Status status) {
         IntegrationOutcome integrationOutcome = IntegrationOutcomeBuilder.withDefaultValues()
-                .reason(reason)
+                .status(status)
+                .build();
+        Set<ConstraintViolation<IntegrationOutcome>> violations = validator.validate(integrationOutcome);
+
+        assertEquals(0, violations.size());
+    }
+
+    @Test
+    void shouldAllowEmptyOrNullIntegrationType() {
+        IntegrationOutcome integrationOutcome = IntegrationOutcomeBuilder.withDefaultValues()
+                .integrationType(null)
+                .build();
+        Set<ConstraintViolation<IntegrationOutcome>> violations = validator.validate(integrationOutcome);
+
+        assertEquals(0, violations.size());
+    }
+
+    @ParameterizedTest
+    @EnumSource(IntegrationType.class)
+    void shouldOnlyAllowValidIntegrationTypes(IntegrationType integrationType) {
+        IntegrationOutcome integrationOutcome = IntegrationOutcomeBuilder.withDefaultValues()
+                .integrationType(integrationType)
                 .build();
         Set<ConstraintViolation<IntegrationOutcome>> violations = validator.validate(integrationOutcome);
 

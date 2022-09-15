@@ -116,7 +116,7 @@ public class InternalTransferEventTest {
     void shouldThrowConstraintViolationWhenIntegrationOutcomeFieldsAreInvalid() {
         IntegrationOutcome invalidIntegrationOutcome = IntegrationOutcomeBuilder
                 .withDefaultValues()
-                .integrationStatus(null)
+                .status(null)
                 .build();
 
         InternalTransferPayload payload = InternalTransferEventBuilder
@@ -134,7 +134,7 @@ public class InternalTransferEventTest {
         assertEquals(1, violations.size());
 
         ConstraintViolation<InternalTransferEvent> violation = violations.iterator().next();
-        assertEquals("must not be empty", violation.getMessage());
-        assertEquals("payload.integration.integrationStatus", violation.getPropertyPath().toString());
+        assertEquals("must be either SUCCESS or FAILURE", violation.getMessage());
+        assertEquals("payload.integration.status", violation.getPropertyPath().toString());
     }
 }

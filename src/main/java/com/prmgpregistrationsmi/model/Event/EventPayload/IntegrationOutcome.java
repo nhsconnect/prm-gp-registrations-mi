@@ -5,14 +5,14 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Builder
 public class IntegrationOutcome {
-    @NotEmpty
-    private String integrationStatus;
-    private String reason;
+    @NotNull(message="must be either SUCCESS or FAILURE")
+    private Status status;
+    private IntegrationType integrationType;
 }

@@ -1,11 +1,13 @@
 package com.prmgpregistrationsmi.testhelpers;
 
 import com.prmgpregistrationsmi.model.Event.EventPayload.IntegrationOutcome;
+import com.prmgpregistrationsmi.model.Event.EventPayload.IntegrationType;
+import com.prmgpregistrationsmi.model.Event.EventPayload.Status;
 
 public class IntegrationOutcomeBuilder {
     public static IntegrationOutcome.IntegrationOutcomeBuilder withDefaultValues() {
         return IntegrationOutcome.builder()
-                .integrationStatus("Suppressed")
-                .reason("Reason for integration status");
+                .status(Status.SUCCESS)
+                .integrationType(IntegrationType.INTEGRATE);
     }
 }

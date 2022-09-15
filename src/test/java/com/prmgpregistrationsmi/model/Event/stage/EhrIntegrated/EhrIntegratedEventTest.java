@@ -114,7 +114,7 @@ public class EhrIntegratedEventTest {
     void shouldThrowConstraintViolationWhenIntegrationOutcomeFieldsAreInvalid() {
         IntegrationOutcome invalidIntegrationOutcome = IntegrationOutcomeBuilder
                 .withDefaultValues()
-                .integrationStatus(null)
+                .status(null)
                 .build();
 
         EhrIntegratedPayload payload = EhrIntegratedEventBuilder
@@ -132,7 +132,7 @@ public class EhrIntegratedEventTest {
         assertEquals(1, violations.size());
 
         ConstraintViolation<EhrIntegratedEvent> violation = violations.iterator().next();
-        assertEquals("must not be empty", violation.getMessage());
-        assertEquals("payload.integration.integrationStatus", violation.getPropertyPath().toString());
+        assertEquals("must be either SUCCESS or FAILURE", violation.getMessage());
+        assertEquals("payload.integration.status", violation.getPropertyPath().toString());
     }
 }
