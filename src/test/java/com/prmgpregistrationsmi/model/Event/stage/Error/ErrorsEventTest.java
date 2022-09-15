@@ -4,7 +4,7 @@ import com.prmgpregistrationsmi.model.Event.EventPayload.ErrorDetails;
 import com.prmgpregistrationsmi.model.Event.EventPayload.FailurePoint;
 import com.prmgpregistrationsmi.testhelpers.ErrorDetailsBuilder;
 import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
-import com.prmgpregistrationsmi.testhelpers.stage.ErrorEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.stage.ErrorsEventBuilder;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
@@ -16,99 +16,99 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ErrorEventTest {
+public class ErrorsEventTest {
 
     private final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
     @Test
     void shouldNotThrowConstraintViolationWhenEventFieldsAreValid() {
-        ErrorEvent event = ErrorEventBuilder
+        ErrorsEvent event = ErrorsEventBuilder
                 .withDefaultEventValues()
                 .build();
 
-        Set<ConstraintViolation<ErrorEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<ErrorsEvent>> violations = validator.validate(event);
 
         assertEquals(0, violations.size());
     }
 
     @Test
     void shouldThrowConstraintViolationWhenPayloadIsNull() {
-        ErrorEvent event = ErrorEventBuilder
+        ErrorsEvent event = ErrorsEventBuilder
                 .withDefaultEventValues()
                 .payload(null)
                 .build();
 
-        Set<ConstraintViolation<ErrorEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<ErrorsEvent>> violations = validator.validate(event);
 
         assertEquals(1, violations.size());
 
-        ConstraintViolation<ErrorEvent> violation = violations.iterator().next();
+        ConstraintViolation<ErrorsEvent> violation = violations.iterator().next();
         assertEquals("must not be null", violation.getMessage());
         assertEquals("payload", violation.getPropertyPath().toString());
     }
 
     @Test
     void shouldThrowConstraintViolationWhenRegistrationIsNull() {
-        ErrorPayload payload = ErrorEventBuilder
-                .withDefaultErrorPayload()
+        ErrorsPayload payload = ErrorsEventBuilder
+                .withDefaultErrorsPayload()
                 .registration(null)
                 .build();
 
-        ErrorEvent event = ErrorEventBuilder
+        ErrorsEvent event = ErrorsEventBuilder
                 .withDefaultEventValues()
                 .payload(payload)
                 .build();
 
-        Set<ConstraintViolation<ErrorEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<ErrorsEvent>> violations = validator.validate(event);
 
         assertEquals(1, violations.size());
 
-        ConstraintViolation<ErrorEvent> violation = violations.iterator().next();
+        ConstraintViolation<ErrorsEvent> violation = violations.iterator().next();
         assertEquals("must not be null", violation.getMessage());
         assertEquals("payload.registration", violation.getPropertyPath().toString());
     }
 
     @Test
     void shouldThrowConstraintViolationWhenRegistrationFieldsAreInvalid() {
-        ErrorPayload payload = ErrorEventBuilder
-                .withDefaultErrorPayload()
+        ErrorsPayload payload = ErrorsEventBuilder
+                .withDefaultErrorsPayload()
                 .registration(RegistrationBuilder
                         .withDefaultRegistration()
                         .requestingPracticeOdsCode(null)
                         .build())
                 .build();
 
-        ErrorEvent event = ErrorEventBuilder
+        ErrorsEvent event = ErrorsEventBuilder
                 .withDefaultEventValues()
                 .payload(payload)
                 .build();
 
-        Set<ConstraintViolation<ErrorEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<ErrorsEvent>> violations = validator.validate(event);
 
         assertEquals(1, violations.size());
 
-        ConstraintViolation<ErrorEvent> violation = violations.iterator().next();
+        ConstraintViolation<ErrorsEvent> violation = violations.iterator().next();
         assertEquals("must not be empty", violation.getMessage());
         assertEquals("payload.registration.requestingPracticeOdsCode", violation.getPropertyPath().toString());
     }
 
     @Test
     void shouldThrowConstraintViolationWhenErrorDetailsIsNull() {
-        ErrorPayload payload = ErrorEventBuilder
-                .withDefaultErrorPayload()
+        ErrorsPayload payload = ErrorsEventBuilder
+                .withDefaultErrorsPayload()
                 .error(null)
                 .build();
 
-        ErrorEvent event = ErrorEventBuilder
+        ErrorsEvent event = ErrorsEventBuilder
                 .withDefaultEventValues()
                 .payload(payload)
                 .build();
 
-        Set<ConstraintViolation<ErrorEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<ErrorsEvent>> violations = validator.validate(event);
 
         assertEquals(1, violations.size());
 
-        ConstraintViolation<ErrorEvent> violation = violations.iterator().next();
+        ConstraintViolation<ErrorsEvent> violation = violations.iterator().next();
         assertEquals("must not be null", violation.getMessage());
         assertEquals("payload.error", violation.getPropertyPath().toString());
     }
@@ -120,21 +120,21 @@ public class ErrorEventTest {
                 .errorCode(null)
                 .build();
 
-        ErrorPayload payload = ErrorEventBuilder
-                .withDefaultErrorPayload()
+        ErrorsPayload payload = ErrorsEventBuilder
+                .withDefaultErrorsPayload()
                 .error(invalidErrorDetails)
                 .build();
 
-        ErrorEvent event = ErrorEventBuilder
+        ErrorsEvent event = ErrorsEventBuilder
                 .withDefaultEventValues()
                 .payload(payload)
                 .build();
 
-        Set<ConstraintViolation<ErrorEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<ErrorsEvent>> violations = validator.validate(event);
 
         assertEquals(1, violations.size());
 
-        ConstraintViolation<ErrorEvent> violation = violations.iterator().next();
+        ConstraintViolation<ErrorsEvent> violation = violations.iterator().next();
         assertEquals("must not be empty", violation.getMessage());
         assertEquals("payload.error.errorCode", violation.getPropertyPath().toString());
     }
@@ -146,21 +146,21 @@ public class ErrorEventTest {
                 .errorDescription(null)
                 .build();
 
-        ErrorPayload payload = ErrorEventBuilder
-                .withDefaultErrorPayload()
+        ErrorsPayload payload = ErrorsEventBuilder
+                .withDefaultErrorsPayload()
                 .error(invalidErrorDetails)
                 .build();
 
-        ErrorEvent event = ErrorEventBuilder
+        ErrorsEvent event = ErrorsEventBuilder
                 .withDefaultEventValues()
                 .payload(payload)
                 .build();
 
-        Set<ConstraintViolation<ErrorEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<ErrorsEvent>> violations = validator.validate(event);
 
         assertEquals(1, violations.size());
 
-        ConstraintViolation<ErrorEvent> violation = violations.iterator().next();
+        ConstraintViolation<ErrorsEvent> violation = violations.iterator().next();
         assertEquals("must not be empty", violation.getMessage());
         assertEquals("payload.error.errorDescription", violation.getPropertyPath().toString());
     }
@@ -172,21 +172,21 @@ public class ErrorEventTest {
                 .failurePoint(null)
                 .build();
 
-        ErrorPayload payload = ErrorEventBuilder
-                .withDefaultErrorPayload()
+        ErrorsPayload payload = ErrorsEventBuilder
+                .withDefaultErrorsPayload()
                 .error(invalidErrorDetails)
                 .build();
 
-        ErrorEvent event = ErrorEventBuilder
+        ErrorsEvent event = ErrorsEventBuilder
                 .withDefaultEventValues()
                 .payload(payload)
                 .build();
 
-        Set<ConstraintViolation<ErrorEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<ErrorsEvent>> violations = validator.validate(event);
 
         assertEquals(1, violations.size());
 
-        ConstraintViolation<ErrorEvent> violation = violations.iterator().next();
+        ConstraintViolation<ErrorsEvent> violation = violations.iterator().next();
         assertEquals("Must be one of the following: PATIENT_TRACE, ENDPOINT_LOOKUP, PATIENT_GENERAL_UPDATE, " +
                 "EHR_REQUESTED, EHR_RESPONSE, EHR_READY_TO_INTEGRATE, EHR_INTEGRATION, OTHER", violation.getMessage());
         assertEquals("payload.error.failurePoint", violation.getPropertyPath().toString());
@@ -200,17 +200,17 @@ public class ErrorEventTest {
                 .failurePoint(failurePoint)
                 .build();
 
-        ErrorPayload payload = ErrorEventBuilder
-                .withDefaultErrorPayload()
+        ErrorsPayload payload = ErrorsEventBuilder
+                .withDefaultErrorsPayload()
                 .error(errorDetails)
                 .build();
 
-        ErrorEvent event = ErrorEventBuilder
+        ErrorsEvent event = ErrorsEventBuilder
                 .withDefaultEventValues()
                 .payload(payload)
                 .build();
 
-        Set<ConstraintViolation<ErrorEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<ErrorsEvent>> violations = validator.validate(event);
 
         assertEquals(0, violations.size());
     }

@@ -4,9 +4,9 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
-import com.prmgpregistrationsmi.model.Event.stage.Error.ErrorEvent;
+import com.prmgpregistrationsmi.model.Event.stage.Error.ErrorsEvent;
 import com.prmgpregistrationsmi.testhelpers.EventDAOBuilder;
-import com.prmgpregistrationsmi.testhelpers.stage.ErrorEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.stage.ErrorsEventBuilder;
 import com.prmgpregistrationsmi.utils.UUIDService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class ErrorEventIntegrationTest {
+class ErrorsEventIntegrationTest {
     @LocalServerPort
     private int port;
 
@@ -30,24 +30,24 @@ class ErrorEventIntegrationTest {
     AmazonS3Client mockAmazonS3Client;
 
     @Test
-    void shouldUploadErrorEventToS3() {
-        ErrorEvent errorEventRequest = ErrorEventBuilder
+    void shouldUploadErrorsEventToS3() {
+        ErrorsEvent errorsEventRequest = ErrorsEventBuilder
                 .withDefaultEventValues()
                 .build();
 
-        EventDAO expectedS3UploadEvent = EventDAOBuilder.withEvent(errorEventRequest)
+        EventDAO expectedS3UploadEvent = EventDAOBuilder.withEvent(errorsEventRequest)
                 .eventId(UUIDService.buildUUIDStringFromSeed(
-                        errorEventRequest.getConversationId() +
+                        errorsEventRequest.getConversationId() +
                                 EventType.ERROR +
-                                errorEventRequest.getRegistrationEventDateTime())
+                                errorsEventRequest.getRegistrationEventDateTime())
                 )
                 .eventType(EventType.ERROR)
 
                 .build();
 
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
-                "/error",
-                errorEventRequest, EventResponse.class);
+                "/errors",
+                errorsEventRequest, EventResponse.class);
 
         assertEquals(expectedS3UploadEvent.getEventId(), actualResponseEvent.getEventId());
 

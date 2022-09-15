@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @Getter
 @Builder
-public class ErrorPayload implements Payload {
+public class ErrorsPayload implements Payload {
     @Valid
     @NotNull
     private Registration registration;

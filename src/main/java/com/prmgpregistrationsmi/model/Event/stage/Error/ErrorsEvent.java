@@ -12,10 +12,10 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class ErrorEvent extends Event {
+public class ErrorsEvent extends Event {
     @Valid
     @NotNull
-    private ErrorPayload payload;
+    private ErrorsPayload payload;
     @Override
     public Payload getPayload() { return payload; }
 }

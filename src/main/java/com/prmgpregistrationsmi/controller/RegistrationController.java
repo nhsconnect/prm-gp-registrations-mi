@@ -8,7 +8,7 @@ import com.prmgpregistrationsmi.model.Event.stage.DocumentResponses.DocumentResp
 import com.prmgpregistrationsmi.model.Event.stage.EhrIntegrations.EhrIntegrationsEvent;
 import com.prmgpregistrationsmi.model.Event.stage.EhrRequests.EhrRequestsEvent;
 import com.prmgpregistrationsmi.model.Event.stage.EhrResponses.EhrResponsesEvent;
-import com.prmgpregistrationsmi.model.Event.stage.Error.ErrorEvent;
+import com.prmgpregistrationsmi.model.Event.stage.Error.ErrorsEvent;
 import com.prmgpregistrationsmi.model.Event.stage.Registrations.RegistrationsEvent;
 import com.prmgpregistrationsmi.model.Event.stage.TransferCompatibilityStatuses.TransferCompatibilityStatusesEvent;
 import com.prmgpregistrationsmi.service.RegistrationService;
@@ -95,12 +95,12 @@ public class RegistrationController {
     }
 
     @PostMapping(
-            value = "/error",
+            value = "/errors",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public EventResponse errorEvent(
-            @Valid @RequestBody ErrorEvent event) throws UnableToUploadToS3Exception {
+    public EventResponse errorsEvent(
+            @Valid @RequestBody ErrorsEvent event) throws UnableToUploadToS3Exception {
         EventDAO eventDAO = registrationService.saveEvent(event, EventType.ERROR);
         return new EventResponse(eventDAO.getEventId());
     }
