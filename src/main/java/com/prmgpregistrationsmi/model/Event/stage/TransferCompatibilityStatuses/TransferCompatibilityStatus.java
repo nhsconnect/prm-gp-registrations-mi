@@ -1,5 +1,5 @@
 package com.prmgpregistrationsmi.model.Event.stage.TransferCompatibilityStatuses;
-import com.prmgpregistrationsmi.model.Event.EventPayload.Status;
+
 import lombok.*;
 
 import javax.validation.constraints.NotNull;
@@ -10,8 +10,8 @@ import javax.validation.constraints.NotNull;
 @Builder
 @EqualsAndHashCode
 public class TransferCompatibilityStatus {
-    @NotNull(message = "must be either SUCCESS or FAILURE")
-    private Status status;
+    @NotNull
+    private Boolean transferCompatible;
     private String reason;
     @NotNull
     private Boolean internalTransfer;

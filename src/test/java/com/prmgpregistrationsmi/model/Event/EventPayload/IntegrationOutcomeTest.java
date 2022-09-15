@@ -16,34 +16,24 @@ class IntegrationOutcomeTest {
     private final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
     @Test
-    void shouldThrowConstraintViolationWhenIntegrationStatusIdIsNullOrEmpty() {
+    void shouldThrowConstraintViolationWheOutcomeIsNullOrEmpty() {
         IntegrationOutcome integrationOutcome = IntegrationOutcomeBuilder.withDefaultValues()
-                .status(null)
+                .outcome(null)
                 .build();
         Set<ConstraintViolation<IntegrationOutcome>> violations = validator.validate(integrationOutcome);
 
         assertEquals(1, violations.size());
 
         ConstraintViolation<IntegrationOutcome> violation = violations.iterator().next();
-        assertEquals("must be either SUCCESS or FAILURE", violation.getMessage());
-        assertEquals("status", violation.getPropertyPath().toString());
+        assertEquals("Must be one of the following: INTEGRATED, INTEGRATED_AND_SUPPRESS, SUPPRESSED_AND_REACTIVATE, FILED_AS_ATTACHMENT, REJECTED, INTERNAL_TRANSFER, FAILED_TO_INTEGRATE", violation.getMessage());
+        assertEquals("outcome", violation.getPropertyPath().toString());
     }
 
     @ParameterizedTest
-    @EnumSource(Status.class)
-    void shouldOnlyAllowValidStatusTypes(Status status) {
+    @EnumSource(Outcome.class)
+    void shouldOnlyAllowValidOutcomeTypes(Outcome outcome) {
         IntegrationOutcome integrationOutcome = IntegrationOutcomeBuilder.withDefaultValues()
-                .status(status)
-                .build();
-        Set<ConstraintViolation<IntegrationOutcome>> violations = validator.validate(integrationOutcome);
-
-        assertEquals(0, violations.size());
-    }
-
-    @Test
-    void shouldAllowEmptyOrNullIntegrationType() {
-        IntegrationOutcome integrationOutcome = IntegrationOutcomeBuilder.withDefaultValues()
-                .type(null)
+                .outcome(Outcome.INTEGRATED)
                 .build();
         Set<ConstraintViolation<IntegrationOutcome>> violations = validator.validate(integrationOutcome);
 
@@ -51,10 +41,10 @@ class IntegrationOutcomeTest {
     }
 
     @ParameterizedTest
-    @EnumSource(IntegrationType.class)
-    void shouldOnlyAllowValidIntegrationTypes(IntegrationType type) {
+    @EnumSource(Outcome.class)
+    void shouldOnlyAllowValidIntegrationTypes(Outcome type) {
         IntegrationOutcome integrationOutcome = IntegrationOutcomeBuilder.withDefaultValues()
-                .type(type)
+                .outcome(type)
                 .build();
         Set<ConstraintViolation<IntegrationOutcome>> violations = validator.validate(integrationOutcome);
 

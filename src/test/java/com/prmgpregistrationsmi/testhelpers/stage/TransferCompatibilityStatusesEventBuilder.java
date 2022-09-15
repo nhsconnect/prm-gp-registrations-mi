@@ -17,6 +17,6 @@ public class TransferCompatibilityStatusesEventBuilder {
 
     public static TransferCompatibilityStatusesPayload.TransferCompatibilityStatusesPayloadBuilder withDefaultTransferCompatibilityStatusesPayload() {
         return TransferCompatibilityStatusesPayload.builder()
-                .transferCompatibilityStatus(TransferCompatibilityStatusBuilder.withSuccessfulStatus().build());
+                .transferCompatibilityStatus(TransferCompatibilityStatusBuilder.withDefaultValues().build());
     }
 }

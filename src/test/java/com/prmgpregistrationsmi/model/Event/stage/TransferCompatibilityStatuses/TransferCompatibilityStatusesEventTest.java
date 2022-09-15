@@ -1,11 +1,8 @@
 package com.prmgpregistrationsmi.model.Event.stage.TransferCompatibilityStatuses;
 
-import com.prmgpregistrationsmi.model.Event.EventPayload.Status;
 import com.prmgpregistrationsmi.testhelpers.TransferCompatibilityStatusBuilder;
 import com.prmgpregistrationsmi.testhelpers.stage.TransferCompatibilityStatusesEventBuilder;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.EnumSource;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -17,12 +14,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class TransferCompatibilityStatusesEventTest {
     private final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
-    @ParameterizedTest
-    @EnumSource(Status.class)
-    void shouldNotThrowConstraintViolationWhenEventFieldsAreValid(Status status) {
+    @Test
+    void shouldNotThrowConstraintViolationWhenEventFieldsAreValid() {
         TransferCompatibilityStatus transferCompatibilityStatus = TransferCompatibilityStatusBuilder
-                .withSuccessfulStatus()
-                .status(status)
+                .withDefaultValues()
+                .reason(null)
                 .build();
         TransferCompatibilityStatusesPayload payload = TransferCompatibilityStatusesEventBuilder
                 .withDefaultTransferCompatibilityStatusesPayload()
@@ -77,8 +73,8 @@ class TransferCompatibilityStatusesEventTest {
     @Test
     void shouldThrowConstraintViolationWhenStatusDetailsFieldsAreInvalid() {
         TransferCompatibilityStatus transferCompatibilityStatus = TransferCompatibilityStatusBuilder
-                .withSuccessfulStatus()
-                .status(null)
+                .withDefaultValues()
+                .transferCompatible(null)
                 .build();
         TransferCompatibilityStatusesPayload payload = TransferCompatibilityStatusesEventBuilder
                 .withDefaultTransferCompatibilityStatusesPayload()
@@ -94,14 +90,14 @@ class TransferCompatibilityStatusesEventTest {
         assertEquals(1, violations.size());
 
         ConstraintViolation<TransferCompatibilityStatusesEvent> violation = violations.iterator().next();
-        assertEquals("must be either SUCCESS or FAILURE", violation.getMessage());
-        assertEquals("payload.transferCompatibilityStatus.status", violation.getPropertyPath().toString());
+        assertEquals("must not be null", violation.getMessage());
+        assertEquals("payload.transferCompatibilityStatus.transferCompatible", violation.getPropertyPath().toString());
     }
 
     @Test
     void shouldThrowConstraintViolationWhenInternalTransferIsNull() {
         TransferCompatibilityStatus transferCompatibilityStatus = TransferCompatibilityStatusBuilder
-                .withSuccessfulStatus()
+                .withDefaultValues()
                 .internalTransfer(null)
                 .build();
         TransferCompatibilityStatusesPayload payload = TransferCompatibilityStatusesEventBuilder

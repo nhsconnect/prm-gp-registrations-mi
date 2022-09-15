@@ -12,7 +12,12 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Builder
 public class IntegrationOutcome {
-    @NotNull(message = "must be either SUCCESS or FAILURE")
-    private Status status;
-    private IntegrationType type;
+    @NotNull(message = "Must be one of the following: INTEGRATED, " +
+            "INTEGRATED_AND_SUPPRESS, " +
+            "SUPPRESSED_AND_REACTIVATE, " +
+            "FILED_AS_ATTACHMENT, " +
+            "REJECTED, " +
+            "INTERNAL_TRANSFER, " +
+            "FAILED_TO_INTEGRATE")
+    private Outcome outcome;
 }

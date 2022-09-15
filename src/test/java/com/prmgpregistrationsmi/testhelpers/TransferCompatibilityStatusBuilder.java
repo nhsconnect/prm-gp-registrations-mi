@@ -1,12 +1,11 @@
 package com.prmgpregistrationsmi.testhelpers;
 
-import com.prmgpregistrationsmi.model.Event.EventPayload.Status;
 import com.prmgpregistrationsmi.model.Event.stage.TransferCompatibilityStatuses.TransferCompatibilityStatus;
 
 public class TransferCompatibilityStatusBuilder {
-    public static TransferCompatibilityStatus.TransferCompatibilityStatusBuilder withSuccessfulStatus() {
+    public static TransferCompatibilityStatus.TransferCompatibilityStatusBuilder withDefaultValues() {
         return TransferCompatibilityStatus.builder()
-                .status(Status.SUCCESS)
+                .transferCompatible(true)
                 .internalTransfer(true)
                 .reason("ok");
     }

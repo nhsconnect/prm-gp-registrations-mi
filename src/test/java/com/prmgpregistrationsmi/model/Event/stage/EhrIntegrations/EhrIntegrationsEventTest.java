@@ -114,7 +114,7 @@ public class EhrIntegrationsEventTest {
     void shouldThrowConstraintViolationWhenIntegrationOutcomeFieldsAreInvalid() {
         IntegrationOutcome invalidIntegrationOutcome = IntegrationOutcomeBuilder
                 .withDefaultValues()
-                .status(null)
+                .outcome(null)
                 .build();
 
         EhrIntegrationsPayload payload = EhrIntegrationsEventBuilder
@@ -132,7 +132,7 @@ public class EhrIntegrationsEventTest {
         assertEquals(1, violations.size());
 
         ConstraintViolation<EhrIntegrationsEvent> violation = violations.iterator().next();
-        assertEquals("must be either SUCCESS or FAILURE", violation.getMessage());
-        assertEquals("payload.integration.status", violation.getPropertyPath().toString());
+        assertEquals("Must be one of the following: INTEGRATED, INTEGRATED_AND_SUPPRESS, SUPPRESSED_AND_REACTIVATE, FILED_AS_ATTACHMENT, REJECTED, INTERNAL_TRANSFER, FAILED_TO_INTEGRATE", violation.getMessage());
+        assertEquals("payload.integration.outcome", violation.getPropertyPath().toString());
     }
 }
