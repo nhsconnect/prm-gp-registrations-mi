@@ -45,7 +45,7 @@ class TransferCompatibilityStatusesEventIntegrationTest {
                 .build();
 
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
-                "/transfer-compatability-statuses",
+                "/transfer-compatibility-statuses",
                 transferCompatibilityStatusesEventRequest, EventResponse.class);
 
         assertEquals(expectedS3UploadEvent.getEventId(), actualResponseEvent.getEventId());

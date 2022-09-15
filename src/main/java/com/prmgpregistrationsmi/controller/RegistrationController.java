@@ -40,7 +40,7 @@ public class RegistrationController {
     }
 
     @PostMapping(
-            value = "/transfer-compatability-statuses",
+            value = "/transfer-compatibility-statuses",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
