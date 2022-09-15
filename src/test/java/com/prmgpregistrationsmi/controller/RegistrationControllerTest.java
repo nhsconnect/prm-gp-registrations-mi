@@ -8,6 +8,7 @@ import com.prmgpregistrationsmi.model.Event.stage.DocumentResponses.DocumentResp
 import com.prmgpregistrationsmi.model.Event.stage.EhrIntegrations.EhrIntegrationsEvent;
 import com.prmgpregistrationsmi.model.Event.stage.EhrRequests.EhrRequestsEvent;
 import com.prmgpregistrationsmi.model.Event.stage.EhrResponses.EhrResponsesEvent;
+import com.prmgpregistrationsmi.model.Event.stage.ReadyToIntegrateStatuses.ReadyToIntegrateStatusesEvent;
 import com.prmgpregistrationsmi.model.Event.stage.Registrations.RegistrationsEvent;
 import com.prmgpregistrationsmi.service.RegistrationService;
 import com.prmgpregistrationsmi.testhelpers.stage.*;
@@ -113,6 +114,23 @@ class RegistrationControllerTest {
         EventResponse actualResponse = registrationController.documentResponsesEvent(testEvent);
 
         verify(registrationService).saveEvent(testEvent, EventType.DOCUMENT_RESPONSES);
+
+        assertEquals(eventDAO.getEventId(), actualResponse.getEventId());
+    }
+
+    @Test
+    void readyToIntegrateStatusesEventReturnsEventResponse() throws UnableToUploadToS3Exception {
+        ReadyToIntegrateStatusesEvent testEvent = ReadyToIntegrateStatusesEventBuilder
+                .withDefaultEventValues()
+                .build();
+
+        EventDAO eventDAO = EventDAO.builder().build();
+
+        when(registrationService.saveEvent(testEvent, EventType.READY_TO_INTEGRATE_STATUSES)).thenReturn(eventDAO);
+
+        EventResponse actualResponse = registrationController.readyToIntegrateStatusesEvent(testEvent);
+
+        verify(registrationService).saveEvent(testEvent, EventType.READY_TO_INTEGRATE_STATUSES);
 
         assertEquals(eventDAO.getEventId(), actualResponse.getEventId());
     }

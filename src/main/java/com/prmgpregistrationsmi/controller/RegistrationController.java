@@ -9,6 +9,7 @@ import com.prmgpregistrationsmi.model.Event.stage.EhrIntegrations.EhrIntegration
 import com.prmgpregistrationsmi.model.Event.stage.EhrRequests.EhrRequestsEvent;
 import com.prmgpregistrationsmi.model.Event.stage.EhrResponses.EhrResponsesEvent;
 import com.prmgpregistrationsmi.model.Event.stage.Error.ErrorsEvent;
+import com.prmgpregistrationsmi.model.Event.stage.ReadyToIntegrateStatuses.ReadyToIntegrateStatusesEvent;
 import com.prmgpregistrationsmi.model.Event.stage.Registrations.RegistrationsEvent;
 import com.prmgpregistrationsmi.model.Event.stage.TransferCompatibilityStatuses.TransferCompatibilityStatusesEvent;
 import com.prmgpregistrationsmi.service.RegistrationService;
@@ -80,6 +81,17 @@ public class RegistrationController {
     public EventResponse documentResponsesEvent(
             @Valid @RequestBody DocumentResponsesEvent event) throws UnableToUploadToS3Exception {
         EventDAO eventDAO = registrationService.saveEvent(event, EventType.DOCUMENT_RESPONSES);
+        return new EventResponse(eventDAO.getEventId());
+    }
+
+    @PostMapping(
+            value = "/ready-to-integrate-statuses",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public EventResponse readyToIntegrateStatusesEvent(
+            @Valid @RequestBody ReadyToIntegrateStatusesEvent event) throws UnableToUploadToS3Exception {
+        EventDAO eventDAO = registrationService.saveEvent(event, EventType.READY_TO_INTEGRATE_STATUSES);
         return new EventResponse(eventDAO.getEventId());
     }
 
