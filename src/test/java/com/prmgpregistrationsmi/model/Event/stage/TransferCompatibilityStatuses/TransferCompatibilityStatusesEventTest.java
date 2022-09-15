@@ -99,10 +99,10 @@ class TransferCompatibilityStatusesEventTest {
     }
 
     @Test
-    void shouldThrowConstraintViolationWhenTypeIsMissing() {
+    void shouldThrowConstraintViolationWhenInternalTransferIsNull() {
         TransferCompatibilityStatus transferCompatibilityStatus = TransferCompatibilityStatusBuilder
                 .withSuccessfulStatus()
-                .type(null)
+                .internalTransfer(null)
                 .build();
         TransferCompatibilityStatusesPayload payload = TransferCompatibilityStatusesEventBuilder
                 .withDefaultTransferCompatibilityStatusesPayload()
@@ -118,7 +118,7 @@ class TransferCompatibilityStatusesEventTest {
         assertEquals(1, violations.size());
 
         ConstraintViolation<TransferCompatibilityStatusesEvent> violation = violations.iterator().next();
-        assertEquals("must be either INTERNAL or TRANSFER", violation.getMessage());
-        assertEquals("payload.transferCompatibilityStatus.type", violation.getPropertyPath().toString());
+        assertEquals("must not be null", violation.getMessage());
+        assertEquals("payload.transferCompatibilityStatus.internalTransfer", violation.getPropertyPath().toString());
     }
 }

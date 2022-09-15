@@ -13,6 +13,6 @@ public class TransferCompatibilityStatus {
     @NotNull(message = "must be either SUCCESS or FAILURE")
     private Status status;
     private String reason;
-    @NotNull(message = "must be either INTERNAL or TRANSFER")
-    private TransferType type;
+    @NotNull
+    private Boolean internalTransfer;
 }
