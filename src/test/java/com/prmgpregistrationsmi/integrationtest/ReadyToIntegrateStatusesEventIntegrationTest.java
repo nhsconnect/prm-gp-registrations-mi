@@ -38,15 +38,15 @@ class ReadyToIntegrateStatusesEventIntegrationTest {
         EventDAO expectedS3UploadEvent = EventDAOBuilder.withEvent(readyToIntegrateStatusesEventRequests)
                 .eventId(UUIDService.buildUUIDStringFromSeed(
                         readyToIntegrateStatusesEventRequests.getConversationId() +
-                                EventType.EHR_REQUESTS +
+                                EventType.READY_TO_INTEGRATE_STATUSES +
                                 readyToIntegrateStatusesEventRequests.getRegistrationEventDateTime())
                 )
-                .eventType(EventType.EHR_REQUESTS)
+                .eventType(EventType.READY_TO_INTEGRATE_STATUSES)
 
                 .build();
 
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
-                "/ehr-requests", readyToIntegrateStatusesEventRequests, EventResponse.class);
+                "/ready-to-integrate-statuses", readyToIntegrateStatusesEventRequests, EventResponse.class);
 
         assertEquals(expectedS3UploadEvent.getEventId(), actualResponseEvent.getEventId());
 
