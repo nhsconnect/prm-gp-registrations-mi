@@ -34,8 +34,8 @@ class SystemCodingTest {
     @NullAndEmptySource
     void shouldThrowConstraintViolationWhenSystemCodingSystemIsNullOrEmpty(String degradeSystem) {
         SystemCoding systemCoding = DegradeBuilder.withDefaultSystemCoding()
-                        .system(degradeSystem)
-                        .build();
+                .system(degradeSystem)
+                .build();
 
         Set<ConstraintViolation<SystemCoding>> violations = validator.validate(systemCoding);
 

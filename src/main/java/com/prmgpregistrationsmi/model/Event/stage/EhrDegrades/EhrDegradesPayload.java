@@ -1,16 +1,17 @@
-package com.prmgpregistrationsmi.model.Event.stage.Degrades;
+package com.prmgpregistrationsmi.model.Event.stage.EhrDegrades;
 
 import com.prmgpregistrationsmi.model.Event.EventPayload.Degrade;
 import com.prmgpregistrationsmi.model.Event.Payload;
 import lombok.Builder;
 import lombok.Getter;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Getter
 @Builder
-public class DegradesPayload implements Payload {
+public class EhrDegradesPayload implements Payload {
     @NotNull
-    private Degrade degrade;
-
+    private List<@Valid Degrade> degrades;
 }

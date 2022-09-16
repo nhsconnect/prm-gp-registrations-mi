@@ -1,7 +1,5 @@
-package com.prmgpregistrationsmi.model.Event.stage.Degrades;
+package com.prmgpregistrationsmi.model.Event.stage.EhrDegrades;
 
-import com.prmgpregistrationsmi.model.Event.Event;
-import com.prmgpregistrationsmi.model.Event.Payload;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -13,16 +11,11 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-public class DegradesEvent extends Event {
+public class EhrDegradesEvent {
     @NotNull
     @Valid
-    private DegradesPayload payload;
+    private EhrDegradesPayload payload;
 
     @NotEmpty
     private String reportingSystemSupplier;
-
-    @Override
-    public Payload getPayload() {
-        return payload;
-    }
 }
