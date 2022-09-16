@@ -9,4 +9,5 @@ public enum EventType {
     READY_TO_INTEGRATE_STATUSES,
     EHR_INTEGRATIONS,
     ERROR,
+    DEGRADES
 }

@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Getter
 @Builder
@@ -17,8 +17,7 @@ public class Degrade {
     @NotEmpty
     private String type;
     @NotEmpty
-    private String metadata;
-    @Valid
-    @NotNull
-    private DegradeCode code;
+    private String reason;
+    @NotEmpty
+    private List<@Valid SystemCoding> coding;
 }

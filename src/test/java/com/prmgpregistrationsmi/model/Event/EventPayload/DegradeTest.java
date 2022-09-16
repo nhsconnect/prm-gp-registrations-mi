@@ -35,7 +35,7 @@ class DegradeTest {
     @NullAndEmptySource
     void shouldThrowConstraintViolationWhenDegradeMetadataIsNullOrEmpty(String degradeMetadata) {
         Degrade degrade = DegradeBuilder.withDefaultValues()
-                .metadata(degradeMetadata)
+                .reason(degradeMetadata)
                 .build();
 
         Set<ConstraintViolation<Degrade>> violations = validator.validate(degrade);
@@ -44,32 +44,13 @@ class DegradeTest {
 
         ConstraintViolation<Degrade> violation = violations.iterator().next();
         assertEquals("must not be empty", violation.getMessage());
-        assertEquals("metadata", violation.getPropertyPath().toString());
-    }
-
-    @Test
-    void shouldThrowConstraintViolationWhenDegradeCodeIsNull() {
-        Degrade degrade = DegradeBuilder.withDefaultValues()
-                .code(null)
-                .build();
-
-        Set<ConstraintViolation<Degrade>> violations = validator.validate(degrade);
-
-        assertEquals(1, violations.size());
-
-        ConstraintViolation<Degrade> violation = violations.iterator().next();
-        assertEquals("must not be null", violation.getMessage());
-        assertEquals("code", violation.getPropertyPath().toString());
+        assertEquals("reason", violation.getPropertyPath().toString());
     }
 
     @Test
     void shouldThrowConstraintViolationWhenDegradeCodingIsNull() {
-        DegradeCode coding = DegradeBuilder
-                .withDefaultDegradeCoding()
-                .coding(null)
-                .build();
         Degrade degrade = DegradeBuilder.withDefaultValues()
-                .code(coding)
+                .coding(null)
                 .build();
 
         Set<ConstraintViolation<Degrade>> violations = validator.validate(degrade);
@@ -79,18 +60,14 @@ class DegradeTest {
 
         ConstraintViolation<Degrade> violation = violations.iterator().next();
         assertEquals("must not be empty", violation.getMessage());
-        assertEquals("code.coding", violation.getPropertyPath().toString());
+        assertEquals("coding", violation.getPropertyPath().toString());
     }
 
     @Test
     void shouldThrowConstraintViolationWhenDegradeCodingIsEmptyList() {
         List<SystemCoding> emptyList = List.of();
-        DegradeCode coding = DegradeBuilder
-                .withDefaultDegradeCoding()
-                .coding(emptyList)
-                .build();
         Degrade degrade = DegradeBuilder.withDefaultValues()
-                .code(coding)
+                .coding(emptyList)
                 .build();
 
         Set<ConstraintViolation<Degrade>> violations = validator.validate(degrade);
@@ -100,21 +77,39 @@ class DegradeTest {
 
         ConstraintViolation<Degrade> violation = violations.iterator().next();
         assertEquals("must not be empty", violation.getMessage());
-        assertEquals("code.coding", violation.getPropertyPath().toString());
+        assertEquals("coding", violation.getPropertyPath().toString());
     }
 
     @Test
-    void shouldThrowConstraintViolationWhenSystemCodingIsListIsInvalid() {
+    void shouldThrowConstraintViolationWhenSystemCodingSystemInListIsInvalid() {
+        List<SystemCoding> invalidSystemCodings = List.of(
+                DegradeBuilder.withDefaultSystemCoding()
+                        .system(null)
+                        .build());
+
+        Degrade degrade = DegradeBuilder.withDefaultValues()
+                .coding(invalidSystemCodings)
+                .build();
+
+        Set<ConstraintViolation<Degrade>> violations = validator.validate(degrade);
+
+
+        assertEquals(1, violations.size());
+
+        ConstraintViolation<Degrade> violation = violations.iterator().next();
+        assertEquals("must not be empty", violation.getMessage());
+        assertEquals("coding[0].system", violation.getPropertyPath().toString());
+    }
+
+    @Test
+    void shouldThrowConstraintViolationWhenSystemCodingCodeInListIsInvalid() {
         List<SystemCoding> invalidSystemCodings = List.of(
                 DegradeBuilder.withDefaultSystemCoding()
                         .code(null)
                         .build());
-        DegradeCode coding = DegradeBuilder
-                .withDefaultDegradeCoding()
-                .coding(invalidSystemCodings)
-                .build();
+
         Degrade degrade = DegradeBuilder.withDefaultValues()
-                .code(coding)
+                .coding(invalidSystemCodings)
                 .build();
 
         Set<ConstraintViolation<Degrade>> violations = validator.validate(degrade);
@@ -124,6 +119,6 @@ class DegradeTest {
 
         ConstraintViolation<Degrade> violation = violations.iterator().next();
         assertEquals("must not be empty", violation.getMessage());
-        assertEquals("code.coding[0].code", violation.getPropertyPath().toString());
+        assertEquals("coding[0].code", violation.getPropertyPath().toString());
     }
 }
