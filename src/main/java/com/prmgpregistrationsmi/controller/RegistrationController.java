@@ -5,6 +5,7 @@ import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.model.Event.stage.DocumentResponses.DocumentResponsesEvent;
+import com.prmgpregistrationsmi.model.Event.stage.EhrDegrades.EhrDegradesEvent;
 import com.prmgpregistrationsmi.model.Event.stage.EhrIntegrations.EhrIntegrationsEvent;
 import com.prmgpregistrationsmi.model.Event.stage.EhrRequests.EhrRequestsEvent;
 import com.prmgpregistrationsmi.model.Event.stage.EhrResponses.EhrResponsesEvent;
@@ -114,6 +115,17 @@ public class RegistrationController {
     public EventResponse errorsEvent(
             @Valid @RequestBody ErrorsEvent event) throws UnableToUploadToS3Exception {
         EventDAO eventDAO = registrationService.saveEvent(event, EventType.ERROR);
+        return new EventResponse(eventDAO.getEventId());
+    }
+
+    @PostMapping(
+            value = "/ehr-degrades",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public EventResponse ehrDegradesEvent(
+            @Valid @RequestBody EhrDegradesEvent degradesEvent) throws UnableToUploadToS3Exception {
+        EventDAO eventDAO = registrationService.saveDegradesEvent(degradesEvent, EventType.DEGRADES);
         return new EventResponse(eventDAO.getEventId());
     }
 }

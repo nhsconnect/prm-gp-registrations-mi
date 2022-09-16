@@ -57,7 +57,7 @@ class RegistrationServiceTest {
 
         EventDAO expectedEventDAO = EventDAO.fromEvent(testEvent, gp2gpRegistrationEventType, LocalDateTime.now().truncatedTo(ChronoUnit.DAYS));
 
-        EventDAO eventDAO = registrationService.saveEvent(testEvent, gp2gpRegistrationEventType);
+        EventDAO eventDAO = registrationService.saveDegradesEvent(testEvent, gp2gpRegistrationEventType);
 
         verify(eventS3ClientMock, times(1)).uploadJsonObject(any(EventDAO.class), anyString());
         assertEquals(eventDAO.getEventGeneratedDateTime(), expectedEventDAO.getEventGeneratedDateTime());
@@ -73,7 +73,7 @@ class RegistrationServiceTest {
                 .build();
         EventType gp2gpRegistrationEventType = EventType.DEGRADES;
 
-        EventDAO testEventDAO = registrationService.saveEvent(testEvent, gp2gpRegistrationEventType);
+        EventDAO testEventDAO = registrationService.saveDegradesEvent(testEvent, gp2gpRegistrationEventType);
 
         verify(eventS3ClientMock, times(1)).uploadJsonObject(any(),
                 //TODO: Freeze clock and check full path
