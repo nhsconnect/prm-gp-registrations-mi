@@ -12,6 +12,6 @@ public class EhrResponsesEhrDetailsBuilder {
 
         return EhrResponsesEhrDetails.builder()
                 .ehrStructuredSizeBytes(4096L)
-                .placeholder(List.of(placeholderDetails));
+                .placeholders(List.of(placeholderDetails));
     }
 }

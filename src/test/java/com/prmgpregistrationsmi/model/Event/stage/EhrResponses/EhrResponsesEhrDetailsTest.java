@@ -53,7 +53,7 @@ class EhrResponsesEhrDetailsTest {
         List<Placeholder> emptyList = List.of();
         EhrResponsesEhrDetails ehrPayload = EhrResponsesEhrDetailsBuilder
                 .withDefaultValues()
-                .placeholder(emptyList)
+                .placeholders(emptyList)
                 .build();
 
         Set<ConstraintViolation<EhrResponsesEhrDetails>> violations = validator.validate(ehrPayload);
@@ -70,7 +70,7 @@ class EhrResponsesEhrDetailsTest {
 
         EhrResponsesEhrDetails ehrPayload = EhrResponsesEhrDetailsBuilder
                 .withDefaultValues()
-                .placeholder(List.of(placeholderDetails))
+                .placeholders(List.of(placeholderDetails))
                 .build();
 
         Set<ConstraintViolation<EhrResponsesEhrDetails>> violations = validator.validate(ehrPayload);
@@ -79,6 +79,6 @@ class EhrResponsesEhrDetailsTest {
 
         ConstraintViolation<EhrResponsesEhrDetails> violation = violations.iterator().next();
         assertEquals("must not be empty", violation.getMessage());
-        assertEquals("placeholder[0].originalMimeType", violation.getPropertyPath().toString());
+        assertEquals("placeholders[0].originalMimeType", violation.getPropertyPath().toString());
     }
 }

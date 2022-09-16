@@ -21,5 +21,5 @@ public class EhrResponsesEhrDetails {
     @NotNull
     @PositiveOrZero
     private Long ehrStructuredSizeBytes;
-    private List<@Valid Placeholder> placeholder;
+    private List<@Valid Placeholder> placeholders;
 }
