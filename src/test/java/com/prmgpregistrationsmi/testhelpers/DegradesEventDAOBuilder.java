@@ -13,14 +13,10 @@ import java.util.UUID;
 @Component
 public class DegradesEventDAOBuilder {
 
-    static Clock clock;
-
     @Autowired
-    public DegradesEventDAOBuilder(Clock clock) {
-        DegradesEventDAOBuilder.clock = clock;
-    }
+    Clock clock;
 
-    public static EventDAO.EventDAOBuilder withDegradesEvent(EhrDegradesEvent event) {
+    public EventDAO.EventDAOBuilder withDegradesEvent(EhrDegradesEvent event) {
         return EventDAO.builder()
                 .eventId(UUID.randomUUID().toString())
                 .eventGeneratedDateTime(LocalDateTime.now(clock).truncatedTo(ChronoUnit.DAYS))

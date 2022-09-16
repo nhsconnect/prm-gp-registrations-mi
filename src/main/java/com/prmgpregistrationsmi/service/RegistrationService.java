@@ -33,7 +33,7 @@ public class RegistrationService {
     }
 
     public EventDAO saveDegradesEvent(EhrDegradesEvent event, EventType eventType) throws UnableToUploadToS3Exception {
-        EventDAO degradeEventDAO = EventDAO.fromEvent(event, eventType, LocalDateTime.now().truncatedTo(ChronoUnit.DAYS));
+        EventDAO degradeEventDAO = EventDAO.fromEvent(event, eventType, LocalDateTime.now(clock).truncatedTo(ChronoUnit.DAYS));
         String s3Key = DEGRADES_DIRECTORY + getS3Key(degradeEventDAO.getEventGeneratedDateTime(), degradeEventDAO.getEventId());
         eventS3Client.uploadJsonObject(degradeEventDAO, s3Key);
         return degradeEventDAO;

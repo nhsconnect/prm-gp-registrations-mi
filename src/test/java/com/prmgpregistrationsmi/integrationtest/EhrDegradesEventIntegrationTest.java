@@ -39,6 +39,9 @@ class EhrDegradesEventIntegrationTest {
     @MockBean
     Clock clock;
 
+    @Autowired
+    DegradesEventDAOBuilder degradesEventDAOBuilder;
+
     @BeforeEach
     public void setup() {
         Clock mockClock = Clock.fixed(LocalDateTime.of(1990, 03, 3, 0, 0, 0).toInstant(ZoneOffset.of("Z")), ZoneId.systemDefault());
@@ -55,7 +58,7 @@ class EhrDegradesEventIntegrationTest {
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
                 "/ehr-degrades", ehrDegradesEvent, EventResponse.class);
 
-        EventDAO expectedS3UploadEvent = DegradesEventDAOBuilder.withDegradesEvent(ehrDegradesEvent)
+        EventDAO expectedS3UploadEvent = degradesEventDAOBuilder.withDegradesEvent(ehrDegradesEvent)
                 .eventType(EventType.DEGRADES)
                 .eventId(actualResponseEvent.getEventId())
                 .build();

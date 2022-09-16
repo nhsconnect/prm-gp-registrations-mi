@@ -68,7 +68,7 @@ class RegistrationServiceTest {
                 .build();
         EventType gp2gpRegistrationEventType = EventType.DEGRADES;
 
-        EventDAO expectedEventDAO = EventDAO.fromEvent(testEvent, gp2gpRegistrationEventType, LocalDateTime.now().truncatedTo(ChronoUnit.DAYS));
+        EventDAO expectedEventDAO = EventDAO.fromEvent(testEvent, gp2gpRegistrationEventType, mockLocalDateTime.truncatedTo(ChronoUnit.DAYS));
 
         EventDAO eventDAO = registrationService.saveDegradesEvent(testEvent, gp2gpRegistrationEventType);
 
