@@ -1,10 +1,12 @@
 package com.prmgpregistrationsmi.model.Event;
 
+import com.prmgpregistrationsmi.model.Event.stage.EhrDegrades.EhrDegradesEvent;
 import com.prmgpregistrationsmi.utils.JsonHelper;
 import com.prmgpregistrationsmi.utils.UUIDService;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 
 @Getter
@@ -34,6 +36,20 @@ public class EventDAO {
                 event.getConversationId(),
                 event.getRegistrationEventDateTime(),
                 event.getPayload()
+        );
+    }
+
+    public static EventDAO fromEvent(EhrDegradesEvent degradeEvent, EventType eventType, LocalDateTime timeNow) {
+
+        return new EventDAO(
+                UUID.randomUUID().toString(),
+                timeNow,
+                eventType,
+                degradeEvent.getReportingSystemSupplier(),
+                null,
+                null,
+                null,
+                degradeEvent.getPayload()
         );
     }
 

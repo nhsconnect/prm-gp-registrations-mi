@@ -4,6 +4,7 @@ import com.prmgpregistrationsmi.exception.UnableToUploadToS3Exception;
 import com.prmgpregistrationsmi.model.Event.Event;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventType;
+import com.prmgpregistrationsmi.model.Event.stage.EhrDegrades.EhrDegradesEvent;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,13 +20,21 @@ import java.util.TimeZone;
 public class RegistrationService {
     private static final String OUTPUT_EXTENSION = ".json";
     private static final String OUTPUT_VERSION = "v1";
+    private static final String DEGRADES_DIRECTORY = "degrades/";
     private final S3FileUploader eventS3Client;
 
     public EventDAO saveEvent(Event event, EventType eventType) throws UnableToUploadToS3Exception {
         EventDAO eventDAO = EventDAO.fromEvent(event, eventType, LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES));
-        String s3Key = getS3Key(eventDAO);
+        String s3Key = getS3Key(eventDAO.getRegistrationEventDateTime(), eventDAO.getEventId());
         eventS3Client.uploadJsonObject(eventDAO, s3Key);
         return eventDAO;
+    }
+
+    public EventDAO saveEvent(EhrDegradesEvent event, EventType eventType) throws UnableToUploadToS3Exception {
+        EventDAO degradeEventDAO = EventDAO.fromEvent(event, eventType, LocalDateTime.now().truncatedTo(ChronoUnit.DAYS));
+        String s3Key = DEGRADES_DIRECTORY + getS3Key(degradeEventDAO.getEventGeneratedDateTime(), degradeEventDAO.getEventId());
+        eventS3Client.uploadJsonObject(degradeEventDAO, s3Key);
+        return degradeEventDAO;
     }
 
     private String getS3DatePrefix(LocalDateTime eventGeneratedDateTime) {
@@ -40,11 +49,8 @@ public class RegistrationService {
         return String.format("%02d/%02d/%02d/%02d", eventGeneratedYear, eventGeneratedMonth, eventGeneratedDay, eventGeneratedHour);
     }
 
-    private String getS3Key(EventDAO eventDao) {
-        LocalDateTime eventGeneratedDateTime = eventDao.getRegistrationEventDateTime();
-        String s3DatePrefix = getS3DatePrefix(eventGeneratedDateTime);
-
-        String eventId = eventDao.getEventId();
+    private String getS3Key(LocalDateTime eventDatetime, String eventId) {
+        String s3DatePrefix = getS3DatePrefix(eventDatetime);
         String fileName = eventId + OUTPUT_EXTENSION;
 
         return String.format("%s/%s/%s", OUTPUT_VERSION, s3DatePrefix, fileName);
