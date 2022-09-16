@@ -63,6 +63,40 @@ public class EventTest {
 
     @ParameterizedTest
     @NullAndEmptySource
+    void shouldThrowConstraintViolationWhenRequestingPracticeOdsCodeIsNullOrEmpty(String requestingPracticeOdsCode) {
+        RegistrationsEvent event = RegistrationsEventBuilder
+                .withDefaultEventValues()
+                .requestingPracticeOdsCode(requestingPracticeOdsCode)
+                .build();
+
+        Set<ConstraintViolation<RegistrationsEvent>> violations = validator.validate(event);
+
+        assertEquals(1, violations.size());
+
+        ConstraintViolation<RegistrationsEvent> violation = violations.iterator().next();
+        assertEquals("must not be empty", violation.getMessage());
+        assertEquals("requestingPracticeOdsCode", violation.getPropertyPath().toString());
+    }
+
+    @ParameterizedTest
+    @NullAndEmptySource
+    void shouldThrowConstraintViolationWhenSendingPracticeOdsCodeIsNullOrEmpty(String sendingPracticeOdsCode) {
+        RegistrationsEvent event = RegistrationsEventBuilder
+                .withDefaultEventValues()
+                .sendingPracticeOdsCode(sendingPracticeOdsCode)
+                .build();
+
+        Set<ConstraintViolation<RegistrationsEvent>> violations = validator.validate(event);
+
+        assertEquals(1, violations.size());
+
+        ConstraintViolation<RegistrationsEvent> violation = violations.iterator().next();
+        assertEquals("must not be empty", violation.getMessage());
+        assertEquals("sendingPracticeOdsCode", violation.getPropertyPath().toString());
+    }
+
+    @ParameterizedTest
+    @NullAndEmptySource
     void shouldThrowConstraintViolationWhenConversationIdIsNullOrEmpty(String conversationId) {
         RegistrationsEvent event = RegistrationsEventBuilder
                 .withDefaultEventValues()
