@@ -7,9 +7,13 @@ import com.prmgpregistrationsmi.model.Event.stage.EhrDegrades.EhrDegradesEvent;
 import com.prmgpregistrationsmi.model.Event.stage.Registrations.RegistrationsEvent;
 import com.prmgpregistrationsmi.testhelpers.stage.EhrDegradesEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.stage.RegistrationsEventBuilder;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.Clock;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.temporal.ChronoUnit;
 
 import static org.junit.Assert.assertEquals;
@@ -17,8 +21,17 @@ import static org.mockito.Mockito.*;
 
 class RegistrationServiceTest {
     S3FileUploader eventS3ClientMock = mock(S3FileUploader.class);
+    Clock clock = mock(Clock.class);
+    LocalDateTime mockLocalDateTime = LocalDateTime.of(1990, 03, 3, 0, 0, 0);
 
-    RegistrationService registrationService = new RegistrationService(eventS3ClientMock);
+    RegistrationService registrationService = new RegistrationService(eventS3ClientMock, clock);
+
+    @BeforeEach
+    public void setup() {
+        Clock mockClock = Clock.fixed(mockLocalDateTime.toInstant(ZoneOffset.of("Z")), ZoneId.systemDefault());
+        doReturn(mockClock.instant()).when(clock).instant();
+        doReturn(mockClock.getZone()).when(clock).getZone();
+    }
 
     @Test
     void shouldCallUploadToS3WithEventDAO() throws UnableToUploadToS3Exception {
@@ -27,7 +40,7 @@ class RegistrationServiceTest {
                 .build();
         EventType gp2gpRegistrationEventType = EventType.REGISTRATIONS;
 
-        EventDAO expectedEventDAO = EventDAO.fromEvent(testEvent, gp2gpRegistrationEventType, LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES));
+        EventDAO expectedEventDAO = EventDAO.fromEvent(testEvent, gp2gpRegistrationEventType, mockLocalDateTime);
 
         EventDAO eventDAO = registrationService.saveEvent(testEvent, gp2gpRegistrationEventType);
 

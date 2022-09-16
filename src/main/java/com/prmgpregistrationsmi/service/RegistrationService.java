@@ -8,6 +8,7 @@ import com.prmgpregistrationsmi.model.Event.stage.EhrDegrades.EhrDegradesEvent;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.Clock;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.temporal.ChronoUnit;
@@ -22,9 +23,10 @@ public class RegistrationService {
     private static final String OUTPUT_VERSION = "v1";
     private static final String DEGRADES_DIRECTORY = "degrades/";
     private final S3FileUploader eventS3Client;
+    private final Clock clock;
 
     public EventDAO saveEvent(Event event, EventType eventType) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = EventDAO.fromEvent(event, eventType, LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES));
+        EventDAO eventDAO = EventDAO.fromEvent(event, eventType, LocalDateTime.now(clock).truncatedTo(ChronoUnit.SECONDS));
         String s3Key = getS3Key(eventDAO.getRegistrationEventDateTime(), eventDAO.getEventId());
         eventS3Client.uploadJsonObject(eventDAO, s3Key);
         return eventDAO;
