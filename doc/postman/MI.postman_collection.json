@@ -114,7 +114,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"conversationId\": {{conversation_id}},\n  \"registrationEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SYSTEM_SUPPLIER\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"registration\": {\n      \"requestingPracticeOdsCode\": \"ABC1234\",\n      \"sendingPracticeOdsCode\": \"XYZ4567\"\n    },\n    \"ehr\": {\n     \"ehrStructuredSizeBytes\": 4096,\n     \"placeholder\": [\n        {\n          \"generatedBy\": \"PRE_EXISTING\",\n          \"clinicalType\": \"SCANNED_DOCUMENT\",\n          \"reason\": \"FILE_NOT_FOUND\",\n          \"originalMimeType\": \"application/pdf\"\n        },\n        {\n          \"generatedBy\": \"SENDER\",\n          \"clinicalType\": \"AUDIO_DICTATION\",\n          \"reason\": \"FILE_DELETED\",\n          \"originalMimeType\": \"audio/mpeg\"\n        }\n      ]\n    }\n  }\n}\n",
+					"raw": "{\n  \"conversationId\": {{conversation_id}},\n  \"registrationEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SYSTEM_SUPPLIER\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"registration\": {\n      \"requestingPracticeOdsCode\": \"ABC1234\",\n      \"sendingPracticeOdsCode\": \"XYZ4567\"\n    },\n    \"ehr\": {\n     \"ehrStructuredSizeBytes\": 4096,\n     \"placeholders\": [\n        {\n          \"generatedBy\": \"PRE_EXISTING\",\n          \"clinicalType\": \"SCANNED_DOCUMENT\",\n          \"reason\": \"FILE_NOT_FOUND\",\n          \"originalMimeType\": \"application/pdf\"\n        },\n        {\n          \"generatedBy\": \"SENDER\",\n          \"clinicalType\": \"AUDIO_DICTATION\",\n          \"reason\": \"FILE_DELETED\",\n          \"originalMimeType\": \"audio/mpeg\"\n        }\n      ]\n    }\n  }\n}\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -192,6 +192,38 @@
 					],
 					"path": [
 						"ready-to-integrate-statuses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "7. ehr-degrades",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "apikey",
+						"value": "{{apikey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"reportingSystemSupplier\": \"SYSTEM_SUPPLIER\",\n  \"payload\": {\n    \"degrades\": [\n      {\n        \"type\": \"RECORD_ENTRY\",\n        \"reason\": \"CODE\",\n        \"coding\": [\n          {\n            \"code\": \"1676331000000110\",\n            \"system\": \"http://snomed.info/sct\"\n          }\n        ]\n      }\n    ]\n  }\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{mi_api_url}}/ehr-degrades",
+					"host": [
+						"{{mi_api_url}}"
+					],
+					"path": [
+						"ehr-degrades"
 					]
 				}
 			},
