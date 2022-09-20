@@ -1,7 +1,6 @@
 package com.prmgpregistrationsmi.model.Event.stage.Registrations;
 
-import com.prmgpregistrationsmi.model.Event.Event;
-import com.prmgpregistrationsmi.model.Event.Payload;
+import com.prmgpregistrationsmi.model.Event.PayloadEvent;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -12,13 +11,12 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-public class RegistrationsEvent extends Event {
+public class RegistrationsEvent extends PayloadEvent<RegistrationsPayload> {
     @NotNull
     @Valid
     private RegistrationsPayload payload;
 
-    @Override
-    public Payload getPayload() {
+    public RegistrationsPayload getPayload() {
         return payload;
     }
 }

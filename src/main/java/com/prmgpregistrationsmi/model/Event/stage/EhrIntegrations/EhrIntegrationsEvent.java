@@ -1,7 +1,6 @@
 package com.prmgpregistrationsmi.model.Event.stage.EhrIntegrations;
 
-import com.prmgpregistrationsmi.model.Event.Event;
-import com.prmgpregistrationsmi.model.Event.Payload;
+import com.prmgpregistrationsmi.model.Event.PayloadEvent;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -12,13 +11,12 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class EhrIntegrationsEvent extends Event {
+public class EhrIntegrationsEvent extends PayloadEvent<EhrIntegrationsPayload> {
     @Valid
     @NotNull
     private EhrIntegrationsPayload payload;
 
-    @Override
-    public Payload getPayload() {
+    public EhrIntegrationsPayload getPayload() {
         return payload;
     }
 }

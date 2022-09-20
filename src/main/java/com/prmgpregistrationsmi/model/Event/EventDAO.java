@@ -24,8 +24,13 @@ public class EventDAO {
     private LocalDateTime registrationEventDateTime;
     private Payload payload;
 
-    public static EventDAO fromEvent(Event event, EventType eventType, LocalDateTime timeNow) {
+    public static EventDAO fromEvent(BaseEvent event, EventType eventType, LocalDateTime timeNow) {
         String eventIdSeed = event.getConversationId() + eventType.toString() + event.getRegistrationEventDateTime();
+
+        Payload payload = null;
+        if(event instanceof PayloadEvent) {
+            payload = ((PayloadEvent<?>)event).getPayload();
+        }
 
         return new EventDAO(
                 UUIDService.buildUUIDStringFromSeed(eventIdSeed),
@@ -35,7 +40,7 @@ public class EventDAO {
                 event.getReportingPracticeOdsCode(),
                 event.getConversationId(),
                 event.getRegistrationEventDateTime(),
-                event.getPayload()
+                payload
         );
     }
 

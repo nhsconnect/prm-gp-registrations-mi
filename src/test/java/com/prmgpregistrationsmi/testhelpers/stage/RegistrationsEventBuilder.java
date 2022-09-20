@@ -8,7 +8,7 @@ import com.prmgpregistrationsmi.testhelpers.GPLinksBuilder;
 import com.prmgpregistrationsmi.testhelpers.RegistrationWithAdditionalDetailsBuilder;
 
 public class RegistrationsEventBuilder {
-    public static RegistrationsEvent.RegistrationsEventBuilder<?, ?> withDefaultEventValues() {
+    public static RegistrationsEvent.RegistrationsEventBuilder withDefaultEventValues() {
         return RegistrationsEvent.builder()
                 .reportingSystemSupplier(DefaultEventValues.REPORTING_SYSTEM_SUPPLIER)
                 .reportingPracticeOdsCode(DefaultEventValues.REPORTING_PRACTICE_ODS_CODE)

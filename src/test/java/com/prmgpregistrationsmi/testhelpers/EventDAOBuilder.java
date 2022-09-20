@@ -1,7 +1,6 @@
 package com.prmgpregistrationsmi.testhelpers;
 
-import com.prmgpregistrationsmi.model.Event.Event;
-import com.prmgpregistrationsmi.model.Event.EventDAO;
+import com.prmgpregistrationsmi.model.Event.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +15,11 @@ public class EventDAOBuilder {
     @Autowired
     Clock clock;
 
-    public EventDAO.EventDAOBuilder withEvent(Event event) {
+    public EventDAO.EventDAOBuilder withEvent(BaseEvent event) {
+        Payload payload = null;
+        if(event instanceof PayloadEvent) {
+            payload = ((PayloadEvent<?>)event).getPayload();
+        }
         return EventDAO.builder()
                 .eventId(UUID.randomUUID().toString())
                 .eventGeneratedDateTime(LocalDateTime.now(clock).truncatedTo(ChronoUnit.SECONDS))
@@ -24,6 +27,6 @@ public class EventDAOBuilder {
                 .reportingPracticeOdsCode(event.getReportingPracticeOdsCode())
                 .conversationId(event.getConversationId())
                 .registrationEventDateTime(event.getRegistrationEventDateTime())
-                .payload(event.getPayload());
+                .payload(payload);
     }
 }

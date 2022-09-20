@@ -1,6 +1,6 @@
 package com.prmgpregistrationsmi.model.Event.EventPayload;
 
-import com.prmgpregistrationsmi.model.Event.stage.Registrations.RegistrationsEvent;
+import com.prmgpregistrationsmi.model.Event.BaseEvent;
 import com.prmgpregistrationsmi.testhelpers.stage.RegistrationsEventBuilder;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -18,11 +18,11 @@ public class EventTest {
 
     @Test
     void shouldNotThrowConstraintViolationWhenEventFieldsAreValid() {
-        RegistrationsEvent event = RegistrationsEventBuilder
+        BaseEvent event = RegistrationsEventBuilder
                 .withDefaultEventValues()
                 .build();
 
-        Set<ConstraintViolation<RegistrationsEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<BaseEvent>> violations = validator.validate(event);
 
         assertEquals(0, violations.size());
     }
@@ -30,16 +30,16 @@ public class EventTest {
     @ParameterizedTest
     @NullAndEmptySource
     void shouldThrowConstraintViolationWhenReportingSystemSupplierIsNullOrEmpty(String reportingSystemSupplier) {
-        RegistrationsEvent event = RegistrationsEventBuilder
+        BaseEvent event = RegistrationsEventBuilder
                 .withDefaultEventValues()
                 .reportingSystemSupplier(reportingSystemSupplier)
                 .build();
 
-        Set<ConstraintViolation<RegistrationsEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<BaseEvent>> violations = validator.validate(event);
 
         assertEquals(1, violations.size());
 
-        ConstraintViolation<RegistrationsEvent> violation = violations.iterator().next();
+        ConstraintViolation<BaseEvent> violation = violations.iterator().next();
         assertEquals("must not be empty", violation.getMessage());
         assertEquals("reportingSystemSupplier", violation.getPropertyPath().toString());
     }
@@ -47,16 +47,16 @@ public class EventTest {
     @ParameterizedTest
     @NullAndEmptySource
     void shouldThrowConstraintViolationWhenReportingPracticeOdsCodeIsNullOrEmpty(String reportingPracticeOdsCode) {
-        RegistrationsEvent event = RegistrationsEventBuilder
+        BaseEvent event = RegistrationsEventBuilder
                 .withDefaultEventValues()
                 .reportingPracticeOdsCode(reportingPracticeOdsCode)
                 .build();
 
-        Set<ConstraintViolation<RegistrationsEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<BaseEvent>> violations = validator.validate(event);
 
         assertEquals(1, violations.size());
 
-        ConstraintViolation<RegistrationsEvent> violation = violations.iterator().next();
+        ConstraintViolation<BaseEvent> violation = violations.iterator().next();
         assertEquals("must not be empty", violation.getMessage());
         assertEquals("reportingPracticeOdsCode", violation.getPropertyPath().toString());
     }
@@ -64,16 +64,16 @@ public class EventTest {
     @ParameterizedTest
     @NullAndEmptySource
     void shouldThrowConstraintViolationWhenRequestingPracticeOdsCodeIsNullOrEmpty(String requestingPracticeOdsCode) {
-        RegistrationsEvent event = RegistrationsEventBuilder
+        BaseEvent event = RegistrationsEventBuilder
                 .withDefaultEventValues()
                 .requestingPracticeOdsCode(requestingPracticeOdsCode)
                 .build();
 
-        Set<ConstraintViolation<RegistrationsEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<BaseEvent>> violations = validator.validate(event);
 
         assertEquals(1, violations.size());
 
-        ConstraintViolation<RegistrationsEvent> violation = violations.iterator().next();
+        ConstraintViolation<BaseEvent> violation = violations.iterator().next();
         assertEquals("must not be empty", violation.getMessage());
         assertEquals("requestingPracticeOdsCode", violation.getPropertyPath().toString());
     }
@@ -81,16 +81,16 @@ public class EventTest {
     @ParameterizedTest
     @NullAndEmptySource
     void shouldThrowConstraintViolationWhenSendingPracticeOdsCodeIsNullOrEmpty(String sendingPracticeOdsCode) {
-        RegistrationsEvent event = RegistrationsEventBuilder
+        BaseEvent event = RegistrationsEventBuilder
                 .withDefaultEventValues()
                 .sendingPracticeOdsCode(sendingPracticeOdsCode)
                 .build();
 
-        Set<ConstraintViolation<RegistrationsEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<BaseEvent>> violations = validator.validate(event);
 
         assertEquals(1, violations.size());
 
-        ConstraintViolation<RegistrationsEvent> violation = violations.iterator().next();
+        ConstraintViolation<BaseEvent> violation = violations.iterator().next();
         assertEquals("must not be empty", violation.getMessage());
         assertEquals("sendingPracticeOdsCode", violation.getPropertyPath().toString());
     }
@@ -98,32 +98,32 @@ public class EventTest {
     @ParameterizedTest
     @NullAndEmptySource
     void shouldThrowConstraintViolationWhenConversationIdIsNullOrEmpty(String conversationId) {
-        RegistrationsEvent event = RegistrationsEventBuilder
+        BaseEvent event = RegistrationsEventBuilder
                 .withDefaultEventValues()
                 .conversationId(conversationId)
                 .build();
 
-        Set<ConstraintViolation<RegistrationsEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<BaseEvent>> violations = validator.validate(event);
 
         assertEquals(1, violations.size());
 
-        ConstraintViolation<RegistrationsEvent> violation = violations.iterator().next();
+        ConstraintViolation<BaseEvent> violation = violations.iterator().next();
         assertEquals("must not be empty", violation.getMessage());
         assertEquals("conversationId", violation.getPropertyPath().toString());
     }
 
     @Test
     void shouldThrowConstraintViolationWhenTransferEventDateTimeIsNull() {
-        RegistrationsEvent event = RegistrationsEventBuilder
+        BaseEvent event = RegistrationsEventBuilder
                 .withDefaultEventValues()
                 .registrationEventDateTime(null)
                 .build();
 
-        Set<ConstraintViolation<RegistrationsEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<BaseEvent>> violations = validator.validate(event);
 
         assertEquals(1, violations.size());
 
-        ConstraintViolation<RegistrationsEvent> violation = violations.iterator().next();
+        ConstraintViolation<BaseEvent> violation = violations.iterator().next();
         assertEquals("must not be null", violation.getMessage());
         assertEquals("registrationEventDateTime", violation.getPropertyPath().toString());
     }
