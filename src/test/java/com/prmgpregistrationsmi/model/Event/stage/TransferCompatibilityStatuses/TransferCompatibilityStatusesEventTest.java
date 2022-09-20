@@ -1,6 +1,5 @@
 package com.prmgpregistrationsmi.model.Event.stage.TransferCompatibilityStatuses;
 
-import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
 import com.prmgpregistrationsmi.testhelpers.TransferCompatibilityStatusBuilder;
 import com.prmgpregistrationsmi.testhelpers.stage.TransferCompatibilityStatusesEventBuilder;
 import org.junit.jupiter.api.Test;
@@ -52,36 +51,13 @@ class TransferCompatibilityStatusesEventTest {
     }
 
     @Test
-    void shouldThrowConstraintViolationWhenRegistrationIsNull() {
-        TransferCompatibilityStatusesPayload payload = TransferCompatibilityStatusesEventBuilder
-                .withDefaultTransferCompatibilityStatusesPayload()
-                .registration(null)
-                .build();
-        TransferCompatibilityStatusesEvent event = TransferCompatibilityStatusesEventBuilder
-                .withDefaultEventValues()
-                .payload(payload)
-                .build();
-
-        Set<ConstraintViolation<TransferCompatibilityStatusesEvent>> violations = validator.validate(event);
-
-        assertEquals(1, violations.size());
-
-        ConstraintViolation<TransferCompatibilityStatusesEvent> violation = violations.iterator().next();
-        assertEquals("must not be null", violation.getMessage());
-        assertEquals("payload.registration", violation.getPropertyPath().toString());
-    }
-
-    @Test
     void shouldThrowConstraintViolationWhenRequestingPracticeOdsCodeIsNull() {
         TransferCompatibilityStatusesPayload payload = TransferCompatibilityStatusesEventBuilder
                 .withDefaultTransferCompatibilityStatusesPayload()
-                .registration(RegistrationBuilder
-                        .withDefaultRegistration()
-                        .requestingPracticeOdsCode(null)
-                        .build())
                 .build();
         TransferCompatibilityStatusesEvent event = TransferCompatibilityStatusesEventBuilder
                 .withDefaultEventValues()
+                .requestingPracticeOdsCode(null)
                 .payload(payload)
                 .build();
 
@@ -91,7 +67,7 @@ class TransferCompatibilityStatusesEventTest {
 
         ConstraintViolation<TransferCompatibilityStatusesEvent> violation = violations.iterator().next();
         assertEquals("must not be empty", violation.getMessage());
-        assertEquals("payload.registration.requestingPracticeOdsCode", violation.getPropertyPath().toString());
+        assertEquals("requestingPracticeOdsCode", violation.getPropertyPath().toString());
     }
 
     @Test

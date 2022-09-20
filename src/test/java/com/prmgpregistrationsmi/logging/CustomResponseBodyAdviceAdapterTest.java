@@ -1,7 +1,7 @@
 package com.prmgpregistrationsmi.logging;
 
-import com.prmgpregistrationsmi.model.Event.stage.EhrRequests.EhrRequestsEvent;
-import com.prmgpregistrationsmi.testhelpers.stage.EhrRequestsEventBuilder;
+import com.prmgpregistrationsmi.model.Event.BaseEvent;
+import com.prmgpregistrationsmi.testhelpers.BaseEventBuilder;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.core.MethodParameter;
@@ -31,7 +31,7 @@ class CustomResponseBodyAdviceAdapterTest {
         CustomResponseBodyAdviceAdapter customResponseBodyAdviceAdapter =
                 new CustomResponseBodyAdviceAdapter();
 
-        EhrRequestsEvent testEvent = EhrRequestsEventBuilder
+        BaseEvent testEvent = BaseEventBuilder
                 .withDefaultEventValues()
                 .build();
 

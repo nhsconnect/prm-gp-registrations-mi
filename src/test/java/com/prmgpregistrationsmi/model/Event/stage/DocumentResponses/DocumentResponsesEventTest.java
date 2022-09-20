@@ -1,7 +1,6 @@
 package com.prmgpregistrationsmi.model.Event.stage.DocumentResponses;
 
 import com.prmgpregistrationsmi.testhelpers.AttachmentBuilder;
-import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
 import com.prmgpregistrationsmi.testhelpers.StatusDetailsBuilder;
 import com.prmgpregistrationsmi.testhelpers.stage.DocumentResponsesEventBuilder;
 import org.junit.jupiter.api.Test;
@@ -44,39 +43,10 @@ class DocumentResponsesEventTest {
     }
 
     @Test
-    void shouldThrowConstraintViolationWhenRegistrationIsNull() {
-        DocumentResponsesPayload payload = DocumentResponsesEventBuilder
-                .withDefaultDocumentResponsesPayload()
-                .registration(null)
-                .build();
-
+    void shouldThrowConstraintViolationRequestingPracticeOdsCodeIsNull() {
         DocumentResponsesEvent event = DocumentResponsesEventBuilder
                 .withDefaultEventValues()
-                .payload(payload)
-                .build();
-
-        Set<ConstraintViolation<DocumentResponsesEvent>> violations = validator.validate(event);
-
-        assertEquals(1, violations.size());
-
-        ConstraintViolation<DocumentResponsesEvent> violation = violations.iterator().next();
-        assertEquals("must not be null", violation.getMessage());
-        assertEquals("payload.registration", violation.getPropertyPath().toString());
-    }
-
-    @Test
-    void shouldThrowConstraintViolationWhenRegistrationFieldsAreInvalid() {
-        DocumentResponsesPayload payload = DocumentResponsesEventBuilder
-                .withDefaultDocumentResponsesPayload()
-                .registration(RegistrationBuilder
-                        .withDefaultRegistration()
-                        .requestingPracticeOdsCode(null)
-                        .build())
-                .build();
-
-        DocumentResponsesEvent event = DocumentResponsesEventBuilder
-                .withDefaultEventValues()
-                .payload(payload)
+                .requestingPracticeOdsCode(null)
                 .build();
 
         Set<ConstraintViolation<DocumentResponsesEvent>> violations = validator.validate(event);
@@ -85,7 +55,7 @@ class DocumentResponsesEventTest {
 
         ConstraintViolation<DocumentResponsesEvent> violation = violations.iterator().next();
         assertEquals("must not be empty", violation.getMessage());
-        assertEquals("payload.registration.requestingPracticeOdsCode", violation.getPropertyPath().toString());
+        assertEquals("requestingPracticeOdsCode", violation.getPropertyPath().toString());
     }
 
     @Test

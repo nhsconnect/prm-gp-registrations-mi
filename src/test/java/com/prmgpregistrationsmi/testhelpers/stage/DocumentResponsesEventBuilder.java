@@ -4,7 +4,6 @@ import com.prmgpregistrationsmi.model.Event.stage.DocumentResponses.DocumentResp
 import com.prmgpregistrationsmi.model.Event.stage.DocumentResponses.DocumentResponsesPayload;
 import com.prmgpregistrationsmi.testhelpers.AttachmentBuilder;
 import com.prmgpregistrationsmi.testhelpers.DefaultEventValues;
-import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
 import com.prmgpregistrationsmi.testhelpers.StatusDetailsBuilder;
 
 public class DocumentResponsesEventBuilder {
@@ -21,7 +20,6 @@ public class DocumentResponsesEventBuilder {
 
     public static DocumentResponsesPayload.DocumentResponsesPayloadBuilder withDefaultDocumentResponsesPayload() {
         return DocumentResponsesPayload.builder()
-                .registration(RegistrationBuilder.withDefaultRegistration().build())
                 .attachment(AttachmentBuilder.withDefaultPDFFile().build())
                 .documentMigration(StatusDetailsBuilder.withSuccessfulStatus().build());
 

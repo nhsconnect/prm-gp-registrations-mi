@@ -45,26 +45,6 @@ class RegistrationsEventTest {
     }
 
     @Test
-    void shouldThrowConstraintViolationWhenRegistrationIsNull() {
-        RegistrationsPayload payload = RegistrationsEventBuilder
-                .withDefaultRegistrationWithAdditionalDetailsPayload()
-                .registration(null)
-                .build();
-        RegistrationsEvent event = RegistrationsEventBuilder
-                .withDefaultEventValues()
-                .payload(payload)
-                .build();
-
-        Set<ConstraintViolation<RegistrationsEvent>> violations = validator.validate(event);
-
-        assertEquals(1, violations.size());
-
-        ConstraintViolation<RegistrationsEvent> violation = violations.iterator().next();
-        assertEquals("must not be null", violation.getMessage());
-        assertEquals("payload.registration", violation.getPropertyPath().toString());
-    }
-
-    @Test
     void shouldNotThrowConstraintViolationWhenSendingPracticeOdsCodeIsNull() {
         RegistrationWithAdditionalDetails payloadRegistration = RegistrationWithAdditionalDetailsBuilder
                 .withDefaultRegistrationWithAdditionalDetails()
@@ -82,30 +62,6 @@ class RegistrationsEventTest {
         Set<ConstraintViolation<RegistrationsEvent>> violations = validator.validate(event);
 
         assertEquals(0, violations.size());
-    }
-
-    @Test
-    void shouldThrowConstraintViolationWhenRequestingPracticeOdsCodeIsNull() {
-        RegistrationWithAdditionalDetails payloadRegistration = RegistrationWithAdditionalDetailsBuilder
-                .withDefaultRegistrationWithAdditionalDetails()
-                .requestingPracticeOdsCode(null)
-                .build();
-        RegistrationsPayload payload = RegistrationsEventBuilder
-                .withDefaultRegistrationWithAdditionalDetailsPayload()
-                .registration(payloadRegistration)
-                .build();
-        RegistrationsEvent event = RegistrationsEventBuilder
-                .withDefaultEventValues()
-                .payload(payload)
-                .build();
-
-        Set<ConstraintViolation<RegistrationsEvent>> violations = validator.validate(event);
-
-        assertEquals(1, violations.size());
-
-        ConstraintViolation<RegistrationsEvent> violation = violations.iterator().next();
-        assertEquals("must not be empty", violation.getMessage());
-        assertEquals("payload.registration.requestingPracticeOdsCode", violation.getPropertyPath().toString());
     }
 
     @Test

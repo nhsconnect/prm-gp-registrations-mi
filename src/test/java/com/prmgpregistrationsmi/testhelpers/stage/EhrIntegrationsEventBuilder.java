@@ -4,7 +4,6 @@ import com.prmgpregistrationsmi.model.Event.stage.EhrIntegrations.EhrIntegration
 import com.prmgpregistrationsmi.model.Event.stage.EhrIntegrations.EhrIntegrationsPayload;
 import com.prmgpregistrationsmi.testhelpers.DefaultEventValues;
 import com.prmgpregistrationsmi.testhelpers.IntegrationOutcomeBuilder;
-import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
 
 public class EhrIntegrationsEventBuilder {
     public static EhrIntegrationsEvent.EhrIntegrationsEventBuilder<?, ?> withDefaultEventValues() {
@@ -20,7 +19,6 @@ public class EhrIntegrationsEventBuilder {
 
     public static EhrIntegrationsPayload.EhrIntegrationsPayloadBuilder withDefaultEhrIntegrationsPayload() {
         return EhrIntegrationsPayload.builder()
-                .registration(RegistrationBuilder.withDefaultRegistration().build())
                 .integration(IntegrationOutcomeBuilder.withDefaultValues().build());
     }
 }

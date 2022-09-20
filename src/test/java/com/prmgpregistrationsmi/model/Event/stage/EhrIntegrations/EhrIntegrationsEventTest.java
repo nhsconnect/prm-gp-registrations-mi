@@ -2,7 +2,6 @@ package com.prmgpregistrationsmi.model.Event.stage.EhrIntegrations;
 
 import com.prmgpregistrationsmi.model.Event.EventPayload.IntegrationOutcome;
 import com.prmgpregistrationsmi.testhelpers.IntegrationOutcomeBuilder;
-import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
 import com.prmgpregistrationsmi.testhelpers.stage.EhrIntegrationsEventBuilder;
 import org.junit.jupiter.api.Test;
 
@@ -45,39 +44,10 @@ public class EhrIntegrationsEventTest {
     }
 
     @Test
-    void shouldThrowConstraintViolationWhenRegistrationIsNull() {
-        EhrIntegrationsPayload payload = EhrIntegrationsEventBuilder
-                .withDefaultEhrIntegrationsPayload()
-                .registration(null)
-                .build();
-
+    void shouldThrowConstraintViolationWhenRequestingPracticeOdsCodeIsNull() {
         EhrIntegrationsEvent event = EhrIntegrationsEventBuilder
                 .withDefaultEventValues()
-                .payload(payload)
-                .build();
-
-        Set<ConstraintViolation<EhrIntegrationsEvent>> violations = validator.validate(event);
-
-        assertEquals(1, violations.size());
-
-        ConstraintViolation<EhrIntegrationsEvent> violation = violations.iterator().next();
-        assertEquals("must not be null", violation.getMessage());
-        assertEquals("payload.registration", violation.getPropertyPath().toString());
-    }
-
-    @Test
-    void shouldThrowConstraintViolationWhenRegistrationFieldsAreInvalid() {
-        EhrIntegrationsPayload payload = EhrIntegrationsEventBuilder
-                .withDefaultEhrIntegrationsPayload()
-                .registration(RegistrationBuilder
-                        .withDefaultRegistration()
-                        .requestingPracticeOdsCode(null)
-                        .build())
-                .build();
-
-        EhrIntegrationsEvent event = EhrIntegrationsEventBuilder
-                .withDefaultEventValues()
-                .payload(payload)
+                .requestingPracticeOdsCode(null)
                 .build();
 
         Set<ConstraintViolation<EhrIntegrationsEvent>> violations = validator.validate(event);
@@ -86,7 +56,7 @@ public class EhrIntegrationsEventTest {
 
         ConstraintViolation<EhrIntegrationsEvent> violation = violations.iterator().next();
         assertEquals("must not be empty", violation.getMessage());
-        assertEquals("payload.registration.requestingPracticeOdsCode", violation.getPropertyPath().toString());
+        assertEquals("requestingPracticeOdsCode", violation.getPropertyPath().toString());
     }
 
     @Test

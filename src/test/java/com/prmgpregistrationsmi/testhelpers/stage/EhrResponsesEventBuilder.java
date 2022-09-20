@@ -3,7 +3,6 @@ package com.prmgpregistrationsmi.testhelpers.stage;
 import com.prmgpregistrationsmi.model.Event.stage.EhrResponses.EhrResponsesEvent;
 import com.prmgpregistrationsmi.model.Event.stage.EhrResponses.EhrResponsesPayload;
 import com.prmgpregistrationsmi.testhelpers.DefaultEventValues;
-import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
 
 public class EhrResponsesEventBuilder {
     public static EhrResponsesEvent.EhrResponsesEventBuilder<?, ?> withDefaultEventValues() {
@@ -20,7 +19,6 @@ public class EhrResponsesEventBuilder {
 
     public static EhrResponsesPayload.EhrResponsesPayloadBuilder withDefaultEhrResponsesPayload() {
         return EhrResponsesPayload.builder()
-                .registration(RegistrationBuilder.withDefaultRegistration().build())
                 .ehr(EhrResponsesEhrDetailsBuilder.withDefaultValues().build());
     }
 }

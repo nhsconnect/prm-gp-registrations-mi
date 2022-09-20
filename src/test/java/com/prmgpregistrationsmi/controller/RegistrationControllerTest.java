@@ -1,17 +1,17 @@
 package com.prmgpregistrationsmi.controller;
 
 import com.prmgpregistrationsmi.exception.UnableToUploadToS3Exception;
+import com.prmgpregistrationsmi.model.Event.BaseEvent;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.model.Event.stage.DocumentResponses.DocumentResponsesEvent;
 import com.prmgpregistrationsmi.model.Event.stage.EhrDegrades.EhrDegradesEvent;
 import com.prmgpregistrationsmi.model.Event.stage.EhrIntegrations.EhrIntegrationsEvent;
-import com.prmgpregistrationsmi.model.Event.stage.EhrRequests.EhrRequestsEvent;
 import com.prmgpregistrationsmi.model.Event.stage.EhrResponses.EhrResponsesEvent;
-import com.prmgpregistrationsmi.model.Event.stage.ReadyToIntegrateStatuses.ReadyToIntegrateStatusesEvent;
 import com.prmgpregistrationsmi.model.Event.stage.Registrations.RegistrationsEvent;
 import com.prmgpregistrationsmi.service.RegistrationService;
+import com.prmgpregistrationsmi.testhelpers.BaseEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.stage.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,7 +36,7 @@ class RegistrationControllerTest {
 
     @Test
     void ehrRequestsEventReturnsEventResponse() throws UnableToUploadToS3Exception {
-        EhrRequestsEvent testEvent = EhrRequestsEventBuilder
+        BaseEvent testEvent = BaseEventBuilder
                 .withDefaultEventValues()
                 .build();
 
@@ -121,7 +121,7 @@ class RegistrationControllerTest {
 
     @Test
     void readyToIntegrateStatusesEventReturnsEventResponse() throws UnableToUploadToS3Exception {
-        ReadyToIntegrateStatusesEvent testEvent = ReadyToIntegrateStatusesEventBuilder
+        BaseEvent testEvent = BaseEventBuilder
                 .withDefaultEventValues()
                 .build();
 

@@ -1,21 +1,21 @@
 package com.prmgpregistrationsmi.model.Event.stage.DocumentResponses;
 
+import com.prmgpregistrationsmi.model.Event.EventPayload.Attachment;
 import com.prmgpregistrationsmi.model.Event.EventPayload.StatusDetails;
 import com.prmgpregistrationsmi.model.Event.Payload;
-import com.prmgpregistrationsmi.model.Event.EventPayload.Attachment;
-import com.prmgpregistrationsmi.model.Event.EventPayload.Registration;
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
-@Builder
+@SuperBuilder
 public class DocumentResponsesPayload implements Payload {
-    @Valid
-    @NotNull
-    private Registration registration;
     @Valid
     @NotNull
     private Attachment attachment;

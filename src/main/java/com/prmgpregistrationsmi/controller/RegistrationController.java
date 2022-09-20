@@ -1,16 +1,15 @@
 package com.prmgpregistrationsmi.controller;
 
 import com.prmgpregistrationsmi.exception.UnableToUploadToS3Exception;
+import com.prmgpregistrationsmi.model.Event.BaseEvent;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.model.Event.stage.DocumentResponses.DocumentResponsesEvent;
 import com.prmgpregistrationsmi.model.Event.stage.EhrDegrades.EhrDegradesEvent;
 import com.prmgpregistrationsmi.model.Event.stage.EhrIntegrations.EhrIntegrationsEvent;
-import com.prmgpregistrationsmi.model.Event.stage.EhrRequests.EhrRequestsEvent;
 import com.prmgpregistrationsmi.model.Event.stage.EhrResponses.EhrResponsesEvent;
 import com.prmgpregistrationsmi.model.Event.stage.Error.ErrorsEvent;
-import com.prmgpregistrationsmi.model.Event.stage.ReadyToIntegrateStatuses.ReadyToIntegrateStatusesEvent;
 import com.prmgpregistrationsmi.model.Event.stage.Registrations.RegistrationsEvent;
 import com.prmgpregistrationsmi.model.Event.stage.TransferCompatibilityStatuses.TransferCompatibilityStatusesEvent;
 import com.prmgpregistrationsmi.service.RegistrationService;
@@ -58,7 +57,7 @@ public class RegistrationController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public EventResponse ehrRequestsEvent(
-            @Valid @RequestBody EhrRequestsEvent event) throws UnableToUploadToS3Exception {
+            @Valid @RequestBody BaseEvent event) throws UnableToUploadToS3Exception {
         EventDAO eventDAO = registrationService.saveEvent(event, EventType.EHR_REQUESTS);
         return new EventResponse(eventDAO.getEventId());
     }
@@ -91,7 +90,7 @@ public class RegistrationController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public EventResponse readyToIntegrateStatusesEvent(
-            @Valid @RequestBody ReadyToIntegrateStatusesEvent event) throws UnableToUploadToS3Exception {
+            @Valid @RequestBody BaseEvent event) throws UnableToUploadToS3Exception {
         EventDAO eventDAO = registrationService.saveEvent(event, EventType.READY_TO_INTEGRATE_STATUSES);
         return new EventResponse(eventDAO.getEventId());
     }

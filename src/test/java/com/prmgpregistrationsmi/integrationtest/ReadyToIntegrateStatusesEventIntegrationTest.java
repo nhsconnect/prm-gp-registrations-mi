@@ -1,12 +1,12 @@
 package com.prmgpregistrationsmi.integrationtest;
 
 import com.amazonaws.services.s3.AmazonS3Client;
+import com.prmgpregistrationsmi.model.Event.BaseEvent;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
-import com.prmgpregistrationsmi.model.Event.stage.ReadyToIntegrateStatuses.ReadyToIntegrateStatusesEvent;
+import com.prmgpregistrationsmi.testhelpers.BaseEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.EventDAOBuilder;
-import com.prmgpregistrationsmi.testhelpers.stage.ReadyToIntegrateStatusesEventBuilder;
 import com.prmgpregistrationsmi.utils.UUIDService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -51,7 +51,7 @@ class ReadyToIntegrateStatusesEventIntegrationTest {
 
     @Test
     void shouldUploadEhrRequestEventToS3() {
-        ReadyToIntegrateStatusesEvent readyToIntegrateStatusesEventRequests = ReadyToIntegrateStatusesEventBuilder
+        BaseEvent readyToIntegrateStatusesEventRequests = BaseEventBuilder
                 .withDefaultEventValues()
                 .build();
 
