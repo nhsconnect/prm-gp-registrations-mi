@@ -4,7 +4,6 @@ import com.prmgpregistrationsmi.model.Event.stage.Error.ErrorsEvent;
 import com.prmgpregistrationsmi.model.Event.stage.Error.ErrorsPayload;
 import com.prmgpregistrationsmi.testhelpers.DefaultEventValues;
 import com.prmgpregistrationsmi.testhelpers.ErrorDetailsBuilder;
-import com.prmgpregistrationsmi.testhelpers.RegistrationWithOptionalSendingPracticeOdsCodeBuilder;
 
 public class ErrorsEventBuilder {
     public static ErrorsEvent.ErrorsEventBuilder<?, ?> withDefaultEventValues() {
@@ -20,7 +19,6 @@ public class ErrorsEventBuilder {
 
     public static ErrorsPayload.ErrorsPayloadBuilder withDefaultErrorsPayload() {
         return ErrorsPayload.builder()
-                .registration(RegistrationWithOptionalSendingPracticeOdsCodeBuilder.withDefaultRegistration().build())
                 .error(ErrorDetailsBuilder.withDefaultValues().build());
     }
 }

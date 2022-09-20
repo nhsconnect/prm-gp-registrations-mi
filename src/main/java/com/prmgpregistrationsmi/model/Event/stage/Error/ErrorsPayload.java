@@ -1,7 +1,6 @@
 package com.prmgpregistrationsmi.model.Event.stage.Error;
 
 import com.prmgpregistrationsmi.model.Event.EventPayload.ErrorDetails;
-import com.prmgpregistrationsmi.model.Event.EventPayload.RegistrationWithOptionalSendingPracticeOdsCode;
 import com.prmgpregistrationsmi.model.Event.Payload;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,9 +15,6 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Builder
 public class ErrorsPayload implements Payload {
-    @Valid
-    @NotNull
-    private RegistrationWithOptionalSendingPracticeOdsCode registration;
     @Valid
     @NotNull
     private ErrorDetails error;

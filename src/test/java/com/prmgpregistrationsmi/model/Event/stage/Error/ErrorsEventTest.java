@@ -3,7 +3,6 @@ package com.prmgpregistrationsmi.model.Event.stage.Error;
 import com.prmgpregistrationsmi.model.Event.EventPayload.ErrorDetails;
 import com.prmgpregistrationsmi.model.Event.EventPayload.FailurePoint;
 import com.prmgpregistrationsmi.testhelpers.ErrorDetailsBuilder;
-import com.prmgpregistrationsmi.testhelpers.RegistrationWithOptionalSendingPracticeOdsCodeBuilder;
 import com.prmgpregistrationsmi.testhelpers.stage.ErrorsEventBuilder;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -32,6 +31,18 @@ public class ErrorsEventTest {
     }
 
     @Test
+    void shouldNotThrowConstraintViolationWhenSendingPracticeOdsCodeIsNull() {
+        ErrorsEvent event = ErrorsEventBuilder
+                .withDefaultEventValues()
+                .sendingPracticeOdsCode(null)
+                .build();
+
+        Set<ConstraintViolation<ErrorsEvent>> violations = validator.validate(event);
+
+        assertEquals(0, violations.size());
+    }
+
+    @Test
     void shouldThrowConstraintViolationWhenPayloadIsNull() {
         ErrorsEvent event = ErrorsEventBuilder
                 .withDefaultEventValues()
@@ -48,39 +59,10 @@ public class ErrorsEventTest {
     }
 
     @Test
-    void shouldThrowConstraintViolationWhenRegistrationIsNull() {
-        ErrorsPayload payload = ErrorsEventBuilder
-                .withDefaultErrorsPayload()
-                .registration(null)
-                .build();
-
+    void shouldThrowConstraintViolationWhenRequestingPracticeOdsCodeIsNull() {
         ErrorsEvent event = ErrorsEventBuilder
                 .withDefaultEventValues()
-                .payload(payload)
-                .build();
-
-        Set<ConstraintViolation<ErrorsEvent>> violations = validator.validate(event);
-
-        assertEquals(1, violations.size());
-
-        ConstraintViolation<ErrorsEvent> violation = violations.iterator().next();
-        assertEquals("must not be null", violation.getMessage());
-        assertEquals("payload.registration", violation.getPropertyPath().toString());
-    }
-
-    @Test
-    void shouldThrowConstraintViolationWhenRegistrationFieldsAreInvalid() {
-        ErrorsPayload payload = ErrorsEventBuilder
-                .withDefaultErrorsPayload()
-                .registration(RegistrationWithOptionalSendingPracticeOdsCodeBuilder
-                        .withDefaultRegistration()
-                        .requestingPracticeOdsCode(null)
-                        .build())
-                .build();
-
-        ErrorsEvent event = ErrorsEventBuilder
-                .withDefaultEventValues()
-                .payload(payload)
+                .requestingPracticeOdsCode(null)
                 .build();
 
         Set<ConstraintViolation<ErrorsEvent>> violations = validator.validate(event);
@@ -89,7 +71,7 @@ public class ErrorsEventTest {
 
         ConstraintViolation<ErrorsEvent> violation = violations.iterator().next();
         assertEquals("must not be empty", violation.getMessage());
-        assertEquals("payload.registration.requestingPracticeOdsCode", violation.getPropertyPath().toString());
+        assertEquals("requestingPracticeOdsCode", violation.getPropertyPath().toString());
     }
 
     @Test
