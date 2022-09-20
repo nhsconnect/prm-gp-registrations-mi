@@ -1,12 +1,9 @@
 package com.prmgpregistrationsmi.model.Event.EventPayload;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @NoArgsConstructor
@@ -15,7 +12,9 @@ import javax.validation.constraints.NotEmpty;
 @EqualsAndHashCode
 public class Registration {
     @NotEmpty
-    private String requestingPracticeOdsCode;
-    @NotEmpty
-    private String sendingPracticeOdsCode;
+    private String type;
+    @NotNull
+    private Boolean returningPatient;
+    @NotNull
+    private Boolean multifactorAuthenticationPresent;
 }

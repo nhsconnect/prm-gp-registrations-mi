@@ -1,9 +1,9 @@
 package com.prmgpregistrationsmi.model.Event.stage.Registrations;
 
 import com.prmgpregistrationsmi.model.Event.EventPayload.GPLinks;
-import com.prmgpregistrationsmi.model.Event.EventPayload.RegistrationWithAdditionalDetails;
+import com.prmgpregistrationsmi.model.Event.EventPayload.Registration;
 import com.prmgpregistrationsmi.testhelpers.DemographicTraceStatusBuilder;
-import com.prmgpregistrationsmi.testhelpers.RegistrationWithAdditionalDetailsBuilder;
+import com.prmgpregistrationsmi.testhelpers.RegistrationBuilder;
 import com.prmgpregistrationsmi.testhelpers.stage.RegistrationsEventBuilder;
 import org.junit.jupiter.api.Test;
 
@@ -46,11 +46,11 @@ class RegistrationsEventTest {
 
     @Test
     void shouldNotThrowConstraintViolationWhenSendingPracticeOdsCodeIsNull() {
-        RegistrationWithAdditionalDetails payloadRegistration = RegistrationWithAdditionalDetailsBuilder
-                .withDefaultRegistrationWithAdditionalDetails()
+        Registration payloadRegistration = RegistrationBuilder
+                .withDefaultRegistration()
                 .build();
         RegistrationsPayload payload = RegistrationsEventBuilder
-                .withDefaultRegistrationWithAdditionalDetailsPayload()
+                .withDefaultRegistrationPayload()
                 .registration(payloadRegistration)
                 .build();
         RegistrationsEvent event = RegistrationsEventBuilder
@@ -66,12 +66,12 @@ class RegistrationsEventTest {
 
     @Test
     void shouldThrowConstraintViolationWhenMultifactorAuthenticationPresentIsNull() {
-        RegistrationWithAdditionalDetails payloadRegistration = RegistrationWithAdditionalDetailsBuilder
-                .withDefaultRegistrationWithAdditionalDetails()
+        Registration payloadRegistration = RegistrationBuilder
+                .withDefaultRegistration()
                 .multifactorAuthenticationPresent(null)
                 .build();
         RegistrationsPayload payload = RegistrationsEventBuilder
-                .withDefaultRegistrationWithAdditionalDetailsPayload()
+                .withDefaultRegistrationPayload()
                 .registration(payloadRegistration)
                 .build();
         RegistrationsEvent event = RegistrationsEventBuilder
@@ -90,11 +90,11 @@ class RegistrationsEventTest {
 
     @Test
     void shouldThrowConstraintViolationWhenMatchedIsNull() {
-        RegistrationWithAdditionalDetails payloadRegistration = RegistrationWithAdditionalDetailsBuilder
-                .withDefaultRegistrationWithAdditionalDetails()
+        Registration payloadRegistration = RegistrationBuilder
+                .withDefaultRegistration()
                 .build();
         RegistrationsPayload payload = RegistrationsEventBuilder
-                .withDefaultRegistrationWithAdditionalDetailsPayload()
+                .withDefaultRegistrationPayload()
                 .registration(payloadRegistration)
                 .demographicTraceStatus(DemographicTraceStatusBuilder
                         .withDefaultValues()
@@ -117,12 +117,12 @@ class RegistrationsEventTest {
 
     @Test
     void shouldThrowConstraintViolationWhenReturningPatientIsNull() {
-        RegistrationWithAdditionalDetails payloadRegistration = RegistrationWithAdditionalDetailsBuilder
-                .withDefaultRegistrationWithAdditionalDetails()
+        Registration payloadRegistration = RegistrationBuilder
+                .withDefaultRegistration()
                 .returningPatient(null)
                 .build();
         RegistrationsPayload payload = RegistrationsEventBuilder
-                .withDefaultRegistrationWithAdditionalDetailsPayload()
+                .withDefaultRegistrationPayload()
                 .registration(payloadRegistration)
                 .build();
         RegistrationsEvent event = RegistrationsEventBuilder
@@ -141,11 +141,11 @@ class RegistrationsEventTest {
 
     @Test
     void shouldThrowConstraintViolationWhenGpLinksFieldIsMissing() {
-        RegistrationWithAdditionalDetails payloadRegistration = RegistrationWithAdditionalDetailsBuilder
-                .withDefaultRegistrationWithAdditionalDetails()
+        Registration payloadRegistration = RegistrationBuilder
+                .withDefaultRegistration()
                 .build();
         RegistrationsPayload payload = RegistrationsEventBuilder
-                .withDefaultRegistrationWithAdditionalDetailsPayload()
+                .withDefaultRegistrationPayload()
                 .registration(payloadRegistration)
                 .gpLinks(GPLinks.builder().gpLinksComplete(null).build())
                 .build();
