@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
 public class BaseEvent {
     @NotEmpty
     private String reportingSystemSupplier;

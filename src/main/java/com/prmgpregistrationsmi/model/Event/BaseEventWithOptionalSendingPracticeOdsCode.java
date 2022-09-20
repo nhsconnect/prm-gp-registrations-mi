@@ -1,7 +1,6 @@
 package com.prmgpregistrationsmi.model.Event;
 
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -14,7 +13,6 @@ import java.time.LocalDateTime;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
 public class BaseEventWithOptionalSendingPracticeOdsCode {
     @NotEmpty
     private String reportingSystemSupplier;
