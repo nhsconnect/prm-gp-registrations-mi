@@ -44,6 +44,26 @@ public class EventDAO {
         );
     }
 
+    public static EventDAO fromEvent(BaseEventWithOptionalSendingPracticeOdsCode event, EventType eventType, LocalDateTime timeNow) {
+        String eventIdSeed = event.getConversationId() + eventType.toString() + event.getRegistrationEventDateTime();
+
+        Payload payload = null;
+        if(event instanceof PayloadEventWithOptionalSendingPracticeOdsCode) {
+            payload = ((PayloadEventWithOptionalSendingPracticeOdsCode<?>)event).getPayload();
+        }
+
+        return new EventDAO(
+                UUIDService.buildUUIDStringFromSeed(eventIdSeed),
+                timeNow,
+                eventType,
+                event.getReportingSystemSupplier(),
+                event.getReportingPracticeOdsCode(),
+                event.getConversationId(),
+                event.getRegistrationEventDateTime(),
+                payload
+        );
+    }
+
     public static EventDAO fromEvent(EhrDegradesEvent degradeEvent, EventType eventType, LocalDateTime timeNow) {
 
         return new EventDAO(

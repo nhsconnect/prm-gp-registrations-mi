@@ -1,7 +1,7 @@
 package com.prmgpregistrationsmi.model.Event.EventPayload;
 
 import com.prmgpregistrationsmi.model.Event.BaseEvent;
-import com.prmgpregistrationsmi.testhelpers.stage.RegistrationsEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.stage.EhrIntegrationsEventBuilder;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
@@ -18,7 +18,7 @@ public class EventTest {
 
     @Test
     void shouldNotThrowConstraintViolationWhenEventFieldsAreValid() {
-        BaseEvent event = RegistrationsEventBuilder
+        BaseEvent event = EhrIntegrationsEventBuilder
                 .withDefaultEventValues()
                 .build();
 
@@ -30,7 +30,7 @@ public class EventTest {
     @ParameterizedTest
     @NullAndEmptySource
     void shouldThrowConstraintViolationWhenReportingSystemSupplierIsNullOrEmpty(String reportingSystemSupplier) {
-        BaseEvent event = RegistrationsEventBuilder
+        BaseEvent event = EhrIntegrationsEventBuilder
                 .withDefaultEventValues()
                 .reportingSystemSupplier(reportingSystemSupplier)
                 .build();
@@ -47,7 +47,7 @@ public class EventTest {
     @ParameterizedTest
     @NullAndEmptySource
     void shouldThrowConstraintViolationWhenReportingPracticeOdsCodeIsNullOrEmpty(String reportingPracticeOdsCode) {
-        BaseEvent event = RegistrationsEventBuilder
+        BaseEvent event = EhrIntegrationsEventBuilder
                 .withDefaultEventValues()
                 .reportingPracticeOdsCode(reportingPracticeOdsCode)
                 .build();
@@ -64,7 +64,7 @@ public class EventTest {
     @ParameterizedTest
     @NullAndEmptySource
     void shouldThrowConstraintViolationWhenRequestingPracticeOdsCodeIsNullOrEmpty(String requestingPracticeOdsCode) {
-        BaseEvent event = RegistrationsEventBuilder
+        BaseEvent event = EhrIntegrationsEventBuilder
                 .withDefaultEventValues()
                 .requestingPracticeOdsCode(requestingPracticeOdsCode)
                 .build();
@@ -81,7 +81,7 @@ public class EventTest {
     @ParameterizedTest
     @NullAndEmptySource
     void shouldThrowConstraintViolationWhenSendingPracticeOdsCodeIsNullOrEmpty(String sendingPracticeOdsCode) {
-        BaseEvent event = RegistrationsEventBuilder
+        BaseEvent event = EhrIntegrationsEventBuilder
                 .withDefaultEventValues()
                 .sendingPracticeOdsCode(sendingPracticeOdsCode)
                 .build();
@@ -98,7 +98,7 @@ public class EventTest {
     @ParameterizedTest
     @NullAndEmptySource
     void shouldThrowConstraintViolationWhenConversationIdIsNullOrEmpty(String conversationId) {
-        BaseEvent event = RegistrationsEventBuilder
+        BaseEvent event = EhrIntegrationsEventBuilder
                 .withDefaultEventValues()
                 .conversationId(conversationId)
                 .build();
@@ -114,7 +114,7 @@ public class EventTest {
 
     @Test
     void shouldThrowConstraintViolationWhenTransferEventDateTimeIsNull() {
-        BaseEvent event = RegistrationsEventBuilder
+        BaseEvent event = EhrIntegrationsEventBuilder
                 .withDefaultEventValues()
                 .registrationEventDateTime(null)
                 .build();

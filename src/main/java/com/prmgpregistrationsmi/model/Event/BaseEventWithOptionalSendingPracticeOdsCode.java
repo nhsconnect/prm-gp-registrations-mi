@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
-public abstract class Event implements HasPayload {
+public class BaseEventWithOptionalSendingPracticeOdsCode {
     @NotEmpty
     private String reportingSystemSupplier;
     @NotEmpty
@@ -26,6 +26,5 @@ public abstract class Event implements HasPayload {
     private LocalDateTime registrationEventDateTime;
     @NotEmpty
     private String requestingPracticeOdsCode;
-    @NotEmpty
     private String sendingPracticeOdsCode;
 }

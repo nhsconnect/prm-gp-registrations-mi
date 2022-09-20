@@ -68,7 +68,6 @@ class RegistrationsEventTest {
     void shouldNotThrowConstraintViolationWhenSendingPracticeOdsCodeIsNull() {
         RegistrationWithAdditionalDetails payloadRegistration = RegistrationWithAdditionalDetailsBuilder
                 .withDefaultRegistrationWithAdditionalDetails()
-                .sendingPracticeOdsCode(null)
                 .build();
         RegistrationsPayload payload = RegistrationsEventBuilder
                 .withDefaultRegistrationWithAdditionalDetailsPayload()
@@ -76,6 +75,7 @@ class RegistrationsEventTest {
                 .build();
         RegistrationsEvent event = RegistrationsEventBuilder
                 .withDefaultEventValues()
+                .sendingPracticeOdsCode(null)
                 .payload(payload)
                 .build();
 

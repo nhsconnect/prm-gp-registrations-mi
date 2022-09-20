@@ -37,7 +37,6 @@ class GlobalExceptionHandlerIntegrationTest {
                 HttpStatus.BAD_REQUEST,
                 "Failed to validate fields", List.of(
                 "reportingPracticeOdsCode: must not be empty",
-                "sendingPracticeOdsCode: must not be empty",
                 "requestingPracticeOdsCode: must not be empty",
                 "payload: must not be null",
                 "reportingSystemSupplier: must not be empty",
