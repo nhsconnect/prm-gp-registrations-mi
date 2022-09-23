@@ -13,8 +13,8 @@ import javax.validation.constraints.NotNull;
 @Builder
 public class IntegrationOutcome {
     @NotNull(message = "Must be one of the following: INTEGRATED, " +
-            "INTEGRATED_AND_SUPPRESS, " +
-            "SUPPRESSED_AND_REACTIVATE, " +
+            "INTEGRATED_AND_SUPPRESSED, " +
+            "SUPPRESSED_AND_REACTIVATED, " +
             "FILED_AS_ATTACHMENT, " +
             "REJECTED, " +
             "INTERNAL_TRANSFER, " +

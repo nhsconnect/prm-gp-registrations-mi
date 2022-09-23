@@ -2,8 +2,8 @@ package com.prmgpregistrationsmi.model.Event.EventPayload;
 
 public enum Outcome {
     INTEGRATED,
-    INTEGRATED_AND_SUPPRESS,
-    SUPPRESSED_AND_REACTIVATE,
+    INTEGRATED_AND_SUPPRESSED,
+    SUPPRESSED_AND_REACTIVATED,
     FILED_AS_ATTACHMENT,
     REJECTED,
     INTERNAL_TRANSFER,

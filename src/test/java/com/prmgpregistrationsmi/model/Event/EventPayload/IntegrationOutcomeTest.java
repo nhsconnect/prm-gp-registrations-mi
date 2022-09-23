@@ -25,7 +25,7 @@ class IntegrationOutcomeTest {
         assertEquals(1, violations.size());
 
         ConstraintViolation<IntegrationOutcome> violation = violations.iterator().next();
-        assertEquals("Must be one of the following: INTEGRATED, INTEGRATED_AND_SUPPRESS, SUPPRESSED_AND_REACTIVATE, FILED_AS_ATTACHMENT, REJECTED, INTERNAL_TRANSFER, FAILED_TO_INTEGRATE", violation.getMessage());
+        assertEquals("Must be one of the following: INTEGRATED, INTEGRATED_AND_SUPPRESSED, SUPPRESSED_AND_REACTIVATED, FILED_AS_ATTACHMENT, REJECTED, INTERNAL_TRANSFER, FAILED_TO_INTEGRATE", violation.getMessage());
         assertEquals("outcome", violation.getPropertyPath().toString());
     }
 
