@@ -140,6 +140,30 @@ class RegistrationsEventTest {
     }
 
     @Test
+    void shouldThrowConstraintViolationWhenTypeIsNull() {
+        Registration payloadRegistration = RegistrationBuilder
+                .withDefaultRegistration()
+                .type(null)
+                .build();
+        RegistrationsPayload payload = RegistrationsEventBuilder
+                .withDefaultRegistrationPayload()
+                .registration(payloadRegistration)
+                .build();
+        RegistrationsEvent event = RegistrationsEventBuilder
+                .withDefaultEventValues()
+                .payload(payload)
+                .build();
+
+        Set<ConstraintViolation<RegistrationsEvent>> violations = validator.validate(event);
+
+        assertEquals(1, violations.size());
+
+        ConstraintViolation<RegistrationsEvent> violation = violations.iterator().next();
+        assertEquals("Must be either CHANGE_PATIENT_TYPE or NEW_GP_REGISTRATION", violation.getMessage());
+        assertEquals("payload.registration.type", violation.getPropertyPath().toString());
+    }
+
+    @Test
     void shouldThrowConstraintViolationWhenGpLinksFieldIsMissing() {
         Registration payloadRegistration = RegistrationBuilder
                 .withDefaultRegistration()

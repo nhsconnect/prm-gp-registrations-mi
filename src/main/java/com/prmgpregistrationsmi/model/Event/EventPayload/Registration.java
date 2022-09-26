@@ -2,7 +2,6 @@ package com.prmgpregistrationsmi.model.Event.EventPayload;
 
 import lombok.*;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Getter
@@ -11,8 +10,8 @@ import javax.validation.constraints.NotNull;
 @Builder
 @EqualsAndHashCode
 public class Registration {
-    @NotEmpty
-    private String type;
+    @NotNull(message = "Must be either CHANGE_PATIENT_TYPE or NEW_GP_REGISTRATION")
+    private RegistrationType type;
     @NotNull
     private Boolean returningPatient;
     @NotNull
