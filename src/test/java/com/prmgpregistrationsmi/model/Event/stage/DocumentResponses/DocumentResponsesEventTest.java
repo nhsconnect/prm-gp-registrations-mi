@@ -144,7 +144,7 @@ class DocumentResponsesEventTest {
         assertEquals(1, violations.size());
 
         ConstraintViolation<DocumentResponsesEvent> violation = violations.iterator().next();
-        assertEquals("must be either SUCCESS or FAILURE", violation.getMessage());
+        assertEquals("Must be either SUCCESS or FAILURE", violation.getMessage());
         assertEquals("payload.documentMigration.status", violation.getPropertyPath().toString());
     }
 }

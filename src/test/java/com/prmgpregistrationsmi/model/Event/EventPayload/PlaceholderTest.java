@@ -39,7 +39,7 @@ class PlaceholderTest {
         assertEquals(1, violations.size());
 
         ConstraintViolation<Placeholder> violation = violations.iterator().next();
-        assertEquals("must be either SENDER or PRE_EXISTING", violation.getMessage());
+        assertEquals("Must be either SENDER or PRE_EXISTING", violation.getMessage());
         assertEquals("generatedBy", violation.getPropertyPath().toString());
     }
 
