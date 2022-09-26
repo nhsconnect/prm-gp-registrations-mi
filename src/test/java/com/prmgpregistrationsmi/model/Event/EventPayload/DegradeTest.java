@@ -2,8 +2,6 @@ package com.prmgpregistrationsmi.model.Event.EventPayload;
 
 import com.prmgpregistrationsmi.testhelpers.DegradeBuilder;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.NullAndEmptySource;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -16,26 +14,24 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class DegradeTest {
     private final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
-    @ParameterizedTest
-    @NullAndEmptySource
-    void shouldThrowConstraintViolationWhenDegradeTypeIsNullOrEmpty(String degradeType) {
+    @Test
+    void shouldThrowConstraintViolationWhenDegradeTypeIsNull() {
         Degrade degrade = DegradeBuilder.withDefaultValues()
-                .type(degradeType)
+                .type(null)
                 .build();
         Set<ConstraintViolation<Degrade>> violations = validator.validate(degrade);
 
         assertEquals(1, violations.size());
 
         ConstraintViolation<Degrade> violation = violations.iterator().next();
-        assertEquals("must not be empty", violation.getMessage());
+        assertEquals("Must be one of the following: MEDICATION, NON_DRUG_ALLERGY, DRUG_ALLERGY, REFERRAL, PLAN, REQUEST, RECORD_ENTRY, OTHER", violation.getMessage());
         assertEquals("type", violation.getPropertyPath().toString());
     }
 
-    @ParameterizedTest
-    @NullAndEmptySource
-    void shouldThrowConstraintViolationWhenDegradeMetadataIsNullOrEmpty(String degradeMetadata) {
+    @Test
+    void shouldThrowConstraintViolationWhenDegradReasonIsNull() {
         Degrade degrade = DegradeBuilder.withDefaultValues()
-                .reason(degradeMetadata)
+                .reason(null)
                 .build();
 
         Set<ConstraintViolation<Degrade>> violations = validator.validate(degrade);
@@ -43,7 +39,7 @@ class DegradeTest {
         assertEquals(1, violations.size());
 
         ConstraintViolation<Degrade> violation = violations.iterator().next();
-        assertEquals("must not be empty", violation.getMessage());
+        assertEquals("Must be one of the following: CODE, NUMERIC_VALUE, DRUG_NAME, OTHER", violation.getMessage());
         assertEquals("reason", violation.getPropertyPath().toString());
     }
 

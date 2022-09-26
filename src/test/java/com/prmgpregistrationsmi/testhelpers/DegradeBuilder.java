@@ -1,6 +1,8 @@
 package com.prmgpregistrationsmi.testhelpers;
 
 import com.prmgpregistrationsmi.model.Event.EventPayload.Degrade;
+import com.prmgpregistrationsmi.model.Event.EventPayload.DegradeReason;
+import com.prmgpregistrationsmi.model.Event.EventPayload.DegradeType;
 import com.prmgpregistrationsmi.model.Event.EventPayload.SystemCoding;
 
 import java.util.List;
@@ -14,8 +16,8 @@ public class DegradeBuilder {
 
     public static Degrade.DegradeBuilder withDefaultValues() {
         return Degrade.builder()
-                .type("attachment")
-                .reason("something about this degrade")
+                .type(DegradeType.PLAN)
+                .reason(DegradeReason.CODE)
                 .coding(List.of(withDefaultSystemCoding().build()));
     }
 }
