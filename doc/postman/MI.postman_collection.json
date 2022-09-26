@@ -18,7 +18,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"conversationId\": {{conversation_id}},\n  \"registrationEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SYSTEM_SUPPLIER\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"requestingPracticeOdsCode\": \"ABC1234\",\n  \"sendingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"registration\": {\n      \"type\": \"newGPRegistration\",\n      \"returningPatient\": false,\n      \"multifactorAuthenticationPresent\": true\n    },\n    \"demographicTraceStatus\": {\n      \"matched\": true,\n      \"reason\": \"no PDS trace results returned\",\n      \"multifactorAuthenticationPresent\": true\n    },\n    \"gpLinks\": {\n      \"gpLinksComplete\": true\n    }\n  }\n}\n",
+					"raw": "{\n  \"conversationId\": {{conversation_id}},\n  \"registrationEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SYSTEM_SUPPLIER\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"requestingPracticeOdsCode\": \"ABC1234\",\n  \"sendingPracticeOdsCode\": \"ABC1234\",\n  \"payload\": {\n    \"registration\": {\n      \"type\": \"NEW_GP_REGISTRATION\",\n      \"returningPatient\": false,\n      \"multifactorAuthenticationPresent\": true\n    },\n    \"demographicTraceStatus\": {\n      \"matched\": true,\n      \"reason\": \"no PDS trace results returned\",\n      \"multifactorAuthenticationPresent\": true\n    },\n    \"gpLinks\": {\n      \"gpLinksComplete\": true\n    }\n  }\n}\n",
 					"options": {
 						"raw": {
 							"language": "json"
