@@ -19,7 +19,7 @@ public class SplunkWebClient {
 
     public Mono<ResponseEntity<Void>>sendEvent(EventDAO eventDAO) {
         return client.post()
-                .uri("/endpoint")
+                .uri("/")
                 .header("Authorization", splunkApiToken)
                 .bodyValue(eventDAO)
                 .retrieve()

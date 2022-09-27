@@ -58,7 +58,7 @@ class SplunkWebClientTest {
 
         RecordedRequest recordedRequest = mockWebServer.takeRequest();
         assertEquals("POST", recordedRequest.getMethod());
-        assertEquals("/endpoint", recordedRequest.getPath());
+        assertEquals("/", recordedRequest.getPath());
         assertEquals(JsonHelper.asJsonString(eventDAO), recordedRequest.getBody().readUtf8());
     }
 
@@ -77,7 +77,7 @@ class SplunkWebClientTest {
 
         RecordedRequest recordedRequest = mockWebServer.takeRequest();
         assertEquals("POST", recordedRequest.getMethod());
-        assertEquals("/endpoint", recordedRequest.getPath());
+        assertEquals("/", recordedRequest.getPath());
         assertEquals(testToken, recordedRequest.getHeader("Authorization"));
         assertEquals(JsonHelper.asJsonString(eventDAO), recordedRequest.getBody().readUtf8());
     }
