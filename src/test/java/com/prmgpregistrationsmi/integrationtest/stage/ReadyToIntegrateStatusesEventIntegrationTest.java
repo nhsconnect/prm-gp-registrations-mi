@@ -1,4 +1,4 @@
-package com.prmgpregistrationsmi.integrationtest;
+package com.prmgpregistrationsmi.integrationtest.stage;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.prmgpregistrationsmi.model.Event.BaseEvent;
@@ -8,6 +8,7 @@ import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.testhelpers.BaseEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.EventDAOBuilder;
 import com.prmgpregistrationsmi.utils.UUIDService;
+import com.prmgpregistrationsmi.webclient.SplunkWebClient;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +23,12 @@ import java.time.ZoneId;
 import java.time.ZoneOffset;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class EhrRequestsEventIntegrationTest {
+class ReadyToIntegrateStatusesEventIntegrationTest {
     @LocalServerPort
     private int port;
 
@@ -35,6 +37,9 @@ class EhrRequestsEventIntegrationTest {
 
     @MockBean
     AmazonS3Client mockAmazonS3Client;
+
+    @MockBean
+    SplunkWebClient splunkWebClient;
 
     @MockBean
     Clock clock;
@@ -50,23 +55,23 @@ class EhrRequestsEventIntegrationTest {
     }
 
     @Test
-    void shouldUploadEhrRequestEventToS3() {
-        BaseEvent ehrRequestsEventRequests = BaseEventBuilder
+    void shouldUploadEhrRequestEventToS3AndSendToSplunkCloud() {
+        BaseEvent readyToIntegrateStatusesEventRequests = BaseEventBuilder
                 .withDefaultEventValues()
                 .build();
 
-        EventDAO expectedS3UploadEvent = eventDAOBuilder.withEvent(ehrRequestsEventRequests)
+        EventDAO expectedS3UploadEvent = eventDAOBuilder.withEvent(readyToIntegrateStatusesEventRequests)
                 .eventId(UUIDService.buildUUIDStringFromSeed(
-                        ehrRequestsEventRequests.getConversationId() +
-                                EventType.EHR_REQUESTS +
-                                ehrRequestsEventRequests.getRegistrationEventDateTime())
+                        readyToIntegrateStatusesEventRequests.getConversationId() +
+                                EventType.READY_TO_INTEGRATE_STATUSES +
+                                readyToIntegrateStatusesEventRequests.getRegistrationEventDateTime())
                 )
-                .eventType(EventType.EHR_REQUESTS)
+                .eventType(EventType.READY_TO_INTEGRATE_STATUSES)
 
                 .build();
 
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
-                "/ehr-requests", ehrRequestsEventRequests, EventResponse.class);
+                "/ready-to-integrate-statuses", readyToIntegrateStatusesEventRequests, EventResponse.class);
 
         assertEquals(expectedS3UploadEvent.getEventId(), actualResponseEvent.getEventId());
 
@@ -75,5 +80,7 @@ class EhrRequestsEventIntegrationTest {
                 String.format("v1/2020/01/01/22/%s.json", expectedS3UploadEvent.getEventId()),
                 expectedS3UploadEvent.toString()
         );
+
+        verify(splunkWebClient).sendEvent(any(EventDAO.class));
     }
 }

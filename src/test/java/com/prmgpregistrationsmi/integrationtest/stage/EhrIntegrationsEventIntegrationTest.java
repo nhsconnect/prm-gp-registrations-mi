@@ -1,13 +1,14 @@
-package com.prmgpregistrationsmi.integrationtest;
+package com.prmgpregistrationsmi.integrationtest.stage;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
-import com.prmgpregistrationsmi.model.Event.stage.Registrations.RegistrationsEvent;
+import com.prmgpregistrationsmi.model.Event.stage.EhrIntegrations.EhrIntegrationsEvent;
 import com.prmgpregistrationsmi.testhelpers.EventDAOBuilder;
-import com.prmgpregistrationsmi.testhelpers.stage.RegistrationsEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.stage.EhrIntegrationsEventBuilder;
 import com.prmgpregistrationsmi.utils.UUIDService;
+import com.prmgpregistrationsmi.webclient.SplunkWebClient;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +23,12 @@ import java.time.ZoneId;
 import java.time.ZoneOffset;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class RegistrationsEventIntegrationTest {
+class EhrIntegrationsEventIntegrationTest {
     @LocalServerPort
     private int port;
 
@@ -35,6 +37,9 @@ class RegistrationsEventIntegrationTest {
 
     @MockBean
     AmazonS3Client mockAmazonS3Client;
+
+    @MockBean
+    SplunkWebClient splunkWebClient;
 
     @MockBean
     Clock clock;
@@ -50,22 +55,23 @@ class RegistrationsEventIntegrationTest {
     }
 
     @Test
-    void shouldUploadRegistrationEventToS3() {
-        RegistrationsEvent registrationsEventRequest = RegistrationsEventBuilder
+    void shouldUploadEhrIntegratedEventToS3AndSendToSplunkCloud() {
+        EhrIntegrationsEvent ehrIntegrationsEventRequest = EhrIntegrationsEventBuilder
                 .withDefaultEventValues()
                 .build();
 
-        EventDAO expectedS3UploadEvent = eventDAOBuilder.withEvent(registrationsEventRequest)
+        EventDAO expectedS3UploadEvent = eventDAOBuilder.withEvent(ehrIntegrationsEventRequest)
                 .eventId(UUIDService.buildUUIDStringFromSeed(
-                        registrationsEventRequest.getConversationId() +
-                                EventType.REGISTRATIONS +
-                                registrationsEventRequest.getRegistrationEventDateTime())
+                        ehrIntegrationsEventRequest.getConversationId() +
+                                EventType.EHR_INTEGRATIONS +
+                                ehrIntegrationsEventRequest.getRegistrationEventDateTime())
                 )
-                .eventType(EventType.REGISTRATIONS)
+                .eventType(EventType.EHR_INTEGRATIONS)
                 .build();
 
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
-                "/registrations", registrationsEventRequest, EventResponse.class);
+                        "/ehr-integrations",
+                ehrIntegrationsEventRequest, EventResponse.class);
 
         assertEquals(expectedS3UploadEvent.getEventId(), actualResponseEvent.getEventId());
 
@@ -74,5 +80,7 @@ class RegistrationsEventIntegrationTest {
                 String.format("v1/2020/01/01/22/%s.json", expectedS3UploadEvent.getEventId()),
                 expectedS3UploadEvent.toString()
         );
+
+        verify(splunkWebClient).sendEvent(any(EventDAO.class));
     }
 }

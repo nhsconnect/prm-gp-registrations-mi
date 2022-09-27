@@ -1,4 +1,4 @@
-package com.prmgpregistrationsmi.integrationtest;
+package com.prmgpregistrationsmi.integrationtest.stage;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
@@ -8,6 +8,7 @@ import com.prmgpregistrationsmi.model.Event.stage.TransferCompatibilityStatuses.
 import com.prmgpregistrationsmi.testhelpers.EventDAOBuilder;
 import com.prmgpregistrationsmi.testhelpers.stage.TransferCompatibilityStatusesEventBuilder;
 import com.prmgpregistrationsmi.utils.UUIDService;
+import com.prmgpregistrationsmi.webclient.SplunkWebClient;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import java.time.ZoneId;
 import java.time.ZoneOffset;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
 
@@ -37,6 +39,9 @@ class TransferCompatibilityStatusesEventIntegrationTest {
     AmazonS3Client mockAmazonS3Client;
 
     @MockBean
+    SplunkWebClient splunkWebClient;
+
+    @MockBean
     Clock clock;
 
     @Autowired
@@ -50,7 +55,7 @@ class TransferCompatibilityStatusesEventIntegrationTest {
     }
 
     @Test
-    void shouldUploadTransferCompatibilityEventToS3() {
+    void shouldUploadTransferCompatibilityEventToS3AndSendToSplunkCloud() {
         TransferCompatibilityStatusesEvent transferCompatibilityStatusesEventRequest = TransferCompatibilityStatusesEventBuilder
                 .withDefaultEventValues()
                 .build();
@@ -75,5 +80,7 @@ class TransferCompatibilityStatusesEventIntegrationTest {
                 String.format("v1/2020/01/01/22/%s.json", expectedS3UploadEvent.getEventId()),
                 expectedS3UploadEvent.toString()
         );
+
+        verify(splunkWebClient).sendEvent(any(EventDAO.class));
     }
 }

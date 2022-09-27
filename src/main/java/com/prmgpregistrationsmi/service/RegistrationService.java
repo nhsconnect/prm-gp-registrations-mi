@@ -6,8 +6,11 @@ import com.prmgpregistrationsmi.model.Event.BaseEventWithOptionalSendingPractice
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.model.Event.stage.EhrDegrades.EhrDegradesEvent;
+import com.prmgpregistrationsmi.webclient.SplunkWebClient;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
 
 import java.time.Clock;
 import java.time.LocalDateTime;
@@ -17,6 +20,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
+import static com.prmgpregistrationsmi.logging.StructuredLogger.logger;
+
 @AllArgsConstructor
 @Service
 public class RegistrationService {
@@ -24,12 +29,16 @@ public class RegistrationService {
     private static final String OUTPUT_VERSION = "v1";
     private static final String DEGRADES_DIRECTORY = "degrades/";
     private final S3FileUploader eventS3Client;
+    private final SplunkWebClient splunkWebClient;
     private final Clock clock;
 
     public EventDAO saveEvent(BaseEvent event, EventType eventType) throws UnableToUploadToS3Exception {
         EventDAO eventDAO = EventDAO.fromEvent(event, eventType, LocalDateTime.now(clock).truncatedTo(ChronoUnit.SECONDS));
         String s3Key = getS3Key(eventDAO.getRegistrationEventDateTime(), eventDAO.getEventId());
         eventS3Client.uploadJsonObject(eventDAO, s3Key);
+        Mono<ResponseEntity<Void>> response = splunkWebClient.sendEvent(eventDAO);
+        logger.info("Response from sending event to splunk cloud: ");
+        logger.info(response);
         return eventDAO;
     }
 
@@ -37,6 +46,7 @@ public class RegistrationService {
         EventDAO eventDAO = EventDAO.fromEvent(event, eventType, LocalDateTime.now(clock).truncatedTo(ChronoUnit.SECONDS));
         String s3Key = getS3Key(eventDAO.getRegistrationEventDateTime(), eventDAO.getEventId());
         eventS3Client.uploadJsonObject(eventDAO, s3Key);
+        splunkWebClient.sendEvent(eventDAO);
         return eventDAO;
     }
 
@@ -44,6 +54,7 @@ public class RegistrationService {
         EventDAO degradeEventDAO = EventDAO.fromEvent(event, eventType, LocalDateTime.now(clock).truncatedTo(ChronoUnit.DAYS));
         String s3Key = DEGRADES_DIRECTORY + getS3Key(degradeEventDAO.getEventGeneratedDateTime(), degradeEventDAO.getEventId());
         eventS3Client.uploadJsonObject(degradeEventDAO, s3Key);
+        splunkWebClient.sendEvent(degradeEventDAO);
         return degradeEventDAO;
     }
 

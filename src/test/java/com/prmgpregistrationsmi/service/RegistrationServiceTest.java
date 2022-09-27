@@ -7,6 +7,7 @@ import com.prmgpregistrationsmi.model.Event.stage.EhrDegrades.EhrDegradesEvent;
 import com.prmgpregistrationsmi.model.Event.stage.Registrations.RegistrationsEvent;
 import com.prmgpregistrationsmi.testhelpers.stage.EhrDegradesEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.stage.RegistrationsEventBuilder;
+import com.prmgpregistrationsmi.webclient.SplunkWebClient;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,10 +22,11 @@ import static org.mockito.Mockito.*;
 
 class RegistrationServiceTest {
     S3FileUploader eventS3ClientMock = mock(S3FileUploader.class);
+    SplunkWebClient splunkWebClientMock = mock(SplunkWebClient.class);
     Clock clock = mock(Clock.class);
     LocalDateTime mockLocalDateTime = LocalDateTime.of(1990, 03, 3, 0, 0, 0);
 
-    RegistrationService registrationService = new RegistrationService(eventS3ClientMock, clock);
+    RegistrationService registrationService = new RegistrationService(eventS3ClientMock, splunkWebClientMock, clock);
 
     @BeforeEach
     public void setup() {
@@ -45,6 +47,21 @@ class RegistrationServiceTest {
         EventDAO eventDAO = registrationService.saveEvent(testEvent, gp2gpRegistrationEventType);
 
         verify(eventS3ClientMock, times(1)).uploadJsonObject(eq(expectedEventDAO), anyString());
+        assertEquals(eventDAO, expectedEventDAO);
+    }
+
+    @Test
+    void shouldCallSendEventWithEventDAO() throws UnableToUploadToS3Exception {
+        RegistrationsEvent testEvent = RegistrationsEventBuilder
+                .withDefaultEventValues()
+                .build();
+        EventType gp2gpRegistrationEventType = EventType.REGISTRATIONS;
+
+        EventDAO expectedEventDAO = EventDAO.fromEvent(testEvent, gp2gpRegistrationEventType, mockLocalDateTime);
+
+        EventDAO eventDAO = registrationService.saveEvent(testEvent, gp2gpRegistrationEventType);
+
+        verify(splunkWebClientMock, times(1)).sendEvent(eq(expectedEventDAO));
         assertEquals(eventDAO, expectedEventDAO);
     }
 
@@ -73,6 +90,24 @@ class RegistrationServiceTest {
         EventDAO eventDAO = registrationService.saveDegradesEvent(testEvent, gp2gpRegistrationEventType);
 
         verify(eventS3ClientMock, times(1)).uploadJsonObject(any(EventDAO.class), anyString());
+        assertEquals(eventDAO.getEventGeneratedDateTime(), expectedEventDAO.getEventGeneratedDateTime());
+        assertEquals(eventDAO.getEventType(), expectedEventDAO.getEventType());
+        assertEquals(eventDAO.getReportingSystemSupplier(), expectedEventDAO.getReportingSystemSupplier());
+        assertEquals(eventDAO.getPayload(), expectedEventDAO.getPayload());
+    }
+
+    @Test
+    void shouldCallSendEventWithDegradesEventDAO() throws UnableToUploadToS3Exception {
+        EhrDegradesEvent testEvent = EhrDegradesEventBuilder
+                .withDefaultEventValues()
+                .build();
+        EventType gp2gpRegistrationEventType = EventType.DEGRADES;
+
+        EventDAO expectedEventDAO = EventDAO.fromEvent(testEvent, gp2gpRegistrationEventType, mockLocalDateTime.truncatedTo(ChronoUnit.DAYS));
+
+        EventDAO eventDAO = registrationService.saveDegradesEvent(testEvent, gp2gpRegistrationEventType);
+
+        verify(splunkWebClientMock, times(1)).sendEvent(eventDAO);
         assertEquals(eventDAO.getEventGeneratedDateTime(), expectedEventDAO.getEventGeneratedDateTime());
         assertEquals(eventDAO.getEventType(), expectedEventDAO.getEventType());
         assertEquals(eventDAO.getReportingSystemSupplier(), expectedEventDAO.getReportingSystemSupplier());

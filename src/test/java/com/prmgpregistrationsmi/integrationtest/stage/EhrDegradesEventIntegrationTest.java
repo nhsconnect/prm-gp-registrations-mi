@@ -1,4 +1,4 @@
-package com.prmgpregistrationsmi.integrationtest;
+package com.prmgpregistrationsmi.integrationtest.stage;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
@@ -6,8 +6,8 @@ import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.model.Event.stage.EhrDegrades.EhrDegradesEvent;
 import com.prmgpregistrationsmi.testhelpers.DegradesEventDAOBuilder;
-import com.prmgpregistrationsmi.testhelpers.EventDAOBuilder;
 import com.prmgpregistrationsmi.testhelpers.stage.EhrDegradesEventBuilder;
+import com.prmgpregistrationsmi.webclient.SplunkWebClient;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +37,9 @@ class EhrDegradesEventIntegrationTest {
     AmazonS3Client mockAmazonS3Client;
 
     @MockBean
+    SplunkWebClient splunkWebClient;
+
+    @MockBean
     Clock clock;
 
     @Autowired
@@ -50,7 +53,7 @@ class EhrDegradesEventIntegrationTest {
     }
 
     @Test
-    void shouldUploadEhrDegradeEventToS3() {
+    void shouldUploadEhrDegradeEventToS3AndSendToSplunkCloud() {
         EhrDegradesEvent ehrDegradesEvent = EhrDegradesEventBuilder
                 .withDefaultEventValues()
                 .build();
@@ -73,5 +76,7 @@ class EhrDegradesEventIntegrationTest {
                 endsWith(actualResponseEvent.getEventId() + ".json"),
                 eq(expectedS3UploadEvent.toString())
         );
+
+        verify(splunkWebClient).sendEvent(any(EventDAO.class));
     }
 }
