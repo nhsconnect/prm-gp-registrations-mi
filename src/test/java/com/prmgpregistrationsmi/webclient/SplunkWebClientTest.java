@@ -1,5 +1,6 @@
 package com.prmgpregistrationsmi.webclient;
 
+import com.prmgpregistrationsmi.logging.StructuredLogger;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.utils.JsonHelper;
 import okhttp3.mockwebserver.MockResponse;
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import reactor.core.publisher.Mono;
@@ -22,6 +24,9 @@ class SplunkWebClientTest {
 
     private static MockWebServer mockWebServer;
     private static final String testToken = "testToken";
+
+    @Mock
+    StructuredLogger structuredLogger;
 
     @BeforeAll
     static void setUp() throws IOException {

@@ -8,9 +8,7 @@ import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.model.Event.stage.EhrDegrades.EhrDegradesEvent;
 import com.prmgpregistrationsmi.webclient.SplunkWebClient;
 import lombok.AllArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Mono;
 
 import java.time.Clock;
 import java.time.LocalDateTime;
@@ -19,8 +17,6 @@ import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
-
-import static com.prmgpregistrationsmi.logging.StructuredLogger.logger;
 
 @AllArgsConstructor
 @Service
@@ -36,9 +32,7 @@ public class RegistrationService {
         EventDAO eventDAO = EventDAO.fromEvent(event, eventType, LocalDateTime.now(clock).truncatedTo(ChronoUnit.SECONDS));
         String s3Key = getS3Key(eventDAO.getRegistrationEventDateTime(), eventDAO.getEventId());
         eventS3Client.uploadJsonObject(eventDAO, s3Key);
-        Mono<ResponseEntity<Void>> response = splunkWebClient.sendEvent(eventDAO);
-        logger.info("Response from sending event to splunk cloud: ");
-        logger.info(response);
+        splunkWebClient.sendEvent(eventDAO);
         return eventDAO;
     }
 

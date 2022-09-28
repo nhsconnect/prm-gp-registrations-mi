@@ -23,12 +23,18 @@ public class SplunkWebClient {
 
     public Mono<ResponseEntity<Void>>sendEvent(EventDAO eventDAO) {
         logger.info("Attempting to send event to splunk web url: " + splunkCloudUrl);
-
-        return client.post()
-                .uri("/")
-                .header("Authorization", splunkApiToken)
-                .bodyValue(eventDAO)
-                .retrieve()
-                .toBodilessEntity();
+        try {
+            Mono<ResponseEntity<Void>> response = client.post()
+                    .uri("/")
+                    .header("Authorization", splunkApiToken)
+                    .bodyValue(eventDAO)
+                    .retrieve()
+                    .toBodilessEntity();
+            logger.info("Response from sending event to splunk cloud: ", response);
+            return response;
+        } catch(Exception e) {
+            logger.error("Something went wrong when sending event to splunk cloud. ", e);
+            return null;
+        }
     }
 }

@@ -38,7 +38,6 @@ class S3FileUploaderTest {
                 JsonHelper.asJsonString(testObject));
     }
 
-
     @Test
     void shouldThrowExceptionWhenUnableToUploadObjectToAmazonS3() {
         UnableToUploadToS3Exception exception = assertThrows(UnableToUploadToS3Exception.class, () -> {
