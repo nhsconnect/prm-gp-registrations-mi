@@ -2,6 +2,7 @@ package com.prmgpregistrationsmi.webclient;
 
 import com.prmgpregistrationsmi.logging.StructuredLogger;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
+import com.prmgpregistrationsmi.model.Event.SplunkEventDAO;
 import com.prmgpregistrationsmi.utils.JsonHelper;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
@@ -64,7 +65,7 @@ class SplunkWebClientTest {
         RecordedRequest recordedRequest = mockWebServer.takeRequest();
         assertEquals("POST", recordedRequest.getMethod());
         assertEquals("/", recordedRequest.getPath());
-        assertEquals(JsonHelper.asJsonString(eventDAO), recordedRequest.getBody().readUtf8());
+        assertEquals(JsonHelper.asJsonString(SplunkEventDAO.fromEventDAO(eventDAO)), recordedRequest.getBody().readUtf8());
     }
 
     @Test
@@ -84,6 +85,6 @@ class SplunkWebClientTest {
         assertEquals("POST", recordedRequest.getMethod());
         assertEquals("/", recordedRequest.getPath());
         assertEquals(testToken, recordedRequest.getHeader("Authorization"));
-        assertEquals(JsonHelper.asJsonString(eventDAO), recordedRequest.getBody().readUtf8());
+        assertEquals(JsonHelper.asJsonString(SplunkEventDAO.fromEventDAO(eventDAO)), recordedRequest.getBody().readUtf8());
     }
 }

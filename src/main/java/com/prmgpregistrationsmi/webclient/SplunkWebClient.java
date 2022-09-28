@@ -1,6 +1,7 @@
 package com.prmgpregistrationsmi.webclient;
 
 import com.prmgpregistrationsmi.model.Event.EventDAO;
+import com.prmgpregistrationsmi.model.Event.SplunkEventDAO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -24,10 +25,12 @@ public class SplunkWebClient {
     public Mono<ResponseEntity<Void>>sendEvent(EventDAO eventDAO) {
         logger.info("Attempting to send event to splunk web url: " + splunkCloudUrl);
         try {
+            SplunkEventDAO requestBody = SplunkEventDAO.fromEventDAO(eventDAO);
+
             Mono<ResponseEntity<Void>> response = client.post()
                     .uri("/")
                     .header("Authorization", splunkApiToken)
-                    .bodyValue(eventDAO)
+                    .bodyValue(requestBody)
                     .retrieve()
                     .toBodilessEntity();
             logger.info("Response from sending event to splunk cloud: ", response);
