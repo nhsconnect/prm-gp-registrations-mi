@@ -146,7 +146,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"conversationId\": {{conversation_id}},\n  \"registrationEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SYSTEM_SUPPLIER\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"requestingPracticeOdsCode\": \"ABC1234\",\n  \"sendingPracticeOdsCode\": \"XYZ4567\",\n  \"payload\": {\n    \"attachment\": {\n      \"clinicalType\": \"SCANNED_DOCUMENT\",\n      \"mimeType\": \"application/pdf\",\n      \"sizeBytes\": 3084322\n    },\n    \"documentMigration\": {\n      \"status\": \"FAILURE\",\n      \"reason\": \"Large file size\"\n    }\n  }\n}\n",
+					"raw": "{\n  \"conversationId\": {{conversation_id}},\n  \"registrationEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SYSTEM_SUPPLIER\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"requestingPracticeOdsCode\": \"ABC1234\",\n  \"sendingPracticeOdsCode\": \"XYZ4567\",\n  \"payload\": {\n    \"attachment\": {\n      \"clinicalType\": \"SCANNED_DOCUMENT\",\n      \"mimeType\": \"application/pdf\",\n      \"sizeBytes\": 3084322\n    },\n    \"documentMigration\": {\n      \"successful\": false,\n      \"reason\": \"Large file size\"\n    }\n  }\n}\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -274,7 +274,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"conversationId\": \"4345-986959-4930-684038\",\n  \"registrationEventDateTime\": \"2020-02-08T08:30:25Z\",\n  \"reportingSystemSupplier\": \"SYSTEM_SUPPLIER\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"requestingPracticeOdsCode\": \"ABC1234\",\n  \"sendingPracticeOdsCode\": \"XYZ4567\",\n  \"payload\": {\n    \"error\": {\n      \"errorCode\": \"99\",\n      \"errorDescription\": \"unexpected error\",\n      \"failurePoint\": \"EHR_RESPONSE\"\n    }\n  }\n}\n",
+					"raw": "{\n  \"conversationId\": {{conversation_id}},\n  \"registrationEventDateTime\": {{a_datetime}},\n  \"reportingSystemSupplier\": \"SYSTEM_SUPPLIER\",\n  \"reportingPracticeOdsCode\": \"ABC1234\",\n  \"requestingPracticeOdsCode\": \"ABC1234\",\n  \"sendingPracticeOdsCode\": \"XYZ4567\",\n  \"payload\": {\n    \"error\": {\n        \"errorCode\": \"99\",\n        \"errorDescription\": \"unexpected error\",\n        \"failurePoint\": \"EHR_RESPONSE\"\n        }\n    }\n}\n",
 					"options": {
 						"raw": {
 							"language": "json"
