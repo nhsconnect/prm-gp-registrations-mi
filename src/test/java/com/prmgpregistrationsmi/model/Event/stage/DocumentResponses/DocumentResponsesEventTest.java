@@ -130,7 +130,7 @@ class DocumentResponsesEventTest {
                 .withDefaultDocumentResponsesPayload()
                 .documentMigration(StatusDetailsBuilder
                         .withSuccessfulStatus()
-                        .status(null)
+                        .successful(null)
                         .build())
                 .build();
 
@@ -144,7 +144,7 @@ class DocumentResponsesEventTest {
         assertEquals(1, violations.size());
 
         ConstraintViolation<DocumentResponsesEvent> violation = violations.iterator().next();
-        assertEquals("Must be either SUCCESS or FAILURE", violation.getMessage());
-        assertEquals("payload.documentMigration.status", violation.getPropertyPath().toString());
+        assertEquals("must not be null", violation.getMessage());
+        assertEquals("payload.documentMigration.successful", violation.getPropertyPath().toString());
     }
 }

@@ -1,10 +1,6 @@
 package com.prmgpregistrationsmi.model.Event.EventPayload;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.validation.constraints.NotNull;
 
@@ -14,7 +10,7 @@ import javax.validation.constraints.NotNull;
 @Builder
 @EqualsAndHashCode
 public class StatusDetails {
-    @NotNull(message = "Must be either SUCCESS or FAILURE")
-    private Status status;
+    @NotNull
+    private Boolean successful;
     private String reason;
 }
