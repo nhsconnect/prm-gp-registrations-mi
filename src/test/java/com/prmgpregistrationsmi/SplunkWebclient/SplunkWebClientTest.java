@@ -18,8 +18,8 @@ import static org.mockito.Mockito.when;
 
 class SplunkWebClientTest {
     private static final String testToken = "testToken";
+    private static final String baseUrl = "test.com";
     private SplunkWebClient splunkWebClient;
-    private final String baseUrl = "test.com";
 
     RestTemplate mockRestTemplate = mock(RestTemplate.class);
 
