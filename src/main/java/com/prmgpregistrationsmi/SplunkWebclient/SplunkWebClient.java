@@ -2,16 +2,18 @@ package com.prmgpregistrationsmi.SplunkWebclient;
 
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.SplunkEventDAO;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Collections;
 
 import static com.prmgpregistrationsmi.logging.StructuredLogger.logger;
 
-@Service
+@Component
+@SuppressFBWarnings(value = "EI_EXPOSE_REP2")
 public class SplunkWebClient {
     private final RestTemplate restTemplate;
     private final String splunkCloudUrl;
