@@ -37,10 +37,10 @@ public class SplunkWebClient {
         ResponseEntity<String> response = restTemplate.exchange(splunkCloudUrl, HttpMethod.POST, httpEntity,
                 String.class);
         if (response.getStatusCode() == HttpStatus.OK) {
-            logger.info("Response from sending event to splunk cloud: ", response);
+            logger.info("Successfully sent event to Splunk Cloud.", response);
             return true;
         } else {
-            logger.error("Something went wrong when sending event to splunk cloud. ", response);
+            logger.error("Something went wrong when sending event to Splunk Cloud.", response);
             return false;
         }
     }
