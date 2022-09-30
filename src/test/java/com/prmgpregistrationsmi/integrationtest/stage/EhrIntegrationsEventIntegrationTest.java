@@ -8,7 +8,7 @@ import com.prmgpregistrationsmi.model.Event.stage.EhrIntegrations.EhrIntegration
 import com.prmgpregistrationsmi.testhelpers.EventDAOBuilder;
 import com.prmgpregistrationsmi.testhelpers.stage.EhrIntegrationsEventBuilder;
 import com.prmgpregistrationsmi.utils.UUIDService;
-import com.prmgpregistrationsmi.webclient.SplunkWebClient;
+import com.prmgpregistrationsmi.SplunkWebclient.SplunkWebClient;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,6 +81,6 @@ class EhrIntegrationsEventIntegrationTest {
                 expectedS3UploadEvent.toString()
         );
 
-        verify(splunkWebClient).sendEvent(any(EventDAO.class));
+        verify(splunkWebClient).postEventToSplunkCloud(any(EventDAO.class));
     }
 }

@@ -8,7 +8,7 @@ import com.prmgpregistrationsmi.model.Event.stage.DocumentResponses.DocumentResp
 import com.prmgpregistrationsmi.testhelpers.EventDAOBuilder;
 import com.prmgpregistrationsmi.testhelpers.stage.DocumentResponsesEventBuilder;
 import com.prmgpregistrationsmi.utils.UUIDService;
-import com.prmgpregistrationsmi.webclient.SplunkWebClient;
+import com.prmgpregistrationsmi.SplunkWebclient.SplunkWebClient;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,6 +81,6 @@ class DocumentResponsesEventIntegrationTest {
                 expectedS3UploadEvent.toString()
         );
 
-        verify(splunkWebClient).sendEvent(any(EventDAO.class));
+        verify(splunkWebClient).postEventToSplunkCloud(any(EventDAO.class));
     }
 }

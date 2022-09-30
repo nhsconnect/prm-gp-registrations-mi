@@ -1,5 +1,6 @@
 package com.prmgpregistrationsmi.model.Event;
 
+import com.prmgpregistrationsmi.utils.JsonHelper;
 import lombok.*;
 
 @Getter
@@ -13,5 +14,10 @@ public class SplunkEventDAO {
 
     public static SplunkEventDAO fromEventDAO(EventDAO eventDAO) {
         return new SplunkEventDAO("itoc:gp2gp", eventDAO);
+    }
+
+    @Override
+    public String toString() {
+        return  JsonHelper.asJsonString(this);
     }
 }

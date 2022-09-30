@@ -37,8 +37,6 @@ dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.24'
 	annotationProcessor 'org.projectlombok:lombok'
 
-    implementation 'com.squareup.okhttp3:mockwebserver'
-    implementation 'com.squareup.okhttp3:okhttp'
     implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 	implementation 'org.springframework.boot:spring-boot-starter-web'

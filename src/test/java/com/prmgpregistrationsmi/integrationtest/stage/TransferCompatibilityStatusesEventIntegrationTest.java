@@ -8,7 +8,7 @@ import com.prmgpregistrationsmi.model.Event.stage.TransferCompatibilityStatuses.
 import com.prmgpregistrationsmi.testhelpers.EventDAOBuilder;
 import com.prmgpregistrationsmi.testhelpers.stage.TransferCompatibilityStatusesEventBuilder;
 import com.prmgpregistrationsmi.utils.UUIDService;
-import com.prmgpregistrationsmi.webclient.SplunkWebClient;
+import com.prmgpregistrationsmi.SplunkWebclient.SplunkWebClient;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,6 +81,6 @@ class TransferCompatibilityStatusesEventIntegrationTest {
                 expectedS3UploadEvent.toString()
         );
 
-        verify(splunkWebClient).sendEvent(any(EventDAO.class));
+        verify(splunkWebClient).postEventToSplunkCloud(any(EventDAO.class));
     }
 }

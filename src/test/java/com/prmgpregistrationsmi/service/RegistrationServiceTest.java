@@ -7,7 +7,7 @@ import com.prmgpregistrationsmi.model.Event.stage.EhrDegrades.EhrDegradesEvent;
 import com.prmgpregistrationsmi.model.Event.stage.Registrations.RegistrationsEvent;
 import com.prmgpregistrationsmi.testhelpers.stage.EhrDegradesEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.stage.RegistrationsEventBuilder;
-import com.prmgpregistrationsmi.webclient.SplunkWebClient;
+import com.prmgpregistrationsmi.SplunkWebclient.SplunkWebClient;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -51,7 +51,7 @@ class RegistrationServiceTest {
     }
 
     @Test
-    void shouldCallSendEventWithEventDAO() throws UnableToUploadToS3Exception {
+    void shouldCallPostEventToSplunkCloud() throws UnableToUploadToS3Exception {
         RegistrationsEvent testEvent = RegistrationsEventBuilder
                 .withDefaultEventValues()
                 .build();
@@ -61,7 +61,7 @@ class RegistrationServiceTest {
 
         EventDAO eventDAO = registrationService.saveEvent(testEvent, gp2gpRegistrationEventType);
 
-        verify(splunkWebClientMock, times(1)).sendEvent(eq(expectedEventDAO));
+        verify(splunkWebClientMock, times(1)).postEventToSplunkCloud(eq(expectedEventDAO));
         assertEquals(eventDAO, expectedEventDAO);
     }
 
@@ -97,7 +97,7 @@ class RegistrationServiceTest {
     }
 
     @Test
-    void shouldCallSendEventWithDegradesEventDAO() throws UnableToUploadToS3Exception {
+    void shouldCallDegradesPostEventToSplunkCloud() throws UnableToUploadToS3Exception {
         EhrDegradesEvent testEvent = EhrDegradesEventBuilder
                 .withDefaultEventValues()
                 .build();
@@ -107,7 +107,7 @@ class RegistrationServiceTest {
 
         EventDAO eventDAO = registrationService.saveDegradesEvent(testEvent, gp2gpRegistrationEventType);
 
-        verify(splunkWebClientMock, times(1)).sendEvent(eventDAO);
+        verify(splunkWebClientMock, times(1)).postEventToSplunkCloud(eventDAO);
         assertEquals(eventDAO.getEventGeneratedDateTime(), expectedEventDAO.getEventGeneratedDateTime());
         assertEquals(eventDAO.getEventType(), expectedEventDAO.getEventType());
         assertEquals(eventDAO.getReportingSystemSupplier(), expectedEventDAO.getReportingSystemSupplier());

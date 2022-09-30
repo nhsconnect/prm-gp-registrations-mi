@@ -6,7 +6,7 @@ import com.prmgpregistrationsmi.model.Event.BaseEventWithOptionalSendingPractice
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.model.Event.stage.EhrDegrades.EhrDegradesEvent;
-import com.prmgpregistrationsmi.webclient.SplunkWebClient;
+import com.prmgpregistrationsmi.SplunkWebclient.SplunkWebClient;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +32,7 @@ public class RegistrationService {
         EventDAO eventDAO = EventDAO.fromEvent(event, eventType, LocalDateTime.now(clock).truncatedTo(ChronoUnit.SECONDS));
         String s3Key = getS3Key(eventDAO.getRegistrationEventDateTime(), eventDAO.getEventId());
         eventS3Client.uploadJsonObject(eventDAO, s3Key);
-        splunkWebClient.sendEvent(eventDAO);
+        splunkWebClient.postEventToSplunkCloud(eventDAO);
         return eventDAO;
     }
 
@@ -40,7 +40,7 @@ public class RegistrationService {
         EventDAO eventDAO = EventDAO.fromEvent(event, eventType, LocalDateTime.now(clock).truncatedTo(ChronoUnit.SECONDS));
         String s3Key = getS3Key(eventDAO.getRegistrationEventDateTime(), eventDAO.getEventId());
         eventS3Client.uploadJsonObject(eventDAO, s3Key);
-        splunkWebClient.sendEvent(eventDAO);
+        splunkWebClient.postEventToSplunkCloud(eventDAO);
         return eventDAO;
     }
 
@@ -48,7 +48,7 @@ public class RegistrationService {
         EventDAO degradeEventDAO = EventDAO.fromEvent(event, eventType, LocalDateTime.now(clock).truncatedTo(ChronoUnit.DAYS));
         String s3Key = DEGRADES_DIRECTORY + getS3Key(degradeEventDAO.getEventGeneratedDateTime(), degradeEventDAO.getEventId());
         eventS3Client.uploadJsonObject(degradeEventDAO, s3Key);
-        splunkWebClient.sendEvent(degradeEventDAO);
+        splunkWebClient.postEventToSplunkCloud(degradeEventDAO);
         return degradeEventDAO;
     }
 

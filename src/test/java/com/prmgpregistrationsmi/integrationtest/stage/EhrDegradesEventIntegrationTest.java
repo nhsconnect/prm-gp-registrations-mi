@@ -7,7 +7,7 @@ import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.model.Event.stage.EhrDegrades.EhrDegradesEvent;
 import com.prmgpregistrationsmi.testhelpers.DegradesEventDAOBuilder;
 import com.prmgpregistrationsmi.testhelpers.stage.EhrDegradesEventBuilder;
-import com.prmgpregistrationsmi.webclient.SplunkWebClient;
+import com.prmgpregistrationsmi.SplunkWebclient.SplunkWebClient;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,6 +77,6 @@ class EhrDegradesEventIntegrationTest {
                 eq(expectedS3UploadEvent.toString())
         );
 
-        verify(splunkWebClient).sendEvent(any(EventDAO.class));
+        verify(splunkWebClient).postEventToSplunkCloud(any(EventDAO.class));
     }
 }
