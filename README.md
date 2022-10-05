@@ -6,7 +6,12 @@ GP Registrations MI is a service used to collect Management Information describi
 
 ### Prerequisites
 
-- Download Java 11 OpenJDK [https://wiki.openjdk.java.net/display/JDKUpdates/JDK11u]
+- Download Java 17 OpenJDK 
+```
+brew install openjdk@17
+sudo ln -sfn /usr/local/opt/openjdk@17/libexec/openjdk.jdk \
+     /Library/Java/JavaVirtualMachines/openjdk-17.jdk
+```
 
 List your java versions
 ```
