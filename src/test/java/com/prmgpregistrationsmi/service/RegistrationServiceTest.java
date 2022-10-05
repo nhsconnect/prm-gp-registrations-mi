@@ -124,9 +124,6 @@ class RegistrationServiceTest {
         EventDAO testEventDAO = registrationService.saveDegradesEvent(testEvent, gp2gpRegistrationEventType);
 
         verify(eventS3ClientMock, times(1)).uploadJsonObject(any(),
-                //TODO: Freeze clock and check full path
-                contains(testEventDAO.getEventId() + ".json"));
-        verify(eventS3ClientMock, times(1)).uploadJsonObject(any(),
-                startsWith("degrades/v1/"));
+                eq("degrades/v1/1990/03/03/00/" + testEventDAO.getEventId() + ".json"));
     }
 }
