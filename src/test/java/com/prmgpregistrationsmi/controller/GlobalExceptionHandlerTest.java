@@ -49,26 +49,6 @@ class GlobalExceptionHandlerTest {
         assertEquals(expectedApiError, actualApiError);
     }
 
-//    @Test
-//    void methodArgumentNotValidExceptionHandlerReturnApiError() {
-//        FieldError fieldError = new FieldError("object", "field", "message");
-//        BindingResult result = new BeanPropertyBindingResult(fieldError, "fieldError");
-//        result.addError(fieldError);
-//
-//        MethodParameter methodParameter = mock(MethodParameter.class);
-//        when(methodParameter.getExecutable()).thenReturn(mock(Executable.class));
-//        MethodArgumentNotValidException methodArgumentNotValidException = new MethodArgumentNotValidException(methodParameter, result);
-//
-//        ResponseEntity<ApiError> responseEntity = globalExceptionHandler.methodArgumentNotValidExceptionHandler(methodArgumentNotValidException);
-//        ApiError actualApiError = responseEntity.getBody();
-//
-//        ApiError expectedApiError = new ApiError(
-//                HttpStatus.BAD_REQUEST,
-//                "Failed to validate fields", "field: message" );
-//
-//        assertEquals(expectedApiError, actualApiError);
-//    }
-
     @Test
     void unableToUploadToS3ExceptionHandlerReturnsApiError() {
         UnableToUploadToS3Exception unableToUploadToS3Exception = new UnableToUploadToS3Exception(new Exception("a"));
