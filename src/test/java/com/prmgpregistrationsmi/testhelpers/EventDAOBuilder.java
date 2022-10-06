@@ -25,6 +25,8 @@ public class EventDAOBuilder {
                 .eventGeneratedDateTime(LocalDateTime.now(clock).truncatedTo(ChronoUnit.SECONDS))
                 .reportingSystemSupplier(event.getReportingSystemSupplier())
                 .reportingPracticeOdsCode(event.getReportingPracticeOdsCode())
+                .requestingPracticeOdsCode(event.getRequestingPracticeOdsCode())
+                .sendingPracticeOdsCode(event.getSendingPracticeOdsCode())
                 .conversationId(event.getConversationId())
                 .registrationEventDateTime(event.getRegistrationEventDateTime())
                 .payload(payload);
@@ -40,6 +42,8 @@ public class EventDAOBuilder {
                 .eventGeneratedDateTime(LocalDateTime.now(clock).truncatedTo(ChronoUnit.SECONDS))
                 .reportingSystemSupplier(event.getReportingSystemSupplier())
                 .reportingPracticeOdsCode(event.getReportingPracticeOdsCode())
+                .requestingPracticeOdsCode(event.getRequestingPracticeOdsCode())
+                .sendingPracticeOdsCode(event.getSendingPracticeOdsCode())
                 .conversationId(event.getConversationId())
                 .registrationEventDateTime(event.getRegistrationEventDateTime())
                 .payload(payload);

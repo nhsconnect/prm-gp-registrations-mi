@@ -20,6 +20,8 @@ public class EventDAO {
     private EventType eventType;
     private String reportingSystemSupplier;
     private String reportingPracticeOdsCode;
+    private String requestingPracticeOdsCode;
+    private String sendingPracticeOdsCode;
     private String conversationId;
     private LocalDateTime registrationEventDateTime;
     private Payload payload;
@@ -38,6 +40,8 @@ public class EventDAO {
                 eventType,
                 event.getReportingSystemSupplier(),
                 event.getReportingPracticeOdsCode(),
+                event.getRequestingPracticeOdsCode(),
+                event.getSendingPracticeOdsCode(),
                 event.getConversationId(),
                 event.getRegistrationEventDateTime(),
                 payload
@@ -58,6 +62,8 @@ public class EventDAO {
                 eventType,
                 event.getReportingSystemSupplier(),
                 event.getReportingPracticeOdsCode(),
+                event.getRequestingPracticeOdsCode(),
+                event.getSendingPracticeOdsCode(),
                 event.getConversationId(),
                 event.getRegistrationEventDateTime(),
                 payload
@@ -71,6 +77,8 @@ public class EventDAO {
                 timeNow,
                 eventType,
                 degradeEvent.getReportingSystemSupplier(),
+                null,
+                null,
                 null,
                 null,
                 null,
