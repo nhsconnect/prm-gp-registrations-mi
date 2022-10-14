@@ -1,11 +1,11 @@
 package com.prmgpregistrationsmi.integrationtest.stage;
 
 import com.amazonaws.services.s3.AmazonS3Client;
-import com.prmgpregistrationsmi.model.Event.EventWithSendingPracticeOdsCode;
+import com.prmgpregistrationsmi.model.Event.BaseEvent;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
-import com.prmgpregistrationsmi.testhelpers.EventWithSendingPracticeOdsCodeBuilder;
+import com.prmgpregistrationsmi.testhelpers.BaseEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.EventDAOBuilder;
 import com.prmgpregistrationsmi.utils.UUIDService;
 import com.prmgpregistrationsmi.SplunkWebclient.SplunkWebClient;
@@ -56,7 +56,7 @@ class EhrRequestsEventIntegrationTest {
 
     @Test
     void shouldUploadEhrRequestEventToS3AndSendToSplunkCloud() {
-        EventWithSendingPracticeOdsCode ehrRequestsEventRequests = EventWithSendingPracticeOdsCodeBuilder
+        BaseEvent ehrRequestsEventRequests = BaseEventBuilder
                 .withDefaultEventValues()
                 .build();
 

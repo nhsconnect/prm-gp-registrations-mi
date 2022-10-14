@@ -7,7 +7,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-public abstract class PayloadEvent<T extends Payload> extends EventWithSendingPracticeOdsCode {
+public abstract class PayloadEvent<T extends Payload> extends BaseEvent {
     T payload;
 
     public T getPayload(){

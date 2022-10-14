@@ -15,7 +15,7 @@ public class EventDAOBuilder {
     @Autowired
     Clock clock;
 
-    public EventDAO.EventDAOBuilder withEvent(EventWithSendingPracticeOdsCode event) {
+    public EventDAO.EventDAOBuilder withEvent(BaseEvent event) {
         Payload payload = null;
         if(event instanceof PayloadEvent) {
             payload = ((PayloadEvent<?>)event).getPayload();
@@ -32,7 +32,7 @@ public class EventDAOBuilder {
                 .payload(payload);
     }
 
-    public EventDAO.EventDAOBuilder withEvent(EventWithOptionalSendingPracticeOdsCode event) {
+    public EventDAO.EventDAOBuilder withEvent(BaseEventWithOptionalSendingPracticeOdsCode event) {
         Payload payload = null;
         if(event instanceof PayloadEventWithOptionalSendingPracticeOdsCode) {
             payload = ((PayloadEventWithOptionalSendingPracticeOdsCode<?>)event).getPayload();

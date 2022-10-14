@@ -1,7 +1,7 @@
 package com.prmgpregistrationsmi.logging;
 
-import com.prmgpregistrationsmi.model.Event.EventWithSendingPracticeOdsCode;
-import com.prmgpregistrationsmi.testhelpers.EventWithSendingPracticeOdsCodeBuilder;
+import com.prmgpregistrationsmi.model.Event.BaseEvent;
+import com.prmgpregistrationsmi.testhelpers.BaseEventBuilder;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.core.MethodParameter;
@@ -31,7 +31,7 @@ class CustomResponseBodyAdviceAdapterTest {
         CustomResponseBodyAdviceAdapter customResponseBodyAdviceAdapter =
                 new CustomResponseBodyAdviceAdapter();
 
-        EventWithSendingPracticeOdsCode testEvent = EventWithSendingPracticeOdsCodeBuilder
+        BaseEvent testEvent = BaseEventBuilder
                 .withDefaultEventValues()
                 .build();
 
