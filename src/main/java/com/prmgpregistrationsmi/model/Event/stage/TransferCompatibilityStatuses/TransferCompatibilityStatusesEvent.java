@@ -1,6 +1,7 @@
 package com.prmgpregistrationsmi.model.Event.stage.TransferCompatibilityStatuses;
 
 import com.prmgpregistrationsmi.model.Event.PayloadEvent;
+import com.prmgpregistrationsmi.model.Event.RequiresSendingPracticeOdsCode;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -11,6 +12,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
+@RequiresSendingPracticeOdsCode
 public class TransferCompatibilityStatusesEvent extends PayloadEvent<TransferCompatibilityStatusesPayload> {
     @Valid
     @NotNull

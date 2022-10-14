@@ -22,6 +22,5 @@ public class BaseEvent {
     private LocalDateTime registrationEventDateTime;
     @NotEmpty
     private String requestingPracticeOdsCode;
-    @NotEmpty
     private String sendingPracticeOdsCode;
 }

@@ -1,6 +1,7 @@
 package com.prmgpregistrationsmi.model.Event.stage.DocumentResponses;
 
 import com.prmgpregistrationsmi.model.Event.PayloadEvent;
+import com.prmgpregistrationsmi.model.Event.RequiresSendingPracticeOdsCode;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -11,6 +12,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
+@RequiresSendingPracticeOdsCode
 public class DocumentResponsesEvent extends PayloadEvent<DocumentResponsesPayload> {
     @NotNull
     @Valid

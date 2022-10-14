@@ -52,18 +52,19 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiError> methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException ex) {
         String message = "Failed to validate fields";
 
-        List<FieldError> fieldErrors = ex.getBindingResult().getFieldErrors();
-        List<String> fieldErrorsList = fieldErrors
-                .stream()
-                .map(fieldError -> fieldError.getField() + ": " + fieldError.getDefaultMessage())
+        List<String> list = ex.getBindingResult().getAllErrors().stream()
+                .map(error -> {
+                    if(error instanceof FieldError) {
+                        return ((FieldError) error).getField() + ": " + error.getDefaultMessage();
+                    } else {
+                        return error.getDefaultMessage();
+                    }
+                })
                 .collect(Collectors.toList());
 
-        logger.warn("MethodArgumentNotValidException - " + message, fieldErrors
-                .stream()
-                .map(FieldError::getField)
-                .collect(Collectors.toList()), ex.getMessage());
+        logger.warn("MethodArgumentNotValidException - " + message, list);
 
-        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, message, fieldErrorsList);
+        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, message, list);
 
         return new ResponseEntity<>(apiError, apiError.getStatus());
     }

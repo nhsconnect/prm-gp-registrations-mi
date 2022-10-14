@@ -31,21 +31,4 @@ public class EventDAOBuilder {
                 .registrationEventDateTime(event.getRegistrationEventDateTime())
                 .payload(payload);
     }
-
-    public EventDAO.EventDAOBuilder withEvent(BaseEventWithOptionalSendingPracticeOdsCode event) {
-        Payload payload = null;
-        if(event instanceof PayloadEventWithOptionalSendingPracticeOdsCode) {
-            payload = ((PayloadEventWithOptionalSendingPracticeOdsCode<?>)event).getPayload();
-        }
-        return EventDAO.builder()
-                .eventId(UUID.randomUUID().toString())
-                .eventGeneratedDateTime(LocalDateTime.now(clock).truncatedTo(ChronoUnit.SECONDS))
-                .reportingSystemSupplier(event.getReportingSystemSupplier())
-                .reportingPracticeOdsCode(event.getReportingPracticeOdsCode())
-                .requestingPracticeOdsCode(event.getRequestingPracticeOdsCode())
-                .sendingPracticeOdsCode(event.getSendingPracticeOdsCode())
-                .conversationId(event.getConversationId())
-                .registrationEventDateTime(event.getRegistrationEventDateTime())
-                .payload(payload);
-    }
 }
