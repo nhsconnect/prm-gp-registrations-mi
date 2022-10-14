@@ -1,6 +1,6 @@
 package com.prmgpregistrationsmi.model.Event;
 
-import com.prmgpregistrationsmi.testhelpers.BaseEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.EventWithSendingPracticeOdsCodeBuilder;
 import org.junit.jupiter.api.Test;
 
 import javax.validation.ConstraintViolation;
@@ -10,112 +10,112 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class BaseEventTest {
+class EventWithSendingPracticeOdsCodeTest {
     private final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
     @Test
     void shouldNotThrowConstraintViolationWhenEventFieldsAreValid() {
-        BaseEvent event = BaseEventBuilder
+        EventWithSendingPracticeOdsCode event = EventWithSendingPracticeOdsCodeBuilder
                 .withDefaultEventValues()
                 .build();
 
-        Set<ConstraintViolation<BaseEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<EventWithSendingPracticeOdsCode>> violations = validator.validate(event);
 
         assertEquals(0, violations.size());
     }
 
     @Test
     void shouldThrowConstraintViolationWhenRequestingPracticeOdsCodeIsNull() {
-        BaseEvent event = BaseEventBuilder
+        EventWithSendingPracticeOdsCode event = EventWithSendingPracticeOdsCodeBuilder
                 .withDefaultEventValues()
                 .requestingPracticeOdsCode(null)
                 .build();
 
-        Set<ConstraintViolation<BaseEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<EventWithSendingPracticeOdsCode>> violations = validator.validate(event);
 
         assertEquals(1, violations.size());
 
-        ConstraintViolation<BaseEvent> violation = violations.iterator().next();
+        ConstraintViolation<EventWithSendingPracticeOdsCode> violation = violations.iterator().next();
         assertEquals("must not be empty", violation.getMessage());
         assertEquals("requestingPracticeOdsCode", violation.getPropertyPath().toString());
     }
 
     @Test
     void shouldThrowConstraintViolationWhenSendingPracticeOdsCodeIsNull() {
-        BaseEvent event = BaseEventBuilder
+        EventWithSendingPracticeOdsCode event = EventWithSendingPracticeOdsCodeBuilder
                 .withDefaultEventValues()
                 .sendingPracticeOdsCode(null)
                 .build();
 
-        Set<ConstraintViolation<BaseEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<EventWithSendingPracticeOdsCode>> violations = validator.validate(event);
 
         assertEquals(1, violations.size());
 
-        ConstraintViolation<BaseEvent> violation = violations.iterator().next();
+        ConstraintViolation<EventWithSendingPracticeOdsCode> violation = violations.iterator().next();
         assertEquals("must not be empty", violation.getMessage());
         assertEquals("sendingPracticeOdsCode", violation.getPropertyPath().toString());
     }
 
     @Test
     void shouldThrowConstraintViolationWhenReportingSystemSupplierIsNull() {
-        BaseEvent event = BaseEventBuilder
+        EventWithSendingPracticeOdsCode event = EventWithSendingPracticeOdsCodeBuilder
                 .withDefaultEventValues()
                 .reportingSystemSupplier(null)
                 .build();
 
-        Set<ConstraintViolation<BaseEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<EventWithSendingPracticeOdsCode>> violations = validator.validate(event);
 
         assertEquals(1, violations.size());
 
-        ConstraintViolation<BaseEvent> violation = violations.iterator().next();
+        ConstraintViolation<EventWithSendingPracticeOdsCode> violation = violations.iterator().next();
         assertEquals("must not be empty", violation.getMessage());
         assertEquals("reportingSystemSupplier", violation.getPropertyPath().toString());
     }
 
     @Test
     void shouldThrowConstraintViolationWhenReportingSystemOdsCodeIsNull() {
-        BaseEvent event = BaseEventBuilder
+        EventWithSendingPracticeOdsCode event = EventWithSendingPracticeOdsCodeBuilder
                 .withDefaultEventValues()
                 .reportingPracticeOdsCode(null)
                 .build();
 
-        Set<ConstraintViolation<BaseEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<EventWithSendingPracticeOdsCode>> violations = validator.validate(event);
 
         assertEquals(1, violations.size());
 
-        ConstraintViolation<BaseEvent> violation = violations.iterator().next();
+        ConstraintViolation<EventWithSendingPracticeOdsCode> violation = violations.iterator().next();
         assertEquals("must not be empty", violation.getMessage());
         assertEquals("reportingPracticeOdsCode", violation.getPropertyPath().toString());
     }
 
     @Test
     void shouldThrowConstraintViolationWhenRegistrationEventDateTimeIsNull() {
-        BaseEvent event = BaseEventBuilder
+        EventWithSendingPracticeOdsCode event = EventWithSendingPracticeOdsCodeBuilder
                 .withDefaultEventValues()
                 .registrationEventDateTime(null)
                 .build();
 
-        Set<ConstraintViolation<BaseEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<EventWithSendingPracticeOdsCode>> violations = validator.validate(event);
 
         assertEquals(1, violations.size());
 
-        ConstraintViolation<BaseEvent> violation = violations.iterator().next();
+        ConstraintViolation<EventWithSendingPracticeOdsCode> violation = violations.iterator().next();
         assertEquals("must not be null", violation.getMessage());
         assertEquals("registrationEventDateTime", violation.getPropertyPath().toString());
     }
 
     @Test
     void shouldThrowConstraintViolationWhenConversationIdIsNull() {
-        BaseEvent event = BaseEventBuilder
+        EventWithSendingPracticeOdsCode event = EventWithSendingPracticeOdsCodeBuilder
                 .withDefaultEventValues()
                 .conversationId(null)
                 .build();
 
-        Set<ConstraintViolation<BaseEvent>> violations = validator.validate(event);
+        Set<ConstraintViolation<EventWithSendingPracticeOdsCode>> violations = validator.validate(event);
 
         assertEquals(1, violations.size());
 
-        ConstraintViolation<BaseEvent> violation = violations.iterator().next();
+        ConstraintViolation<EventWithSendingPracticeOdsCode> violation = violations.iterator().next();
         assertEquals("must not be empty", violation.getMessage());
         assertEquals("conversationId", violation.getPropertyPath().toString());
     }

@@ -1,6 +1,6 @@
 package com.prmgpregistrationsmi.utils;
 
-import com.prmgpregistrationsmi.testhelpers.BaseEventBuilder;
+import com.prmgpregistrationsmi.testhelpers.EventWithSendingPracticeOdsCodeBuilder;
 import org.json.simple.JSONObject;
 import org.junit.jupiter.api.Test;
 
@@ -33,16 +33,18 @@ class JsonHelperTest {
 
     @Test
     void shouldConvertObjectWithDateTimeToJsonWithDateTimeString() {
-        Object testObject = BaseEventBuilder
+        Object testObject = EventWithSendingPracticeOdsCodeBuilder
                 .withDefaultEventValues()
                 .build();
 
-        assertEquals("{\"reportingSystemSupplier\":\"some-reporting-system-supplier\"," +
+        assertEquals("{" +
+                        "\"sendingPracticeOdsCode\":\"some-sending-practice-ods-code\"," +
+                        "\"requestingPracticeOdsCode\":\"some-requesting-practice-ods-code\"," +
+                        "\"reportingSystemSupplier\":\"some-reporting-system-supplier\"," +
                         "\"reportingPracticeOdsCode\":\"some-reporting-practice-ods-code\"," +
                         "\"conversationId\":\"some-conversation-id\"," +
-                        "\"registrationEventDateTime\":\"2020-01-01T22:22:22\"," +
-                        "\"requestingPracticeOdsCode\":\"some-requesting-practice-ods-code\"," +
-                        "\"sendingPracticeOdsCode\":\"some-sending-practice-ods-code\"}",
+                        "\"registrationEventDateTime\":\"2020-01-01T22:22:22\"" +
+                        "}",
                 JsonHelper.asJsonString(testObject));
     }
 }

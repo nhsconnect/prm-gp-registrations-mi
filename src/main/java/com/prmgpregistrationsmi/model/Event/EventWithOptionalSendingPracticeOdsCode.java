@@ -1,16 +1,14 @@
 package com.prmgpregistrationsmi.model.Event;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+@Getter
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-@SuperBuilder
-public abstract class PayloadEvent<T extends Payload> extends EventWithSendingPracticeOdsCode {
-    T payload;
-
-    public T getPayload(){
-        return payload;
-    }
+public class EventWithOptionalSendingPracticeOdsCode extends BaseEvent {
+    private String sendingPracticeOdsCode;
 }

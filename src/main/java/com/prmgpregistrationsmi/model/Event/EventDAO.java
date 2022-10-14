@@ -26,7 +26,7 @@ public class EventDAO {
     private LocalDateTime registrationEventDateTime;
     private Payload payload;
 
-    public static EventDAO fromEvent(BaseEvent event, EventType eventType, LocalDateTime timeNow) {
+    public static EventDAO fromEvent(EventWithSendingPracticeOdsCode event, EventType eventType, LocalDateTime timeNow) {
         String eventIdSeed = event.getConversationId() + eventType.toString() + event.getRegistrationEventDateTime();
 
         Payload payload = null;
@@ -48,7 +48,7 @@ public class EventDAO {
         );
     }
 
-    public static EventDAO fromEvent(BaseEventWithOptionalSendingPracticeOdsCode event, EventType eventType, LocalDateTime timeNow) {
+    public static EventDAO fromEvent(EventWithOptionalSendingPracticeOdsCode event, EventType eventType, LocalDateTime timeNow) {
         String eventIdSeed = event.getConversationId() + eventType.toString() + event.getRegistrationEventDateTime();
 
         Payload payload = null;

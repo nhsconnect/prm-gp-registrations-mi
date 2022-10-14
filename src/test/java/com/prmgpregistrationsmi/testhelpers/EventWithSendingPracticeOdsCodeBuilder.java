@@ -4,9 +4,9 @@ import com.prmgpregistrationsmi.model.Event.*;
 import org.springframework.stereotype.Component;
 
 @Component
-public class BaseEventBuilder {
-    public static BaseEvent.BaseEventBuilder<?, ?> withDefaultEventValues() {
-        return BaseEvent.builder()
+public class EventWithSendingPracticeOdsCodeBuilder {
+    public static EventWithSendingPracticeOdsCode.EventWithSendingPracticeOdsCodeBuilder<?, ?> withDefaultEventValues() {
+        return EventWithSendingPracticeOdsCode.builder()
                 .reportingSystemSupplier(DefaultEventValues.REPORTING_SYSTEM_SUPPLIER)
                 .reportingPracticeOdsCode(DefaultEventValues.REPORTING_PRACTICE_ODS_CODE)
                 .conversationId(DefaultEventValues.CONVERSATION_ID)

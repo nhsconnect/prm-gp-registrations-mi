@@ -1,6 +1,8 @@
 package com.prmgpregistrationsmi.model.Event;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import javax.validation.constraints.NotEmpty;
@@ -13,6 +15,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class BaseEvent {
     @NotEmpty
+    private String requestingPracticeOdsCode;
+    @NotEmpty
     private String reportingSystemSupplier;
     @NotEmpty
     private String reportingPracticeOdsCode;
@@ -20,8 +24,4 @@ public class BaseEvent {
     private String conversationId;
     @NotNull
     private LocalDateTime registrationEventDateTime;
-    @NotEmpty
-    private String requestingPracticeOdsCode;
-    @NotEmpty
-    private String sendingPracticeOdsCode;
 }

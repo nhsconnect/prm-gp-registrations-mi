@@ -1,7 +1,7 @@
 package com.prmgpregistrationsmi.controller;
 
 import com.prmgpregistrationsmi.exception.UnableToUploadToS3Exception;
-import com.prmgpregistrationsmi.model.Event.BaseEvent;
+import com.prmgpregistrationsmi.model.Event.EventWithSendingPracticeOdsCode;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
@@ -57,7 +57,7 @@ public class RegistrationController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public EventResponse ehrRequestsEvent(
-            @Valid @RequestBody BaseEvent event) throws UnableToUploadToS3Exception {
+            @Valid @RequestBody EventWithSendingPracticeOdsCode event) throws UnableToUploadToS3Exception {
         EventDAO eventDAO = registrationService.saveEvent(event, EventType.EHR_REQUESTS);
         return new EventResponse(eventDAO.getEventId());
     }
@@ -90,7 +90,7 @@ public class RegistrationController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public EventResponse readyToIntegrateStatusesEvent(
-            @Valid @RequestBody BaseEvent event) throws UnableToUploadToS3Exception {
+            @Valid @RequestBody EventWithSendingPracticeOdsCode event) throws UnableToUploadToS3Exception {
         EventDAO eventDAO = registrationService.saveEvent(event, EventType.READY_TO_INTEGRATE_STATUSES);
         return new EventResponse(eventDAO.getEventId());
     }
