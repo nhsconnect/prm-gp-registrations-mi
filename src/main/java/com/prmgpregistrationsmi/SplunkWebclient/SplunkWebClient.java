@@ -36,6 +36,7 @@ public class SplunkWebClient {
 
         ResponseEntity<String> response = restTemplate.exchange(splunkCloudUrl, HttpMethod.POST, httpEntity,
                 String.class);
+
         if (response.getStatusCode() == HttpStatus.OK) {
             logger.info("Successfully sent event to Splunk Cloud.", response);
             return true;
