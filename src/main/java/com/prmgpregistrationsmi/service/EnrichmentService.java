@@ -12,6 +12,9 @@ public class EnrichmentService {
     private final OdsPortalWebClient odsPortalWebClient;
 
     public EventDAO enrichEventDAO(EventDAO eventDAO) {
+        Organisation sendingPracticeOrganisation = odsPortalWebClient.getOrganisation(eventDAO.getSendingPracticeOdsCode());
+        eventDAO.setSendingPracticeName(sendingPracticeOrganisation.getOrganisation().getName());
+
         Organisation requestingPracticeOrganisation = odsPortalWebClient.getOrganisation(eventDAO.getRequestingPracticeOdsCode());
         eventDAO.setRequestingPracticeName(requestingPracticeOrganisation.getOrganisation().getName());
 

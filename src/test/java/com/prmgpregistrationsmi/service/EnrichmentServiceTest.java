@@ -6,7 +6,7 @@ import com.prmgpregistrationsmi.model.Organisation;
 import com.prmgpregistrationsmi.model.OrganisationDetails;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 class EnrichmentServiceTest {
@@ -15,18 +15,32 @@ class EnrichmentServiceTest {
 
     @Test
     void shouldEnrichEventDAOWithPracticeName() {
-        String odsCode = "an-ods-code";
-        String practiceName = "a practice";
-        Organisation mockedOrganisation = Organisation.builder().organisation(OrganisationDetails.builder().Name(practiceName).build()).build();
+        String requestingPracticeOdsCode = "an-ods-code";
+        String requestingPracticeName = "requesting practice";
+        Organisation mockedRequestingOrganisation =
+                Organisation.builder().organisation(OrganisationDetails.builder().Name(requestingPracticeName).build()).build();
+        when(odsPortalWebClientMock.getOrganisation(requestingPracticeOdsCode)).thenReturn(mockedRequestingOrganisation);
 
-        when(odsPortalWebClientMock.getOrganisation(odsCode)).thenReturn(mockedOrganisation);
+        String sendingPracticeOdsCode = "another-ods-code";
+        String sendingPracticeName = "sending practice";
+        Organisation mockedSendingOrganisation =
+                Organisation.builder().organisation(OrganisationDetails.builder().Name(sendingPracticeName).build()).build();
+        when(odsPortalWebClientMock.getOrganisation(sendingPracticeOdsCode)).thenReturn(mockedSendingOrganisation);
 
-        EventDAO eventDAO = EventDAO.builder().requestingPracticeOdsCode(odsCode).build();
+        EventDAO eventDAO =
+                EventDAO.builder().requestingPracticeOdsCode(requestingPracticeOdsCode).sendingPracticeOdsCode(sendingPracticeOdsCode).build();
         EventDAO enrichedEventDAO = enrichmentService.enrichEventDAO(eventDAO);
 
-        EventDAO expectedEventDAO = EventDAO.builder().requestingPracticeOdsCode(odsCode).requestingPracticeName(practiceName).build();
+        EventDAO expectedEventDAO =
+                EventDAO.builder()
+                        .requestingPracticeOdsCode(requestingPracticeOdsCode)
+                        .sendingPracticeOdsCode(sendingPracticeOdsCode)
+                        .requestingPracticeName(requestingPracticeName)
+                        .sendingPracticeName(sendingPracticeName)
+                        .build();
 
-        verify(odsPortalWebClientMock, times(1)).getOrganisation(eq(odsCode));
-        assertEquals(enrichedEventDAO, expectedEventDAO);
+        verify(odsPortalWebClientMock, times(1)).getOrganisation(eq(requestingPracticeOdsCode));
+        verify(odsPortalWebClientMock, times(1)).getOrganisation(eq(sendingPracticeOdsCode));
+        assertEquals(expectedEventDAO,enrichedEventDAO);
     }
 }
