@@ -43,4 +43,29 @@ class EnrichmentServiceTest {
         verify(odsPortalWebClientMock, times(1)).getOrganisation(eq(sendingPracticeOdsCode));
         assertEquals(expectedEventDAO,enrichedEventDAO);
     }
+
+    @Test
+    void shouldHandleEmptyOrganisationResponseAndContinue() {
+        String requestingPracticeOdsCode = "an-ods-code";
+        when(odsPortalWebClientMock.getOrganisation(requestingPracticeOdsCode)).thenReturn(null);
+
+        String sendingPracticeOdsCode = "another-ods-code";
+        when(odsPortalWebClientMock.getOrganisation(sendingPracticeOdsCode)).thenReturn(null);
+
+        EventDAO eventDAO =
+                EventDAO.builder().requestingPracticeOdsCode(requestingPracticeOdsCode).sendingPracticeOdsCode(sendingPracticeOdsCode).build();
+        EventDAO enrichedEventDAO = enrichmentService.enrichEventDAO(eventDAO);
+
+        EventDAO expectedEventDAO =
+                EventDAO.builder()
+                        .requestingPracticeOdsCode(requestingPracticeOdsCode)
+                        .sendingPracticeOdsCode(sendingPracticeOdsCode)
+                        .requestingPracticeName(null)
+                        .sendingPracticeName(null)
+                        .build();
+
+        verify(odsPortalWebClientMock, times(1)).getOrganisation(eq(requestingPracticeOdsCode));
+        verify(odsPortalWebClientMock, times(1)).getOrganisation(eq(sendingPracticeOdsCode));
+        assertEquals(expectedEventDAO,enrichedEventDAO);
+    }
 }

@@ -23,10 +23,11 @@ import static org.mockito.Mockito.*;
 class EventServiceTest {
     S3FileUploader eventS3ClientMock = mock(S3FileUploader.class);
     SplunkWebClient splunkWebClientMock = mock(SplunkWebClient.class);
+    EnrichmentService enrichmentService = mock(EnrichmentService.class);
     Clock clock = mock(Clock.class);
     LocalDateTime mockLocalDateTime = LocalDateTime.of(1990, 03, 3, 0, 0, 0);
 
-    EventService eventService = new EventService(eventS3ClientMock, splunkWebClientMock, clock);
+    EventService eventService = new EventService(eventS3ClientMock, splunkWebClientMock, enrichmentService, clock);
 
     @BeforeEach
     public void setup() {

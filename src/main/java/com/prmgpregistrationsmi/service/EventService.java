@@ -25,11 +25,13 @@ public class EventService {
     private static final String DEGRADES_DIRECTORY = "degrades/";
     private final S3FileUploader eventS3Client;
     private final SplunkWebClient splunkWebClient;
+    private final EnrichmentService enrichmentService;
     private final Clock clock;
 
     public EventDAO saveEvent(BaseEvent event, EventType eventType) throws UnableToUploadToS3Exception {
         EventDAO eventDAO = EventDAO.fromEvent(event, eventType, LocalDateTime.now(clock).truncatedTo(ChronoUnit.SECONDS));
         String s3Key = getS3Key(eventDAO.getRegistrationEventDateTime(), eventDAO.getEventId());
+        enrichmentService.enrichEventDAO(eventDAO);
         eventS3Client.uploadJsonObject(eventDAO, s3Key);
         splunkWebClient.postEventToSplunkCloud(eventDAO);
         return eventDAO;

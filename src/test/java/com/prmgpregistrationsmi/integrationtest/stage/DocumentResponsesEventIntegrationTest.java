@@ -1,6 +1,7 @@
 package com.prmgpregistrationsmi.integrationtest.stage;
 
 import com.amazonaws.services.s3.AmazonS3Client;
+import com.prmgpregistrationsmi.OdsPortalWebClient.OdsPortalWebClient;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
@@ -40,6 +41,9 @@ class DocumentResponsesEventIntegrationTest {
 
     @MockBean
     SplunkWebClient splunkWebClient;
+    
+    @MockBean
+    OdsPortalWebClient odsPortalWebClient;
 
     @MockBean
     Clock clock;
