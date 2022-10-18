@@ -8,5 +8,5 @@ import lombok.Getter;
 @Getter
 @EqualsAndHashCode
 public class Organisation {
-    private OrganisationDetails organisation;
+    private OrganisationDetails Organisation;
 }

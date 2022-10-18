@@ -25,7 +25,7 @@ public class OdsPortalWebClientTest {
         String odsCode = "ods-code";
         String practiceName = "a practice";
 
-        when(mockRestTemplate.getForObject(any(String.class), any())).thenReturn(Organisation.builder().organisation(OrganisationDetails.builder().Name(practiceName).build()).build());
+        when(mockRestTemplate.getForObject(any(String.class), any())).thenReturn(Organisation.builder().Organisation(OrganisationDetails.builder().Name(practiceName).build()).build());
 
         Organisation organisation = odsPortalWebClient.getOrganisation(odsCode);
 

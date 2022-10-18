@@ -18,13 +18,13 @@ class EnrichmentServiceTest {
         String requestingPracticeOdsCode = "an-ods-code";
         String requestingPracticeName = "requesting practice";
         Organisation mockedRequestingOrganisation =
-                Organisation.builder().organisation(OrganisationDetails.builder().Name(requestingPracticeName).build()).build();
+                Organisation.builder().Organisation(OrganisationDetails.builder().Name(requestingPracticeName).build()).build();
         when(odsPortalWebClientMock.getOrganisation(requestingPracticeOdsCode)).thenReturn(mockedRequestingOrganisation);
 
         String sendingPracticeOdsCode = "another-ods-code";
         String sendingPracticeName = "sending practice";
         Organisation mockedSendingOrganisation =
-                Organisation.builder().organisation(OrganisationDetails.builder().Name(sendingPracticeName).build()).build();
+                Organisation.builder().Organisation(OrganisationDetails.builder().Name(sendingPracticeName).build()).build();
         when(odsPortalWebClientMock.getOrganisation(sendingPracticeOdsCode)).thenReturn(mockedSendingOrganisation);
 
         EventDAO eventDAO =
