@@ -41,16 +41,16 @@ class EnrichmentServiceTest {
 
         verify(odsPortalWebClientMock, times(1)).getOrganisation(eq(requestingPracticeOdsCode));
         verify(odsPortalWebClientMock, times(1)).getOrganisation(eq(sendingPracticeOdsCode));
-        assertEquals(expectedEventDAO,enrichedEventDAO);
+        assertEquals(expectedEventDAO, enrichedEventDAO);
     }
 
     @Test
     void shouldHandleEmptyOrganisationResponseAndContinue() {
         String requestingPracticeOdsCode = "an-ods-code";
-        when(odsPortalWebClientMock.getOrganisation(requestingPracticeOdsCode)).thenReturn(null);
+        when(odsPortalWebClientMock.getOrganisation(requestingPracticeOdsCode)).thenReturn(Organisation.builder().Organisation(OrganisationDetails.builder().Name(null).build()).build());
 
         String sendingPracticeOdsCode = "another-ods-code";
-        when(odsPortalWebClientMock.getOrganisation(sendingPracticeOdsCode)).thenReturn(null);
+        when(odsPortalWebClientMock.getOrganisation(sendingPracticeOdsCode)).thenReturn(Organisation.builder().Organisation(OrganisationDetails.builder().Name(null).build()).build());
 
         EventDAO eventDAO =
                 EventDAO.builder().requestingPracticeOdsCode(requestingPracticeOdsCode).sendingPracticeOdsCode(sendingPracticeOdsCode).build();
@@ -66,6 +66,6 @@ class EnrichmentServiceTest {
 
         verify(odsPortalWebClientMock, times(1)).getOrganisation(eq(requestingPracticeOdsCode));
         verify(odsPortalWebClientMock, times(1)).getOrganisation(eq(sendingPracticeOdsCode));
-        assertEquals(expectedEventDAO,enrichedEventDAO);
+        assertEquals(expectedEventDAO, enrichedEventDAO);
     }
 }
