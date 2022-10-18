@@ -12,7 +12,7 @@ import com.prmgpregistrationsmi.model.Event.stage.EhrResponses.EhrResponsesEvent
 import com.prmgpregistrationsmi.model.Event.stage.Error.ErrorsEvent;
 import com.prmgpregistrationsmi.model.Event.stage.Registrations.RegistrationsEvent;
 import com.prmgpregistrationsmi.model.Event.stage.TransferCompatibilityStatuses.TransferCompatibilityStatusesEvent;
-import com.prmgpregistrationsmi.service.RegistrationService;
+import com.prmgpregistrationsmi.service.EventService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -27,7 +27,7 @@ import javax.validation.Valid;
 @AllArgsConstructor
 @Validated
 public class RegistrationController {
-    private final RegistrationService registrationService;
+    private final EventService eventService;
 
     @PostMapping(
             value = "/registrations",
@@ -36,7 +36,7 @@ public class RegistrationController {
     )
     public EventResponse registrationsEvent(
             @Valid @RequestBody RegistrationsEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.REGISTRATIONS);
+        EventDAO eventDAO = eventService.saveEvent(event, EventType.REGISTRATIONS);
         return new EventResponse(eventDAO.getEventId());
     }
 
@@ -47,7 +47,7 @@ public class RegistrationController {
     )
     public EventResponse transferCompatibilityStatusesEvent(
             @Valid @RequestBody TransferCompatibilityStatusesEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.TRANSFER_COMPATIBILITY_STATUSES);
+        EventDAO eventDAO = eventService.saveEvent(event, EventType.TRANSFER_COMPATIBILITY_STATUSES);
         return new EventResponse(eventDAO.getEventId());
     }
 
@@ -58,7 +58,7 @@ public class RegistrationController {
     )
     public EventResponse ehrRequestsEvent(
             @Valid @RequestBody BaseEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.EHR_REQUESTS);
+        EventDAO eventDAO = eventService.saveEvent(event, EventType.EHR_REQUESTS);
         return new EventResponse(eventDAO.getEventId());
     }
 
@@ -69,7 +69,7 @@ public class RegistrationController {
     )
     public EventResponse ehrResponsesEvent(
             @Valid @RequestBody EhrResponsesEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.EHR_RESPONSES);
+        EventDAO eventDAO = eventService.saveEvent(event, EventType.EHR_RESPONSES);
         return new EventResponse(eventDAO.getEventId());
     }
 
@@ -80,7 +80,7 @@ public class RegistrationController {
     )
     public EventResponse documentResponsesEvent(
             @Valid @RequestBody DocumentResponsesEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.DOCUMENT_RESPONSES);
+        EventDAO eventDAO = eventService.saveEvent(event, EventType.DOCUMENT_RESPONSES);
         return new EventResponse(eventDAO.getEventId());
     }
 
@@ -91,7 +91,7 @@ public class RegistrationController {
     )
     public EventResponse readyToIntegrateStatusesEvent(
             @Valid @RequestBody BaseEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.READY_TO_INTEGRATE_STATUSES);
+        EventDAO eventDAO = eventService.saveEvent(event, EventType.READY_TO_INTEGRATE_STATUSES);
         return new EventResponse(eventDAO.getEventId());
     }
 
@@ -102,7 +102,7 @@ public class RegistrationController {
     )
     public EventResponse ehrIntegrationsEvent(
             @Valid @RequestBody EhrIntegrationsEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.EHR_INTEGRATIONS);
+        EventDAO eventDAO = eventService.saveEvent(event, EventType.EHR_INTEGRATIONS);
         return new EventResponse(eventDAO.getEventId());
     }
 
@@ -113,7 +113,7 @@ public class RegistrationController {
     )
     public EventResponse errorsEvent(
             @Valid @RequestBody ErrorsEvent event) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveEvent(event, EventType.ERROR);
+        EventDAO eventDAO = eventService.saveEvent(event, EventType.ERROR);
         return new EventResponse(eventDAO.getEventId());
     }
 
@@ -124,7 +124,7 @@ public class RegistrationController {
     )
     public EventResponse ehrDegradesEvent(
             @Valid @RequestBody EhrDegradesEvent degradesEvent) throws UnableToUploadToS3Exception {
-        EventDAO eventDAO = registrationService.saveDegradesEvent(degradesEvent, EventType.DEGRADES);
+        EventDAO eventDAO = eventService.saveDegradesEvent(degradesEvent, EventType.DEGRADES);
         return new EventResponse(eventDAO.getEventId());
     }
 }

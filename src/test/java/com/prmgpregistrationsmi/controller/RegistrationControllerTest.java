@@ -10,7 +10,7 @@ import com.prmgpregistrationsmi.model.Event.stage.EhrDegrades.EhrDegradesEvent;
 import com.prmgpregistrationsmi.model.Event.stage.EhrIntegrations.EhrIntegrationsEvent;
 import com.prmgpregistrationsmi.model.Event.stage.EhrResponses.EhrResponsesEvent;
 import com.prmgpregistrationsmi.model.Event.stage.Registrations.RegistrationsEvent;
-import com.prmgpregistrationsmi.service.RegistrationService;
+import com.prmgpregistrationsmi.service.EventService;
 import com.prmgpregistrationsmi.testhelpers.BaseEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.stage.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,12 +26,12 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class RegistrationControllerTest {
     @Mock
-    private RegistrationService registrationService;
+    private EventService eventService;
     private RegistrationController registrationController;
 
     @BeforeEach
     void setUp() {
-        registrationController =  new RegistrationController(registrationService);
+        registrationController =  new RegistrationController(eventService);
     }
 
     @Test
@@ -42,11 +42,11 @@ class RegistrationControllerTest {
 
         EventDAO eventDAO = EventDAO.builder().build();
 
-        when(registrationService.saveEvent(testEvent, EventType.EHR_REQUESTS)).thenReturn(eventDAO);
+        when(eventService.saveEvent(testEvent, EventType.EHR_REQUESTS)).thenReturn(eventDAO);
 
         EventResponse actualResponse = registrationController.ehrRequestsEvent(testEvent);
 
-        verify(registrationService).saveEvent(testEvent, EventType.EHR_REQUESTS);
+        verify(eventService).saveEvent(testEvent, EventType.EHR_REQUESTS);
 
         assertEquals(eventDAO.getEventId(), actualResponse.getEventId());
     }
@@ -59,11 +59,11 @@ class RegistrationControllerTest {
 
         EventDAO eventDAO = EventDAO.builder().build();
 
-        when(registrationService.saveEvent(testEvent, EventType.EHR_RESPONSES)).thenReturn(eventDAO);
+        when(eventService.saveEvent(testEvent, EventType.EHR_RESPONSES)).thenReturn(eventDAO);
 
         EventResponse actualResponse = registrationController.ehrResponsesEvent(testEvent);
 
-        verify(registrationService).saveEvent(testEvent, EventType.EHR_RESPONSES);
+        verify(eventService).saveEvent(testEvent, EventType.EHR_RESPONSES);
 
         assertEquals(eventDAO.getEventId(), actualResponse.getEventId());
     }
@@ -76,11 +76,11 @@ class RegistrationControllerTest {
 
         EventDAO eventDAO = EventDAO.builder().build();
 
-        when(registrationService.saveEvent(testEvent, EventType.EHR_INTEGRATIONS)).thenReturn(eventDAO);
+        when(eventService.saveEvent(testEvent, EventType.EHR_INTEGRATIONS)).thenReturn(eventDAO);
 
         EventResponse actualResponse = registrationController.ehrIntegrationsEvent(testEvent);
 
-        verify(registrationService).saveEvent(testEvent, EventType.EHR_INTEGRATIONS);
+        verify(eventService).saveEvent(testEvent, EventType.EHR_INTEGRATIONS);
 
         assertEquals(eventDAO.getEventId(), actualResponse.getEventId());
     }
@@ -93,11 +93,11 @@ class RegistrationControllerTest {
 
         EventDAO eventDAO = EventDAO.builder().build();
 
-        when(registrationService.saveEvent(testEvent, EventType.REGISTRATIONS)).thenReturn(eventDAO);
+        when(eventService.saveEvent(testEvent, EventType.REGISTRATIONS)).thenReturn(eventDAO);
 
         EventResponse actualResponse = registrationController.registrationsEvent(testEvent);
 
-        verify(registrationService).saveEvent(testEvent, EventType.REGISTRATIONS);
+        verify(eventService).saveEvent(testEvent, EventType.REGISTRATIONS);
 
         assertEquals(eventDAO.getEventId(), actualResponse.getEventId());
     }
@@ -110,11 +110,11 @@ class RegistrationControllerTest {
 
         EventDAO eventDAO = EventDAO.builder().build();
 
-        when(registrationService.saveEvent(testEvent, EventType.DOCUMENT_RESPONSES)).thenReturn(eventDAO);
+        when(eventService.saveEvent(testEvent, EventType.DOCUMENT_RESPONSES)).thenReturn(eventDAO);
 
         EventResponse actualResponse = registrationController.documentResponsesEvent(testEvent);
 
-        verify(registrationService).saveEvent(testEvent, EventType.DOCUMENT_RESPONSES);
+        verify(eventService).saveEvent(testEvent, EventType.DOCUMENT_RESPONSES);
 
         assertEquals(eventDAO.getEventId(), actualResponse.getEventId());
     }
@@ -127,11 +127,11 @@ class RegistrationControllerTest {
 
         EventDAO eventDAO = EventDAO.builder().build();
 
-        when(registrationService.saveEvent(testEvent, EventType.READY_TO_INTEGRATE_STATUSES)).thenReturn(eventDAO);
+        when(eventService.saveEvent(testEvent, EventType.READY_TO_INTEGRATE_STATUSES)).thenReturn(eventDAO);
 
         EventResponse actualResponse = registrationController.readyToIntegrateStatusesEvent(testEvent);
 
-        verify(registrationService).saveEvent(testEvent, EventType.READY_TO_INTEGRATE_STATUSES);
+        verify(eventService).saveEvent(testEvent, EventType.READY_TO_INTEGRATE_STATUSES);
 
         assertEquals(eventDAO.getEventId(), actualResponse.getEventId());
     }
@@ -145,11 +145,11 @@ class RegistrationControllerTest {
 
         EventDAO eventDAO = EventDAO.builder().build();
 
-        when(registrationService.saveDegradesEvent(testEvent, EventType.DEGRADES)).thenReturn(eventDAO);
+        when(eventService.saveDegradesEvent(testEvent, EventType.DEGRADES)).thenReturn(eventDAO);
 
         EventResponse actualResponse = registrationController.ehrDegradesEvent(testEvent);
 
-        verify(registrationService).saveDegradesEvent(testEvent, EventType.DEGRADES);
+        verify(eventService).saveDegradesEvent(testEvent, EventType.DEGRADES);
 
         assertEquals(eventDAO.getEventId(), actualResponse.getEventId());
     }

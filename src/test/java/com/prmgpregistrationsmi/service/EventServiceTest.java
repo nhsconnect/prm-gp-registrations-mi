@@ -20,13 +20,13 @@ import java.time.temporal.ChronoUnit;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
-class RegistrationServiceTest {
+class EventServiceTest {
     S3FileUploader eventS3ClientMock = mock(S3FileUploader.class);
     SplunkWebClient splunkWebClientMock = mock(SplunkWebClient.class);
     Clock clock = mock(Clock.class);
     LocalDateTime mockLocalDateTime = LocalDateTime.of(1990, 03, 3, 0, 0, 0);
 
-    RegistrationService registrationService = new RegistrationService(eventS3ClientMock, splunkWebClientMock, clock);
+    EventService eventService = new EventService(eventS3ClientMock, splunkWebClientMock, clock);
 
     @BeforeEach
     public void setup() {
@@ -44,7 +44,7 @@ class RegistrationServiceTest {
 
         EventDAO expectedEventDAO = EventDAO.fromEvent(testEvent, gp2gpRegistrationEventType, mockLocalDateTime);
 
-        EventDAO eventDAO = registrationService.saveEvent(testEvent, gp2gpRegistrationEventType);
+        EventDAO eventDAO = eventService.saveEvent(testEvent, gp2gpRegistrationEventType);
 
         verify(eventS3ClientMock, times(1)).uploadJsonObject(eq(expectedEventDAO), anyString());
         assertEquals(eventDAO, expectedEventDAO);
@@ -59,7 +59,7 @@ class RegistrationServiceTest {
 
         EventDAO expectedEventDAO = EventDAO.fromEvent(testEvent, gp2gpRegistrationEventType, mockLocalDateTime);
 
-        EventDAO eventDAO = registrationService.saveEvent(testEvent, gp2gpRegistrationEventType);
+        EventDAO eventDAO = eventService.saveEvent(testEvent, gp2gpRegistrationEventType);
 
         verify(splunkWebClientMock, times(1)).postEventToSplunkCloud(eq(expectedEventDAO));
         assertEquals(eventDAO, expectedEventDAO);
@@ -72,7 +72,7 @@ class RegistrationServiceTest {
                 .build();
         EventType gp2gpRegistrationEventType = EventType.REGISTRATIONS;
 
-        EventDAO testEventDAO = registrationService.saveEvent(testEvent, gp2gpRegistrationEventType);
+        EventDAO testEventDAO = eventService.saveEvent(testEvent, gp2gpRegistrationEventType);
 
         verify(eventS3ClientMock, times(1)).uploadJsonObject(any(),
                 eq("v1/2020/01/01/22/" + testEventDAO.getEventId() + ".json"));
@@ -87,7 +87,7 @@ class RegistrationServiceTest {
 
         EventDAO expectedEventDAO = EventDAO.fromEvent(testEvent, gp2gpRegistrationEventType, mockLocalDateTime.truncatedTo(ChronoUnit.DAYS));
 
-        EventDAO eventDAO = registrationService.saveDegradesEvent(testEvent, gp2gpRegistrationEventType);
+        EventDAO eventDAO = eventService.saveDegradesEvent(testEvent, gp2gpRegistrationEventType);
 
         verify(eventS3ClientMock, times(1)).uploadJsonObject(any(EventDAO.class), anyString());
         assertEquals(eventDAO.getEventGeneratedDateTime(), expectedEventDAO.getEventGeneratedDateTime());
@@ -105,7 +105,7 @@ class RegistrationServiceTest {
 
         EventDAO expectedEventDAO = EventDAO.fromEvent(testEvent, gp2gpRegistrationEventType, mockLocalDateTime.truncatedTo(ChronoUnit.DAYS));
 
-        EventDAO eventDAO = registrationService.saveDegradesEvent(testEvent, gp2gpRegistrationEventType);
+        EventDAO eventDAO = eventService.saveDegradesEvent(testEvent, gp2gpRegistrationEventType);
 
         verify(splunkWebClientMock, times(1)).postEventToSplunkCloud(eventDAO);
         assertEquals(eventDAO.getEventGeneratedDateTime(), expectedEventDAO.getEventGeneratedDateTime());
@@ -121,7 +121,7 @@ class RegistrationServiceTest {
                 .build();
         EventType gp2gpRegistrationEventType = EventType.DEGRADES;
 
-        EventDAO testEventDAO = registrationService.saveDegradesEvent(testEvent, gp2gpRegistrationEventType);
+        EventDAO testEventDAO = eventService.saveDegradesEvent(testEvent, gp2gpRegistrationEventType);
 
         verify(eventS3ClientMock, times(1)).uploadJsonObject(any(),
                 eq("degrades/v1/1990/03/03/00/" + testEventDAO.getEventId() + ".json"));

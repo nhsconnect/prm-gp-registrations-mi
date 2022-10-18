@@ -19,7 +19,7 @@ import java.util.TimeZone;
 
 @AllArgsConstructor
 @Service
-public class RegistrationService {
+public class EventService {
     private static final String OUTPUT_EXTENSION = ".json";
     private static final String OUTPUT_VERSION = "v1";
     private static final String DEGRADES_DIRECTORY = "degrades/";
