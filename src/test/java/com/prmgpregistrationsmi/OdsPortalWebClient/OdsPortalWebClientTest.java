@@ -32,4 +32,12 @@ public class OdsPortalWebClientTest {
         assertEquals(practiceName, organisation.getOrganisation().getName());
     }
 
+    @Test
+    void shouldReturnEmptyOrganisationWhenUnableToFetchFromOdsPortal() {
+        when(mockRestTemplate.getForObject(any(String.class), any())).thenThrow();
+
+        Organisation organisation = odsPortalWebClient.getOrganisation("ods-code");
+
+        assertEquals(Organisation.builder().Organisation(OrganisationDetails.builder().Name(null).build()).build(),organisation);
+    }
 }
