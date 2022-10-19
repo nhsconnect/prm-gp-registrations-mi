@@ -73,6 +73,10 @@ class TransferCompatibilityStatusesEventIntegrationTest {
                                 transferCompatibilityStatusesEventRequest.getRegistrationEventDateTime())
                 )
                 .eventType(EventType.TRANSFER_COMPATIBILITY_STATUSES)
+                .sendingPracticeIcbOdsCode("11J")
+                .sendingPracticeIcbName("NHS DORSET ICB - 11J")
+                .requestingPracticeIcbOdsCode("01G")
+                .requestingPracticeIcbName("NHS GREATER MANCHESTER ICB - 01G")
                 .build();
 
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +

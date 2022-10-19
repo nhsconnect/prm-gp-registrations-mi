@@ -37,6 +37,10 @@ class EnrichmentServiceTest {
                         .sendingPracticeOdsCode(sendingPracticeOdsCode)
                         .requestingPracticeName(requestingPracticeName)
                         .sendingPracticeName(sendingPracticeName)
+                        .sendingPracticeIcbOdsCode("11J")
+                        .sendingPracticeIcbName("NHS DORSET ICB - 11J")
+                        .requestingPracticeIcbOdsCode("01G")
+                        .requestingPracticeIcbName("NHS GREATER MANCHESTER ICB - 01G")
                         .build();
 
         verify(odsPortalWebClientMock, times(1)).getOrganisation(eq(requestingPracticeOdsCode));
@@ -62,6 +66,10 @@ class EnrichmentServiceTest {
                         .sendingPracticeOdsCode(sendingPracticeOdsCode)
                         .requestingPracticeName(null)
                         .sendingPracticeName(null)
+                        .sendingPracticeIcbOdsCode("11J")
+                        .sendingPracticeIcbName("NHS DORSET ICB - 11J")
+                        .requestingPracticeIcbOdsCode("01G")
+                        .requestingPracticeIcbName("NHS GREATER MANCHESTER ICB - 01G")
                         .build();
 
         verify(odsPortalWebClientMock, times(1)).getOrganisation(eq(requestingPracticeOdsCode));
