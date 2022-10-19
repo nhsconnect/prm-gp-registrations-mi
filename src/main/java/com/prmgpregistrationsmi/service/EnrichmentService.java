@@ -14,13 +14,18 @@ public class EnrichmentService {
     public EventDAO enrichEventDAO(EventDAO eventDAO) {
         Organisation sendingPracticeOrganisation = odsPortalWebClient.getOrganisation(eventDAO.getSendingPracticeOdsCode());
         eventDAO.setSendingPracticeName(sendingPracticeOrganisation.getOrganisation().getName());
-        eventDAO.setSendingPracticeIcbOdsCode("11J");
-        eventDAO.setSendingPracticeIcbName("NHS DORSET ICB - 11J");
+        String sendingPracticeIcbOdsCode = "11J";
+        eventDAO.setSendingPracticeIcbOdsCode(sendingPracticeIcbOdsCode);
+        Organisation sendingPracticeIcbOrganisation = odsPortalWebClient.getOrganisation(sendingPracticeIcbOdsCode);
+        eventDAO.setSendingPracticeIcbName(sendingPracticeIcbOrganisation.getOrganisation().getName());
 
         Organisation requestingPracticeOrganisation = odsPortalWebClient.getOrganisation(eventDAO.getRequestingPracticeOdsCode());
         eventDAO.setRequestingPracticeName(requestingPracticeOrganisation.getOrganisation().getName());
-        eventDAO.setRequestingPracticeIcbOdsCode("01G");
-        eventDAO.setRequestingPracticeIcbName("NHS GREATER MANCHESTER ICB - 01G");
+        String requestingPracticeIcbOdsCode = "01G";
+        eventDAO.setRequestingPracticeIcbOdsCode(requestingPracticeIcbOdsCode);
+        Organisation requestingPracticeIcbOrganisation = odsPortalWebClient.getOrganisation(requestingPracticeIcbOdsCode);
+        eventDAO.setRequestingPracticeIcbName(requestingPracticeIcbOrganisation.getOrganisation().getName());
+        
         return eventDAO;
     }
 }

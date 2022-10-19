@@ -21,11 +21,23 @@ class EnrichmentServiceTest {
                 Organisation.builder().Organisation(OrganisationDetails.builder().Name(requestingPracticeName).build()).build();
         when(odsPortalWebClientMock.getOrganisation(requestingPracticeOdsCode)).thenReturn(mockedRequestingOrganisation);
 
+        String requestingPracticeIcbOdsCode = "01G";
+        String requestingPracticeIcbName = "MANCHESTER ICB";
+        Organisation mockedRequestingIcbOrganisation =
+                Organisation.builder().Organisation(OrganisationDetails.builder().Name(requestingPracticeIcbName).build()).build();
+        when(odsPortalWebClientMock.getOrganisation(requestingPracticeIcbOdsCode)).thenReturn(mockedRequestingIcbOrganisation);
+
         String sendingPracticeOdsCode = "another-ods-code";
         String sendingPracticeName = "sending practice";
         Organisation mockedSendingOrganisation =
                 Organisation.builder().Organisation(OrganisationDetails.builder().Name(sendingPracticeName).build()).build();
         when(odsPortalWebClientMock.getOrganisation(sendingPracticeOdsCode)).thenReturn(mockedSendingOrganisation);
+
+        String sendingPracticeIcbOdsCode = "11J";
+        String sendingPracticeIcbName = "DORSET ICB";
+        Organisation mockedSendingIcbOrganisation =
+                Organisation.builder().Organisation(OrganisationDetails.builder().Name(sendingPracticeIcbName).build()).build();
+        when(odsPortalWebClientMock.getOrganisation(sendingPracticeIcbOdsCode)).thenReturn(mockedSendingIcbOrganisation);
 
         EventDAO eventDAO =
                 EventDAO.builder().requestingPracticeOdsCode(requestingPracticeOdsCode).sendingPracticeOdsCode(sendingPracticeOdsCode).build();
@@ -37,10 +49,10 @@ class EnrichmentServiceTest {
                         .sendingPracticeOdsCode(sendingPracticeOdsCode)
                         .requestingPracticeName(requestingPracticeName)
                         .sendingPracticeName(sendingPracticeName)
-                        .sendingPracticeIcbOdsCode("11J")
-                        .sendingPracticeIcbName("NHS DORSET ICB - 11J")
-                        .requestingPracticeIcbOdsCode("01G")
-                        .requestingPracticeIcbName("NHS GREATER MANCHESTER ICB - 01G")
+                        .sendingPracticeIcbOdsCode(sendingPracticeIcbOdsCode)
+                        .sendingPracticeIcbName("DORSET ICB")
+                        .requestingPracticeIcbOdsCode(requestingPracticeIcbOdsCode)
+                        .requestingPracticeIcbName("MANCHESTER ICB")
                         .build();
 
         verify(odsPortalWebClientMock, times(1)).getOrganisation(eq(requestingPracticeOdsCode));
@@ -50,11 +62,19 @@ class EnrichmentServiceTest {
 
     @Test
     void shouldHandleEmptyOrganisationResponseAndContinue() {
+        Organisation emptyOrganisation = Organisation.builder().Organisation(OrganisationDetails.builder().Name(null).build()).build();
+
         String requestingPracticeOdsCode = "an-ods-code";
-        when(odsPortalWebClientMock.getOrganisation(requestingPracticeOdsCode)).thenReturn(Organisation.builder().Organisation(OrganisationDetails.builder().Name(null).build()).build());
+        when(odsPortalWebClientMock.getOrganisation(requestingPracticeOdsCode)).thenReturn(emptyOrganisation);
+
+        String sendingPracticeIcbOdsCode = "11J";
+        when(odsPortalWebClientMock.getOrganisation(sendingPracticeIcbOdsCode)).thenReturn(emptyOrganisation);
 
         String sendingPracticeOdsCode = "another-ods-code";
-        when(odsPortalWebClientMock.getOrganisation(sendingPracticeOdsCode)).thenReturn(Organisation.builder().Organisation(OrganisationDetails.builder().Name(null).build()).build());
+        when(odsPortalWebClientMock.getOrganisation(sendingPracticeOdsCode)).thenReturn(emptyOrganisation);
+
+        String requestingPracticeIcbOdsCode = "01G";
+        when(odsPortalWebClientMock.getOrganisation(requestingPracticeIcbOdsCode)).thenReturn(emptyOrganisation);
 
         EventDAO eventDAO =
                 EventDAO.builder().requestingPracticeOdsCode(requestingPracticeOdsCode).sendingPracticeOdsCode(sendingPracticeOdsCode).build();
@@ -66,10 +86,10 @@ class EnrichmentServiceTest {
                         .sendingPracticeOdsCode(sendingPracticeOdsCode)
                         .requestingPracticeName(null)
                         .sendingPracticeName(null)
-                        .sendingPracticeIcbOdsCode("11J")
-                        .sendingPracticeIcbName("NHS DORSET ICB - 11J")
-                        .requestingPracticeIcbOdsCode("01G")
-                        .requestingPracticeIcbName("NHS GREATER MANCHESTER ICB - 01G")
+                        .sendingPracticeIcbOdsCode(sendingPracticeIcbOdsCode)
+                        .sendingPracticeIcbName(null)
+                        .requestingPracticeIcbOdsCode(requestingPracticeIcbOdsCode)
+                        .requestingPracticeIcbName(null)
                         .build();
 
         verify(odsPortalWebClientMock, times(1)).getOrganisation(eq(requestingPracticeOdsCode));
