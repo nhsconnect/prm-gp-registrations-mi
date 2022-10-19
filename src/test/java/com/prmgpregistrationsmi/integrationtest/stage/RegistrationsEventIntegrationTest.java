@@ -7,6 +7,8 @@ import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.model.Event.stage.Registrations.RegistrationsEvent;
+import com.prmgpregistrationsmi.model.Organisation;
+import com.prmgpregistrationsmi.model.OrganisationDetails;
 import com.prmgpregistrationsmi.testhelpers.EventDAOBuilder;
 import com.prmgpregistrationsmi.testhelpers.stage.RegistrationsEventBuilder;
 import com.prmgpregistrationsmi.utils.UUIDService;
@@ -25,8 +27,7 @@ import java.time.ZoneOffset;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class RegistrationsEventIntegrationTest {
@@ -56,6 +57,7 @@ class RegistrationsEventIntegrationTest {
         Clock mockClock = Clock.fixed(LocalDateTime.of(1990, 03, 3, 0, 0, 0).toInstant(ZoneOffset.of("Z")), ZoneId.systemDefault());
         doReturn(mockClock.instant()).when(clock).instant();
         doReturn(mockClock.getZone()).when(clock).getZone();
+        when(odsPortalWebClient.getOrganisation(any())).thenReturn(Organisation.builder().Organisation(OrganisationDetails.builder().build()).build());
     }
 
     @Test
