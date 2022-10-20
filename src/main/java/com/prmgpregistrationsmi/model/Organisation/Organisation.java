@@ -1,4 +1,4 @@
-package com.prmgpregistrationsmi.model;
+package com.prmgpregistrationsmi.model.Organisation;
 
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -8,5 +8,5 @@ import lombok.Getter;
 @Getter
 @EqualsAndHashCode
 public class Organisation {
-    private OrganisationDetails Organisation;
+    private OrganisationName Organisation;
 }

@@ -2,7 +2,7 @@ package com.prmgpregistrationsmi.service;
 
 import com.prmgpregistrationsmi.OdsPortalWebClient.OdsPortalWebClient;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
-import com.prmgpregistrationsmi.model.Organisation;
+import com.prmgpregistrationsmi.model.Organisation.Organisation;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +25,7 @@ public class EnrichmentService {
         eventDAO.setRequestingPracticeIcbOdsCode(requestingPracticeIcbOdsCode);
         Organisation requestingPracticeIcbOrganisation = odsPortalWebClient.getOrganisation(requestingPracticeIcbOdsCode);
         eventDAO.setRequestingPracticeIcbName(requestingPracticeIcbOrganisation.getOrganisation().getName());
-        
+
         return eventDAO;
     }
 }

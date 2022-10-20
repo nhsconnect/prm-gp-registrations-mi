@@ -7,8 +7,8 @@ import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.model.Event.stage.EhrDegrades.EhrDegradesEvent;
-import com.prmgpregistrationsmi.model.Organisation;
-import com.prmgpregistrationsmi.model.OrganisationDetails;
+import com.prmgpregistrationsmi.model.Organisation.Organisation;
+import com.prmgpregistrationsmi.model.Organisation.OrganisationName;
 import com.prmgpregistrationsmi.testhelpers.DegradesEventDAOBuilder;
 import com.prmgpregistrationsmi.testhelpers.stage.EhrDegradesEventBuilder;
 import org.junit.jupiter.api.BeforeEach;
@@ -55,7 +55,7 @@ class EhrDegradesEventIntegrationTest {
         Clock mockClock = Clock.fixed(LocalDateTime.of(1990, 03, 3, 0, 0, 0).toInstant(ZoneOffset.of("Z")), ZoneId.systemDefault());
         doReturn(mockClock.instant()).when(clock).instant();
         doReturn(mockClock.getZone()).when(clock).getZone();
-        when(odsPortalWebClient.getOrganisation(any())).thenReturn(Organisation.builder().Organisation(OrganisationDetails.builder().build()).build());
+        when(odsPortalWebClient.getOrganisation(any())).thenReturn(Organisation.builder().Organisation(OrganisationName.builder().build()).build());
     }
 
     @Test

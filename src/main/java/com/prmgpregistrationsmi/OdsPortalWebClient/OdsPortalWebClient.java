@@ -1,7 +1,7 @@
 package com.prmgpregistrationsmi.OdsPortalWebClient;
 
-import com.prmgpregistrationsmi.model.Organisation;
-import com.prmgpregistrationsmi.model.OrganisationDetails;
+import com.prmgpregistrationsmi.model.Organisation.Organisation;
+import com.prmgpregistrationsmi.model.Organisation.OrganisationName;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -22,7 +22,7 @@ public class OdsPortalWebClient {
             return response;
         } catch (Exception e) {
             logger.error("Unable to retrieve organisation with ODS code: " + odsCode, e.getMessage());
-            return Organisation.builder().Organisation(OrganisationDetails.builder().Name(null).build()).build();
+            return Organisation.builder().Organisation(OrganisationName.builder().Name(null).build()).build();
         }
     }
 }
