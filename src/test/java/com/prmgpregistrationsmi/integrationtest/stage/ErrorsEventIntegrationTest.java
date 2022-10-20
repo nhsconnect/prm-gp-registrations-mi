@@ -8,7 +8,7 @@ import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.model.Event.stage.Error.ErrorsEvent;
 import com.prmgpregistrationsmi.model.Organisation.Organisation;
-import com.prmgpregistrationsmi.model.Organisation.OrganisationName;
+import com.prmgpregistrationsmi.model.Organisation.OrganisationDetails;
 import com.prmgpregistrationsmi.testhelpers.EventDAOBuilder;
 import com.prmgpregistrationsmi.testhelpers.stage.ErrorsEventBuilder;
 import com.prmgpregistrationsmi.utils.UUIDService;
@@ -57,7 +57,7 @@ class ErrorsEventIntegrationTest {
         Clock mockClock = Clock.fixed(LocalDateTime.of(1990, 03, 3, 0, 0, 0).toInstant(ZoneOffset.of("Z")), ZoneId.systemDefault());
         doReturn(mockClock.instant()).when(clock).instant();
         doReturn(mockClock.getZone()).when(clock).getZone();
-        when(odsPortalWebClient.getOrganisation(any())).thenReturn(Organisation.builder().Organisation(OrganisationName.builder().build()).build());
+        when(odsPortalWebClient.getOrganisation(any())).thenReturn(Organisation.builder().Organisation(OrganisationDetails.builder().build()).build());
     }
 
     @Test
@@ -73,8 +73,6 @@ class ErrorsEventIntegrationTest {
                                 errorsEventRequest.getRegistrationEventDateTime())
                 )
                 .eventType(EventType.ERROR)
-                .sendingPracticeIcbOdsCode("11J")
-                .requestingPracticeIcbOdsCode("01G")
                 .build();
 
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +

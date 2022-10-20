@@ -7,6 +7,7 @@ import lombok.Getter;
 @Builder
 @Getter
 @EqualsAndHashCode
-public class OrganisationName {
+public class OrganisationDetails {
     private String Name;
+    private OrganisationRels Rels;
 }

@@ -1,7 +1,7 @@
 package com.prmgpregistrationsmi.OdsPortalWebClient;
 
 import com.prmgpregistrationsmi.model.Organisation.Organisation;
-import com.prmgpregistrationsmi.model.Organisation.OrganisationName;
+import com.prmgpregistrationsmi.model.Organisation.OrganisationDetails;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.client.RestTemplate;
@@ -25,7 +25,7 @@ public class OdsPortalWebClientTest {
         String odsCode = "ods-code";
         String practiceName = "a practice";
 
-        when(mockRestTemplate.getForObject(any(String.class), any())).thenReturn(Organisation.builder().Organisation(OrganisationName.builder().Name(practiceName).build()).build());
+        when(mockRestTemplate.getForObject(any(String.class), any())).thenReturn(Organisation.builder().Organisation(OrganisationDetails.builder().Name(practiceName).build()).build());
 
         Organisation organisation = odsPortalWebClient.getOrganisation(odsCode);
 
@@ -38,6 +38,6 @@ public class OdsPortalWebClientTest {
 
         Organisation organisation = odsPortalWebClient.getOrganisation("ods-code");
 
-        assertEquals(Organisation.builder().Organisation(OrganisationName.builder().Name(null).build()).build(),organisation);
+        assertEquals(Organisation.builder().Organisation(OrganisationDetails.builder().Name(null).build()).build(),organisation);
     }
 }

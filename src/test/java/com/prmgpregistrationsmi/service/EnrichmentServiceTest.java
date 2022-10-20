@@ -3,7 +3,7 @@ package com.prmgpregistrationsmi.service;
 import com.prmgpregistrationsmi.OdsPortalWebClient.OdsPortalWebClient;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Organisation.Organisation;
-import com.prmgpregistrationsmi.model.Organisation.OrganisationName;
+import com.prmgpregistrationsmi.model.Organisation.OrganisationDetails;
 import com.prmgpregistrationsmi.testhelpers.OrganisationBuilder;
 import org.junit.jupiter.api.Test;
 
@@ -15,21 +15,19 @@ class EnrichmentServiceTest {
     EnrichmentService enrichmentService = new EnrichmentService(odsPortalWebClientMock);
 
     @Test
-    void shouldEnrichEventDAOWithPracticeName() {
+    void shouldEnrichEventDAOWithPracticeNameAndIcbOdsCodeAndIcbName() {
         String requestingPracticeOdsCode = "an-ods-code";
         String requestingPracticeName = "requesting practice";
-        when(odsPortalWebClientMock.getOrganisation(requestingPracticeOdsCode)).thenReturn(OrganisationBuilder.withPracticeName(requestingPracticeName).build());
-
         String requestingPracticeIcbOdsCode = "01G";
         String requestingPracticeIcbName = "MANCHESTER ICB";
+        when(odsPortalWebClientMock.getOrganisation(requestingPracticeOdsCode)).thenReturn(OrganisationBuilder.withPracticeIcbDetails(requestingPracticeName, requestingPracticeIcbOdsCode).build());
         when(odsPortalWebClientMock.getOrganisation(requestingPracticeIcbOdsCode)).thenReturn(OrganisationBuilder.withPracticeName(requestingPracticeIcbName).build());
 
         String sendingPracticeOdsCode = "another-ods-code";
         String sendingPracticeName = "sending practice";
-        when(odsPortalWebClientMock.getOrganisation(sendingPracticeOdsCode)).thenReturn(OrganisationBuilder.withPracticeName(sendingPracticeName).build());
-
         String sendingPracticeIcbOdsCode = "11J";
         String sendingPracticeIcbName = "DORSET ICB";
+        when(odsPortalWebClientMock.getOrganisation(sendingPracticeOdsCode)).thenReturn(OrganisationBuilder.withPracticeIcbDetails(sendingPracticeName, sendingPracticeIcbOdsCode).build());
         when(odsPortalWebClientMock.getOrganisation(sendingPracticeIcbOdsCode)).thenReturn(OrganisationBuilder.withPracticeName(sendingPracticeIcbName).build());
 
         EventDAO eventDAO =
@@ -43,9 +41,9 @@ class EnrichmentServiceTest {
                         .requestingPracticeName(requestingPracticeName)
                         .sendingPracticeName(sendingPracticeName)
                         .sendingPracticeIcbOdsCode(sendingPracticeIcbOdsCode)
-                        .sendingPracticeIcbName("DORSET ICB")
+                        .sendingPracticeIcbName(sendingPracticeIcbName)
                         .requestingPracticeIcbOdsCode(requestingPracticeIcbOdsCode)
-                        .requestingPracticeIcbName("MANCHESTER ICB")
+                        .requestingPracticeIcbName(requestingPracticeIcbName)
                         .build();
 
         verify(odsPortalWebClientMock, times(1)).getOrganisation(eq(requestingPracticeOdsCode));
@@ -55,7 +53,7 @@ class EnrichmentServiceTest {
 
     @Test
     void shouldHandleEmptyOrganisationResponseAndContinue() {
-        Organisation emptyOrganisation = Organisation.builder().Organisation(OrganisationName.builder().Name(null).build()).build();
+        Organisation emptyOrganisation = Organisation.builder().Organisation(OrganisationDetails.builder().Name(null).build()).build();
 
         String requestingPracticeOdsCode = "an-ods-code";
         when(odsPortalWebClientMock.getOrganisation(requestingPracticeOdsCode)).thenReturn(emptyOrganisation);
@@ -79,9 +77,9 @@ class EnrichmentServiceTest {
                         .sendingPracticeOdsCode(sendingPracticeOdsCode)
                         .requestingPracticeName(null)
                         .sendingPracticeName(null)
-                        .sendingPracticeIcbOdsCode(sendingPracticeIcbOdsCode)
+                        .sendingPracticeIcbOdsCode(null)
                         .sendingPracticeIcbName(null)
-                        .requestingPracticeIcbOdsCode(requestingPracticeIcbOdsCode)
+                        .requestingPracticeIcbOdsCode(null)
                         .requestingPracticeIcbName(null)
                         .build();
 
