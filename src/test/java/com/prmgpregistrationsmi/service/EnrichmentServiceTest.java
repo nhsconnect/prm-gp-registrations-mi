@@ -4,6 +4,7 @@ import com.prmgpregistrationsmi.OdsPortalWebClient.OdsPortalWebClient;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Organisation.Organisation;
 import com.prmgpregistrationsmi.model.Organisation.OrganisationName;
+import com.prmgpregistrationsmi.testhelpers.OrganisationBuilder;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -17,27 +18,19 @@ class EnrichmentServiceTest {
     void shouldEnrichEventDAOWithPracticeName() {
         String requestingPracticeOdsCode = "an-ods-code";
         String requestingPracticeName = "requesting practice";
-        Organisation mockedRequestingOrganisation =
-                Organisation.builder().Organisation(OrganisationName.builder().Name(requestingPracticeName).build()).build();
-        when(odsPortalWebClientMock.getOrganisation(requestingPracticeOdsCode)).thenReturn(mockedRequestingOrganisation);
+        when(odsPortalWebClientMock.getOrganisation(requestingPracticeOdsCode)).thenReturn(OrganisationBuilder.withPracticeName(requestingPracticeName).build());
 
         String requestingPracticeIcbOdsCode = "01G";
         String requestingPracticeIcbName = "MANCHESTER ICB";
-        Organisation mockedRequestingIcbOrganisation =
-                Organisation.builder().Organisation(OrganisationName.builder().Name(requestingPracticeIcbName).build()).build();
-        when(odsPortalWebClientMock.getOrganisation(requestingPracticeIcbOdsCode)).thenReturn(mockedRequestingIcbOrganisation);
+        when(odsPortalWebClientMock.getOrganisation(requestingPracticeIcbOdsCode)).thenReturn(OrganisationBuilder.withPracticeName(requestingPracticeIcbName).build());
 
         String sendingPracticeOdsCode = "another-ods-code";
         String sendingPracticeName = "sending practice";
-        Organisation mockedSendingOrganisation =
-                Organisation.builder().Organisation(OrganisationName.builder().Name(sendingPracticeName).build()).build();
-        when(odsPortalWebClientMock.getOrganisation(sendingPracticeOdsCode)).thenReturn(mockedSendingOrganisation);
+        when(odsPortalWebClientMock.getOrganisation(sendingPracticeOdsCode)).thenReturn(OrganisationBuilder.withPracticeName(sendingPracticeName).build());
 
         String sendingPracticeIcbOdsCode = "11J";
         String sendingPracticeIcbName = "DORSET ICB";
-        Organisation mockedSendingIcbOrganisation =
-                Organisation.builder().Organisation(OrganisationName.builder().Name(sendingPracticeIcbName).build()).build();
-        when(odsPortalWebClientMock.getOrganisation(sendingPracticeIcbOdsCode)).thenReturn(mockedSendingIcbOrganisation);
+        when(odsPortalWebClientMock.getOrganisation(sendingPracticeIcbOdsCode)).thenReturn(OrganisationBuilder.withPracticeName(sendingPracticeIcbName).build());
 
         EventDAO eventDAO =
                 EventDAO.builder().requestingPracticeOdsCode(requestingPracticeOdsCode).sendingPracticeOdsCode(sendingPracticeOdsCode).build();
