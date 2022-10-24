@@ -42,8 +42,8 @@ public class EventDAO {
         String eventIdSeed = event.getConversationId() + eventType.toString() + event.getRegistrationEventDateTime();
 
         Payload payload = null;
-        if(event instanceof PayloadEvent) {
-            payload = ((PayloadEvent<?>)event).getPayload();
+        if (event instanceof PayloadEvent) {
+            payload = ((PayloadEvent<?>) event).getPayload();
         }
 
         return new EventDAO(
@@ -90,6 +90,6 @@ public class EventDAO {
 
     @Override
     public String toString() {
-        return  JsonHelper.asJsonString(this);
+        return JsonHelper.asJsonString(this);
     }
 }

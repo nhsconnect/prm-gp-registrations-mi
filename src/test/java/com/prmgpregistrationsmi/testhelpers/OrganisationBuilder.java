@@ -4,21 +4,17 @@ import com.prmgpregistrationsmi.model.Organisation.*;
 
 import java.util.Collections;
 
+import static com.prmgpregistrationsmi.service.EnrichmentService.ICB_ROLE_ID;
+
 public class OrganisationBuilder {
     public static Organisation.OrganisationBuilder withDefaultValues() {
         return Organisation.builder()
                 .Organisation(OrganisationDetails.builder()
                     .Name("GP Practice 1").Rels(OrganisationRels.builder()
-                    .Rel(Collections.singletonList(OrganisationRel.builder()
-                        .Status("Active")
-                        .Target(OrganisationRelTarget.builder()
-                            .OrgId(OrganisationRelTargetOrgId.builder()
-                                .extension("J11").build())
-                            .PrimaryRoleId(OrganisationRelTargetPrimaryRoleId.builder()
-                                .id("RO98").build()).build()).build())).build()).build());
+                    .Rel(Collections.singletonList(OrganisationRelBuilder.withStatisAndRoleId("Active", "J11", ICB_ROLE_ID).build())).build()).build());
     }
 
-    public static Organisation.OrganisationBuilder withPracticeName(String practiceName) {
+    public static Organisation.OrganisationBuilder withOnlyPracticeName(String practiceName) {
         return Organisation.builder().Organisation(OrganisationDetails.builder().Name(practiceName).build());
     }
 
@@ -26,12 +22,6 @@ public class OrganisationBuilder {
         return Organisation.builder()
                 .Organisation(OrganisationDetails.builder()
                         .Name(practiceName).Rels(OrganisationRels.builder()
-                                .Rel(Collections.singletonList(OrganisationRel.builder()
-                                        .Status("Active")
-                                        .Target(OrganisationRelTarget.builder()
-                                                .OrgId(OrganisationRelTargetOrgId.builder()
-                                                        .extension(practiceIcbOdsCode).build())
-                                                .PrimaryRoleId(OrganisationRelTargetPrimaryRoleId.builder()
-                                                        .id("RO98").build()).build()).build())).build()).build());
+                                .Rel(Collections.singletonList(OrganisationRelBuilder.withStatisAndRoleId("Active", practiceIcbOdsCode, ICB_ROLE_ID).build())).build()).build());
     }
 }
