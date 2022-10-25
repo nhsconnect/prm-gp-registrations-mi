@@ -3,6 +3,7 @@ package com.prmgpregistrationsmi.service;
 import com.prmgpregistrationsmi.SplunkWebclient.SplunkWebClient;
 import com.prmgpregistrationsmi.exception.UnableToUploadToS3Exception;
 import com.prmgpregistrationsmi.model.Event.BaseEvent;
+import com.prmgpregistrationsmi.model.Event.DegradesEventDAO;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.model.Event.stage.EhrDegrades.EhrDegradesEvent;
@@ -37,8 +38,8 @@ public class EventService {
         return eventDAO;
     }
 
-    public EventDAO saveDegradesEvent(EhrDegradesEvent event, EventType eventType) throws UnableToUploadToS3Exception {
-        EventDAO degradeEventDAO = EventDAO.fromEvent(event, eventType, LocalDateTime.now(clock).truncatedTo(ChronoUnit.DAYS));
+    public DegradesEventDAO saveDegradesEvent(EhrDegradesEvent event, EventType eventType) throws UnableToUploadToS3Exception {
+        DegradesEventDAO degradeEventDAO = DegradesEventDAO.fromEvent(event, eventType, LocalDateTime.now(clock).truncatedTo(ChronoUnit.DAYS));
         String s3Key = DEGRADES_DIRECTORY + getS3Key(degradeEventDAO.getEventGeneratedDateTime(), degradeEventDAO.getEventId());
         eventS3Client.uploadJsonObject(degradeEventDAO, s3Key);
         splunkWebClient.postEventToSplunkCloud(degradeEventDAO);

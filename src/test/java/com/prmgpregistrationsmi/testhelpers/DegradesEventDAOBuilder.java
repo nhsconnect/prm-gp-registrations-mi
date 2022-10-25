@@ -1,6 +1,6 @@
 package com.prmgpregistrationsmi.testhelpers;
 
-import com.prmgpregistrationsmi.model.Event.EventDAO;
+import com.prmgpregistrationsmi.model.Event.DegradesEventDAO;
 import com.prmgpregistrationsmi.model.Event.stage.EhrDegrades.EhrDegradesEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,8 +16,8 @@ public class DegradesEventDAOBuilder {
     @Autowired
     Clock clock;
 
-    public EventDAO.EventDAOBuilder withDegradesEvent(EhrDegradesEvent event) {
-        return EventDAO.builder()
+    public DegradesEventDAO.DegradesEventDAOBuilder withDegradesEvent(EhrDegradesEvent event) {
+        return DegradesEventDAO.builder()
                 .eventId(UUID.randomUUID().toString())
                 .eventGeneratedDateTime(LocalDateTime.now(clock).truncatedTo(ChronoUnit.DAYS))
                 .reportingSystemSupplier(event.getReportingSystemSupplier())

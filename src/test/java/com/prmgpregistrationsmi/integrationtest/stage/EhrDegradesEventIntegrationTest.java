@@ -3,7 +3,7 @@ package com.prmgpregistrationsmi.integrationtest.stage;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.prmgpregistrationsmi.OdsPortalWebClient.OdsPortalWebClient;
 import com.prmgpregistrationsmi.SplunkWebclient.SplunkWebClient;
-import com.prmgpregistrationsmi.model.Event.EventDAO;
+import com.prmgpregistrationsmi.model.Event.DegradesEventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.model.Event.stage.EhrDegrades.EhrDegradesEvent;
@@ -67,22 +67,17 @@ class EhrDegradesEventIntegrationTest {
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
                 "/ehr-degrades", ehrDegradesEvent, EventResponse.class);
 
-        EventDAO expectedS3UploadEvent = degradesEventDAOBuilder.withDegradesEvent(ehrDegradesEvent)
+        DegradesEventDAO expectedDegradesEventDAO = degradesEventDAOBuilder.withDegradesEvent(ehrDegradesEvent)
                 .eventType(EventType.DEGRADES)
                 .eventId(actualResponseEvent.getEventId())
                 .build();
 
         verify(mockAmazonS3Client).putObject(
                 eq("test_bucket"),
-                startsWith("degrades/v1/"),
-                eq(expectedS3UploadEvent.toString())
-        );
-        verify(mockAmazonS3Client).putObject(
-                eq("test_bucket"),
-                endsWith(actualResponseEvent.getEventId() + ".json"),
-                eq(expectedS3UploadEvent.toString())
+                eq(String.format("degrades/v1/1990/03/03/00/%s.json", expectedDegradesEventDAO.getEventId())),
+                eq(expectedDegradesEventDAO.toString())
         );
 
-        verify(splunkWebClient).postEventToSplunkCloud(any(EventDAO.class));
+        verify(splunkWebClient).postEventToSplunkCloud(any(DegradesEventDAO.class));
     }
 }

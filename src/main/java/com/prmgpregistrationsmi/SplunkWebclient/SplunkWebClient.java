@@ -1,6 +1,5 @@
 package com.prmgpregistrationsmi.SplunkWebclient;
 
-import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.SplunkEventDAO;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,12 +25,12 @@ public class SplunkWebClient {
         this.splunkApiToken = splunkApiToken;
     }
 
-    public Boolean postEventToSplunkCloud(EventDAO eventDAO) {
+    public Boolean postEventToSplunkCloud(Object DAO) {
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         headers.set("Authorization", splunkApiToken);
 
-        SplunkEventDAO requestBody = SplunkEventDAO.fromEventDAO(eventDAO);
+        SplunkEventDAO requestBody = SplunkEventDAO.fromEventDAO(DAO);
         HttpEntity<SplunkEventDAO> httpEntity = new HttpEntity<>(requestBody, headers);
 
         ResponseEntity<String> response = restTemplate.exchange(splunkCloudUrl, HttpMethod.POST, httpEntity,

@@ -1,10 +1,7 @@
 package com.prmgpregistrationsmi.controller;
 
 import com.prmgpregistrationsmi.exception.UnableToUploadToS3Exception;
-import com.prmgpregistrationsmi.model.Event.BaseEvent;
-import com.prmgpregistrationsmi.model.Event.EventDAO;
-import com.prmgpregistrationsmi.model.Event.EventResponse;
-import com.prmgpregistrationsmi.model.Event.EventType;
+import com.prmgpregistrationsmi.model.Event.*;
 import com.prmgpregistrationsmi.model.Event.stage.DocumentResponses.DocumentResponsesEvent;
 import com.prmgpregistrationsmi.model.Event.stage.EhrDegrades.EhrDegradesEvent;
 import com.prmgpregistrationsmi.model.Event.stage.EhrIntegrations.EhrIntegrationsEvent;
@@ -143,14 +140,14 @@ class RegistrationControllerTest {
                 .withDefaultEventValues()
                 .build();
 
-        EventDAO eventDAO = EventDAO.builder().build();
+        DegradesEventDAO degradesEventDAO = DegradesEventDAO.builder().build();
 
-        when(eventService.saveDegradesEvent(testEvent, EventType.DEGRADES)).thenReturn(eventDAO);
+        when(eventService.saveDegradesEvent(testEvent, EventType.DEGRADES)).thenReturn(degradesEventDAO);
 
         EventResponse actualResponse = registrationController.ehrDegradesEvent(testEvent);
 
         verify(eventService).saveDegradesEvent(testEvent, EventType.DEGRADES);
 
-        assertEquals(eventDAO.getEventId(), actualResponse.getEventId());
+        assertEquals(degradesEventDAO.getEventId(), actualResponse.getEventId());
     }
 }

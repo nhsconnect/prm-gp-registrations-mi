@@ -10,10 +10,10 @@ import lombok.*;
 @EqualsAndHashCode
 public class SplunkEventDAO {
     private String source;
-    private EventDAO event;
+    private Object event;
 
-    public static SplunkEventDAO fromEventDAO(EventDAO eventDAO) {
-        return new SplunkEventDAO("itoc:gp2gp", eventDAO);
+    public static SplunkEventDAO fromEventDAO(Object DAO) {
+        return new SplunkEventDAO("itoc:gp2gp", DAO);
     }
 
     @Override

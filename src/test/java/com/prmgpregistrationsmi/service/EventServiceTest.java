@@ -1,6 +1,7 @@
 package com.prmgpregistrationsmi.service;
 
 import com.prmgpregistrationsmi.exception.UnableToUploadToS3Exception;
+import com.prmgpregistrationsmi.model.Event.DegradesEventDAO;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.model.Event.stage.EhrDegrades.EhrDegradesEvent;
@@ -86,16 +87,17 @@ class EventServiceTest {
                 .build();
         EventType gp2gpRegistrationEventType = EventType.DEGRADES;
 
-        EventDAO expectedEventDAO = EventDAO.fromEvent(testEvent, gp2gpRegistrationEventType, mockLocalDateTime.truncatedTo(ChronoUnit.DAYS));
+        DegradesEventDAO expectedDegradesEventDAO = DegradesEventDAO.fromEvent(testEvent, gp2gpRegistrationEventType, mockLocalDateTime.truncatedTo(ChronoUnit.DAYS));
 
-        EventDAO eventDAO = eventService.saveDegradesEvent(testEvent, gp2gpRegistrationEventType);
+        DegradesEventDAO degradesEventDAO = eventService.saveDegradesEvent(testEvent, gp2gpRegistrationEventType);
 
-        verify(eventS3ClientMock, times(1)).uploadJsonObject(any(EventDAO.class), anyString());
-        assertEquals(eventDAO.getEventGeneratedDateTime(), expectedEventDAO.getEventGeneratedDateTime());
-        assertEquals(eventDAO.getEventType(), expectedEventDAO.getEventType());
-        assertEquals(eventDAO.getReportingSystemSupplier(), expectedEventDAO.getReportingSystemSupplier());
-        assertEquals(eventDAO.getPayload(), expectedEventDAO.getPayload());
+        verify(eventS3ClientMock, times(1)).uploadJsonObject(any(DegradesEventDAO.class), anyString());
+        assertEquals(degradesEventDAO.getEventGeneratedDateTime(), expectedDegradesEventDAO.getEventGeneratedDateTime());
+        assertEquals(degradesEventDAO.getEventType(), expectedDegradesEventDAO.getEventType());
+        assertEquals(degradesEventDAO.getReportingSystemSupplier(), expectedDegradesEventDAO.getReportingSystemSupplier());
+        assertEquals(degradesEventDAO.getPayload(), expectedDegradesEventDAO.getPayload());
     }
+
 
     @Test
     void shouldCallDegradesPostEventToSplunkCloud() throws UnableToUploadToS3Exception {
@@ -104,27 +106,27 @@ class EventServiceTest {
                 .build();
         EventType gp2gpRegistrationEventType = EventType.DEGRADES;
 
-        EventDAO expectedEventDAO = EventDAO.fromEvent(testEvent, gp2gpRegistrationEventType, mockLocalDateTime.truncatedTo(ChronoUnit.DAYS));
+        DegradesEventDAO expectedDegradesEventDAO = DegradesEventDAO.fromEvent(testEvent, gp2gpRegistrationEventType, mockLocalDateTime.truncatedTo(ChronoUnit.DAYS));
 
-        EventDAO eventDAO = eventService.saveDegradesEvent(testEvent, gp2gpRegistrationEventType);
+        DegradesEventDAO DegradesEventDAO = eventService.saveDegradesEvent(testEvent, gp2gpRegistrationEventType);
 
-        verify(splunkWebClientMock, times(1)).postEventToSplunkCloud(eventDAO);
-        assertEquals(eventDAO.getEventGeneratedDateTime(), expectedEventDAO.getEventGeneratedDateTime());
-        assertEquals(eventDAO.getEventType(), expectedEventDAO.getEventType());
-        assertEquals(eventDAO.getReportingSystemSupplier(), expectedEventDAO.getReportingSystemSupplier());
-        assertEquals(eventDAO.getPayload(), expectedEventDAO.getPayload());
+        verify(splunkWebClientMock, times(1)).postEventToSplunkCloud(DegradesEventDAO);
+        assertEquals(DegradesEventDAO.getEventGeneratedDateTime(), expectedDegradesEventDAO.getEventGeneratedDateTime());
+        assertEquals(DegradesEventDAO.getEventType(), expectedDegradesEventDAO.getEventType());
+        assertEquals(DegradesEventDAO.getReportingSystemSupplier(), expectedDegradesEventDAO.getReportingSystemSupplier());
+        assertEquals(DegradesEventDAO.getPayload(), expectedDegradesEventDAO.getPayload());
     }
 
     @Test
-    void shouldUploadDegradesEventDAOToCorrectS3Key() throws UnableToUploadToS3Exception {
+    void shouldUploadDegradesDegradesEventDAOToCorrectS3Key() throws UnableToUploadToS3Exception {
         EhrDegradesEvent testEvent = EhrDegradesEventBuilder
                 .withDefaultEventValues()
                 .build();
         EventType gp2gpRegistrationEventType = EventType.DEGRADES;
 
-        EventDAO testEventDAO = eventService.saveDegradesEvent(testEvent, gp2gpRegistrationEventType);
+        DegradesEventDAO testDegradesEventDAO = eventService.saveDegradesEvent(testEvent, gp2gpRegistrationEventType);
 
         verify(eventS3ClientMock, times(1)).uploadJsonObject(any(),
-                eq("degrades/v1/1990/03/03/00/" + testEventDAO.getEventId() + ".json"));
+                eq("degrades/v1/1990/03/03/00/" + testDegradesEventDAO.getEventId() + ".json"));
     }
 }
