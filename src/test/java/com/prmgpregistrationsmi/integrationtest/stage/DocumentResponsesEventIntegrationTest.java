@@ -2,16 +2,17 @@ package com.prmgpregistrationsmi.integrationtest.stage;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.prmgpregistrationsmi.OdsPortalWebClient.OdsPortalWebClient;
+import com.prmgpregistrationsmi.SplunkWebclient.SplunkWebClient;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.model.Event.stage.DocumentResponses.DocumentResponsesEvent;
 import com.prmgpregistrationsmi.model.Organisation.Organisation;
 import com.prmgpregistrationsmi.model.Organisation.OrganisationDetails;
+import com.prmgpregistrationsmi.service.MessagePublisher;
 import com.prmgpregistrationsmi.testhelpers.EventDAOBuilder;
 import com.prmgpregistrationsmi.testhelpers.stage.DocumentResponsesEventBuilder;
 import com.prmgpregistrationsmi.utils.UUIDService;
-import com.prmgpregistrationsmi.SplunkWebclient.SplunkWebClient;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,9 @@ class DocumentResponsesEventIntegrationTest {
     
     @MockBean
     OdsPortalWebClient odsPortalWebClient;
+
+    @MockBean
+    MessagePublisher messagePublisher;
 
     @MockBean
     Clock clock;

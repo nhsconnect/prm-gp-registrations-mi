@@ -9,6 +9,7 @@ import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.model.Event.stage.EhrDegrades.EhrDegradesEvent;
 import com.prmgpregistrationsmi.model.Organisation.Organisation;
 import com.prmgpregistrationsmi.model.Organisation.OrganisationDetails;
+import com.prmgpregistrationsmi.service.MessagePublisher;
 import com.prmgpregistrationsmi.testhelpers.DegradesEventDAOBuilder;
 import com.prmgpregistrationsmi.testhelpers.stage.EhrDegradesEventBuilder;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,7 +25,8 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 
-import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -43,6 +45,9 @@ class EhrDegradesEventIntegrationTest {
     
     @MockBean
     OdsPortalWebClient odsPortalWebClient;
+
+    @MockBean
+    MessagePublisher messagePublisher;
 
     @MockBean
     Clock clock;

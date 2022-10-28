@@ -9,6 +9,7 @@ import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.model.Event.stage.EhrIntegrations.EhrIntegrationsEvent;
 import com.prmgpregistrationsmi.model.Organisation.Organisation;
 import com.prmgpregistrationsmi.model.Organisation.OrganisationDetails;
+import com.prmgpregistrationsmi.service.MessagePublisher;
 import com.prmgpregistrationsmi.testhelpers.EventDAOBuilder;
 import com.prmgpregistrationsmi.testhelpers.stage.EhrIntegrationsEventBuilder;
 import com.prmgpregistrationsmi.utils.UUIDService;
@@ -45,6 +46,9 @@ class EhrIntegrationsEventIntegrationTest {
     
     @MockBean
     OdsPortalWebClient odsPortalWebClient;
+
+    @MockBean
+    MessagePublisher messagePublisher;
 
     @MockBean
     Clock clock;

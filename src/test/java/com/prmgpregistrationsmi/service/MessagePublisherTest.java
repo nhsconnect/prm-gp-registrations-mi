@@ -1,5 +1,7 @@
 package com.prmgpregistrationsmi.service;
 
+import com.prmgpregistrationsmi.utils.JsonHelper;
+import org.json.simple.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,13 +26,22 @@ public class MessagePublisherTest {
         messagePublisher = new MessagePublisher(snsClient, topicArn);
     }
 
+    private JSONObject generateTestObject() {
+        JSONObject message = new JSONObject();
+        message.put("bool", true);
+        message.put("else",2);
+        message.put("something", "value");
+        return message;
+    }
+
     @Test
     void shouldPublishMessageToSns() {
-        String message = "someMessage";
+        JSONObject message = generateTestObject();
+
         String eventId = "some-id";
 
         PublishRequest expectedRequest = PublishRequest.builder()
-                .message(message)
+                .message(JsonHelper.asJsonString(message))
                 .topicArn(topicArn)
                 .build();
 
@@ -39,7 +50,7 @@ public class MessagePublisherTest {
 
         when(snsClient.publish(expectedRequest)).thenReturn(publishResponse);
 
-        messagePublisher.sendMessage(topicArn, message, eventId);
+        messagePublisher.sendMessage(message, eventId);
         verify(snsClient).publish(expectedRequest);
     }
 }

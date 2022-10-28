@@ -27,12 +27,14 @@ public class EventService {
     private final S3FileUploader eventS3Client;
     private final SplunkWebClient splunkWebClient;
     private final EnrichmentService enrichmentService;
+    private final MessagePublisher messagePublisher;
     private final Clock clock;
 
     public EventDAO saveEvent(BaseEvent event, EventType eventType) throws UnableToUploadToS3Exception {
         EventDAO eventDAO = EventDAO.fromEvent(event, eventType, LocalDateTime.now(clock).truncatedTo(ChronoUnit.SECONDS));
         String s3Key = getS3Key(eventDAO.getRegistrationEventDateTime(), eventDAO.getEventId());
         enrichmentService.enrichEventDAO(eventDAO);
+        messagePublisher.sendMessage(eventDAO, eventDAO.getEventId());
         eventS3Client.uploadJsonObject(eventDAO, s3Key);
         splunkWebClient.postEventToSplunkCloud(eventDAO);
         return eventDAO;

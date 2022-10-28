@@ -1,5 +1,6 @@
 package com.prmgpregistrationsmi.service;
 
+import com.prmgpregistrationsmi.SplunkWebclient.SplunkWebClient;
 import com.prmgpregistrationsmi.exception.UnableToUploadToS3Exception;
 import com.prmgpregistrationsmi.model.Event.DegradesEventDAO;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
@@ -8,7 +9,6 @@ import com.prmgpregistrationsmi.model.Event.stage.EhrDegrades.EhrDegradesEvent;
 import com.prmgpregistrationsmi.model.Event.stage.Registrations.RegistrationsEvent;
 import com.prmgpregistrationsmi.testhelpers.stage.EhrDegradesEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.stage.RegistrationsEventBuilder;
-import com.prmgpregistrationsmi.SplunkWebclient.SplunkWebClient;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -24,11 +24,12 @@ import static org.mockito.Mockito.*;
 class EventServiceTest {
     S3FileUploader eventS3ClientMock = mock(S3FileUploader.class);
     SplunkWebClient splunkWebClientMock = mock(SplunkWebClient.class);
-    EnrichmentService enrichmentService = mock(EnrichmentService.class);
+    EnrichmentService enrichmentServiceMock = mock(EnrichmentService.class);
+    MessagePublisher messagePublisherMock = mock(MessagePublisher.class);
     Clock clock = mock(Clock.class);
     LocalDateTime mockLocalDateTime = LocalDateTime.of(1990, 03, 3, 0, 0, 0);
 
-    EventService eventService = new EventService(eventS3ClientMock, splunkWebClientMock, enrichmentService, clock);
+    EventService eventService = new EventService(eventS3ClientMock, splunkWebClientMock, enrichmentServiceMock, messagePublisherMock, clock);
 
     @BeforeEach
     public void setup() {
@@ -64,6 +65,21 @@ class EventServiceTest {
         EventDAO eventDAO = eventService.saveEvent(testEvent, gp2gpRegistrationEventType);
 
         verify(splunkWebClientMock, times(1)).postEventToSplunkCloud(eq(expectedEventDAO));
+        assertEquals(eventDAO, expectedEventDAO);
+    }
+
+    @Test
+    void shouldSendMessageWithEventDAO() throws UnableToUploadToS3Exception {
+        RegistrationsEvent testEvent = RegistrationsEventBuilder
+                .withDefaultEventValues()
+                .build();
+        EventType gp2gpRegistrationEventType = EventType.REGISTRATIONS;
+
+        EventDAO expectedEventDAO = EventDAO.fromEvent(testEvent, gp2gpRegistrationEventType, mockLocalDateTime);
+
+        EventDAO eventDAO = eventService.saveEvent(testEvent, gp2gpRegistrationEventType);
+
+        verify(messagePublisherMock, times(1)).sendMessage(eq(expectedEventDAO),eq(expectedEventDAO.getEventId()));
         assertEquals(eventDAO, expectedEventDAO);
     }
 
