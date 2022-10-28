@@ -43,6 +43,7 @@ public class EventService {
     public DegradesEventDAO saveDegradesEvent(EhrDegradesEvent event, EventType eventType) throws UnableToUploadToS3Exception {
         DegradesEventDAO degradeEventDAO = DegradesEventDAO.fromEvent(event, eventType, LocalDateTime.now(clock).truncatedTo(ChronoUnit.DAYS));
         String s3Key = DEGRADES_DIRECTORY + getS3Key(degradeEventDAO.getEventGeneratedDateTime(), degradeEventDAO.getEventId());
+        messagePublisher.sendMessage(degradeEventDAO, degradeEventDAO.getEventId());
         eventS3Client.uploadJsonObject(degradeEventDAO, s3Key);
         splunkWebClient.postEventToSplunkCloud(degradeEventDAO);
         return degradeEventDAO;

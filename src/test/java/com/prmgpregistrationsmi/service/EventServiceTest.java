@@ -124,13 +124,13 @@ class EventServiceTest {
 
         DegradesEventDAO expectedDegradesEventDAO = DegradesEventDAO.fromEvent(testEvent, gp2gpRegistrationEventType, mockLocalDateTime.truncatedTo(ChronoUnit.DAYS));
 
-        DegradesEventDAO DegradesEventDAO = eventService.saveDegradesEvent(testEvent, gp2gpRegistrationEventType);
+        DegradesEventDAO degradesEventDAO = eventService.saveDegradesEvent(testEvent, gp2gpRegistrationEventType);
 
-        verify(splunkWebClientMock, times(1)).postEventToSplunkCloud(DegradesEventDAO);
-        assertEquals(DegradesEventDAO.getEventGeneratedDateTime(), expectedDegradesEventDAO.getEventGeneratedDateTime());
-        assertEquals(DegradesEventDAO.getEventType(), expectedDegradesEventDAO.getEventType());
-        assertEquals(DegradesEventDAO.getReportingSystemSupplier(), expectedDegradesEventDAO.getReportingSystemSupplier());
-        assertEquals(DegradesEventDAO.getPayload(), expectedDegradesEventDAO.getPayload());
+        verify(splunkWebClientMock, times(1)).postEventToSplunkCloud(degradesEventDAO);
+        assertEquals(degradesEventDAO.getEventGeneratedDateTime(), expectedDegradesEventDAO.getEventGeneratedDateTime());
+        assertEquals(degradesEventDAO.getEventType(), expectedDegradesEventDAO.getEventType());
+        assertEquals(degradesEventDAO.getReportingSystemSupplier(), expectedDegradesEventDAO.getReportingSystemSupplier());
+        assertEquals(degradesEventDAO.getPayload(), expectedDegradesEventDAO.getPayload());
     }
 
     @Test
@@ -144,5 +144,22 @@ class EventServiceTest {
 
         verify(eventS3ClientMock, times(1)).uploadJsonObject(any(),
                 eq("degrades/v1/1990/03/03/00/" + testDegradesEventDAO.getEventId() + ".json"));
+    }
+
+    @Test
+    void shouldSendMessageWithDegradesEventDAO() throws UnableToUploadToS3Exception {
+        EhrDegradesEvent testEvent = EhrDegradesEventBuilder
+                .withDefaultEventValues()
+                .build();
+        EventType gp2gpRegistrationEventType = EventType.DEGRADES;
+        DegradesEventDAO expectedDegradesEventDAO = DegradesEventDAO.fromEvent(testEvent, gp2gpRegistrationEventType, mockLocalDateTime.truncatedTo(ChronoUnit.DAYS));
+
+        DegradesEventDAO degradesEventDAO = eventService.saveDegradesEvent(testEvent, gp2gpRegistrationEventType);
+
+        verify(messagePublisherMock, times(1)).sendMessage(any(DegradesEventDAO.class), any(String.class));
+        assertEquals(degradesEventDAO.getEventGeneratedDateTime(), expectedDegradesEventDAO.getEventGeneratedDateTime());
+        assertEquals(degradesEventDAO.getEventType(), expectedDegradesEventDAO.getEventType());
+        assertEquals(degradesEventDAO.getReportingSystemSupplier(), expectedDegradesEventDAO.getReportingSystemSupplier());
+        assertEquals(degradesEventDAO.getPayload(), expectedDegradesEventDAO.getPayload());
     }
 }
