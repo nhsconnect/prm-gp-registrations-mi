@@ -9,6 +9,7 @@ import software.amazon.awssdk.services.sns.model.PublishResponse;
 import static com.prmgpregistrationsmi.logging.StructuredLogger.logger;
 
 @Component
+@SuppressFBWarnings(value = "EI_EXPOSE_REP2")
 public class MessagePublisher {
     private final SnsClient snsClient;
     private final String snsTopicArn;
