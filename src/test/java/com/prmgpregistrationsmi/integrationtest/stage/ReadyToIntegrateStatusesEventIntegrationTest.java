@@ -1,6 +1,5 @@
 package com.prmgpregistrationsmi.integrationtest.stage;
 
-import com.amazonaws.services.s3.AmazonS3Client;
 import com.prmgpregistrationsmi.OdsPortalWebClient.OdsPortalWebClient;
 import com.prmgpregistrationsmi.SplunkWebclient.SplunkWebClient;
 import com.prmgpregistrationsmi.model.Event.BaseEvent;
@@ -39,9 +38,6 @@ class ReadyToIntegrateStatusesEventIntegrationTest {
     private TestRestTemplate restTemplate;
 
     @MockBean
-    AmazonS3Client mockAmazonS3Client;
-
-    @MockBean
     SplunkWebClient splunkWebClient;
     
     @MockBean
@@ -65,12 +61,12 @@ class ReadyToIntegrateStatusesEventIntegrationTest {
     }
 
     @Test
-    void shouldUploadEhrRequestEventToS3AndSendToSplunkCloud() {
+    void shouldSendEhrRequestEventToSplunkCloud() {
         BaseEvent readyToIntegrateStatusesEventRequests = BaseEventBuilder
                 .withDefaultEventValues()
                 .build();
 
-        EventDAO expectedS3UploadEvent = eventDAOBuilder.withEvent(readyToIntegrateStatusesEventRequests)
+        EventDAO expectedEventDAO = eventDAOBuilder.withEvent(readyToIntegrateStatusesEventRequests)
                 .eventId(UUIDService.buildUUIDStringFromSeed(
                         readyToIntegrateStatusesEventRequests.getConversationId() +
                                 EventType.READY_TO_INTEGRATE_STATUSES +
@@ -82,13 +78,7 @@ class ReadyToIntegrateStatusesEventIntegrationTest {
         EventResponse actualResponseEvent = restTemplate.postForObject("http://localhost:" + port +
                 "/ready-to-integrate-statuses", readyToIntegrateStatusesEventRequests, EventResponse.class);
 
-        assertEquals(expectedS3UploadEvent.getEventId(), actualResponseEvent.getEventId());
-
-        verify(mockAmazonS3Client).putObject(
-                "test_bucket",
-                String.format("v1/2020/01/01/22/%s.json", expectedS3UploadEvent.getEventId()),
-                expectedS3UploadEvent.toString()
-        );
+        assertEquals(expectedEventDAO.getEventId(), actualResponseEvent.getEventId());
 
         verify(splunkWebClient).postEventToSplunkCloud(any(EventDAO.class));
     }

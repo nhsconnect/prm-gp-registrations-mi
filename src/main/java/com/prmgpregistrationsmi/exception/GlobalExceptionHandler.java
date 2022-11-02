@@ -69,15 +69,6 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(apiError, apiError.getStatus());
     }
 
-    @ExceptionHandler(UnableToUploadToS3Exception.class)
-    public ResponseEntity<ApiError> unableToUploadToS3ExceptionHandler(UnableToUploadToS3Exception ex) {
-        logger.error("Unable to upload to S3", ex.getMessage());
-
-        ApiError apiError = new ApiError(HttpStatus.INTERNAL_SERVER_ERROR, "Something went wrong", "");
-
-        return new ResponseEntity<>(apiError, apiError.getStatus());
-    }
-
     private String getErrorMessageDetailsWithField(JsonMappingException exception) {
         return exception.getPath().size() > 0 ?
                 exception.getPath().get(0).getFieldName() + ": " + exception.getOriginalMessage() :

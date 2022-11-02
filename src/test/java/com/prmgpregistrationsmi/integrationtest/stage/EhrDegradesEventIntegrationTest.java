@@ -1,6 +1,5 @@
 package com.prmgpregistrationsmi.integrationtest.stage;
 
-import com.amazonaws.services.s3.AmazonS3Client;
 import com.prmgpregistrationsmi.OdsPortalWebClient.OdsPortalWebClient;
 import com.prmgpregistrationsmi.SplunkWebclient.SplunkWebClient;
 import com.prmgpregistrationsmi.model.Event.DegradesEventDAO;
@@ -26,7 +25,6 @@ import java.time.ZoneId;
 import java.time.ZoneOffset;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -36,9 +34,6 @@ class EhrDegradesEventIntegrationTest {
 
     @Autowired
     private TestRestTemplate restTemplate;
-
-    @MockBean
-    AmazonS3Client mockAmazonS3Client;
 
     @MockBean
     SplunkWebClient splunkWebClient;
@@ -64,7 +59,7 @@ class EhrDegradesEventIntegrationTest {
     }
 
     @Test
-    void shouldUploadEhrDegradeEventToS3AndSendToSplunkCloud() {
+    void shouldSendEhrDegradeEventToSplunkCloud() {
         EhrDegradesEvent ehrDegradesEvent = EhrDegradesEventBuilder
                 .withDefaultEventValues()
                 .build();
@@ -76,12 +71,6 @@ class EhrDegradesEventIntegrationTest {
                 .eventType(EventType.DEGRADES)
                 .eventId(actualResponseEvent.getEventId())
                 .build();
-
-        verify(mockAmazonS3Client).putObject(
-                eq("test_bucket"),
-                eq(String.format("degrades/v1/1990/03/03/00/%s.json", expectedDegradesEventDAO.getEventId())),
-                eq(expectedDegradesEventDAO.toString())
-        );
 
         verify(splunkWebClient).postEventToSplunkCloud(any(DegradesEventDAO.class));
     }

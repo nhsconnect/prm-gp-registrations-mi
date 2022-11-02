@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonLocation;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.prmgpregistrationsmi.exception.GlobalExceptionHandler;
-import com.prmgpregistrationsmi.exception.UnableToUploadToS3Exception;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
@@ -45,20 +44,6 @@ class GlobalExceptionHandlerTest {
                 HttpStatus.BAD_REQUEST,
                 "Invalid JSON",
                 "Unable to parse JSON");
-
-        assertEquals(expectedApiError, actualApiError);
-    }
-
-    @Test
-    void unableToUploadToS3ExceptionHandlerReturnsApiError() {
-        UnableToUploadToS3Exception unableToUploadToS3Exception = new UnableToUploadToS3Exception(new Exception("a"));
-        ResponseEntity<ApiError> responseEntity = globalExceptionHandler.unableToUploadToS3ExceptionHandler(unableToUploadToS3Exception);
-        ApiError actualApiError = responseEntity.getBody();
-
-        ApiError expectedApiError = new ApiError(
-                HttpStatus.INTERNAL_SERVER_ERROR,
-                "Something went wrong",
-                "");
 
         assertEquals(expectedApiError, actualApiError);
     }

@@ -1,6 +1,5 @@
 package com.prmgpregistrationsmi.controller;
 
-import com.prmgpregistrationsmi.exception.UnableToUploadToS3Exception;
 import com.prmgpregistrationsmi.model.Event.*;
 import com.prmgpregistrationsmi.model.Event.stage.DocumentResponses.DocumentResponsesEvent;
 import com.prmgpregistrationsmi.model.Event.stage.EhrDegrades.EhrDegradesEvent;
@@ -32,7 +31,7 @@ class RegistrationControllerTest {
     }
 
     @Test
-    void ehrRequestsEventReturnsEventResponse() throws UnableToUploadToS3Exception {
+    void ehrRequestsEventReturnsEventResponse() {
         BaseEvent testEvent = BaseEventBuilder
                 .withDefaultEventValues()
                 .build();
@@ -49,7 +48,7 @@ class RegistrationControllerTest {
     }
 
     @Test
-    void ehrGeneratedEventReturnsEventResponse() throws UnableToUploadToS3Exception {
+    void ehrGeneratedEventReturnsEventResponse() {
         EhrResponsesEvent testEvent = EhrResponsesEventBuilder
                 .withDefaultEventValues()
                 .build();
@@ -66,7 +65,7 @@ class RegistrationControllerTest {
     }
 
     @Test
-    void shouldReturnEventIdWhenReceivingEhrIntegratedEvent() throws UnableToUploadToS3Exception {
+    void shouldReturnEventIdWhenReceivingEhrIntegratedEvent() {
         EhrIntegrationsEvent testEvent = EhrIntegrationsEventBuilder
                 .withDefaultEventValues()
                 .build();
@@ -83,7 +82,7 @@ class RegistrationControllerTest {
     }
 
     @Test
-    void shouldReturnEventIdWhenReceivingRegistrationEvent() throws UnableToUploadToS3Exception {
+    void shouldReturnEventIdWhenReceivingRegistrationEvent() {
         RegistrationsEvent testEvent = RegistrationsEventBuilder
                 .withDefaultEventValues()
                 .build();
@@ -100,7 +99,7 @@ class RegistrationControllerTest {
     }
 
     @Test
-    void shouldReturnEventIdWhenReceivingDocumentResponsesEvent() throws UnableToUploadToS3Exception {
+    void shouldReturnEventIdWhenReceivingDocumentResponsesEvent() {
         DocumentResponsesEvent testEvent = DocumentResponsesEventBuilder
                 .withDefaultEventValues()
                 .build();
@@ -117,7 +116,7 @@ class RegistrationControllerTest {
     }
 
     @Test
-    void readyToIntegrateStatusesEventReturnsEventResponse() throws UnableToUploadToS3Exception {
+    void readyToIntegrateStatusesEventReturnsEventResponse() {
         BaseEvent testEvent = BaseEventBuilder
                 .withDefaultEventValues()
                 .build();
@@ -135,7 +134,7 @@ class RegistrationControllerTest {
 
 
     @Test
-    void degradesEventReturnsEventResponse() throws UnableToUploadToS3Exception {
+    void degradesEventReturnsEventResponse() {
         EhrDegradesEvent testEvent = EhrDegradesEventBuilder
                 .withDefaultEventValues()
                 .build();

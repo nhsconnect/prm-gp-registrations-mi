@@ -1,6 +1,5 @@
 package com.prmgpregistrationsmi.integrationtest.stage;
 
-import com.amazonaws.services.s3.AmazonS3Client;
 import com.prmgpregistrationsmi.OdsPortalWebClient.OdsPortalWebClient;
 import com.prmgpregistrationsmi.SplunkWebclient.SplunkWebClient;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
@@ -39,9 +38,6 @@ class DocumentResponsesEventIntegrationTest {
     private TestRestTemplate restTemplate;
 
     @MockBean
-    AmazonS3Client mockAmazonS3Client;
-
-    @MockBean
     SplunkWebClient splunkWebClient;
     
     @MockBean
@@ -65,12 +61,12 @@ class DocumentResponsesEventIntegrationTest {
     }
 
     @Test
-    void shouldUploadDocumentResponsesEventToS3AndSendToSplunkCloud() {
+    void shouldSendDocumentResponsesEventToSplunkCloud() {
         DocumentResponsesEvent documentResponsesEventRequest = DocumentResponsesEventBuilder
                 .withDefaultEventValues()
                 .build();
 
-        EventDAO expectedS3UploadEvent = eventDAOBuilder.withEvent(documentResponsesEventRequest)
+        EventDAO expectedEventDAO = eventDAOBuilder.withEvent(documentResponsesEventRequest)
                 .eventId(UUIDService.buildUUIDStringFromSeed(
                         documentResponsesEventRequest.getConversationId() +
                                 EventType.DOCUMENT_RESPONSES +
@@ -83,13 +79,7 @@ class DocumentResponsesEventIntegrationTest {
                 "/document-responses",
                 documentResponsesEventRequest, EventResponse.class);
 
-        assertEquals(expectedS3UploadEvent.getEventId(), actualResponseEvent.getEventId());
-
-        verify(mockAmazonS3Client).putObject(
-                "test_bucket",
-                String.format("v1/2020/01/01/22/%s.json", expectedS3UploadEvent.getEventId()),
-                expectedS3UploadEvent.toString()
-        );
+        assertEquals(expectedEventDAO.getEventId(), actualResponseEvent.getEventId());
 
         verify(splunkWebClient).postEventToSplunkCloud(any(EventDAO.class));
     }
