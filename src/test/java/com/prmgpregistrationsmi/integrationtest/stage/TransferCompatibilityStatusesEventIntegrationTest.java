@@ -1,7 +1,6 @@
 package com.prmgpregistrationsmi.integrationtest.stage;
 
 import com.prmgpregistrationsmi.OdsPortalWebClient.OdsPortalWebClient;
-import com.prmgpregistrationsmi.SplunkWebclient.SplunkWebClient;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
@@ -36,9 +35,6 @@ class TransferCompatibilityStatusesEventIntegrationTest {
 
     @Autowired
     private TestRestTemplate restTemplate;
-
-    @MockBean
-    SplunkWebClient splunkWebClient;
     
     @MockBean
     OdsPortalWebClient odsPortalWebClient;
@@ -61,7 +57,7 @@ class TransferCompatibilityStatusesEventIntegrationTest {
     }
 
     @Test
-    void shouldSendTransferCompatibilityEventToSplunkCloud() {
+    void shouldSendTransferCompatibilityEventViaMessagePublisher() {
         TransferCompatibilityStatusesEvent transferCompatibilityStatusesEventRequest = TransferCompatibilityStatusesEventBuilder
                 .withDefaultEventValues()
                 .build();
@@ -81,6 +77,6 @@ class TransferCompatibilityStatusesEventIntegrationTest {
 
         assertEquals(expectedEventDAO.getEventId(), actualResponseEvent.getEventId());
 
-        verify(splunkWebClient).postEventToSplunkCloud(any(EventDAO.class));
+        verify(messagePublisher).sendMessage(any(EventDAO.class), eq(expectedEventDAO.getEventId()));
     }
 }

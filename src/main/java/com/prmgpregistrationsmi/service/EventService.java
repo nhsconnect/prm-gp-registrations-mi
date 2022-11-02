@@ -1,6 +1,5 @@
 package com.prmgpregistrationsmi.service;
 
-import com.prmgpregistrationsmi.SplunkWebclient.SplunkWebClient;
 import com.prmgpregistrationsmi.model.Event.BaseEvent;
 import com.prmgpregistrationsmi.model.Event.DegradesEventDAO;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
@@ -16,7 +15,6 @@ import java.time.temporal.ChronoUnit;
 @AllArgsConstructor
 @Service
 public class EventService {
-    private final SplunkWebClient splunkWebClient;
     private final EnrichmentService enrichmentService;
     private final MessagePublisher messagePublisher;
     private final Clock clock;
@@ -25,14 +23,12 @@ public class EventService {
         EventDAO eventDAO = EventDAO.fromEvent(event, eventType, LocalDateTime.now(clock).truncatedTo(ChronoUnit.SECONDS));
         enrichmentService.enrichEventDAO(eventDAO);
         messagePublisher.sendMessage(eventDAO, eventDAO.getEventId());
-        splunkWebClient.postEventToSplunkCloud(eventDAO);
         return eventDAO;
     }
 
     public DegradesEventDAO saveDegradesEvent(EhrDegradesEvent event, EventType eventType) {
         DegradesEventDAO degradeEventDAO = DegradesEventDAO.fromEvent(event, eventType, LocalDateTime.now(clock).truncatedTo(ChronoUnit.DAYS));
         messagePublisher.sendMessage(degradeEventDAO, degradeEventDAO.getEventId());
-        splunkWebClient.postEventToSplunkCloud(degradeEventDAO);
         return degradeEventDAO;
     }
 }

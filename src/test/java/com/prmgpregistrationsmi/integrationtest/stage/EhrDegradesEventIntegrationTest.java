@@ -1,7 +1,6 @@
 package com.prmgpregistrationsmi.integrationtest.stage;
 
 import com.prmgpregistrationsmi.OdsPortalWebClient.OdsPortalWebClient;
-import com.prmgpregistrationsmi.SplunkWebclient.SplunkWebClient;
 import com.prmgpregistrationsmi.model.Event.DegradesEventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
@@ -36,9 +35,6 @@ class EhrDegradesEventIntegrationTest {
     private TestRestTemplate restTemplate;
 
     @MockBean
-    SplunkWebClient splunkWebClient;
-    
-    @MockBean
     OdsPortalWebClient odsPortalWebClient;
 
     @MockBean
@@ -59,7 +55,7 @@ class EhrDegradesEventIntegrationTest {
     }
 
     @Test
-    void shouldSendEhrDegradeEventToSplunkCloud() {
+    void shouldSendEhrDegradeEventViaMessagePublisher() {
         EhrDegradesEvent ehrDegradesEvent = EhrDegradesEventBuilder
                 .withDefaultEventValues()
                 .build();
@@ -72,6 +68,6 @@ class EhrDegradesEventIntegrationTest {
                 .eventId(actualResponseEvent.getEventId())
                 .build();
 
-        verify(splunkWebClient).postEventToSplunkCloud(any(DegradesEventDAO.class));
+        verify(messagePublisher).sendMessage(any(DegradesEventDAO.class), eq(expectedDegradesEventDAO.getEventId()));
     }
 }

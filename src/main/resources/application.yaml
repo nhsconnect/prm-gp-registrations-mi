@@ -1,6 +1,3 @@
-output_bucket: ${OUTPUT_MI_EVENTS_BUCKET:test_bucket}
-splunk_cloud_url: ${SPLUNK_CLOUD_URL:splunk_cloud_url}
-splunk_cloud_api_token: ${SPLUNK_CLOUD_API_TOKEN:test_token}
 mi_events_sns_topic_arn: ${MI_EVENTS_SNS_TOPIC_ARN:test_topic}
 
 springdoc:

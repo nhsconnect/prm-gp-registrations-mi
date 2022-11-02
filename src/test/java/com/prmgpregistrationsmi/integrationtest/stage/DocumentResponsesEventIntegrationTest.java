@@ -1,7 +1,6 @@
 package com.prmgpregistrationsmi.integrationtest.stage;
 
 import com.prmgpregistrationsmi.OdsPortalWebClient.OdsPortalWebClient;
-import com.prmgpregistrationsmi.SplunkWebclient.SplunkWebClient;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
@@ -38,9 +37,6 @@ class DocumentResponsesEventIntegrationTest {
     private TestRestTemplate restTemplate;
 
     @MockBean
-    SplunkWebClient splunkWebClient;
-    
-    @MockBean
     OdsPortalWebClient odsPortalWebClient;
 
     @MockBean
@@ -61,7 +57,7 @@ class DocumentResponsesEventIntegrationTest {
     }
 
     @Test
-    void shouldSendDocumentResponsesEventToSplunkCloud() {
+    void shouldSendDocumentResponsesEventViaMessagePublisher() {
         DocumentResponsesEvent documentResponsesEventRequest = DocumentResponsesEventBuilder
                 .withDefaultEventValues()
                 .build();
@@ -81,6 +77,6 @@ class DocumentResponsesEventIntegrationTest {
 
         assertEquals(expectedEventDAO.getEventId(), actualResponseEvent.getEventId());
 
-        verify(splunkWebClient).postEventToSplunkCloud(any(EventDAO.class));
+        verify(messagePublisher).sendMessage(any(EventDAO.class), eq(expectedEventDAO.getEventId()));
     }
 }

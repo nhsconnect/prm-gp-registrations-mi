@@ -1,7 +1,6 @@
 package com.prmgpregistrationsmi.integrationtest.stage;
 
 import com.prmgpregistrationsmi.OdsPortalWebClient.OdsPortalWebClient;
-import com.prmgpregistrationsmi.SplunkWebclient.SplunkWebClient;
 import com.prmgpregistrationsmi.model.Event.BaseEvent;
 import com.prmgpregistrationsmi.model.Event.EventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
@@ -38,9 +37,6 @@ class ReadyToIntegrateStatusesEventIntegrationTest {
     private TestRestTemplate restTemplate;
 
     @MockBean
-    SplunkWebClient splunkWebClient;
-    
-    @MockBean
     OdsPortalWebClient odsPortalWebClient;
 
     @MockBean
@@ -61,7 +57,7 @@ class ReadyToIntegrateStatusesEventIntegrationTest {
     }
 
     @Test
-    void shouldSendEhrRequestEventToSplunkCloud() {
+    void shouldSendEhrRequestEventViaMessagePublisher() {
         BaseEvent readyToIntegrateStatusesEventRequests = BaseEventBuilder
                 .withDefaultEventValues()
                 .build();
@@ -80,6 +76,6 @@ class ReadyToIntegrateStatusesEventIntegrationTest {
 
         assertEquals(expectedEventDAO.getEventId(), actualResponseEvent.getEventId());
 
-        verify(splunkWebClient).postEventToSplunkCloud(any(EventDAO.class));
+        verify(messagePublisher).sendMessage(any(EventDAO.class), eq(expectedEventDAO.getEventId()));
     }
 }
