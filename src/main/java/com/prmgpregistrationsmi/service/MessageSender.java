@@ -12,8 +12,10 @@ import static com.prmgpregistrationsmi.logging.StructuredLogger.logger;
 
 @Component
 @SuppressFBWarnings(value = "EI_EXPOSE_REP2")
-public record MessageSender(SqsClient sqsClient,
-                            String sqsQueueUrl) {
+public class MessageSender {
+    SqsClient sqsClient;
+    String sqsQueueUrl;
+
     public MessageSender(SqsClient sqsClient,
                          @Value("${mi_events_sqs_queue_for_event_enrichment_url}") String sqsQueueUrl) {
         this.sqsClient = sqsClient;

@@ -7,7 +7,7 @@ import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.model.Organisation.Organisation;
 import com.prmgpregistrationsmi.model.Organisation.OrganisationDetails;
-import com.prmgpregistrationsmi.service.MessagePublisher;
+import com.prmgpregistrationsmi.service.MessageSender;
 import com.prmgpregistrationsmi.testhelpers.BaseEventBuilder;
 import com.prmgpregistrationsmi.testhelpers.EventDAOBuilder;
 import com.prmgpregistrationsmi.utils.UUIDService;
@@ -40,7 +40,7 @@ class EhrRequestsEventIntegrationTest {
     OdsPortalWebClient odsPortalWebClient;
 
     @MockBean
-    MessagePublisher messagePublisher;
+    MessageSender messageSender;
 
     @MockBean
     Clock clock;
@@ -57,7 +57,7 @@ class EhrRequestsEventIntegrationTest {
     }
 
     @Test
-    void shouldSendEhrRequestEventViaMessagePublisher() {
+    void shouldSendEhrRequestEventViaMessageSender() {
         BaseEvent ehrRequestsEventRequests = BaseEventBuilder
                 .withDefaultEventValues()
                 .build();
@@ -76,6 +76,6 @@ class EhrRequestsEventIntegrationTest {
 
         assertEquals(expectedEventDAO.getEventId(), actualResponseEvent.getEventId());
 
-        verify(messagePublisher).sendMessage(any(EventDAO.class), eq(expectedEventDAO.getEventId()));
+        verify(messageSender).send(any(EventDAO.class), eq(expectedEventDAO.getEventId()));
     }
 }

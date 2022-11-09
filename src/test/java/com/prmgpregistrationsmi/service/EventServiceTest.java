@@ -21,11 +21,11 @@ import static org.mockito.Mockito.*;
 
 class EventServiceTest {
     EnrichmentService enrichmentServiceMock = mock(EnrichmentService.class);
-    MessagePublisher messagePublisherMock = mock(MessagePublisher.class);
+    MessageSender messageSender = mock(MessageSender.class);
     Clock clock = mock(Clock.class);
     LocalDateTime mockLocalDateTime = LocalDateTime.of(1990, 03, 3, 0, 0, 0);
 
-    EventService eventService = new EventService( enrichmentServiceMock, messagePublisherMock, clock);
+    EventService eventService = new EventService( enrichmentServiceMock, messageSender, clock);
 
     @BeforeEach
     public void setup() {
@@ -45,12 +45,12 @@ class EventServiceTest {
 
         EventDAO eventDAO = eventService.saveEvent(testEvent, gp2gpRegistrationEventType);
 
-        verify(messagePublisherMock, times(1)).sendMessage(any(EventDAO.class),eq(expectedEventDAO.getEventId()));
+        verify(messageSender, times(1)).send(any(EventDAO.class),eq(expectedEventDAO.getEventId()));
         assertEquals(eventDAO, expectedEventDAO);
     }
 
     @Test
-    void shouldCallDegradesPostEventViaMessagePublisher() {
+    void shouldCallDegradesPostEventViaMessageSender() {
         EhrDegradesEvent testEvent = EhrDegradesEventBuilder
                 .withDefaultEventValues()
                 .build();
@@ -76,7 +76,7 @@ class EventServiceTest {
 
         DegradesEventDAO degradesEventDAO = eventService.saveDegradesEvent(testEvent, gp2gpRegistrationEventType);
 
-        verify(messagePublisherMock, times(1)).sendMessage(any(DegradesEventDAO.class), any(String.class));
+        verify(messageSender, times(1)).send(any(DegradesEventDAO.class), any(String.class));
         assertEquals(degradesEventDAO.getEventGeneratedDateTime(), expectedDegradesEventDAO.getEventGeneratedDateTime());
         assertEquals(degradesEventDAO.getEventType(), expectedDegradesEventDAO.getEventType());
         assertEquals(degradesEventDAO.getReportingSystemSupplier(), expectedDegradesEventDAO.getReportingSystemSupplier());

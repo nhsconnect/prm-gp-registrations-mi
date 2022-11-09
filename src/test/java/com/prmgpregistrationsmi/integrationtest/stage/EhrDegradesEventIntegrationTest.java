@@ -7,7 +7,7 @@ import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.model.Event.stage.EhrDegrades.EhrDegradesEvent;
 import com.prmgpregistrationsmi.model.Organisation.Organisation;
 import com.prmgpregistrationsmi.model.Organisation.OrganisationDetails;
-import com.prmgpregistrationsmi.service.MessagePublisher;
+import com.prmgpregistrationsmi.service.MessageSender;
 import com.prmgpregistrationsmi.testhelpers.DegradesEventDAOBuilder;
 import com.prmgpregistrationsmi.testhelpers.stage.EhrDegradesEventBuilder;
 import org.junit.jupiter.api.BeforeEach;
@@ -38,7 +38,7 @@ class EhrDegradesEventIntegrationTest {
     OdsPortalWebClient odsPortalWebClient;
 
     @MockBean
-    MessagePublisher messagePublisher;
+    MessageSender messageSender;
 
     @MockBean
     Clock clock;
@@ -55,7 +55,7 @@ class EhrDegradesEventIntegrationTest {
     }
 
     @Test
-    void shouldSendEhrDegradeEventViaMessagePublisher() {
+    void shouldSendEhrDegradeEventViaMessageSender() {
         EhrDegradesEvent ehrDegradesEvent = EhrDegradesEventBuilder
                 .withDefaultEventValues()
                 .build();
@@ -68,6 +68,6 @@ class EhrDegradesEventIntegrationTest {
                 .eventId(actualResponseEvent.getEventId())
                 .build();
 
-        verify(messagePublisher).sendMessage(any(DegradesEventDAO.class), eq(expectedDegradesEventDAO.getEventId()));
+        verify(messageSender).send(any(DegradesEventDAO.class), eq(expectedDegradesEventDAO.getEventId()));
     }
 }

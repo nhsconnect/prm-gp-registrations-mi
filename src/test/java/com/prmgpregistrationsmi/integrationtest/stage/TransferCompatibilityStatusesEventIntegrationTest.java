@@ -7,7 +7,7 @@ import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.model.Event.stage.TransferCompatibilityStatuses.TransferCompatibilityStatusesEvent;
 import com.prmgpregistrationsmi.model.Organisation.Organisation;
 import com.prmgpregistrationsmi.model.Organisation.OrganisationDetails;
-import com.prmgpregistrationsmi.service.MessagePublisher;
+import com.prmgpregistrationsmi.service.MessageSender;
 import com.prmgpregistrationsmi.testhelpers.EventDAOBuilder;
 import com.prmgpregistrationsmi.testhelpers.stage.TransferCompatibilityStatusesEventBuilder;
 import com.prmgpregistrationsmi.utils.UUIDService;
@@ -40,7 +40,7 @@ class TransferCompatibilityStatusesEventIntegrationTest {
     OdsPortalWebClient odsPortalWebClient;
 
     @MockBean
-    MessagePublisher messagePublisher;
+    MessageSender messageSender;
 
     @MockBean
     Clock clock;
@@ -57,7 +57,7 @@ class TransferCompatibilityStatusesEventIntegrationTest {
     }
 
     @Test
-    void shouldSendTransferCompatibilityEventViaMessagePublisher() {
+    void shouldSendTransferCompatibilityEventViaMessageSender() {
         TransferCompatibilityStatusesEvent transferCompatibilityStatusesEventRequest = TransferCompatibilityStatusesEventBuilder
                 .withDefaultEventValues()
                 .build();
@@ -77,6 +77,6 @@ class TransferCompatibilityStatusesEventIntegrationTest {
 
         assertEquals(expectedEventDAO.getEventId(), actualResponseEvent.getEventId());
 
-        verify(messagePublisher).sendMessage(any(EventDAO.class), eq(expectedEventDAO.getEventId()));
+        verify(messageSender).send(any(EventDAO.class), eq(expectedEventDAO.getEventId()));
     }
 }

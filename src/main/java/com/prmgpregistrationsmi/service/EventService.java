@@ -16,19 +16,19 @@ import java.time.temporal.ChronoUnit;
 @Service
 public class EventService {
     private final EnrichmentService enrichmentService;
-    private final MessagePublisher messagePublisher;
+    private final MessageSender messageSender;
     private final Clock clock;
 
     public EventDAO saveEvent(BaseEvent event, EventType eventType) {
         EventDAO eventDAO = EventDAO.fromEvent(event, eventType, LocalDateTime.now(clock).truncatedTo(ChronoUnit.SECONDS));
         enrichmentService.enrichEventDAO(eventDAO);
-        messagePublisher.sendMessage(eventDAO, eventDAO.getEventId());
+        messageSender.send(eventDAO, eventDAO.getEventId());
         return eventDAO;
     }
 
     public DegradesEventDAO saveDegradesEvent(EhrDegradesEvent event, EventType eventType) {
         DegradesEventDAO degradeEventDAO = DegradesEventDAO.fromEvent(event, eventType, LocalDateTime.now(clock).truncatedTo(ChronoUnit.DAYS));
-        messagePublisher.sendMessage(degradeEventDAO, degradeEventDAO.getEventId());
+        messageSender.send(degradeEventDAO, degradeEventDAO.getEventId());
         return degradeEventDAO;
     }
 }
