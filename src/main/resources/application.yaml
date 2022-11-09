@@ -1,4 +1,5 @@
 mi_events_sns_topic_arn: ${MI_EVENTS_SNS_TOPIC_ARN:test_topic}
+mi_events_sqs_queue_for_event_enrichment_url: ${MI_EVENTS_SQS_QUEUE_FOR_EVENT_ENRICHMENT_URL:test_url}
 
 springdoc:
   show-actuator: true
