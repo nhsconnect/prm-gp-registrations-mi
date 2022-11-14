@@ -20,12 +20,11 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 class EventServiceTest {
-    EnrichmentService enrichmentServiceMock = mock(EnrichmentService.class);
     MessageSender messageSender = mock(MessageSender.class);
     Clock clock = mock(Clock.class);
     LocalDateTime mockLocalDateTime = LocalDateTime.of(1990, 03, 3, 0, 0, 0);
 
-    EventService eventService = new EventService( enrichmentServiceMock, messageSender, clock);
+    EventService eventService = new EventService(messageSender, clock);
 
     @BeforeEach
     public void setup() {

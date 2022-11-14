@@ -15,13 +15,11 @@ import java.time.temporal.ChronoUnit;
 @AllArgsConstructor
 @Service
 public class EventService {
-    private final EnrichmentService enrichmentService;
     private final MessageSender messageSender;
     private final Clock clock;
 
     public EventDAO saveEvent(BaseEvent event, EventType eventType) {
         EventDAO eventDAO = EventDAO.fromEvent(event, eventType, LocalDateTime.now(clock).truncatedTo(ChronoUnit.SECONDS));
-        enrichmentService.enrichEventDAO(eventDAO);
         messageSender.send(eventDAO, eventDAO.getEventId());
         return eventDAO;
     }

@@ -1,12 +1,9 @@
 package com.prmgpregistrationsmi.integrationtest.stage;
 
-import com.prmgpregistrationsmi.OdsPortalWebClient.OdsPortalWebClient;
 import com.prmgpregistrationsmi.model.Event.DegradesEventDAO;
 import com.prmgpregistrationsmi.model.Event.EventResponse;
 import com.prmgpregistrationsmi.model.Event.EventType;
 import com.prmgpregistrationsmi.model.Event.stage.EhrDegrades.EhrDegradesEvent;
-import com.prmgpregistrationsmi.model.Organisation.Organisation;
-import com.prmgpregistrationsmi.model.Organisation.OrganisationDetails;
 import com.prmgpregistrationsmi.service.MessageSender;
 import com.prmgpregistrationsmi.testhelpers.DegradesEventDAOBuilder;
 import com.prmgpregistrationsmi.testhelpers.stage.EhrDegradesEventBuilder;
@@ -35,9 +32,6 @@ class EhrDegradesEventIntegrationTest {
     private TestRestTemplate restTemplate;
 
     @MockBean
-    OdsPortalWebClient odsPortalWebClient;
-
-    @MockBean
     MessageSender messageSender;
 
     @MockBean
@@ -51,7 +45,6 @@ class EhrDegradesEventIntegrationTest {
         Clock mockClock = Clock.fixed(LocalDateTime.of(1990, 03, 3, 0, 0, 0).toInstant(ZoneOffset.of("Z")), ZoneId.systemDefault());
         doReturn(mockClock.instant()).when(clock).instant();
         doReturn(mockClock.getZone()).when(clock).getZone();
-        when(odsPortalWebClient.getOrganisation(any())).thenReturn(Organisation.builder().Organisation(OrganisationDetails.builder().build()).build());
     }
 
     @Test
