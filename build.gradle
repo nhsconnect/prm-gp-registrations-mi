@@ -26,6 +26,7 @@ repositories {
 
 ext['log4j2.version'] = '2.19.0'
 ext['logback.version'] = '1.2.10'
+ext['snakeyaml.version'] = '1.33'
 
 //Without this task two jars are built, the additional "-plain.jar" is not needed
 // for more details refer to: https://docs.spring.io/spring-boot/docs/current/gradle-plugin/reference/htmlsingle/#packaging-executable.and-plain-archives
@@ -43,7 +44,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springdoc:springdoc-openapi-ui:1.6.13'
-    implementation 'software.amazon.awssdk:sqs:2.18.21'
+    implementation 'software.amazon.awssdk:sqs:2.18.24'
 	implementation 'org.springframework.boot:spring-boot-starter-log4j2'
 	implementation 'com.github.spotbugs:spotbugs-annotations:4.7.3'
 	implementation 'com.googlecode.json-simple:json-simple:1.1.1'
