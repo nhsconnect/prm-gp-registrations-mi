@@ -11,4 +11,38 @@
         <packageUrl regex="true">^pkg:maven/org\.springframework/spring\-.*$</packageUrl>
         <cve>CVE-2016-1000027</cve>
     </suppress>
+    <suppress>
+        <notes><![CDATA[
+      false positive for commons_net
+      file name: commons-text-*.jar
+   ]]></notes>
+        <packageUrl regex="true">^pkg:maven/org\.apache\.commons/commons\-text@.*$</packageUrl>
+        <cve>CVE-2021-37533</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+      false positive as spring boot uses safe constructor in snakeyaml, see:
+      https://github.com/spring-projects/spring-boot/issues/33457
+      file name: snakeyaml-1.33.jar
+   ]]></notes>
+        <packageUrl regex="true">^pkg:maven/org\.yaml/snakeyaml@.*$</packageUrl>
+        <vulnerabilityName>CVE-2022-1471</vulnerabilityName>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+      6.5.0 version is only used by spotbugs who do not exercise vulnerability:
+      https://github.com/spotbugs/spotbugs/discussions/2251
+      file name: bcel-6.5.0.jar
+   ]]></notes>
+        <packageUrl regex="true">^pkg:maven/org\.apache\.bcel/bcel@.*$</packageUrl>
+        <vulnerabilityName>CVE-2022-42920</vulnerabilityName>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+     Suppress incorrect assignment of CVE-2020-5408 to more recent version, spring-security-crypto is @ v5.7.1
+     at time of suppression, latest know vulnerable version 5.3.x
+     ]]></notes>
+        <packageUrl regex="true">^pkg:maven/org\.springframework\.security/spring\-security\-crypto@.*$</packageUrl>
+        <vulnerabilityName>CVE-2020-5408</vulnerabilityName>
+    </suppress>
 </suppressions>
