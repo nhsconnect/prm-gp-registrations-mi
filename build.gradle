@@ -1,9 +1,9 @@
 plugins {
-	id 'org.springframework.boot' version '2.7.6'
+	id 'org.springframework.boot' version '2.7.7'
 	id 'io.spring.dependency-management' version '1.1.0'
 	id 'java'
 	id 'jacoco'
-	id 'org.owasp.dependencycheck' version '7.3.2'
+	id 'org.owasp.dependencycheck' version '7.4.3'
 	id 'com.github.spotbugs' version '4.7.10'
 }
 
@@ -24,10 +24,6 @@ repositories {
 	mavenCentral()
 }
 
-ext['log4j2.version'] = '2.19.0'
-ext['logback.version'] = '1.2.10'
-ext['snakeyaml.version'] = '1.33'
-
 //Without this task two jars are built, the additional "-plain.jar" is not needed
 // for more details refer to: https://docs.spring.io/spring-boot/docs/current/gradle-plugin/reference/htmlsingle/#packaging-executable.and-plain-archives
 jar {
@@ -35,7 +31,7 @@ jar {
 }
 
 dependencies {
-    compileOnly 'org.projectlombok:lombok:1.18.24'
+    compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 
     implementation 'org.springframework.boot:spring-boot-starter-security'
@@ -43,8 +39,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
-	implementation 'org.springdoc:springdoc-openapi-ui:1.6.13'
-    implementation 'software.amazon.awssdk:sqs:2.18.24'
+	implementation 'org.springdoc:springdoc-openapi-ui:1.6.14'
+    implementation 'software.amazon.awssdk:sqs:2.19.8'
 	implementation 'org.springframework.boot:spring-boot-starter-log4j2'
 	implementation 'com.github.spotbugs:spotbugs-annotations:4.7.3'
 	implementation 'com.googlecode.json-simple:json-simple:1.1.1'
