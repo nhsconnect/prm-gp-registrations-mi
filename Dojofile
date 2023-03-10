@@ -1,1 +1,1 @@
-DOJO_DOCKER_IMAGE="nhsdev/openjdk-dojo:60be7e3f56aecc3985f6bc06e166ad3488fba12a"
+DOJO_DOCKER_IMAGE="nhsdev/openjdk-dojo:2fb687d696de9a77552db5d8923c0ffca7e3efae"
