@@ -2,7 +2,7 @@ package com.prmgpregistrationsmi.model.Event.EventPayload;
 
 import lombok.*;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 @Getter
 @NoArgsConstructor

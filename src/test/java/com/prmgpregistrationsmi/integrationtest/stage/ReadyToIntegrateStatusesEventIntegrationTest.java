@@ -10,11 +10,15 @@ import com.prmgpregistrationsmi.testhelpers.EventDAOBuilder;
 import com.prmgpregistrationsmi.utils.UUIDService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTestContextBootstrapper;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.test.context.BootstrapWith;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.Clock;
 import java.time.LocalDateTime;
@@ -26,6 +30,8 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@BootstrapWith(SpringBootTestContextBootstrapper.class)
+@ExtendWith({SpringExtension.class})
 class ReadyToIntegrateStatusesEventIntegrationTest {
     @LocalServerPort
     private int port;

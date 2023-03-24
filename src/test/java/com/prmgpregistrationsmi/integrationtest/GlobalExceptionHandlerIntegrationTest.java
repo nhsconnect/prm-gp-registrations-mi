@@ -47,6 +47,7 @@ class GlobalExceptionHandlerIntegrationTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest())
                 .andExpect(result -> assertTrue(result.getResolvedException() instanceof MethodArgumentNotValidException))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(content().json(asJsonString(expectedResponse)));
     }
 

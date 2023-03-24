@@ -1,6 +1,6 @@
 package com.prmgpregistrationsmi.model.Event;
 
-import javax.validation.Constraint;
+import jakarta.validation.Constraint;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
