@@ -25,6 +25,7 @@ repositories {
 }
 
 //Force sub-dependency versions
+ext['spring-webmvc.version'] = '6.0.7'  // remove once org.springdoc:springdoc-openapi-ui:1.6.16 or above is used
 ext['snakeyaml.version'] = '1.33'
 
 //Without this task two jars are built, the additional "-plain.jar" is not needed
