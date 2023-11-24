@@ -40,10 +40,11 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springdoc:springdoc-openapi-ui:1.7.0'
-    implementation 'software.amazon.awssdk:sqs:2.20.162'
+    implementation 'software.amazon.awssdk:sqs:2.21.29'
 	implementation 'org.springframework.boot:spring-boot-starter-log4j2'
 	implementation 'com.github.spotbugs:spotbugs-annotations:4.7.3'
 	implementation 'com.googlecode.json-simple:json-simple:1.1.1'
+	implementation 'org.springframework.boot:spring-boot-starter-reactor-netty:3.2.0'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.projectreactor:reactor-test'
