@@ -1,0 +1,79 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Transform": "AWS::Serverless-2016-10-31",
+  "Outputs": {},
+  "Resources": {
+    "SplunkUploaderRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Sid": "",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com"
+              },
+              "Action": "sts:AssumeRole"
+            }
+          ]
+        },
+        "Policies": [
+          {
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Sid": "VisualEditor0",
+                  "Effect": "Allow",
+                  "Action": [
+                    "s3:GetObject",
+                    "s3:ListBucket",
+                    "ssm:GetParameters",
+                    "ssm:GetParameter",
+                    "logs:CreateLogStream",
+                    "logs:PutLogEvents",
+                    "ec2:CreateNetworkInterface",
+                    "ec2:DeleteNetworkInterface",
+                    "ec2:DescribeNetworkInterfaces"
+                  ],
+                  "Resource": "*"
+                }
+              ]
+            },
+            "PolicyName": "SplunkUploaderRolePolicy"
+          }
+        ]
+      }
+    },
+    "SplunkUploader": {
+      "Type": "AWS::Serverless::Function",
+      "Properties": {
+        "Runtime": "python3.9",
+        "Handler": "app.main",
+        "CodeUri": "./deployment.zip",
+        "Tags": {
+          "aws-chalice": "version=1.28.0:stage=dev:app=prm-gp-registrations-mi-reporting"
+        },
+        "Tracing": "PassThrough",
+        "Timeout": 30,
+        "MemorySize": 128,
+        "VpcConfig": {
+          "SecurityGroupIds": [
+            "sg-069c36890b96d14da"
+          ],
+          "SubnetIds": [
+            "subnet-0962facbe13854281"
+          ]
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "SplunkUploaderRole",
+            "Arn"
+          ]
+        }
+      }
+    }
+  }
+}

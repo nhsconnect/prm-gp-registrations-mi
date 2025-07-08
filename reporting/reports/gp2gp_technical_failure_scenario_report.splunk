@@ -1,0 +1,90 @@
+{% from 'functions.splunk' import
+    calculate_transfer_compatibility,
+    filter_non_transfers, 
+    set_time_to_registration_datetime,
+    filter_reporting_window,
+    calculate_outcome %}
+
+{% macro calculate_sla_status() %}
+| eval twentyMinsAgo = relative_time(now(), "-20m")
+| eval twentyFourHoursAgo = relative_time(now(), "-24h")
+```| eval ehrResponseWithin24Hours = if(ehrResponseEvent ==1 AND twentyFourHoursAgo < ehrResponseEventDateTime, 1, 0)
+| eval ehrRequestWithin20Mins = if(ehrRequestEvent ==1 AND twentyMinsAgo < ehrRequestEventDateTime , 1, 0)
+| eval transCompatStatWithin20Mins =  if(transCompatStatEvent == 1 AND twentyMinsAgo < transCompatStatEventDateTime , 1, 0)```
+| eval slaStatus = case(    
+    registrationStatus == "EHR_SENT" AND  twentyMinsAgo > ehrResponseEventDateTime, "NOT_READY_TO_INTEGRATE_OUTSIDE_SLA",
+    registrationStatus == "EHR_REQUESTED" AND twentyFourHoursAgo > ehrRequestEventDateTime, "NO_EHR_RESPONSE_OUTSIDE_SLA",
+    registrationStatus == "ELIGIBLE_FOR_TRANSFER" AND twentyMinsAgo > transCompatStatEventDateTime, "NOT_EHR_REQUESTED_OUTSIDE_SLA",
+    1 == 1, "WITHIN_ALL_SLA"
+)
+
+
+{% endmacro %}
+
+{% macro calculate_registration_status() %}
+| eval registrationStatus = case(    
+    isIntegrated == 1, "INTEGRATION",
+    readyToIntegrate == 1, "READY_TO_INTEGRATE",
+    ehrResponseEvent == 1, "EHR_SENT",
+    ehrRequestEvent == 1, "EHR_REQUESTED",    
+    isTransferCompatible == 1, "ELIGIBLE_FOR_TRANSFER",     
+    transCompatStatEvent == 1 AND isInteralTransfer == 1, "INTERNAL_TRANSFER",   
+    transCompatStatEvent == 1 AND isInteralTransfer == 0, "ELECTRONIC_TRANSFER",   
+    1=1, "NOT_INTEGRATED")
+{% endmacro %}
+
+
+index="$index$"
+{{ set_time_to_registration_datetime() }}
+| streamstats earliest(_time) as conversationStart by conversationId
+{{ filter_reporting_window() }}
+| eval ehrRequestEventDateTime = if(eventType="EHR_REQUEST",_time, null())
+| eval ehrResponseEventDateTime = if(eventType="EHR_RESPONSE",_time, null())
+| eval transCompatStatEventDateTime = if(eventType="TRANSFER_COMPATIBILITY_STATUSES",_time, null())
+| spath output=integration_outcome path=payload{}.integration.outcome
+| spath output=errorCode path=payload.error{}.errorCode
+| spath output=errorFailurePoint path=payload.error{}.failurePoint
+| spath output=internalTransfer path=payload.transferCompatibilityStatus.internalTransfer
+| spath output=transferCompatible path=payload.transferCompatibilityStatus.transferCompatible
+| eval hasErrors = if (errors == "{}",0,1)
+| eval errorHistory = mvzip(errorFailurePoint, errorCode, "_")
+{{ calculate_transfer_compatibility() }}
+{{ filter_non_transfers() }}
+| transaction conversationId keeporphans=t
+| eval ehrResponseEvent = if(eventType=="REGISTRATIONS", 1, 0)
+| eval isIntegrated = if(eventType="EHR_INTEGRATIONS", 1, 0)
+| eval readyToIntegrate = if(eventType="READY_TO_INTEGRATE_STATUSES", 1, 0)
+| eval ehrRequestEvent = if (eventType=="EHR_REQUEST", 1, 0)
+| eval ehrResponseEvent = if(eventType=="EHR_RESPONSE", 1, 0)
+| eval transCompatStatEvent = if(eventType=="TRANSFER_COMPATIBILITY_STATUSES", 1, 0)
+| eval isInteralTransfer = if(transCompatStatEvent == 1 AND internalTransfer == "true",1 ,0)
+{{ calculate_registration_status() }}
+{{ calculate_sla_status() }}
+{{ calculate_outcome() }}
+| where outcome == "TECHNICAL_FAILURE"
+| eval scenario = mvzip(outcome, registrationStatus, sendingSupplierName)
+| eventstats count(eval(transCompatStatEvent==1)) as totalTransfers
+| stats
+    first(totalTransfers) as totalTransfers,
+    first(sendingSupplierName) as sendingSupplierName, 
+    first(registrationStatus) as registrationStatus,
+    first(requestingSupplierName) as requestingSupplierName,        
+    first(slaStatus) as slaStatus,
+    first(twentyFourHoursAgo) as twentyFourHoursAgo, 
+    first(transCompatStatEventDateTime) as transCompatStatEventDateTime,
+    values(errorHistory) as errorHistory,       
+    dc(conversationId) by scenario
+| rename dc(conversationId) as count
+| eval percentageOfAllTransfers=(count/totalTransfers) * 100
+| table 
+    sendingSupplierName, 
+    requestingSupplierName, 
+    registrationStatus, 
+    errorHistory, 
+    count, 
+    percentageOfAllTransfers, 
+    totalTransfers, 
+    slaStatus,
+    twentyFourHoursAgo,
+    transCompatStatEventDateTime
+    

@@ -1,0 +1,16 @@
+.vscode
+.pytest_cache
+__pycache__
+aws/
+.DS_Store
+splunk_uploader.txt
+.idea/*
+.idea
+build/deployment.zip
+.chalice/deployments
+.venv/
+.env.development
+my_query
+splunk_query
+.DS_Store
+synthetic_data.json

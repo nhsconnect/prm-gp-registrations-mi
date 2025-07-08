@@ -1,0 +1,70 @@
+format_version: 10
+pipelines:
+  "prm-gp-registration-mi-reporting":
+    group: gp-registrations-mi
+    label_template: "${git[:8]}"
+    materials:
+      git:
+        type: configrepo
+    stages:
+      - clean:
+          #clean_workspace: true
+          fetch_materials: false
+          jobs:
+            deploy:
+              tasks:
+                - exec:
+                    command: docker
+                    arguments:
+                      - run
+                      - --name 
+                      - clean
+                      - --rm
+                      - -v 
+                      - .:/usr/src/app 
+                      - -i
+                      - -e 
+                      - AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID 
+                      - -e 
+                      - AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY 
+                      - -e 
+                      - AWS_SESSION_TOKEN=$AWS_SESSION_TOKEN 
+                      - -e 
+                      - AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION
+                      - nhsdev/prm-gp-registrations-mi-reporting:latest
+                      - rm 
+                      - -rf 
+                      - /usr/src/app/*
+      - upload:
+          #clean_workspace: true
+          jobs:
+            deploy:
+              tasks:
+                # upload-dashboards-and-reports-datasets
+                - exec:
+                    command: /bin/bash
+                    arguments:
+                      - -c
+                      - ./tasks.sh upload_data
+      - lambda_deploy:
+          #clean_workspace: true
+          jobs:
+            deploy:
+              tasks:
+                # build lambda and deploy
+                - exec:
+                    command: /bin/bash
+                    arguments:
+                      - -c
+                      - ./tasks.sh build_and_deploy_splunk_uploader_lambda
+      - splunk_push:
+          #clean_workspace: true
+          jobs:
+            deploy:
+              tasks:
+                # Invoke lambda to dashboards and reports to Splunk
+                - exec:
+                    command: /bin/bash
+                    arguments:
+                      - -c
+                      - ./tasks.sh run_splunk_uploader_lambda

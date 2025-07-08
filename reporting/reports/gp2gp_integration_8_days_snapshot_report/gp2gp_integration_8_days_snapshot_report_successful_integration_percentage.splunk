@@ -1,0 +1,15 @@
+index="$index$"
+
+{% from 'gp2gp_integration_8_days_snapshot_report/gp2gp_integration_8_days_snapshot_report_base.splunk' import
+gp2gp_integration_8_days_snapshot_report_base %}
+
+{{ gp2gp_integration_8_days_snapshot_report_base() }}
+
+| where outcome == "Successful integration"
+
+| chart count as percentage by integrationStatus
+
+| addtotals row=true
+| eventstats sum(Total) as total_successful_integration
+| foreach * [eval <<FIELD>>=if("<<FIELD>>" == "integrationStatus", <<FIELD>>, round('<<FIELD>>'*100/total_successful_integration, 2))]
+| fields - Total, total_successful_integration
