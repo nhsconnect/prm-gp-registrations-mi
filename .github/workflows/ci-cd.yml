@@ -38,6 +38,7 @@ jobs:
     env:
         AWS_ACCESS_KEY_ID: dummy
         AWS_SECRET_ACCESS_KEY: dummy
+        AWS_REGION: eu-west-2
         MI_EVENTS_SQS_QUEUE_FOR_EVENT_ENRICHMENT_URL: http://localhost:4566/000000000000/fake-queue
     steps:
       - uses: actions/checkout@v4
