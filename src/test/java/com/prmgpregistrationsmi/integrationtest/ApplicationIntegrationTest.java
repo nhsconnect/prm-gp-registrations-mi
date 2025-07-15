@@ -11,7 +11,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class ApplicationIntegrationTest {
-
+    static {
+        System.out.println("STATIC ENV: " + System.getenv("MI_EVENTS_SQS_QUEUE_FOR_EVENT_ENRICHMENT_URL"));
+    }
     @LocalServerPort
     private int port;
 
