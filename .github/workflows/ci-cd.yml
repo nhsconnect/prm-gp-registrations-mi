@@ -10,7 +10,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Set up JDK
         uses: actions/setup-java@v4
@@ -34,6 +35,10 @@ jobs:
   test:
     needs: build
     runs-on: ubuntu-latest
+    env:
+      MI_EVENTS_SQS_QUEUE_FOR_EVENT_ENRICHMENT_URL: http://localhost/fake-sqs
+      AWS_ACCESS_KEY_ID: dummy
+      AWS_SECRET_ACCESS_KEY: dummy
     steps:
       - uses: actions/checkout@v4
 
@@ -50,16 +55,43 @@ jobs:
     if: github.ref == 'refs/heads/main'
     needs: test
     runs-on: ubuntu-latest
+    env:
+        IMAGE_TAG: ${{ github.sha }}
     steps:
-      - uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4
 
-      - name: Log in to Amazon ECR
-        uses: aws-actions/amazon-ecr-login@v2
+    - name: Set up JDK
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '17'
 
-      - name: Build and push Docker image
-        env:
+    - name: Grant exec permission to tasks
+      run: chmod +x ./tasks
+
+    - name: Build JAR
+      run: ./gradlew clean build
+
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        role-to-assume:  ${{ secrets.AWS_ASSUME_ROLE }}
+        role-skip-session-tagging: true
+        aws-region: ${{ vars.AWS_REGION }}
+        mask-aws-account-id: true
+
+    - name: Get ECR login
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v2
+
+    - name: Build & push Docker image
+      env:
           ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
-        run: |
-          IMAGE_TAG=latest
-          docker build -t $ECR_REPOSITORY:$IMAGE_TAG .
+          IMAGE_TAG: ${{ github.sha }}
+      run: |
+          docker build -t $ECR_REPOSITORY:$IMAGE_TAG -t $ECR_REPOSITORY:latest .
           docker push $ECR_REPOSITORY:$IMAGE_TAG
+          docker push $ECR_REPOSITORY:latest
+
