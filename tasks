@@ -35,7 +35,7 @@ do
         gradle check -x test
         ;;
     code_quality)
-        dojo "./tasks _code_quality"
+        ./tasks _code_quality
         ;;
     run_local)
         ./gradlew build
