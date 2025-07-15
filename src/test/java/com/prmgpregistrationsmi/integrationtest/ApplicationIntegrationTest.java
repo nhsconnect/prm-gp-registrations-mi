@@ -26,6 +26,8 @@ class ApplicationIntegrationTest {
 
     @Test
     void respondsWithSecurityHeaders() {
+        System.out.println("ENV: " + System.getenv("MI_EVENTS_SQS_QUEUE_FOR_EVENT_ENRICHMENT_URL"));
+        System.out.println("PROP: " + System.getProperty("MI_EVENTS_SQS_QUEUE_FOR_EVENT_ENRICHMENT_URL"));
         HttpHeaders responseHeaders = restTemplate.headForHeaders("http://localhost:" + port + "/registrations",
                 HttpHeaders.class);
         assertThat(responseHeaders.getCacheControl()).isEqualTo("no-cache, no-store, max-age=0, must-revalidate");
