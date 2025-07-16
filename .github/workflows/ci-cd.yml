@@ -63,11 +63,20 @@ jobs:
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v2
 
+    - name: Get ECR repository URI from SSM
+      id: ecr-repo
+      run: |
+        uri=$(aws ssm get-parameter \
+        --name "/registrations/${{ vars.AWS_ENVIRONMENT }}/gp-registrations-mi/ecr/url/${{ inputs.service_name }}" \
+        --query "Parameter.Value" --output text)
+        echo "::add-mask::$uri"
+        echo "uri=$uri" >> $GITHUB_OUTPUT
+
     - name: Build & push Docker image
       env:
-          ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
+          ECR_URI: ${{ steps.ecr-repo.outputs.uri }}
           IMAGE_TAG: ${{ github.sha }}
       run: |
-          docker build -t $ECR_REPOSITORY:$IMAGE_TAG -t $ECR_REPOSITORY:latest .
-          docker push $ECR_REPOSITORY:$IMAGE_TAG
-          docker push $ECR_REPOSITORY:latest
+          docker build -t $ECR_URI:$IMAGE_TAG -t $ECR_URI:latest --build-arg BUILD_TAG=$IMAGE_TAG .
+          docker push $ECR_URI:$IMAGE_TAG
+          docker push $ECR_URI:latest
