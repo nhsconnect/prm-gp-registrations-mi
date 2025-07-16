@@ -7,33 +7,7 @@ on:
     branches: [main]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up JDK
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-
-      - name: Cache Gradle
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
-
-      - name: Build
-        run: ./gradlew assemble --no-daemon
-
   test:
-    needs: build
     runs-on: ubuntu-latest
     env:
         AWS_ACCESS_KEY_ID: dummy
@@ -57,7 +31,7 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     env:
-        IMAGE_TAG: ${{ github.sha }}
+      IMAGE_TAG: ${{ github.sha }}
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
@@ -68,12 +42,8 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
 
-    - name: Grant exec permission to tasks
-      run: chmod +x ./tasks
-
-    - name: Build JAR
-      run: ./gradlew clean build
-
+    - name: Build
+      run: gradle assemble
 
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v4
@@ -93,6 +63,5 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
       run: |
           docker build -t $ECR_REPOSITORY:$IMAGE_TAG -t $ECR_REPOSITORY:latest .
-          docker push $dd:$IMAGE_TAG
+          docker push $ECR_REPOSITORY:$IMAGE_TAG
           docker push $ECR_REPOSITORY:latest
-
