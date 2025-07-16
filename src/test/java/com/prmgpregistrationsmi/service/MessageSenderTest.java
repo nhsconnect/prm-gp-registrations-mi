@@ -40,7 +40,7 @@ public class MessageSenderTest {
         String eventId = "some-id";
 
         SendMessageRequest expectedRequest = SendMessageRequest.builder()
-                .queueUrl(sqsUrl + "fds")
+                .queueUrl(sqsUrl)
                 .messageBody(JsonHelper.asJsonString(message))
                 .build();
 
