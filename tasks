@@ -11,31 +11,31 @@ do
         gradle assemble
         ;;
     build)
-        dojo "./tasks _build"
+        ./tasks _build
         ;;
     _test_unit)
         gradle test
         ;;
     test_unit)
-        dojo "./tasks _test_unit"
+        ./tasks _test_unit
         ;;
     _dep)
         gradle dependencyCheckAnalyze
         ;;
     dep)
-        dojo "./tasks _dep"
+        ./tasks _dep
         ;;
     _test_coverage)
         gradle jacocoTestCoverageVerification
         ;;
     test_coverage)
-        dojo "./tasks _test_coverage"
+        ./tasks _test_coverage
         ;;
     _code_quality)
         gradle check -x test
         ;;
     code_quality)
-        dojo "./tasks _code_quality"
+        ./tasks _code_quality
         ;;
     run_local)
         ./gradlew build
@@ -45,15 +45,15 @@ do
         ./tasks _test_unit _test_coverage _code_quality
         ;;
     validate)
-        dojo "./tasks _validate"
+        ./tasks _validate
         ;;
     publish_docker)
       if [ -z $IMAGE_TAG ]; then
           echo "Please set IMAGE_TAG environment variable"
           exit 1
       fi
-      ecr_login=$(dojo -c Dojofile-infra "./scripts/ecr-helper get-login")
-      ecr_repo_uri=$(dojo -c Dojofile-infra "./scripts/ecr-helper get-repo-uri")
+      ecr_login=$(./scripts/ecr-helper get-login)
+      ecr_repo_uri=$(./scripts/ecr-helper get-repo-uri)
       docker build -t ${ecr_repo_uri}:latest -t ${ecr_repo_uri}:${IMAGE_TAG} .
       eval $ecr_login
       docker push ${ecr_repo_uri}:${IMAGE_TAG}
