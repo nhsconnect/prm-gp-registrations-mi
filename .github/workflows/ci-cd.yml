@@ -67,7 +67,7 @@ jobs:
       id: ecr-repo
       run: |
         uri=$(aws ssm get-parameter \
-        --name "/registrations/${{ vars.AWS_ENVIRONMENT }}/gp-registrations-mi/ecr/url/${{ inputs.service_name }}" \
+        --name "${{ secrets.ECR_REPOSITORY }}" \
         --query "Parameter.Value" --output text)
         echo "::add-mask::$uri"
         echo "uri=$uri" >> $GITHUB_OUTPUT
